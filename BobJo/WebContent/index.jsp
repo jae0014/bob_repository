@@ -4,6 +4,12 @@
 <html>
 <head>
 
+    <!-- Main Quill library -->
+    <link href="resources/API/quill/quill.snow.css" rel="stylesheet">
+    <script src="resources/API/quill/quill.min.js"></script>
+    <script src="resources/API/quill/quill.js"></script>
+
+
     <!--부트스트랩-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
