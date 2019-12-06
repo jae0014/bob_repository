@@ -55,3 +55,6 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+BobJo/.classpath
+BobJo/.settings/org.eclipse.jdt.core.prefs
+BobJo/.settings/org.eclipse.wst.common.project.facet.core.xml
