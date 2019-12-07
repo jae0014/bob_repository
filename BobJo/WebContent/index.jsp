@@ -27,7 +27,7 @@
 <script>
 	function testing()
 	{
-		location.href="<%= request.getContextPath() %>/views/board/BoardView.jsp";
+		location.href="<%= request.getContextPath() %>/board.list";
 	}
 	
 </script>

@@ -40,6 +40,7 @@ public class BoardListVIew extends HttpServlet {
 		
 		// 1_1. 게시글 리스트 총 갯수 구하기
 		int listCount = bService.getListCount();
+		listCount = 150;
 		int typeNum = 0;
 		//System.out.println("listCount : " + listCount);
 		
@@ -97,7 +98,7 @@ public class BoardListVIew extends HttpServlet {
 		ArrayList<Post> list = bService.boardSelectAll(currentPage, boardLimit,typeNum);
 		
 	
-		RequestDispatcher view = request.getRequestDispatcher("views/board/BoardView.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/board/boardView.jsp");
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		view.forward(request, response);

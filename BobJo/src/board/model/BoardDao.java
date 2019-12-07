@@ -13,6 +13,7 @@ public class BoardDao {
 
 	public ArrayList<Post> boardSelectAll(Connection conn, int currentPage, int boardLimit, int typeNum) {
 		 ArrayList<Post> list = null;
+		 list = new ArrayList<Post>();
 		 /*
 		 PreparedStatement pstmt = null;
 		 ResultSet rset  = null;
@@ -39,11 +40,29 @@ public class BoardDao {
 	private String pStatus;
 	
 		  * */
-		 for (int i = 0; i < 150; i++) {
+		 /*
+		  * int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new Board(rset.getInt(2), rset.getInt(3), rset.getString(4), rset.getString(5),
+						rset.getString(6), rset.getString(7), rset.getInt(8), rset.getDate(9), rset.getDate(10),
+						rset.getString(11)));
+			}
+		  * */
+		 int startRow = (currentPage - 1) * boardLimit + 1;
+		 int endRow = startRow + boardLimit - 1;
+		 for (int i = 0; i < 10; i++) {
 			Post p = new Post(""+i,i,""+i,""+i,""+i,""+i,""+i,""+i,""+i);
 			
 			list.add(p);
 		}
+		 System.out.println(list.size());
 		 return list;
 	}
 

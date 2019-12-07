@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import import = "post.model.vo.Post"%>
+    pageEncoding="UTF-8"  import = "post.model.vo.*"%>
+    <%
+    	Post p = (Post)request.getAttribute("postview");
+    %>
 <!DOCTYPE html>
 <html>
 <head>

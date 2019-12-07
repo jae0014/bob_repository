@@ -9,7 +9,8 @@ import static common.JDBCTemplate.*;
 public class BoardService {
 
 	public ArrayList<Post> boardSelectAll(int currentPage, int boardLimit, int typeNum) {
-		Connection conn  = getConnection();
+		//Connection conn  = getConnection();
+		Connection conn = null;
 		 ArrayList<Post> list = new BoardDao().boardSelectAll(conn,currentPage, boardLimit, typeNum);
 		return list;
 	}
