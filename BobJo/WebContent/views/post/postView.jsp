@@ -16,7 +16,7 @@
   %>
 <!DOCTYPE html>
 <html>
-<%@ include file = "../../views/common/bootstrap.jsp" %>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -124,12 +124,13 @@
 	  }
       .commentShow
       {
-      	 display: none;
+      	 display: none !important;
       }
     
      
     </style>
     <body>
+    <%@ include file = "../../views/common/bootstrap.jsp" %>
         <%@ include file = "../common/menubar.jsp"%>
         <div class = "board-post">  
             
@@ -277,12 +278,13 @@
   					}
   				for( i = 0; i < 5;i++){
   					
+  					
+  					$(".commentShow").first().removeClass("commentShow");	
   					if($(".commentShow").length == 0)
   					{	
   						$("#moreID").remove();
   						break;
   					}
-  					$(".commentShow").first().removeClass("commentShow");	
   				}
   			})	
   			
