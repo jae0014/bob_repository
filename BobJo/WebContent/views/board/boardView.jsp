@@ -4,22 +4,20 @@
 
 <%
 	ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
+	ArrayList<Post> listView = new ArrayList<Post>();
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-
+	Post postview = new Post();
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
 %>
 <!DOCTYPE html>
 <html>
+<%@ include file = "../../views/common/bootstrap.jsp" %>
 
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<%@ include file="../common/bootstrap.jsp" %>
   <style>
         .board-post
         {
@@ -28,12 +26,13 @@
             margin:0px;
             height:500px;
             text-align: center;
-           
+            padding-right:20%;
+            padding-left:20%;
         }
         .board-post-list
         {
-              
-            width:60%;
+           
+        
             float: left;
             margin-top: 10px;
         }
@@ -96,9 +95,19 @@
            margin: 0;
            padding: 0;
        }
+      	.postRow:hover
+      	{
+      	background-color: rgb(255, 243, 239);
+      	}
     </style>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+  <%@ include file = "../common/menubar.jsp"%>
   <body>
-       
+  
      <div class = "board-post">  
             
             
@@ -110,16 +119,7 @@
         	<!-- 게시판이 있다면  -->
 			<%  if(list != null){ %>
             <!-- 네비게이션 -->
-            <div class="board-postnav-side">
-                <ul class="nav flex-column " id ="sidebar">
-                    <li class="nav-item  border border-light">
-                              <a class="nav-link active" href="#">자유 게시판</a>
-                    </li>
-                    <li class="nav-item border border-light">
-                              <a class="nav-link" href="#">요리 게시판</a>
-                    </li>         
-                </ul>
-            </div>
+           
 
 			
             <!-- 게시판 글 -->
@@ -140,13 +140,15 @@
                         <tbody>
                         		<% for(int i = 0; i <list.size();i++){
                         			int num = i +1;%>
-                                <tr>
-                                    <td style="width: 7%;"><%=num %></td>
+                                <tr class = "postRow">
+                                    <td style="width: 7%;" id = "<%=list.get(i).getpId()%>"><%=num %></td>
                                     <td class = "mycolSize"><%=list.get(i).getpTitle()%></td>
                                     <td class = "mycolSize2"><%=list.get(i).getpWriter()%></td>
                                     <td class = "mycolSize2">@<%=list.get(i).getpDateWritten()%></td>
                                 </tr>
-								<%}%>
+								<%
+								listView.add(list.get(i));
+                        		}%>
                         </tbody>
                         <tfoot>
                             <tr >
@@ -178,13 +180,13 @@
 											<!--  페이지 목록 -->
 										<% for(int p = startPage; p <= endPage; p++){ %>
 											<% if(p == currentPage){ %>
-													<li class="page-item active">
-                                                <a class="page-link" href="#" tabindex="-1"><%= p%></a>
+											<li class="page-item active">
+                                                <a class="page-link pageList" href="#" tabindex="-1"><%= p%></a>
                                             </li>
 											<% } else
 											{ %>
-												<li class="page-item ">
-                                                <a class="page-link" href="#" ><%= p%></a>
+											<li class="page-item ">
+                                                <a class="page-link pageList" href="#" ><%= p%></a>
                                             </li>											
                                             <% } %>
 											<% } %>
@@ -224,6 +226,26 @@
         
     </div>
     
-    
+    <script>
+     	
+    	  $(function(){
+    		$(".pageList").click(function(){
+    			var page = $(this).text();
+             
+    		})	
+    		
+    		 $(".postRow").click(function(){
+                   $(this).each(function() {
+                         var index = $(this).children().first().attr('id'); 
+                         console.log(index);
+                        goPost(index)
+                    });
+    		})	
+    		
+    	})
+    	function goPost(index){
+			
+  		  location.href="<%=request.getContextPath()%>/post.view?pId="+index;
+     } </script>
     </body>
 </html>

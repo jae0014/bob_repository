@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%
+    String contextPath = request.getContextPath();
+
+    %>
+   
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <link rel="shortcut icon" href="<%=contextPath %>/resources/icon/favicon.ico" type='image/x-ico' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      
 <title>Chef J</title>
    <style>
 
@@ -177,8 +187,9 @@
 </style>
 </head>
 <body>
+	
     <!-- 헤더 전체 -->
-    <div class="header" align="center">
+    <div class="header " align="center">
 
         <!--헤더 우측 상단-->
         <div class="mini_menu">
@@ -233,11 +244,12 @@
 
         <!-- 로고 -->
         <div class="h_logo">
-            <img class="h_logo2" src="resources/logo/logo.png">
+            <img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
         </div>
 
         <!-- 네비 바 -->
-        <div class="wrap">
+      
+        <div class="wrap ">
             <div class="nav">
                 <div class="menu" onclick="goMain();"><a href="#"><i class="hamburger material-icons">menu</i><span class="ttt">전체 레시피</span></a></div>
                 <div class="menu" onclick="goNotice();"><a href="#">베스트 레시피</a></div>
@@ -247,10 +259,11 @@
                         <input type="text" class="total_search">
                         <i class="search_icon material-icons">search</i>
                 </div>
-                <div class="menu3" onclick="goThumbnail();"><a href="#"><img src="resources/icon/장바구니715x715.png"
+                <div class="menu3" onclick="goThumbnail();"><a href="#"><img src="<%=contextPath %>/resources/icon/장바구니715x715.png"
                             width="36px" height="36px"></a></div>
                             
             </div><!--nav-->
         </div>
+      
 </body>
 </html>

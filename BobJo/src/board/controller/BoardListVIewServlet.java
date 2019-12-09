@@ -1,7 +1,6 @@
 package board.controller;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.BoardService;
+import board.model.service.BoardService;
 import common.vo.PageInfo;
 import post.model.vo.Post;
 
@@ -19,13 +18,13 @@ import post.model.vo.Post;
  * Servlet implementation class BoardListVIew
  */
 @WebServlet("/board.list")
-public class BoardListVIew extends HttpServlet {
+public class BoardListVIewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListVIew() {
+    public BoardListVIewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,10 +39,9 @@ public class BoardListVIew extends HttpServlet {
 		
 		// 1_1. 게시글 리스트 총 갯수 구하기
 		int listCount = bService.getListCount();
-		listCount = 150;
 		int typeNum = 0;
 		//System.out.println("listCount : " + listCount);
-		
+		listCount = 3;
 		// 1_2. 페이징 처리 추가
 		// 페이지 수 처리용 변수 선언
 		int currentPage;		// 현재 페이지
@@ -65,7 +63,7 @@ public class BoardListVIew extends HttpServlet {
 		}
 		
 		// * pageLimit : 한 페이지 하단에 보여질 페이지 수
-		pageLimit = 10;
+		pageLimit = 5;
 		
 		// * maxPage : 총 페이지의 마지막 수
 		// 글 개수가 105개이면 페이지 수는 10개가 아닌 짜투리 5개까지 한 페이지로 쳐서 11페이지

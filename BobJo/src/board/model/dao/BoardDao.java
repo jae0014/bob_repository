@@ -1,12 +1,9 @@
-package board.model;
+package board.model.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
-import static common.JDBCTemplate.*;
 import post.model.vo.Post;
 
 public class BoardDao {
@@ -14,6 +11,9 @@ public class BoardDao {
 	public ArrayList<Post> boardSelectAll(Connection conn, int currentPage, int boardLimit, int typeNum) {
 		 ArrayList<Post> list = null;
 		 list = new ArrayList<Post>();
+		 
+			
+		
 		 /*
 		 PreparedStatement pstmt = null;
 		 ResultSet rset  = null;
@@ -58,7 +58,7 @@ public class BoardDao {
 		 int startRow = (currentPage - 1) * boardLimit + 1;
 		 int endRow = startRow + boardLimit - 1;
 		 for (int i = 0; i < 10; i++) {
-			Post p = new Post(""+i,i,""+i,""+i,""+i,""+i,""+i,""+i,""+i);
+			Post p = new Post(""+i,i,""+i,""+i,""+i,new Date(),""+i,""+i,""+i);
 			
 			list.add(p);
 		}

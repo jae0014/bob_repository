@@ -4,19 +4,63 @@
     	Post p = (Post)request.getAttribute("postview");
     %>
 <!DOCTYPE html>
+<%@ include file = "../common/quillAPI.jsp" %>
+<%@ include file = "../common/bootstrap.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 
-<%@ include file="../common/quillAPI.jsp" %>
 
+<style>
+    .submitBTN
+    {
+      float:right;
+    }
+    .updateBox
+    {
+      text-align:left;
+      width:100%;
+  	  padding-left:25%;
+      padding-right:25%
+     
+    }
+</style>
 <body>
-  <!-- Include the Quill library -->
-  <div id="editor-container" style="height: 500px;">
+<%@ include file = "../common/menubar.jsp" %>
 
-  </div>
+<div class="updateBox">
+
+    <form>
+        <div class="col-xs-8">
+            <div class="form-group">
+              <label for="display_name">제목</label>
+              <input class="form-control" name="display_name" type="text" >
+            </div>
+            <div class="form-group">
+              <label for="upload">첨부파일</label>
+              <input class="form-control"  name="upload" type="file" >
+            </div>
+            <div class="form-group">
+                <label for="URL">참고 레시피</label>
+                <input class="form-control"  name="URL" type="text" >
+              </div>
+      <!-- Include the Quill library -->
+      <div id="editor-container" style="height: 500px;">
+    
+      </div>
+      <div style="width: 100%;">
+        <button class = "submitBTN">작성하기</button>
+      </div>
+    </form>
+    
+</div>
+
+
+
+
+
   
   <!-- Initialize Quill editor -->
     <script>

@@ -1,12 +1,14 @@
 package post.model.vo;
 
+import java.util.Date;
+
 public class Post {
 	private String pId;
 	private int pType;
 	private String pTitle;
 	private String pCotent;
 	private String pWriter;
-	private String pDateWritten;
+	private Date pDateWritten;
 	private String pCount;
 	private String pLike;
 	private String pStatus;
@@ -14,7 +16,7 @@ public class Post {
 	
 	
 	public Post() {}
-	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, String pDateWritten,
+	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, Date pDateWritten,
 			String pCount, String pLike, String pStatus) {
 		super();
 		this.pId = pId;
@@ -57,10 +59,10 @@ public class Post {
 	public void setpWriter(String pWriter) {
 		this.pWriter = pWriter;
 	}
-	public String getpDateWritten() {
+	public Date getpDateWritten() {
 		return pDateWritten;
 	}
-	public void setpDateWritten(String pDateWritten) {
+	public void setpDateWritten(Date pDateWritten) {
 		this.pDateWritten = pDateWritten;
 	}
 	public String getpCount() {
