@@ -219,7 +219,7 @@
 
 	
 	<%@ include file="../common/menubar.jsp"%>
-	<div class="wrap">
+	<div class="wrap forceView">
 	
 		<div class="thumbnail">
 			<img class="rImage" src="../../resources/images/갈비찜.jpg">
