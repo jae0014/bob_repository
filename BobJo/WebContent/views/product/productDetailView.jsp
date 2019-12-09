@@ -4,11 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         
 <title>J market</title>
 	<style>
@@ -17,18 +12,8 @@
             position: relative;
         }
 
-        header {
-            height: 150px;
-            background-color: lightpink;
-        }
-
-        footer {
-            height: 100px;
-            background-color: lightblue;
-        }
-
         .content{
-            width:90%;
+            width:80%;
             /* position: absolute; 
             left: 50%; 
             transform: translateX(-50%); */
@@ -38,7 +23,8 @@
         .product-detail-top {
             padding : 1rem;
             overflow:auto;
-            border:1px solid red;
+            margin-top:1.5rem;
+            /* border:1px solid red; */
         }
 
         .product-detail-bottom {
@@ -54,15 +40,13 @@
 
         .goods {
             display: inline-table;
-            margin: 20px 10px 20px 10px;
         }
 
         .thumb {
-            /* width:25%; 
-            height:auto;*/
-            background-color: aquamarine;
+            /* background-color: aquamarine; */
             float: left;
             overflow: hidden;
+            margin-top:2rem;
         }
 
         .thumb img {
@@ -92,13 +76,14 @@
 
         .goods_total_price {
             font-weight: bold;
-            font-size: 1.7em;
+            font-size: 1.5em;
             color:rgb(170,57,57);
             text-align: right;
+            margin-bottom:0rem;
         }
 
         .li_table {
-            border: 1px solid red;
+            /* border: 1px solid red; */
             margin-bottom: 10px;
             position:relative;
             overflow:auto;
@@ -114,8 +99,8 @@
         .li_table ul li {
             float: left;
             margin: 0;
-            padding: 2px;
-            line-height: 4rem;
+            padding: 0.5rem;
+            line-height: 3.5rem;
             border-top:1px solid gray;
         }
 
@@ -131,7 +116,25 @@
         .last_ul li{
             border-bottom: 1px solid gray;
         }
-
+        
+        .last_ul li:last-child input {
+            height:2rem;
+            width:4rem;
+            text-align:center;
+            border-radius : 0.5rem;
+            /* border-style: none; */
+        }
+        
+        .last_ul li:last-child button {
+        	height:2rem;
+        	width:2rem;
+        	line-height: 0.5rem;
+        	font-weight:700;
+        	border-radius : 0.5rem;
+        	background-color:rgb(250,250,250);
+        	/* border-style: none; */
+        }
+        
         #put_cart {
             margin: 5px;
             width:200px;
@@ -146,6 +149,9 @@
 </head>
 <body>
 
+	<%@ include file="../common/menubar.jsp" %>
+	<%@ include file="../common/bootstrap.jsp" %>
+	
 
 	<section class="content">
         <div class="container-fluid">
@@ -169,11 +175,16 @@
                         </ul>
                         <ul class="last_ul">
                             <li>구매수량</li>
-                            <li>임시 위치</li>
+                            <li>
+								<button type="button" class="minus">-</button>
+ 								<input type="number" class="numBox" min="1"
+ 									value="1" readonly="readonly"/>
+ 								<button type="button" class="plus">+</button>
+							</li>
                         </ul>
                     </div>
                     <br>
-                    <p class="goods_total_price">총 상품 금액 : <span>000000</span> 원</p>
+                    <p class="goods_total_price">총 상품 금액 : <span>00000</span> 원</p>
                     <button type="button" id="put_cart">장바구니 담기</button>
                 </div>
             </div>
@@ -257,6 +268,6 @@
 
     </section>
 	
-
+	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>
