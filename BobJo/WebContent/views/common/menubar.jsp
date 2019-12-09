@@ -197,8 +197,8 @@
             <div class="h_small">
                 <!-- 로그인 안했을 때 -->
                 <div><a href="회원가입.html"><span class="txt join_txt">회원가입</span></a></div>
-                    <div><a href="로그인.html"><span class="txt login_user">로그인</span></a></div>    
-                    <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
+                <div><a href="로그인.html"><span class="txt login_user">로그인</span></a></div>    
+                <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
 
                 <!-- 로그인 했을 때 -->
                 <!-- <div class="name_txt_div"><a href="마이페이지.html"><span class="txt login_name_txt">홍길동 님</span></a>
@@ -236,8 +236,6 @@
                 <!-- <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div> -->
 
             </div><!-- h_small-->
-
-            
         </div><!-- mini_menu -->
 
         <br clear="both"><!-- float속성 지워줌 -->
@@ -248,7 +246,6 @@
         </div>
 
         <!-- 네비 바 -->
-      
         <div class="wrap ">
             <div class="nav">
                 <div class="menu" onclick="goMain();"><a href="#"><i class="hamburger material-icons">menu</i><span class="ttt">전체 레시피</span></a></div>
@@ -260,10 +257,12 @@
                         <i class="search_icon material-icons">search</i>
                 </div>
                 <div class="menu3" onclick="goThumbnail();"><a href="#"><img src="<%=contextPath %>/resources/icon/장바구니715x715.png"
-                            width="36px" height="36px"></a></div>
+                            width="36px" height="36px"></a>
+                </div>
                             
             </div><!--nav-->
-        </div>
+         </div><!-- wrap -->
+     </div><!-- header -->
       
 </body>
 </html>
