@@ -13,13 +13,22 @@
         body {
             background: #f9f9f9;
         }
-
+		
+		.sub_title{
+			font-size:20px;
+			font-weight: 900;
+		}
+		.sub_title2{
+			font-size:16px;
+			font-weight: 200;
+		}
         .outer {
             width: 620px;
             height: 500px;
             background: white;
             margin: auto;
             padding: 10px;
+            border: 1px solid black;
         }
 
         .buttons_div {
@@ -29,11 +38,12 @@
         }
 
 
-        table {
+        .button_table {
             width: 300px;
             text-align: center;
+            margin:auto;
             
-        }
+        } 
 
         
         .btnn {
@@ -143,14 +153,15 @@
 <%@ include file="../common/bootstrap.jsp" %>
 <%@ include file="../common/menubar.jsp" %>
 
- <br>
-    <h2 align="center">회원가입</h2>
-    <br>
+
 
     <div class="outer">
-        <h3 align="center">회원가입 방법을 선택해주세요.</h3><br>
+    <br>
+    <br>
+    <p align="center" class="sub_title">회원가입</p>
+        <p align="center" class="sub_title sub_title2">회원가입 방법을 선택해주세요.</p><br>
         <div class="buttons_div">
-            <table border="1" align="center">
+            <table border="1" align="center" class="button_table">
                 <tr>
                     <td>
                         <button class="chefj_join_btn btnn"><div class="bbb"><span class="chefj_icon icon"></span><span class="btxt">Chef J 회원가입</span></div></button><br>

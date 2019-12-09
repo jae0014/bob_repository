@@ -62,10 +62,16 @@
  <div class="board-postnav-side">
       <ul class="nav flex-column " id ="sidebar">
            <li class="nav-item  border border-light">
-                <a class="nav-link active" href="#">자유 게시판</a>
+                <a class="nav-link active" href="#">공지사항</a>
            </li>
            <li class="nav-item border border-light">
-              <a class="nav-link" href="#">요리 게시판</a>
+              <a class="nav-link" href="#">회원관리</a>
+           </li>
+           <li class="nav-item border border-light">
+              <a class="nav-link" href="#">매출관리</a>
+           </li>
+           <li class="nav-item border border-light">
+              <a class="nav-link" href="#">1:1문의 내역</a>
            </li>         
       </ul>
 </div>
