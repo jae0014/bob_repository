@@ -14,7 +14,11 @@
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <style>
-.wrap {
+div{
+border:1px solid red;
+}
+
+.wraps {
 	width: 1200px;
 	height: 100%;
 	margin: auto;
@@ -42,6 +46,8 @@
 .11 {
 	float: left;
 }
+
+
 
 .test3 {
 	text-align: right;
@@ -192,9 +198,11 @@
 	height: 100%;
 	float: left;
 }
-.forceView
-{
-	height: 1500px!important;
+
+
+.card {
+display:inline-block;
+float:left;
 }
 </style>
 
@@ -216,41 +224,38 @@
 </head>
 <body>
 
-
-	
-	<%@ include file="../common/menubar.jsp"%>
-	<div class="wrap forceView">
-	
+	<%@include file="../common/menubar.jsp" %>
+	<%@include file="../common/bootstrap.jsp" %>
+	<br>
+	<div class="wraps">
 		<div class="thumbnail">
 			<img class="rImage" src="../../resources/images/갈비찜.jpg">
 		</div>
 		<div class="user">
 			<img class="userImage" src="../../resources/images/강아지.jpg">
 		</div>
-		<div class="rWriter">
-			<h3 align="center">홍길동</h3>
-		</div>
-		<div class="rName">
-			<h1 align="center">갈비찜</h1>
-		</div>
+		<div class="rWriter" ><h3 align="center">홍길동</h3></div>
+		<div class="rName" ><h1 align="center">갈비찜</h1></div>
 
 		<hr>
 
 		<div class="introduce">
 			<div class="hole">
 				<div class="test test1">
-					<img class="sign" src="../../resources/images/1.PNG"
-						style="width: 10%; height: 10%">
+					<img class="sign" src="../../resources/images/1.PNG" style="width:10%; height:10%">
 				</div>
 				<div class="test test2">
 					<h4 class="explain" align="center">맛있는 갈비찜 같이 만들어 먹어요</h4>
 				</div>
 				<div class="test test3">
-					<img class="sign" src="../../resources/images/2.PNG"
-						style="width: 10%; height: 10%">
+					<img class="sign" src="../../resources/images/2.PNG" style="width:10%; height:10%">
 				</div>
 			</div>
-			<br> <br> <br> <br> <br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<hr>
 		</div>
 
@@ -297,7 +302,7 @@
 			<br>
 
 		</div>
-		<div class="div5">
+		<div class="div4">
 			<div class="product">
 				<h5 class="pp">연관상품</h5>
 			</div>
@@ -354,7 +359,7 @@
 		<br>
 		<hr>
 		<br>
-		<div class="div4">
+		<div class="div5">
 			<div class="steps">
 				<img src="../../resources/images/조리순서.PNG">
 			</div>
@@ -387,7 +392,7 @@
 		</div>
 		<hr>
 
-		<div class="div4">
+		<div class="div6">
 			<div class="wwww">
 				<img src="../../resources/images/레시피작성자.PNG">
 			</div>
@@ -410,7 +415,7 @@
 
 		</div>
 		<hr>
-		<div class="div5">
+		<div class="div7">
 			<div class="reply rep">댓글</div>
 			<div class="reply add">0</div>
 			<div class="text">
@@ -418,7 +423,7 @@
 					<input type="file" id="imgfile">
 				</div>
 				<div class="picture area">
-					<textarea cols="70" rows="5" style="resize: none"></textarea>
+					<textarea cols="120" rows="5" style="resize: none"></textarea>
 				</div>
 				<div class="picture button">
 					<button id="picture btn">등록하기</button>
@@ -433,11 +438,8 @@
 	</div>
 
 
+	</div>
 
-
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+	<%@include file="../common/footer.jsp" %>
 </body>
 </html>
