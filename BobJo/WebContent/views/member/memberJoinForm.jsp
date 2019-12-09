@@ -155,7 +155,7 @@
             <tr>
                 <td class="cols1">*휴대폰</td>
                 <td>
-                    <input type="text" placeholder="숫자만 입력해주세요" class="userPhone"' name="userPhone">
+                    <input type="text" placeholder="숫자만 입력해주세요" class="userPhone" name="userPhone">
                     <button type="button" onclick="chk_phone();" class="chk_phone_btn s_btn">휴대폰 중복확인</button>
                     <!-- 사용가능하면 alert로 사용가능합니다 -->
 
@@ -194,18 +194,14 @@
                 </td>
                 </tr>
                 <tr>
-
-                	<td colspan="3" height="10px;">
-        				       
+                	<td colspan="3" height="10px;">  
                 	</td>
-
                 </tr>
-                                <tr>
-
+                
+                <tr>
                 	<td colspan="3" class="submit_td">
         				<button type="submit" class="join_btn btn btn-primary">가입하기</button>        
                 	</td>
-
                 </tr>
 
         
