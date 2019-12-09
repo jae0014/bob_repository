@@ -29,7 +29,7 @@
 </style>
 <body>
 <%@ include file = "../common/menubar.jsp" %>
-
+<br><br>
 <div class="updateBox">
 
     <form>
@@ -51,7 +51,7 @@
     
       </div>
       <div style="width: 100%;">
-        <button class = "submitBTN">작성하기</button>
+        <button class = "btn submitBTN" style ="background-color: rgb(170,57,57);color:white;">작성하기</button>
       </div>
     </form>
     

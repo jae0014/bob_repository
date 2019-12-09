@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList,post.model.vo.Post, common.vo.*"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList,post.model.vo.Post, common.vo.* ,java.text.SimpleDateFormat"%>
 
 
 <%
@@ -12,7 +12,9 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	
+	SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+	 String newDateFormat= "";
+	   
 %>
 <!DOCTYPE html>
 <html>
@@ -139,12 +141,13 @@
                         </thead>
                         <tbody>
                         		<% for(int i = 0; i <list.size();i++){
+                        			newDateFormat = simple.format(list.get(i).getpDateWritten());
                         			int num = i +1;%>
                                 <tr class = "postRow">
                                     <td style="width: 7%;" id = "<%=list.get(i).getpId()%>"><%=num %></td>
                                     <td class = "mycolSize"><%=list.get(i).getpTitle()%></td>
                                     <td class = "mycolSize2"><%=list.get(i).getpWriter()%></td>
-                                    <td class = "mycolSize2">@<%=list.get(i).getpDateWritten()%></td>
+                                    <td class = "mycolSize2"><%=newDateFormat %></td>
                                 </tr>
 								<%
 								listView.add(list.get(i));
