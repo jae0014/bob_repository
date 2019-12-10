@@ -41,6 +41,13 @@ body {
 	margin-bottom: 1rem;
 }
 
+#selectDelBtn {
+	border-style:none;
+	padding:0.5rem;
+	border-radius : 0.2rem;
+	border:1px solid black;
+}
+
 .cart_result {
 	/* border: 1px solid red; */
 	position: relative;
@@ -134,7 +141,7 @@ body {
 					</tbody>
 				</table>
 				<!-- <input type="checkbox"><p>전체 선택</p> -->
-				<button type="button" id="selectDelBtn">선택 삭제</button>
+				<button type="button" class="btn btn-outline-dark" id="selectDelBtn">선택 삭제</button>
 			</div>
 			<div class="cart_result">
 				<div class="cart_amount row align-items-center">
