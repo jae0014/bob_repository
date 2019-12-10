@@ -32,8 +32,8 @@ public class LoginServlet extends HttpServlet {
 		String userId= request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
-		// 로그인유저로 받아야되기때문에 Member로 받아야됨
-		Member loginUser = new MemberService().loginMember();  
+		// 세션에 넣어야하기때문에 Member로 받음
+		Member loginUser = new MemberService().loginMember(userId, userPwd);  
 		
 	}
 
