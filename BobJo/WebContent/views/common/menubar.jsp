@@ -242,7 +242,9 @@
 
         <!-- 로고 -->
         <div class="h_logo">
-            <img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
+        	<a href="<%=contextPath%>">
+            	<img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
+        	</a>
         </div>
 
         <!-- 네비 바 -->
