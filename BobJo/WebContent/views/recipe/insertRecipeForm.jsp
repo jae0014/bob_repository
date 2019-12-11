@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +118,7 @@
 	
 	<br><br>
 	
-	
+	<form action="<%= contextPath %>/insert.re" method="post">
 	<table>
 		<tr>
 			<td width="200">레시피 제목</td>
@@ -193,14 +196,14 @@
 			<td>재료</td>
 			<td>
 			<div class="whole">
-			<div class="ing btn"><img class="plus" src="../../resources/images/plus.png"></div>&nbsp;<input class="ingr" type="text" placeholder="예)돼지고기" style="width:200px">&nbsp;<input class="ingr" type="text"  placeholder="예300g" style="width:200px"></td>
+			<div class="ing btn"><img class="plus" src="<%=request.getContextPath() %>/resources/images/plus.png"></div>&nbsp;<input class="ingr" type="text" placeholder="예)돼지고기" style="width:200px">&nbsp;<input class="ingr" type="text"  placeholder="예300g" style="width:200px"></td>
 			</div>
 			</tr>
 			<tr>
 			<td>요리순서</td>
 			<td>
 			<div class="step">
-			<div class="step btn"><img class="plus"  src="../../resources/images/plus.png"></div>
+			<div class="step btn"><img class="plus"  src="<%=request.getContextPath() %>/resources/images/plus.png"></div>
 			<h3 style="color:green">Step 1</h3>&nbsp;
 			<div class="exex"><textarea cols="30" style="width:400px; height:200px" placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 잘라주세요"></textarea>
 			</div>
@@ -212,7 +215,7 @@
 			<td>요리완성사진</td>
 			<td>
 			<div class="finish">
-			<div class="finish btn"><img class="plus" src="../../resources/images/plus.png"></div>
+			<div class="finish btn"><img class="plus" src="<%=request.getContextPath() %>/resources/images/plus.png"></div>
 			<div id="div1"><input type="file" id="file1" class="file" ></div>
 			</div>
 			</td>
@@ -222,8 +225,12 @@
 	</table>
 	
 	
-	 <input type="submit" value="등록하기">
-	 <input type="reset" value="취소하기">
+				<div align="center">
+					<button id="submit" type="submit">등록하기</button>
+					<button type="button" onclick="javascript:history.back();">취소하기</button>
+				</div>
+				
+				</form>
 
         
 	<script>
