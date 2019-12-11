@@ -6,27 +6,29 @@ public class Member {
 	private String mNo;
 	private String mId;
 	private String mPwd;
-	private String mNmae;
+	private String mName;
 	private Date mEntDate;
 	private String email;
 	private String phone;
 	private String addr;
 	private String gender;
 	private String nickname;
-	private String birth;
+	private Date birth;
 	private String mGrade;
 	private Date mOutDate;
 	private String mStatus;
+	private String mIntro;
 	
 	public Member() {}
 
-	public Member(String mNo, String mId, String mPwd, String mNmae, Date mEntDate, String email, String phone,
-			String addr, String gender, String nickname, String birth, String mGrade, Date mOutDate, String mStatus) {
+	public Member(String mNo, String mId, String mPwd, String mName, Date mEntDate, String email, String phone,
+			String addr, String gender, String nickname, Date birth, String mGrade, Date mOutDate, String mStatus,
+			String mIntro) {
 		super();
 		this.mNo = mNo;
 		this.mId = mId;
 		this.mPwd = mPwd;
-		this.mNmae = mNmae;
+		this.mName = mName;
 		this.mEntDate = mEntDate;
 		this.email = email;
 		this.phone = phone;
@@ -37,6 +39,7 @@ public class Member {
 		this.mGrade = mGrade;
 		this.mOutDate = mOutDate;
 		this.mStatus = mStatus;
+		this.mIntro = mIntro;
 	}
 
 	public String getmNo() {
@@ -63,12 +66,12 @@ public class Member {
 		this.mPwd = mPwd;
 	}
 
-	public String getmNmae() {
-		return mNmae;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setmNmae(String mNmae) {
-		this.mNmae = mNmae;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
 	public Date getmEntDate() {
@@ -119,11 +122,11 @@ public class Member {
 		this.nickname = nickname;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -151,13 +154,21 @@ public class Member {
 		this.mStatus = mStatus;
 	}
 
+	public String getmIntro() {
+		return mIntro;
+	}
+
+	public void setmIntro(String mIntro) {
+		this.mIntro = mIntro;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mNmae=" + mNmae + ", mEntDate=" + mEntDate
+		return "Member [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName + ", mEntDate=" + mEntDate
 				+ ", email=" + email + ", phone=" + phone + ", addr=" + addr + ", gender=" + gender + ", nickname="
 				+ nickname + ", birth=" + birth + ", mGrade=" + mGrade + ", mOutDate=" + mOutDate + ", mStatus="
-				+ mStatus + "]";
-	};
-	
+				+ mStatus + ", mIntro=" + mIntro + "]";
+	}
+
 	
 }
