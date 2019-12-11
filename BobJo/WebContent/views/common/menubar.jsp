@@ -95,7 +95,7 @@
         height:55px;
         /* background: green; */
         background: transparent;
-        overflow: hidden;
+        /* overflow: hidden; */
     }
     
     .nav {
@@ -178,11 +178,56 @@
     }
 
     .hamburger{
-    margin:0;
-    padding:0;
-    float:left;
+	    margin:0;
+	    padding:0;
+	    float:left;
     }
+	.main_menu{
+		position:relative;
+	}
+	
+	/* 카테고리메뉴!!! */
+	.sub_menu{
+	float:left;
+		position:absolute;
+		display:inline-block;
+		/* top: 203px !important; */
+		z-index:10000000000000000;
+		width: 500px;
+		border:1px solid lightgray;
+		background: white;
+	display:none;
+		
+	}
+	.cate_main{
+		float:left;
+		list-style : none;
+		width: 25%;
+		/* border:1px solid black; */
+	}
+	.cate_head{
+		font-weight: 700;
+		background: #f9f9f9;
+	}
+	.sub_menu > ul > li{
+	padding: 3px;
+	}
+	.sub_menu > ul > li:first{
+	padding-left: 5px;
+	background:#f9f9f9;
+	}
+	.sub_menu > ul > li:hover{
+	background:#f9f9f9;
 
+	}
+	
+	.main_menu:hover .sub_menu{
+	display: block;
+		
+	}
+	.cate_main li:not(:first-child){
+	font-size:14px;
+	}
 
 </style>
 </head>
@@ -196,8 +241,8 @@
             
             <div class="h_small">
                 <!-- 로그인 안했을 때 -->
-                <div><a href="회원가입.html"><span class="txt join_txt">회원가입</span></a></div>
-                <div><a href="로그인.html"><span class="txt login_user">로그인</span></a></div>    
+                <div><a href='<%= request.getContextPath() %>/views/member/selectJoin.jsp'><span class="txt join_txt">회원가입</span></a></div>
+                <div><a href='<%= request.getContextPath() %>/views/member/memberLoginForm.jsp'><span class="txt login_user">로그인</span></a></div>    
                 <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
 
                 <!-- 로그인 했을 때 -->
@@ -242,13 +287,57 @@
 
         <!-- 로고 -->
         <div class="h_logo">
-            <img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
+        	<a href="<%=contextPath%>">
+            	<img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
+        	</a>
         </div>
 
         <!-- 네비 바 -->
         <div class="wrap ">
             <div class="nav">
-                <div class="menu" onclick="goMain();"><a href="#"><i class="hamburger material-icons">menu</i><span class="ttt">전체 레시피</span></a></div>
+                <div class="menu main_menu" onclick="goMain();">
+                	<a href="#"><i class="hamburger material-icons">menu</i><span class="ttt">전체 레시피</span></a>
+                	<br><div class="sub_menu" style="text-align:left" ><!-- 서브메뉴 테이블 -->
+                		<ul class="cate_main">
+                			<li class="cate_head">전체보기</li>
+                		</ul>
+                		<ul class="cate_main">
+                			<li class="cate_head">종류별</li>
+                			<li>한식</li>
+                			<li>양식</li>
+                			<li>중식</li>
+                			<li>일식</li>
+                		</ul>
+                		 <ul class="cate_main">
+                			<li class="cate_head">재료별</li>
+                			<li>채소</li>
+                			<li>과일</li>
+                			<li>견과, 쌀</li>
+                			<li>수산, 해산</li>
+                			<li>건어물</li>
+                			<li>정육</li>
+                			<li>계란, 유제품</li>
+                			<li>면, 양념, 오일</li>
+                		</ul>
+                		<ul class="cate_main">
+                			<li class="cate_head">방법별</li>
+                			<li>볶음</li>
+                			<li>끓이기</li>
+                			<li>부침</li>
+                			<li>조림</li>
+                			<li>무침</li>
+                			<li>비빔</li>
+                			<li>찜</li>
+                			<li>절임</li>
+                			<li>튀김</li>
+                			<li>삶기</li>
+                			<li>굽기</li>
+                			<li>데치기</li>
+                			<li>회</li>
+                		</ul>
+                	</div>
+                </div>
+                
                 <div class="menu" onclick="goNotice();"><a href="#">베스트 레시피</a></div>
                 <div class="menu" onclick="goBoard();"><a href="#">J Market</a></div>
                 <div class="menu" onclick="goThumbnail();"><a href="#">게시판</a></div>
@@ -263,6 +352,16 @@
             </div><!--nav-->
          </div><!-- wrap -->
      </div><!-- header -->
+      <script>
+      $(function(){
+    	  $(".cate_main li:not(:first-child)").hover(function(){
+        	  $(this).css({"background":"#f9f9f9", "cursor":"pointer"});
+          }).mouseleave(function(){
+        	  $(this).css({"background": "none"});
+          });
+    	  
+      });
       
+      </script>
 </body>
 </html>
