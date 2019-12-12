@@ -110,7 +110,7 @@ box-sizing:border-box;}
                 <tr height="25px"></tr>
                 <tr align="center">
                     <td colspan="3">
-                    <button class="login_btn two_btn">로그인</button>
+                   
                         <input type="submit" value="로그인" class="login_btn two_btn">
                     </td>
                 </tr>
