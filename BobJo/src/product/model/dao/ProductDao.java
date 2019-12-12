@@ -1,5 +1,7 @@
 package product.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,10 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import file.model.vo.File;
+import attachment.model.vo.Attachment;
 import product.model.vo.Product;
-
-import static common.JDBCTemplate.*;
 
 public class ProductDao {
 	
@@ -95,7 +95,7 @@ public class ProductDao {
 	}
 	
 	// 상품 상세보기 Dao
-	public Product selectProduct(Connection conn, int pId) {
+	public Product selectProduct(Connection conn, String pId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Product p = null;
@@ -104,13 +104,20 @@ public class ProductDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pId);
+			pstmt.setString(1, pId);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				p = new Product(
 						// 각 필드값들 채우기
-						// ex) rset.getInt("pId"), rset.getString("pName"), ...
+						rset.getString("PID"),
+						rset.getString("CATE_IN_ID"),
+						rset.getString("P_NAME"),
+						rset.getInt("P_PRICE"),
+						rset.getString("P_SHORT_DESC"),
+						rset.getString("P_SALE_UNIT"),
+						rset.getString("P_WEIGHT"),
+						rset.getInt("P_STOCK")
 						);
 			}
 			
@@ -124,10 +131,10 @@ public class ProductDao {
 	}
 
 	// 상품에 대한 이미지 조회
-	public File selectThumbnail(Connection conn, String pId) {
+	public Attachment selectThumbnail(Connection conn, String pId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		File thumbnail = null;
+		Attachment thumbnail = null;
 		
 		String sql = prop.getProperty("selectThumbnail");
 		
@@ -137,13 +144,14 @@ public class ProductDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				thumbnail = new File(
+				thumbnail = new Attachment(
 						rset.getString("F_ID"),
 						rset.getInt("BTYPE"),
 						rset.getString("BPRC_ID"),
 						rset.getInt("F_LEVEL"),
 						rset.getString("F_STATUS"),
-						rset.getString("F_PATH")
+						rset.getString("F_PATH"),
+						rset.getString("F_NAME")
 						);
 			}
 		} catch (SQLException e) {
@@ -154,6 +162,42 @@ public class ProductDao {
 		}
 		
 		return thumbnail;
+	}
+
+	// 한 상품에 대한 썸네일, 상품 설명, 상품 정보 이미지 조회하기
+	public ArrayList<Attachment> selectImages(Connection conn, String pId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Attachment> imgList = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectImages");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				imgList.add(new Attachment(
+						rset.getString("F_ID"),
+						rset.getInt("BTYPE"),
+						rset.getString("BPRC_ID"),
+						rset.getInt("F_LEVEL"),
+						rset.getString("F_STATUS"),
+						rset.getString("F_PATH"),
+						rset.getString("F_NAME")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
 	}
 
 
