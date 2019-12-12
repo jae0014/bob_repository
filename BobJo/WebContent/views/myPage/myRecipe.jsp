@@ -121,7 +121,6 @@ display:inline-block;
 	cursor:pointer;
 	}
 	
-	
 
 	
 

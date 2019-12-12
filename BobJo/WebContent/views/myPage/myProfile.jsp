@@ -129,7 +129,7 @@ border:1px solid grey;
 	<div class="tab">프로필</div>
 	<div class="contents">
 	<div class="myprofile">
-	<div class="p background"><img class="bg" src="<%=request.getContextPath() %>/resources/images/마카롱.jpg"></div>
+	<div class="p background"></div>
 	<div class="p pic"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=400,width=400, status=yes,toolbar=no,menubar=no,location=no");return false'><img class="pf" src="<%=request.getContextPath() %>/resources/images/강아지.jpg" ></a></div>
 
 	<div class="p text">

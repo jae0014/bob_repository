@@ -31,7 +31,9 @@
 </head>
 <style>
 
-
+	.whole{
+	border: 1px solid red; 
+	}
 
 	table {
 	margin:auto;
