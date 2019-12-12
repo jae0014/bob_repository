@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, common.vo.*, product.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, common.vo.*, product.model.vo.*, file.model.vo.*"%>
 <%
-	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	
+	ArrayList<Product> pList = (ArrayList<Product>)request.getAttribute("pList");
+	String cate = request.getAttribute("cate").toString();
+	String cateStr = request.getAttribute("cateStr").toString();
+	ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
 %>
 <!DOCTYPE html>
 <html>
@@ -58,7 +53,13 @@
         }
 
         .cart {
-            background-color: lightcoral;
+            background-color: rgb(257, 157, 157);
+            border-radius:0.5rem;
+            padding:1rem;
+        }
+        
+        .cartDiv{
+        	padding:0;
         }
 
         .card-text {
@@ -138,7 +139,7 @@
 	<section class="content">
         <div class="container-fluid">
             <div class="cate">
-            	<p>채소</p>
+            	<p><%= cateStr %></p>
             </div>
             <div class="sorting">
                 <!-- 정렬 기준 추가-->
@@ -155,353 +156,48 @@
                     </div>
                 </div>
             </div>
-                <!-- 카트 아이콘 클릭시 장바구니 작은 창 뜨는거 modal 이용(알아봐야할 듯)-->
-            <div class="row list-row">
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="../../resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- 첫번째 row 끝-->
             
-            <div class="row list-row">
-                <div class="col-sm-3 gg">
+           	<!-- 카트 아이콘 클릭시 장바구니 작은 창 뜨는거 modal 이용(알아봐야할 듯)-->
+            <div class="product-wrap">
+            <% for(int i = 0; i < pList.size(); i++) { %>
+                <% if(i%4==0) {%>
+                	<div class="row list-row">
+                <%} %>
+                	<div class="col-sm-3 gg">
                     <div class="card">
                     	<div class="card-img">
                     		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="...">
+                    			<% for(File f : fList){ %>
+                    				<% if(pList.get(i).getpId().equals(f.getBprcId())){ %>
+                    					<img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="...">
+                    				<% } %>
+                    			<% } %>
+                    			<%-- <img src="<%= request.getContextPath() %>/resources/product/<%= fList.get(i).getfPath() %>" class="card-img-top" alt="..."> --%>
                     		</a>
                     	</div>
                         <div class="card-body">
                         	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
+                        		<div class="col-8"><h5 class="card-title"><%= pList.get(i).getpName() %></h5></div>
+                        		<div class="col-4 cartDiv"><a href="#" class="btn btn-outline-danger">cart</a></div>
                         	</div>
                         	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
+                        		<p class="product_price col"><%= pList.get(i).getpPrice() %> 원</p>
                         	</div>
                         	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
+                        		<p class="card-text col"><%= pList.get(i).getpShortDesc() %></p>
                         	</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="../../resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
+                
+                <% if(i%4==3) {%>
+                	</div>
+                <%} %>
+            <%} %>
+            
             </div>
-            <div class="row list-row">
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="../../resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row list-row">
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="<%= request.getContextPath() %>/resources/sampleImg/깐마늘.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">깐마늘</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,500 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">편하게 사용할 수 있는 깐마늘</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 gg">
-                    <div class="card">
-                    	<div class="card-img">
-                    		<a href="<%= request.getContextPath() %>/views/product/productDetailView.jsp">
-                    			<img src="../../resources/sampleImg/당근.png" class="card-img-top" alt="...">
-                    		</a>
-                    	</div>
-                        <div class="card-body">
-                        	<div class="row">
-                        		<div class="col-8"><h5 class="card-title">친환경 당근</h5></div>
-                        		<div class="col-4"><a href="#" class="btn cart">cart</a></div>
-                        	</div>
-                        	<div class="row">
-                        		<p class="product_price col">2,000 원</p>
-                        	</div>
-                        	<div class="row">
-                        		<p class="card-text col">껍질째 먹을 수 있는 흙당근</p>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+			
+			
         </div><!-- container 끝-->
 
         <!-- paging -->
@@ -526,6 +222,12 @@
         </div>
 
     </section>
+    
+    <script>
+    	$(function(){
+    		console.log(list);
+    	});
+    </script>
 	
 	<%@ include file="../common/footer.jsp" %>
 	

@@ -24,6 +24,15 @@ public class Product {
 		this.pWeight = pWeight;
 		this.pStock = pStock;
 	}
+	
+	public Product(String pId, String cateInId, String pName, int pPrice, String pShortDesc) {
+		super();
+		this.pId = pId;
+		this.cateInId = cateInId;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.pShortDesc = pShortDesc;
+	}
 
 	public String getpId() {
 		return pId;

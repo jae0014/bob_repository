@@ -3,6 +3,7 @@ package product.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import file.model.vo.File;
 import product.model.dao.ProductDao;
 import product.model.vo.Product;
 
@@ -21,11 +22,11 @@ public class ProductService {
 	}
 	
 	// 상품 리스트 조회용 서비스 메소드
-	public ArrayList<Product> selectList(int currentPage, int boardLimit) {
+	public ArrayList<Product> selectList(String cate) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
 		
-		ArrayList<Product> plist = pDao.selectList(conn, currentPage, boardLimit);
+		ArrayList<Product> plist = pDao.selectList(conn,cate);
 		close(conn);
 		
 		return plist;
@@ -42,5 +43,18 @@ public class ProductService {
 		return p;
 	}
 
+	// 상품에 따른 이미지 파일 조회하기
+	public File selectThumbnail(String pId) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		File thumnail = pDao.selectThumbnail(conn, pId);
+		close(conn);
+		
+		return thumnail;
+	}
+
+	
+	
 	
 }
