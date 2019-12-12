@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 로그인 실패 메세지(아이디가 안맞거나, 비번이 안맞거나 둘다 틀릴 경우)
+	String msg = (String)request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,6 +86,15 @@ box-sizing:border-box;}
 </style>
 </head>
 <body>
+<script>
+	var msg = "<%= msg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+		}
+	});
+</script>
 <%@ include file="../common/bootstrap.jsp" %>
 <%@ include file="../common/menubar.jsp" %>
 	
