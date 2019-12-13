@@ -10,7 +10,7 @@
             box-sizing: border-box;
         }
         
-        .outer{
+        .outer_f{
         	width: 100%;
         	/* border: 1px solid black; */
         	border-top:1px solid lightgrey;
@@ -96,7 +96,7 @@
 </style>
 </head>
 <body>
-<div class="outer">
+<div class="outer_f">
     <div class="footer">
         <div class="left_f">
             <span class="cs_txt">고객행복센터<br></span>

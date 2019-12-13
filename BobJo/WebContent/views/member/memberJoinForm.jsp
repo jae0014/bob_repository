@@ -121,11 +121,12 @@
                 </td>
                 <td>
                     <input type="text" placeholder="아이디를 입력해주세요" class="userId" name="userId" maxlength="12" required>
-                    <button type="button" onclick="id_chk();" class="id_chk_btn s_btn">중복확인</button>
+                    <button type="button"  class="id_chk_btn s_btn">중복확인</button>
+
                     <p class="guide_txt guide_txt1">
                         <span class="txt id_reg_txt">영문과 숫자를 조합한 6자 이상</span>
                         <span class="txt id_reg_txt1"></span>
-                        <span class="txt id chk_txt">아이디 중복확인</span>
+                        <span class="txt id_chk_txt">아이디 중복확인</span>
                     </p>
                 </td>
             </tr>
@@ -326,16 +327,67 @@
         //Phone
         $(".userPhone")
     });
-    // 폼 제출할때 발생하는 함수
-    function validate(){
-        console.log(id_flag);
-        console.log(pw_ch_flag);
-        console.log(pw_re_flag);
-        console.log(nm_flag);
-            if(id_flag == false || pw_re_flag == false || pw_ch_flag == false || nm_flag == false){
-               return false;
-            }
-        };
+
+        
+        // id 중복확인용 값
+        var id_Usable = false;
+        
+        // 아이디 중복확인
+
+        $(".id_chk_btn").click(function(){
+        	var userId = $(".userId").val();
+        	
+        	if(!userId || userId.length < 5){
+        		
+        		alert("아이디는 최소 6자리 이상이어야 합니다.");
+        		userId.focus();
+        		
+        	}else{
+        		
+        		$.ajax({
+        			url: "<%=request.getContextPath() %>/Check.me",
+        			type : "post",
+        			data : {userId:userId},
+					success : function(data){
+						
+						if(data == "fail"){
+							alert('사용할 수 없는 아이디입니다.');
+							$(".id_chk_txt").css("color","red");
+							userId.focus();
+						}else{
+							// -> 사용 가능하다는 flag 값
+							id_Usable = true;
+							$(".id_chk_txt").css("color","green");
+						}
+					
+						if(isUsable){
+							// 아이디 중복 체크 후 사용 가능한 아이디이며 사용하기로 한 경우
+							
+							
+							
+						} 
+					},
+					error : function(){
+						console.log('서버 통신 안됨');
+					}
+        			
+        		});
+        	}
+        	
+        });
+        
+        
+        // 폼 제출할때 발생하는 함수
+        function validate(){
+            console.log(id_flag);
+            console.log(pw_ch_flag);
+            console.log(pw_re_flag);
+            console.log(nm_flag);
+                if(id_flag == false || pw_re_flag == false || pw_ch_flag == false || nm_flag == false
+                		|| id_Usable == false){
+                   return false;
+                }
+            };
     </script>
 
 <%@ include file="../common/footer.jsp" %>
