@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	// 로그인 실패 메세지(아이디가 안맞거나, 비번이 안맞거나 둘다 틀릴 경우)
-	String msg = (String)request.getAttribute("msg");
+	String msg = (String)session.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -86,18 +86,19 @@ box-sizing:border-box;}
 </style>
 </head>
 <body>
-<script>
+<%@ include file="../common/bootstrap.jsp" %>
+<%@ include file="../common/menubar.jsp" %>
+	<script>
 	var msg = "<%= msg %>";
 	$(function(){
 		if(msg != "null"){
 			alert(msg);
 			<% session.removeAttribute("msg"); %>
 		}
+		console.log(msg);
+		
 	});
 </script>
-<%@ include file="../common/bootstrap.jsp" %>
-<%@ include file="../common/menubar.jsp" %>
-	
 	
    <div class="outer">
     <p align="center" class="sub_title">로그인</p>
@@ -143,8 +144,12 @@ box-sizing:border-box;}
     
     
     <script>
-/*         $(function(){
-            $(".input_form").change(function(){
+	$(function(){
+		$(".join_btn").click(function(){
+			location.href="<%=contextPath%>/views/member/memberJoinForm.jsp";
+		});
+	
+	/*                     $(".input_form").change(function(){
                 $(this).css({"border":"1px solid black;"});
             });
             
@@ -159,8 +164,9 @@ box-sizing:border-box;}
                 if($('#userPwd').val()=="")
                 alert("비밀번호를 입력해주세요.");
                 return false;
-            });
-        }); */
+            });*/
+            
+        });
     </script>
 
 <%@ include file="../common/footer.jsp" %>
