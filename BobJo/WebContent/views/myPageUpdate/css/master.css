@@ -17,61 +17,12 @@ time, mark, audio, video {margin:0; padding:0; border:0; font:inherit;}
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {display:block;}
 
-/* NanumBarunGothic 기본 폰트 */
-@font-face {
-	font-family:"NS";
-	src:url('../font/NanumBarunGothic.eot')format('eot');
-	src:url('../font/NanumBarunGothic.woff') format('woff');
-}
 
-/* Noto Sans KR */
-@font-face {
-	font-family:"NS";
-	font-weight:200;
-	src:url('../font/NotoSansKRLight.eot')format('eot');
-	src:url('../font/NotoSansKRLight.woff') format('woff');
-}
-
-@font-face {
-	font-family:"NS";
-	font-weight:400;
-	src:url('../font/NotoSansKRRegular.eot')format('eot');
-	src:url('../font/NotoSansKRRegular.woff') format('woff');
-}
-
-@font-face {
-	font-family:"NS";
-	font-weight:600;
-	src:url('../font/NotoSansKRMedium.eot')format('eot');
-	src:url('../font/NotoSansKRMedium.woff') format('woff');
-}
-
-@font-face {
-	font-family:"NS";
-	font-weight:800;
-	src:url('../font/NotoSansKRBold.eot')format('eot');
-	src:url('../font/NotoSansKRBold.woff') format('woff');
-}
-
-/* Montserrat 기본 폰트 */
-@font-face {
-	font-family:"Mont";
-	src:url('../font/MontserratRegular.eot')format('eot');
-	src:url('../font/MontserratRegular.woff') format('woff');
-}
-
-@font-face {
-	font-family:"Mont";
-	font-weight:800 ;
-	src:url('../font/MontserratBold.eot')format('eot');
-	src:url('../font/MontserratBold.woff') format('woff');
-}
 
 
 html {overflow-y:scroll; font-size:62.5%;}
 body {position:relative; width:100%; font-size:13px; letter-spacing:-1px;}
-body,input,button,textarea,select,option {color:#161519; font-family:"Mont", "NS", sans-serif; font-weight:400;}
-/** {font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;}*/
+body,input,button,textarea,select,option {color:#161519; font-weight:400;} 
 h1,h2,h3,h4,h5,h6 {font-size:14px;}
 
 img, fieldset{border:0;}
@@ -166,21 +117,21 @@ div.selectbox-wrapper ul li.selected {background-color:#eaf2fb;}
 /* Hover state for dropdown list */
 div.selectbox-wrapper ul li.current {background-color:#cdd8e4;}
 /* Drop down list items style*/
-div.selectbox-wrapper ul li {display:block; float:none; margin:0; padding:2px 2px 2px 9px; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; font-weight:normal; cursor:pointer;}
+div.selectbox-wrapper ul li {display:block; float:none; margin:0; padding:2px 2px 2px 9px; font-size:12px;/* Resize Font*/  font-weight:normal; cursor:pointer;}
 /* Look and feel of select box */
-.search_selectbox {display:block; width:119px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:#fff url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left;  cursor:pointer;}
+.search_selectbox {display:block; width:119px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:#fff url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/   cursor:pointer;}
 .selectbox_new {display:block; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; z-index:-1; margin:0; padding:5px 23px 5px 9px; *padding:5px 23px 2px 9px;  background:url('../images/common/select_bt03.png') no-repeat right center; color:#7b7b7b; font-size:12px;/* Resize Font*/ text-align:left;  text-overflow:ellipsis; white-space:nowrap; cursor:pointer;}
 .selectbox {display:block; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; z-index:-1; margin:0; padding:9px 23px 10px 9px; padding:4px 0px 4px 9px \9; background:url('../images/common/select_bt03.png') no-repeat right center; color:#7b7b7b; font-size:12px;/* Resize Font*/ text-overflow:ellipsis; white-space:nowrap; text-align:left; cursor:pointer;}
 .selectbox2 {display:block; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; z-index:-1; margin:0; padding:9px 23px 10px 9px; padding:4px 0px 4px 9px \9; background:url('../images/common/selectbox2.png') no-repeat right center; color:#555; font-size:12px;/* Resize Font*/ text-overflow:ellipsis; white-space:nowrap; text-align:left; cursor:pointer;}
 .selectbox3 {display:block; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; z-index:-1; margin:0; padding:9px 23px 10px 9px; padding:4px 0px 4px 9px \9; border:1px solid #e1e1e1; background:#fff url('../images/common/selectbox2.png') no-repeat right center; color:#555; font-size:12px;/* Resize Font*/ text-overflow:ellipsis; white-space:nowrap; text-align:left; cursor:pointer;}
 .selectbox4 {display:block; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; z-index:-1; margin:0; padding:6px 23px 6px 9px; padding:4px 0px 9px 9px \9; background:url('../images/common/select_bt03.png') no-repeat right center; color:#7b7b7b; font-size:12px;/* Resize Font*/ text-overflow:ellipsis; white-space:nowrap; text-align:left; cursor:pointer;}
-.inputbox_select05 .selectbox {display:block; z-index:-1; margin:0; padding:6px 0px 5px 9px; padding:7px 0px 4px 9px \9; background:url('../images/common/select_bt04.png') no-repeat right center; color:#7b7b7b; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left; cursor:pointer;}
-.inputbox_select02 .selectbox {display:block; z-index:-1; margin:0; padding:7px 0px 4px 9px; padding:7px 0px 4px 9px \9; background:url('../images/common/select_bt04.png') no-repeat right center; color:#7b7b7b; font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; font-size:12px;/* Resize Font*/ text-align:left; cursor:pointer;}
-.selectbox_phone {display:block; width:59px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left; cursor:pointer;}
-.selectbox_yyyy {display:block; width:59px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left; cursor:pointer;}
-.selectbox_mm {display:block; width:40px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left;  cursor:pointer;}
-.selectbox_dd {display:block; width:40px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left;  cursor:pointer;}
-.chapter_selectbox {display:block; width:319px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/ font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; text-align:left; cursor:pointer;}
+.inputbox_select05 .selectbox {display:block; z-index:-1; margin:0; padding:6px 0px 5px 9px; padding:7px 0px 4px 9px \9; background:url('../images/common/select_bt04.png') no-repeat right center; color:#7b7b7b; font-size:12px;/* Resize Font*/  text-align:left; cursor:pointer;}
+.inputbox_select02 .selectbox {display:block; z-index:-1; margin:0; padding:7px 0px 4px 9px; padding:7px 0px 4px 9px \9; background:url('../images/common/select_bt04.png') no-repeat right center; color:#7b7b7b;  font-size:12px;/* Resize Font*/ text-align:left; cursor:pointer;}
+.selectbox_phone {display:block; width:59px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/  text-align:left; cursor:pointer;}
+.selectbox_yyyy {display:block; width:59px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/text-align:left; cursor:pointer;}
+.selectbox_mm {display:block; width:40px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/  text-align:left;  cursor:pointer;}
+.selectbox_dd {display:block; width:40px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/  text-align:left;  cursor:pointer;}
+.chapter_selectbox {display:block; width:319px; /* Resize Width */ height:20px; margin:0; padding:5px 0 0 2px; border:0; background:url('bg_select.png') no-repeat 15% right; color:#333; font-size:12px;/* Resize Font*/  text-align:left; cursor:pointer;}
 .selectbox_main {display:block; float:left; z-index:-1; margin:0; padding:0; background:url('../images/select_bt02.png') no-repeat right top; color:#7b7b7b; font-size:12px;/* Resize Font*/ cursor:pointer;}
 .search_text_box .selectbox-wrapper {display:block; overflow:auto; position:absolute; top:10px; left:-13px; /* *left:0; 인 것을 *right:0; 로 고침 kbk */ *right:0; z-index:1000; width:83px !important; max-height:250px; margin:0; padding:0; border:1px solid #ccc; background-color:white; text-align:left;}
 
@@ -206,8 +157,8 @@ html[xmlns] .flexslider .slides {display:block;}
 .title-top {position:relative;margin:53px 0 46px 0;text-align:center}
 .title-top {position:relative;margin:53px 0 46px 0;text-align:center}
 .title-top:before{display:block;content:'';width:60px;height:1px;background:#000;position:absolute;bottom:5px;left:0;margin-top:-1px;}
-.title-top .title-box h2, .title-top .title-box .title{font-size:50px;font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; font-weight:700;color:#000;line-height:1}
-.title-top .more{position:absolute;bottom:5px;right:0;font-size:14px;padding:0 17px 8px 5px;line-height:1; font-family:'メイリオ', 'Meiryo' , 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; font-weight:700}
+.title-top .title-box h2, .title-top .title-box .title{font-size:50px; font-weight:700;color:#000;line-height:1}
+.title-top .more{position:absolute;bottom:5px;right:0;font-size:14px;padding:0 17px 8px 5px;line-height:1;font-weight:700}
 .title-top .more:after{display:block;content:'';width:100%;height:1px;background:#000;position:absolute;left:0;bottom:0}
 .title-top .more:before{display:block;content:'';width:6px;height:9px;background:url(../images/common/arr_more.png) no-repeat;position:absolute;top:3px;right:5px}
 .title-top .title-option {position:absolute;bottom:5px;right:0;}

@@ -6,28 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/master.css">
+ <link rel="stylesheet" href="css/master.css"> 
 <link rel="stylesheet" href="css/operate.css">
-<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
 
 
-<script>
-var templet_src='/data/enterdev_data/templet/bienbien';
-var front_language='korean';
-</script>
-<!-- <script src="library.js"></script>
-<script src="ui.js"></script>
-<script src="basic_head.js"></script>
 
-
-<script src="mypage.js"></script>
- -->
 </head>
 <style>
 
-div{
-/* border:1px solid red; */
-}
+
 .part1,.mypage-contents,.sub-container{
 diplay:inline-block;
 /* border:1px solid red; */
@@ -61,94 +48,6 @@ float:left;
 
 
 
-.content{
-border-radius:5px;
-width:100%;
-height:90%;
-border:1px solid grey;
-}
-
-.myprofile{
-
-width:25%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
-}
-
-.background,.text{
-height:50%;
-}
-
-
-.pic{
-width:30%;
-height:30%;
-border-radius:50%;
-margin-top:-12%;
-margin-left:33%;
-positon:relative;
-z-index: 2;
-}
-
-.text{
-margin-top:-12%;
-}
-
-.pf{
-width:100%;
-height:100%;
-border-radius:50%;
-position:relative; 
-z-index:1;
-
-}
-
-.bg{
-width:100%;
-height:100%;
-opacity:0.5;
-z-index: -1;
-}
-
-.nickname{
-margin-top:13%;
-height:20%;
-text-align:center;
-font-size:40px;
-margin-bottom:10px;
-
-}
-
-.introduce{
-text-align:center;
-font-size:20px;
-
-}
-
-.myprofile{
-
-width:80%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
-margin:auto;
-
-}
-
-
-.cover{
-margin-left:10%;
-background-color:grey;
-border-radius:5px;
-width:45%;
-
-
-}
-
-
 
 
 
@@ -158,6 +57,7 @@ width:45%;
 <body>
 <%@include file ="../common/menubar.jsp" %>
 <%@include file="../common/bootstrap.jsp" %>
+
 <br><br>
 <div class="wholewhole">
 <div class="part1">
@@ -177,46 +77,41 @@ width:45%;
 
 	<dl class="menu-sub-left">
 	<dt>
-		<a href="/mypage/profile.jsp">프로필 관리</a>
+		<a href="myProfile.jsp">프로필 관리</a>
 	</dt>
 	
 	
 	<dt><br><br>
-		<a href="/mypage/order_history.php">나의 쇼핑 내역</a>
+		나의 쇼핑 내역
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/order_history.php" class=''>
+				<a href="myOrder.jsp" class=''>
 					주문/배송 현황
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/return_history.php" class=''>
+				<a href="myPageDisorder.jsp" class=''>
 					취소/반품/교환 현황
 				</a>
 			</li>
-			<!--<li>
-				<a href="/mypage/add_pay_history.php" class='' >
-					추가결제 내역
-				</a>
-			</li>-->
-	
+		
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/coupon.php">나의 레시피 관리</a>
+		나의 레시피 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/mileage.php" >
-					내가 작성한 레시피
+				<a href="myRecipe.jsp" >
+					나의 레시피
 				</a>
 			</li>
 
 			<li>
-				<a href="/mypage/coupon.php" >
+				<a href="likeRecipe.jsp" >
 					좋아요 한 레시피
 				</a>
 			</li>
@@ -224,65 +119,50 @@ width:45%;
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">댓글 관리</a>
+		댓글 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/recent_view.php"   >
-					내가 작성한 댓글
+				<a href="myReply.jsp"   >
+					나의 댓글
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/wishlist.php" >
+				<a href="getReply.jsp" >
 					내가 받은 댓글
 				</a>
 			</li>
-			
-			<!--li>
-				<a href="/mypage/event_favorite.php" >
-					찜한 기획전/참여 이벤트
-				</a>
-			</li-->
+	
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">나의 커뮤니티</a>
+		나의 커뮤니티
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/my_goods_inquiry.php" >
-					내가 작성한 게시글
+				<a href="myBoard.jsp" >
+					나의 게시글
 				</a>
 			</li>
-			<li>
-				<a href="/mypage/mypage_bbs.php" >
-
-					내가 작성한 후기
-
-				</a>
-			</li>
+			
 			
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/profile.php">회원정보</a>
+		<a href="">회원정보</a>
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/profile.php" class="on">
+				<a href="updateMember.jsp" class="on">
 					회원정보수정
 				</a>
 			</li>
+
 			<li>
-				<a href="/mypage/addressbook.php" >
-					배송지 관리
-				</a>
-			</li>
-			<li>
-				<a href="/mypage/secede.php"  >
+				<a href="deleteMember.jsp"  >
 					회원탈퇴
 				</a>
 			</li>
@@ -300,18 +180,7 @@ width:45%;
 				chef J를 이용해주셔서 감사합니다.
 			</p>
 		</div>
-		<!-- <div class="area info02">
-			<strong class="def">
-				보유 적립금<br>
-				<span class='bl-color'>2,000</span>원
-			</strong>
-		</div>
-		<div class="area info03">
-			<strong class="def">
-				보유 쿠폰<br>
-				<span class='bl-color'>0</span>장
-			</strong>
-		</div> -->
+	
 		
 		
 	</div>
@@ -321,6 +190,9 @@ width:45%;
 		<h2>회원정보 수정</h2>
 		<p class="desc">고객님들의 회원정보 수정을 처리해드립니다.</p>
 		<!--Histori Belanja 영역 [E]-->
+		
+		
+		<form action="">
 		<table class="common-write">
 			<caption>회원정보 입력</caption>
 			<colgroup>
@@ -330,18 +202,18 @@ width:45%;
 			<tbody>
 			<tr>
 				<th scope="col">아이디<span class='main-color'>*</span></th>
-				<td><input type="text" ></td>
+				<td><input type="text" name='mem_id' id='mem_id' value='' style='width:183px;' ></td>
 			</tr>
 		
 					<tr>
 						<th scope="col">패스워드<span class='main-color'>*</span></th>
-						<td><a href="./password.php" rel="facebox" class='main_ks_buttom buttom_ss' style='width:183px;'>비밀번호 변경</a></td>
+						<td><a href="#" onclick='window.open("updatePwd.jsp","_blank","height=330,width=380, status=yes,toolbar=no,menubar=no,location=no");return false' rel="facebox" class='main_ks_buttom buttom_ss' style='width:183px;'>비밀번호 변경</a></td>
 					</tr>
 		
 			<tr>
 				<th scope="col">이름<span class='main-color'>*</span></th>
 				<td>
-					<input type='text' name='mem_name' id='mem_name' value='' style='width:183px;' readonly>
+					<input type='text' name='mem_name' id='mem_name' value='' style='width:183px;'>
 				
 				</td>
 			</tr>
@@ -456,48 +328,27 @@ width:45%;
 				</td>
 			</tr>
 			
-			<tr>
+		<!-- 	<tr>
 				<th>
 					성별
 				</th>
 				<td>
-					<input type="radio" name="gender" value="1" id="gender_man"   validation="true" title='성별' disabled> <label for="gender_man">남성</label>
-					<input type="radio" name="gender" value="0" id="gender_woman" checked validation="true" title='성별' disabled> <label for="gender_woman">여성</label>
+					<input type="radio" name="gender" value="1" id="gender_man"  value="" title='성별' ><label for="gender_man">남성</label>
+					<input type="radio" name="gender" value="0" id="gender_woman"   value="" title='성별' ><label for="gender_woman">여성</label>
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th scope="col">이메일<span class='main-color'>*</span></th>
 				<td>
-					<input type="text" id="" name="mail" value="" readonly style="width:183px;">
-					<!-- 이메일 변경 불가 -->
-					<p class="desc">
-						정확한 E-mail 정보를 입력하지 않으시면, 주문, 결제, 이벤트, 아이디찾기, 비밀번호 찾기 등에 대한 정확한 정보를 받지 못하실 수 있습니다.
-					</p>
-					<ul class="sect-area">
-						<li>*쇼핑몰에서 제공되는 다양한 이벤트 할인 정보와 공지사항 등을 받아 보실 수 있습니다.</li>
-						<li>*주문결제, 교환/환불 등의 주문거래와 관련 이메일은 수신동의 여부와 관계 없이 발송됩니다.</li>
-					</ul>
+					<input type="text" id="" name="mail" value=""  style="width:183px;">
 					
-					
-					<input type="radio" value="1" name="info" id="info_1" validation="false" title="SMS 정보수신" checked>
-					<label for="info_1" class='color_63 font_bold'>&nbsp;수신을 동의 합니다.</label>
-					<input type="radio" value="0" name="info" id="info_0" validation="false" class="space"  title="SMS 정보수신">
-					<label for="info_0"class='color_63 font_bold'>&nbsp;수신을 동의 하지 않습니다.</label>
 				</td>
 			</tr>
 			<tr>
 				<th scope="col">휴대전화</th>
 				<td>
-					<input type="tel" value="">
-					<ul class="sect-area">
-						<li>*쇼핑몰에서 제공되는 다양한 이벤트 할인 정보와 공지사항 등을 받아 보실 수 있습니다.</li>
-						<li>*주문결제, 교환/환불 등의 주문거래와 관련 문자(SMS)는 수신동의 여부와 관계 없이 발송됩니다.</li>
-					</ul>
+					<input type="text" id="" name="phone" value=""  style="width:183px;">
 					
-					<input type="radio" value="1" name="sms" id="sms_1" validation="false" title="SMS 정보수신" checked>
-					<label for="sms_1" class='color_63 font_bold'>수신을 동의 합니다.</label>
-					<input type="radio" value="0" name="sms" id="sms_0" validation="false" class="space" title="SMS 정보수신">
-					<label for="sms_0"class='color_63 font_bold'>수신을 동의 하지 않습니다.</label>
 				</td>
 			</tr>
 			<tr>
@@ -534,10 +385,7 @@ width:45%;
 				<th scope="col">주소<span class='main-color'>*</span></th>
 				<td>
 					<input type="text" id="zipcode1" name="zipcode1" value="" title="우편번호"  style="width:72px;text-align:center;" class="inputbox_05">
-                    <!--
-					-
-					<input type="text" id="zipcode2" name="zipcode2" value="" title="우편번호" validation="true" style="width:72px;text-align:center;" class="inputbox_05" readonly>
-                    -->
+                   
 					<a href="javascript:void(0);" onclick='zipcode(1)' class="zipcode main_ks_buttom buttom_ss">주소찾기</a>
 					<span class="sect">
 						<input type="text" id="addr1" name="addr1"  value="" validation="true" title="주소" class="inputbox_05" style="width:391px;">
@@ -554,8 +402,9 @@ width:45%;
 		</table>
 		<div class="btn-area">
 			<input type="submit" value="수정하기" alt="수정하기" class="buttom_m main_k_buttom">
-			<a href="/mypage/profile.php" class="buttom_m sub_k_buttom">취소</a>
+			<a href="myProfile.jsp" class="buttom_m sub_k_buttom">취소</a>
 		</div>
+		</form>
 	</div>
 </div>
 </form>

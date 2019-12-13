@@ -9,29 +9,13 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/master.css">
 <link rel="stylesheet" href="css/operate.css">
-<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
 
-
-<script>
-var templet_src='/data/enterdev_data/templet/bienbien';
-var front_language='korean';
-</script>
-<script src="library.js"></script>
-<script src="ui.js"></script>
-<script src="basic_head.js"></script>
-
-
-<script src="mypage.js"></script>
 
 </head>
 <style>
 
-div{
-/* border:1px solid red; */
-}
 .part1,.mypage-contents,.sub-container{
 diplay:inline-block;
-/* border:1px solid red; */
 height:100%;
 }
 
@@ -39,7 +23,6 @@ height:100%;
 width:85%;
 height:1100px;
 margin:auto;
-/* border:1px solid blue; */
 
 }
 
@@ -69,85 +52,6 @@ height:90%;
 border:1px solid grey;
 }
 
-.myprofile{
-
-width:25%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
-}
-
-.background,.text{
-height:50%;
-}
-
-
-.pic{
-width:30%;
-height:30%;
-border-radius:50%;
-margin-top:-12%;
-margin-left:33%;
-positon:relative;
-z-index: 2;
-}
-
-.text{
-margin-top:-12%;
-}
-
-.pf{
-width:100%;
-height:100%;
-border-radius:50%;
-position:relative; 
-z-index:1;
-
-}
-
-.bg{
-width:100%;
-height:100%;
-opacity:0.5;
-z-index: -1;
-}
-
-.nickname{
-margin-top:13%;
-height:20%;
-text-align:center;
-font-size:40px;
-margin-bottom:10px;
-
-}
-
-.introduce{
-text-align:center;
-font-size:20px;
-
-}
-
-.myprofile{
-
-width:80%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
-margin:auto;
-
-}
-
-
-.cover{
-margin-left:10%;
-background-color:grey;
-border-radius:5px;
-width:45%;
-
-
-}
 
 
 .whole{
@@ -243,16 +147,6 @@ display:inline-block;
 	border:1px solid grey;
 	}
 	
-	
-	a{
-	text-decoration:none; color:gray;
-	}
-
-	/* div{
-	border:1px solid red;
-	}
- */
-
 
 
 
@@ -281,50 +175,41 @@ display:inline-block;
 
 	<dl class="menu-sub-left">
 	<dt>
-		<a href="/mypage/profile.jsp">프로필 관리</a>
+		<a href="myProfile.jsp">프로필 관리</a>
 	</dt>
 	
 	
 	<dt><br><br>
-		<a href="/mypage/order_history.php">나의 쇼핑 내역</a>
+		나의 쇼핑 내역
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/order_history.php" class=''>
+				<a href="myOrder.jsp" class=''>
 					주문/배송 현황
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/return_history.php" class=''>
+				<a href="myPageDisorder.jsp" class=''>
 					취소/반품/교환 현황
 				</a>
 			</li>
-			<!--<li>
-				<a href="/mypage/add_pay_history.php" class='' >
-					추가결제 내역
-				</a>
-			</li>-->
-			<li>
-				<a href="/mypage/receipt.php" class=''>
-					증빙문서관리
-				</a>
-			</li>
+		
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/coupon.php">나의 레시피 관리</a>
+		나의 레시피 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/mileage.php" >
-					내가 작성한 레시피
+				<a href="myRecipe.jsp" >
+					나의 레시피
 				</a>
 			</li>
 
 			<li>
-				<a href="/mypage/coupon.php" >
+				<a href="likeRecipe.jsp" >
 					좋아요 한 레시피
 				</a>
 			</li>
@@ -332,65 +217,50 @@ display:inline-block;
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">댓글 관리</a>
+		댓글 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/recent_view.php"   >
-					내가 작성한 댓글
+				<a href="myReply.jsp"   >
+					나의 댓글
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/wishlist.php" >
+				<a href="getReply.jsp" >
 					내가 받은 댓글
 				</a>
 			</li>
-			
-			<!--li>
-				<a href="/mypage/event_favorite.php" >
-					찜한 기획전/참여 이벤트
-				</a>
-			</li-->
+	
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">나의 커뮤니티</a>
+		나의 커뮤니티
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/my_goods_inquiry.php" >
-					내가 작성한 게시글
+				<a href="myBoard.jsp" >
+					나의 게시글
 				</a>
 			</li>
-			<li>
-				<a href="/mypage/mypage_bbs.php" >
-
-					내가 작성한 후기
-
-				</a>
-			</li>
+			
 			
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/profile.php">회원정보</a>
+		<a href="">회원정보</a>
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/profile.php" class="on">
+				<a href="updateMember.jsp" class="on">
 					회원정보수정
 				</a>
 			</li>
+
 			<li>
-				<a href="/mypage/addressbook.php" >
-					배송지 관리
-				</a>
-			</li>
-			<li>
-				<a href="/mypage/secede.php"  >
+				<a href="deleteMember.jsp"  >
 					회원탈퇴
 				</a>
 			</li>
@@ -398,28 +268,17 @@ display:inline-block;
 	</dd>
 </dl>
 </div>
-<div class="mypage-contents"  >
-<section class="wrap-shopping-info" >
-	
-	<div class="shopping-info" style="width:36%;">
-		<div class="area info01"  >
+<div class="mypage-contents">
+<section class="wrap-shopping-info">
+	<h2 class="hidden">회원 쇼핑정보</h2>
+	<div class="shopping-info">
+		<div class="area info01">
 			<p>
 				안녕하세요. 홍길동님<br>
 				chef J를 이용해주셔서 감사합니다.
 			</p>
 		</div>
-		<!-- <div class="area info02">
-			<strong class="def">
-				보유 적립금<br>
-				<span class='bl-color'>2,000</span>원
-			</strong>
-		</div>
-		<div class="area info03">
-			<strong class="def">
-				보유 쿠폰<br>
-				<span class='bl-color'>0</span>장
-			</strong>
-		</div> -->
+	
 		
 		
 	</div>
@@ -437,15 +296,15 @@ display:inline-block;
 	</div>
  <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -461,12 +320,12 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
               	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
+             	
              	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
@@ -478,15 +337,15 @@ display:inline-block;
         </div>
         <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -502,12 +361,12 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
-              	<div class="name" id="name1"><a href="">갈비찜</a></div>
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
+             	
              	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
@@ -517,17 +376,17 @@ display:inline-block;
             </div>
           </div>
         </div>
-        <div class="mold">
+         <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -543,12 +402,12 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
-              	<div class="name" id="name1"><a href="">갈비찜</a></div>
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
+             	
              	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
@@ -558,17 +417,17 @@ display:inline-block;
             </div>
           </div>
         </div>
-        <div class="mold">
+         <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -584,12 +443,12 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
-              	<div class="name" id="name1"><a href="">갈비찜</a></div>
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
+             	
              	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
@@ -599,17 +458,17 @@ display:inline-block;
             </div>
           </div>
         </div>
-        <div class="mold">
+         <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -625,13 +484,13 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
-              	<div class="name" id="name1"><a href="">갈비찜</a></div>
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
-             	<div class="recipe writer" id="writer1"><a href="" >홍길동</a></div>
+             	
+             	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
               	
@@ -640,17 +499,17 @@ display:inline-block;
             </div>
           </div>
         </div>
-        <div class="mold">
+         <div class="mold">
           <div class="card mb-3 shadow-sm">
-           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="../../resources/images/갈비찜.jpg"></a></div>
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
             <div class="card-body" >
    
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                  <div class="like" id="like1"><img width =20px, height =20px, src="../../resources/images/like.png"></div>
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
                   <div class="likenum" id="likenum1">&nbsp;521</div>
-                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "../../resources/images/speech-bubble.png"></div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
                   <div class="qnanum" id="qnanum1" >&nbsp;860</div>
                 </div>
                 <div class="yy" >
@@ -666,12 +525,12 @@ display:inline-block;
               
                 
               </div><hr>
-              
+              	<div class="card shadow-s"></div>
          		
 				<div class="main">
-              	<div class="name" id="name1"><a href="">갈비찜</a></div>
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
              
-             
+             	
              	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
              	<div class="recipe blank"></div>
               	
@@ -710,7 +569,7 @@ display:inline-block;
 
 
 
-</script>
+
 
 
 <%@include file="../common/footer.jsp"%>

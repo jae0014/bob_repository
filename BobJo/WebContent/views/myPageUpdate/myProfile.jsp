@@ -1,6 +1,4 @@
-
-</body>
-</html><%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,29 +7,16 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/master.css">
 <link rel="stylesheet" href="css/operate.css">
-<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
 
 
-<script>
-var templet_src='/data/enterdev_data/templet/bienbien';
-var front_language='korean';
-</script>
-<script src="library.js"></script>
-<script src="ui.js"></script>
-<script src="basic_head.js"></script>
 
-
-<script src="mypage.js"></script>
 
 </head>
 <style>
 
-div{
-/* border:1px solid red; */
-}
+
 .part1,.mypage-contents,.sub-container{
 diplay:inline-block;
-/* border:1px solid red; */
 height:100%;
 }
 
@@ -39,7 +24,6 @@ height:100%;
 width:85%;
 height:1100px;
 margin:auto;
-/* border:1px solid blue; */
 
 }
 
@@ -58,8 +42,6 @@ float:left;
 
 
 }
-
-
 
 
 .content{
@@ -180,50 +162,41 @@ width:45%;
 
 	<dl class="menu-sub-left">
 	<dt>
-		<a href="/mypage/profile.jsp">프로필 관리</a>
+		<a href="myProfile.jsp">프로필 관리</a>
 	</dt>
 	
 	
 	<dt><br><br>
-		<a href="/mypage/order_history.php">나의 쇼핑 내역</a>
+		나의 쇼핑 내역
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/order_history.php" class=''>
+				<a href="myOrder.jsp" class=''>
 					주문/배송 현황
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/return_history.php" class=''>
+				<a href="myPageDisorder.jsp" class=''>
 					취소/반품/교환 현황
 				</a>
 			</li>
-			<!--<li>
-				<a href="/mypage/add_pay_history.php" class='' >
-					추가결제 내역
-				</a>
-			</li>-->
-			<li>
-				<a href="/mypage/receipt.php" class=''>
-					증빙문서관리
-				</a>
-			</li>
+		
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/coupon.php">나의 레시피 관리</a>
+		나의 레시피 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/mileage.php" >
-					내가 작성한 레시피
+				<a href="myRecipe.jsp" >
+					나의 레시피
 				</a>
 			</li>
 
 			<li>
-				<a href="/mypage/coupon.php" >
+				<a href="likeRecipe.jsp" >
 					좋아요 한 레시피
 				</a>
 			</li>
@@ -231,65 +204,50 @@ width:45%;
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">댓글 관리</a>
+		댓글 관리
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/recent_view.php"   >
-					내가 작성한 댓글
+				<a href="myReply.jsp"   >
+					나의 댓글
 				</a>
 			</li>
 			<li>
-				<a href="/mypage/wishlist.php" >
+				<a href="getReply.jsp" >
 					내가 받은 댓글
 				</a>
 			</li>
-			
-			<!--li>
-				<a href="/mypage/event_favorite.php" >
-					찜한 기획전/참여 이벤트
-				</a>
-			</li-->
+	
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/wishlist.php">나의 커뮤니티</a>
+		나의 커뮤니티
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/my_goods_inquiry.php" >
-					내가 작성한 게시글
+				<a href="myBoard.jsp" >
+					나의 게시글
 				</a>
 			</li>
-			<li>
-				<a href="/mypage/mypage_bbs.php" >
-
-					내가 작성한 후기
-
-				</a>
-			</li>
+			
 			
 		</ul>
 	</dd>
 	<dt>
-		<a href="/mypage/profile.php">회원정보</a>
+		<a href="">회원정보</a>
 	</dt>
 	<dd>
 		<ul>
 			<li>
-				<a href="/mypage/profile.php" class="on">
+				<a href="updateMember.jsp" class="on">
 					회원정보수정
 				</a>
 			</li>
+
 			<li>
-				<a href="/mypage/addressbook.php" >
-					배송지 관리
-				</a>
-			</li>
-			<li>
-				<a href="/mypage/secede.php"  >
+				<a href="deleteMember.jsp"  >
 					회원탈퇴
 				</a>
 			</li>
@@ -300,54 +258,58 @@ width:45%;
 <div class="mypage-contents">
 <section class="wrap-shopping-info">
 	<h2 class="hidden">회원 쇼핑정보</h2>
-
+	<div class="shopping-info">
+		<div class="area info01">
+			<p>
+				안녕하세요. 홍길동님<br>
+				chef J를 이용해주셔서 감사합니다.
+			</p>
+		</div>
+	
+		
+		
+	</div>
 </section>
-<%--여기서부터 시작 자리 --%>
-<div class="secession-check-member">
-			<table class="common-write">
-			<caption>회원 정보 입력</caption>
-			<colgroup>
-				<col width='20%'>
-				<col width='*'>
-			</colgroup>
-			<tbody>
-				<tr>
-					<th scope="col">
-						아이디
-					</th>
-					<td>
-						<input type="text" name="id" validation="true" value='thecho30' title="아이디" style="width:200px;" readonly>
-					</td>
-				</tr>
-				<tr>
-					<th scope="col">
-						비밀번호
-					</th>
-					<td>
-						<input type="password" name="pass" id="pass" style="width:200px;">
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class='btn-area'>
-			<input type="submit" value='탈퇴' onclick="check_pass()" alt="확인" title=확인 class='main_k_buttom buttom_m'>
-			<a href="/mypage/" class='sub_k_buttom buttom_m'>취소</a>
-		</div>
+<%--프로필 자리 --%>
+<div class="contents">
+	<br><br>
+	<div class="wrap-profile">
+		<h2>나의 프로필</h2>
+		<p class="desc">사진과 닉네임,인사말을 수정할 수 있습니다.</p>
+
+
+
+	<div class="shadow-sm p-3 mb-5 bg-white rounded">
+	<div class="p background"><img class="bg" src="<%=request.getContextPath() %>/resources/images/마카롱.jpg"></div>
+	<div class="p pic"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=350,width=300, status=yes,toolbar=no,menubar=no,location=no");return false'><img class="pf" src="<%=request.getContextPath() %>/resources/images/강아지.jpg" ></a></div>
+
+	<div class="p text">
+		<div class="p nickname"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=330,width=300, status=yes,toolbar=no,menubar=no,location=no");return false'>홍길동</a></div>
+		<div class="p introduce">집밥이 짱~~</div>
+		
+		
+		<br><br>
+	</div>
+	
+	</div>
+	</div>
+	</div>
 
 
 </div>
 
 </div>
 
-<script>
-	function())
+
+
+</div>
+
+</div>
+
+
+
 
 </script>
-
-
-
-
-
 
 
 <%@include file="../common/footer.jsp"%>
