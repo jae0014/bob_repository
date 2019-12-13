@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.vo.PageInfo;
-import file.model.vo.File;
+import attachment.model.vo.Attachment;
 import product.model.service.ProductService;
 import product.model.vo.Product;
 
@@ -55,15 +54,15 @@ public class ProductListServlet extends HttpServlet {
 		// 1. 상품 리스트 조회
 		ArrayList<Product> pList = pService.selectList(cate);
 		
-		ArrayList<File> fList = new ArrayList<File>();
+		ArrayList<Attachment> fList = new ArrayList<Attachment>();
 		
 		for(int i=0; i < pList.size(); i++) {
-			File imgFile = pService.selectThumbnail(pList.get(i).getpId());
+			Attachment imgFile = pService.selectThumbnail(pList.get(i).getpId());
 			fList.add(imgFile);
 		}
 		
 		
-		if(pList != null && fList.size() != 0) {
+		if(pList.size() != 0 && fList.size() != 0) {
 			request.setAttribute("pList", pList);
 			request.setAttribute("cate", cate);
 			request.setAttribute("cateStr", cateStr);

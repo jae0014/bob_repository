@@ -1,6 +1,7 @@
 package product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import attachment.model.vo.Attachment;
 import product.model.service.ProductService;
 import product.model.vo.Product;
 
@@ -31,7 +33,8 @@ public class ProductDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 전달받은 상품 번호
-		int pId = Integer.parseInt(request.getParameter("pId"));
+		request.setCharacterEncoding("UTF-8");
+		String pId = request.getParameter("pId");
 		
 		ProductService pService = new ProductService();
 		Product product = null;
@@ -40,10 +43,27 @@ public class ProductDetailServlet extends HttpServlet {
 		product = pService.selectProduct(pId);
 		
 		// 2. 게시판의 이미지 리스트 조회
-		// ArrayList<Attachment> fileList = pService.selectImage(pId);
+		ArrayList<Attachment> imgList = pService.selectImages(pId);
+		
+		Attachment thumbnail = null;
+		Attachment productDesc = null;
+		Attachment productInfo = null;
+		
+		for(int i = 0; i<imgList.size(); i++) {
+			if(imgList.get(i).getfLevel() == 1) {
+				thumbnail = imgList.get(i);
+			}else if(imgList.get(i).getfLevel() == 2) {
+				productDesc = imgList.get(i);
+			}else if(imgList.get(i).getfLevel() == 3) {
+				productInfo = imgList.get(i);
+			}
+		}
 		
 		if(product != null) {
 			request.setAttribute("product", product);
+			request.setAttribute("thumbnail", thumbnail);
+			/*request.setAttribute("productDesc", productDesc);
+			request.setAttribute("productInfo", productInfo);*/
 			request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "상품 조회에 실패하였습니다.");
