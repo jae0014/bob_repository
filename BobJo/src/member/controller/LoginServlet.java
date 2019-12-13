@@ -38,6 +38,8 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);  
 		System.out.println(loginUser);
 		if(loginUser != null) {
+			// 로그인 성공
+			//세션에 유저 담기위한 세션 선언
 			HttpSession session = request.getSession();
 			
 //			session.setMaxInactiveInterval(interval); 로그인 후 10분 뒤 자동로그아웃
@@ -48,11 +50,8 @@ public class LoginServlet extends HttpServlet {
 			
 		}else {
 			System.out.println("로그인 실패");
-//			request.setAttribute("msg", "아이디 또는 비밀번호를 잘못입력하셨습니다.");
-//			request.getRequestDispatcher(request.getContextPath()+"/member/loginForm.jsp").forward(request, response);
-			request.getSession().setAttribute("msg",  "회원 가입 성공!!");
-			response.sendRedirect(request.getContextPath()+"/views/member/memberLogin.jsp");
-			
+			request.getSession().setAttribute("msg",  "아이디 또는 비밀번호를 잘못입력하셨습니다.");
+			response.sendRedirect(request.getContextPath()+"/views/member/memberLoginForm.jsp");
 		}
 	}
 
