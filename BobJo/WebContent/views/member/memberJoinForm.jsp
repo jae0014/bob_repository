@@ -48,7 +48,7 @@
             font-size: 12px;
             display: block;
         }
-        .userId, input[type="email"], input[type="password"], .userName, .userPhone,.userAddr{
+        .userId, input[type="email"], input[type="password"], .userName, .phone,.address{
             width: 288px;
             height: 40px;
             border-radius: 3px;
@@ -111,7 +111,7 @@
     </div>
     <div class="outer">
 
-    <form action="<%=request.getContextPath()%>/join.me" method="post" onsubmit="return validate();">
+    <form action="<%=request.getContextPath()%>/insert.me" method="post" onsubmit="return validate();">
     
     <!-- ///////////////////////////////////////////////////////////////table -->
         <table align="center" class="join_table">
@@ -168,7 +168,7 @@
             <tr>
                 <td class="cols1">*휴대폰</td>
                 <td>
-                    <input type="text" placeholder="숫자만 입력해주세요" class="userPhone" name="userPhone" required>
+                    <input type="text" placeholder="숫자만 입력해주세요" class="phone" name="phone" required>
                     <button type="button" onclick="chk_phone();" class="chk_phone_btn s_btn">휴대폰 중복확인</button>
                     <!-- 사용가능하면 alert로 사용가능합니다 -->
 
@@ -179,7 +179,7 @@
             <tr>
                 <td class="cols1" rowspan="2">배송 주소</td>
                 <!-- <td>
-                    <input type="text" class="userAddr" name="userAddr" disabled>
+                    <input type="text" class="address" name="address" disabled>
                 </td> -->
 
             </tr>
@@ -193,7 +193,7 @@
                 <td>
                     <input type="radio" value="M" name="gender"><label for="man" style="font-size:14px"> 남자</label>&nbsp;
                     <input type="radio" value="F" name="gender"><label for="women" style="font-size:14px"> 여자</label>&nbsp;
-                    <input type="radio" value="N" name="gender"><label for="noAnswer" style="font-size:14px"> 선택안함</label>
+                    <input type="radio" value="N" name="gender" checked><label for="noAnswer" style="font-size:14px"> 선택안함</label>
                 </td>
             </tr>
             <tr class="birth">
@@ -360,7 +360,7 @@
 							$(".id_chk_txt").css("color","green");
 						}
 					
-						if(isUsable){
+						if(id_Usable){
 							// 아이디 중복 체크 후 사용 가능한 아이디이며 사용하기로 한 경우
 							
 							

@@ -13,7 +13,7 @@ public class Member {
 	private String addr;
 	private String gender;
 	private String nickname;
-	private Date birth;
+	private String birth;
 	private String mGrade;
 	private Date mOutDate;
 	private String mStatus;
@@ -21,8 +21,23 @@ public class Member {
 	
 	public Member() {}
 
+	public Member(String mId, String mPwd, String mName, String email, String phone, String addr, String gender,
+			String birth) {
+		super();
+		this.mId = mId;
+		this.mPwd = mPwd;
+		this.mName = mName;
+		this.email = email;
+		this.phone = phone;
+		this.addr = addr;
+		this.gender = gender;
+		this.birth = birth;
+	}
+
+
+
 	public Member(String mNo, String mId, String mPwd, String mName, Date mEntDate, String email, String phone,
-			String addr, String gender, String nickname, Date birth, String mGrade, Date mOutDate, String mStatus,
+			String addr, String gender, String nickname, String birth, String mGrade, Date mOutDate, String mStatus,
 			String mIntro) {
 		super();
 		this.mNo = mNo;
@@ -122,11 +137,11 @@ public class Member {
 		this.nickname = nickname;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -169,6 +184,7 @@ public class Member {
 				+ nickname + ", birth=" + birth + ", mGrade=" + mGrade + ", mOutDate=" + mOutDate + ", mStatus="
 				+ mStatus + ", mIntro=" + mIntro + "]";
 	}
+
 
 	
 }

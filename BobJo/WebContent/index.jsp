@@ -163,7 +163,7 @@
 <%@ include file="views/common/menubar.jsp" %>
 
 <button onclick="testing()">보드 테스트</button>
-
+<button id="testbtn">모달 테스트</button>
 
 <div id="carouselExampleCaptions" class="carousel slide main_type1" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -370,6 +370,10 @@
 
 </body>
 <script>
+
+$("#testbtn").click(function(){
+    $('#cartModal').modal("show");
+ });
 	function testing()
 	{
 		location.href="<%= request.getContextPath() %>/board.list";
