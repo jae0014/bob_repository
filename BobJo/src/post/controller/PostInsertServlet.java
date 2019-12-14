@@ -30,19 +30,16 @@ public class PostInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		/*
-		 need Post Value
-		 */
+		request.setCharacterEncoding("UTF-8");
 		
 		
-		Post post = null;
-		int result = new PostService().postInsert(post);
+		Post nPost = (Post)request.getAttribute("post");
+		int result = new PostService().postInsert(nPost);
 		
 		if(result > 0) {
 			response.sendRedirect("board.view");
 		}else {
-			request.setAttribute("msg", "°Ô½ÃÆÇ ÀÛ¼º¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+			request.setAttribute("msg", "ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

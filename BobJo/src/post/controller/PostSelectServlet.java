@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comment.model.service.CommentService;
-import comment.model.vo.Comment;
 import post.model.vo.Post;
+import post.service.PostService;
+import reply.model.service.ReplyService;
+import reply.model.vo.Reply;
 
 /**
  * Servlet implementation class PostViewServlet
@@ -37,8 +38,8 @@ public class PostSelectServlet extends HttpServlet {
 		String nPost = request.getParameter("pId");
 		/*
 		PostService ps = new PostService();
-		Post post = ps.postSelect(nPost);*/
-		/*
+		Post post = ps.postSelect(nPost);
+		
 		private String pId;
 		private int pType;
 		private String pTitle;
@@ -48,8 +49,9 @@ public class PostSelectServlet extends HttpServlet {
 		private String pCount;
 		private String pLike;
 		private String pStatus;*/
-		Post post = new Post();
-		ArrayList<Comment> listcomment = new CommentService().selectAll(nPost , 1);
+		PostService ps = new PostService();
+		Post post = ps.postSelect(nPost);
+		ArrayList<Reply> listcomment = new ReplyService().selectAll(nPost , 1);
 		
 		SimpleDateFormat sdf =new SimpleDateFormat("");
 		
@@ -61,7 +63,7 @@ public class PostSelectServlet extends HttpServlet {
 		}
 		else
 		{
-			request.setAttribute("msg", "");
+			request.setAttribute("msg", "게시물이 없습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
