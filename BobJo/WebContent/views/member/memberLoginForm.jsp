@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 로그인 실패 메세지(아이디가 안맞거나, 비번이 안맞거나 둘다 틀릴 경우)
+	String msg = (String)session.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,12 +88,22 @@ box-sizing:border-box;}
 <body>
 <%@ include file="../common/bootstrap.jsp" %>
 <%@ include file="../common/menubar.jsp" %>
-	
+	<script>
+	var msg = "<%= msg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+		}
+		console.log(msg);
+		
+	});
+</script>
 	
    <div class="outer">
     <p align="center" class="sub_title">로그인</p>
     <div class="login_form" align="center">
-        <form method="POST" action="<%=request.getContextPath()%>/login.me" id="login_form">
+        <form id="login_form" action="<%=request.getContextPath()%>/login.me"  method="post">
             <table style="width:300px;">
                 <tr>
                     <td colspan="3">
@@ -110,6 +124,7 @@ box-sizing:border-box;}
                 <tr height="25px"></tr>
                 <tr align="center">
                     <td colspan="3">
+                   
                         <input type="submit" value="로그인" class="login_btn two_btn">
                     </td>
                 </tr>
@@ -119,6 +134,7 @@ box-sizing:border-box;}
                     </td>
                 </tr>
             </table>
+            
         </form>
     </div><!--login_form-->
     
@@ -128,8 +144,12 @@ box-sizing:border-box;}
     
     
     <script>
-        $(function(){
-            $(".input_form").change(function(){
+	$(function(){
+		$(".join_btn").click(function(){
+			location.href="<%=contextPath%>/views/member/memberJoinForm.jsp";
+		});
+	
+	/*                     $(".input_form").change(function(){
                 $(this).css({"border":"1px solid black;"});
             });
             
@@ -137,14 +157,15 @@ box-sizing:border-box;}
             // 한글입력안되게 해야하는지..?회원가입에 있는 아이디 유효성 가져다쓰기 
             $("#login_form").submit(function(){
 
-                if($('#userid').val()==""){
+                if($('#userId').val()==""){
                     alert("아이디를 입력해주세요.");
                     return false;
                 }
-                if($('#userpwd').val()=="")
+                if($('#userPwd').val()=="")
                 alert("비밀번호를 입력해주세요.");
                 return false;
-            });
+            });*/
+            
         });
     </script>
 

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="common.vo.*, product.model.vo.*, attachment.model.vo.*"%>
+<%
+	Product product = (Product)request.getAttribute("product");
+	Attachment thumbnail = (Attachment)request.getAttribute("thumbnail");
+	/* Attachment productDesc = (Attachment)request.getAttribute("productDesc");
+	Attachment productInfo = (Attachment)request.getAttribute("productInfo"); */
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +36,7 @@
 
         .product-detail-bottom {
             height: 2000px;
-            background-color: wheat;
+            /* background-color: wheat; */
 
         }
 
@@ -41,7 +48,16 @@
         .goods {
             display: inline-table;
         }
+        
+        .goods-menu {
+        	 /* background-color:rgb(128,21,21); */
+        	 border-radius : 1rem;
+        }
 
+		/* .nav-link {
+			color:black !important;
+		} */
+		
         .thumb {
             /* background-color: aquamarine; */
             float: left;
@@ -158,40 +174,39 @@
             <div class="product-detail-top row">
                 <!-- 썸네일, 상품명, 설명, 가격, 수량선택, 장바구니 버튼-->
                 <div class="goods thumb col-4">
-                    <img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" alt="상품이미지">
+                    <img src="<%= request.getContextPath() %>/<%= thumbnail.getfPath() %>/<%= thumbnail.getfName() %>" alt="상품이미지">
                 </div>
                 <div class="goods putCart col-7">
-                    <p class="goods_name">상품명</p>
-                    <p class="goods_short_desc">상품에 대한 짧은 설명</p>
-                    <p class="goods_price">5,000 원</p>
+                    <p class="goods_name"><%= product.getpName() %></p>
+                    <p class="goods_short_desc"><%= product.getpShortDesc() %></p>
+                    <p class="goods_price"><%= product.getpPrice() %> 원</p>
                     <div class="li_table">
                         <ul>
                             <li>판매단위</li>
-                            <li>1팩</li>
+                            <li><%= product.getpSaleUnit() %></li>
                         </ul>
                         <ul>
                             <li>중량/용량</li>
-                            <li>400g</li>
+                            <li><%= product.getpWeight() %></li>
                         </ul>
                         <ul class="last_ul">
                             <li>구매수량</li>
                             <li>
 								<button type="button" class="minus">-</button>
- 								<input type="number" class="numBox" min="1"
- 									value="1" readonly="readonly"/>
+ 								<input type="number" class="numBox" min="0"
+ 									value="0" readonly="readonly"/>
  								<button type="button" class="plus">+</button>
 							</li>
                         </ul>
                     </div>
                     <br>
-                    <p class="goods_total_price">총 상품 금액 : <span>00000</span> 원</p>
+                    <p class="goods_total_price">총 상품 금액 : <span id="totalPrice">0</span> 원</p>
                     <button type="button" id="put_cart">장바구니 담기</button>
                 </div>
             </div>
             <div class="product-detail-bottom">
-                <!-- 상품설명, 상품정보, 후기 탭
-                Scrollspy 이용해보기-->
-                <nav id="goods-menu1" class="navbar navbar-light bg-light">
+                <!-- 상품설명, 상품정보, 후기 탭 Scrollspy 이용해보기-->
+                <nav id="goods-menu1" class="navbar goods-menu bg-light">
                     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
                     <ul class="nav nav-pills">
                         <li class="nav-item selected-item">
@@ -226,7 +241,7 @@
                     </p>
                 </div>
 
-                <nav id="goods-menu2" class="navbar navbar-light bg-light">
+                <nav id="goods-menu2" class="navbar goods-menu bg-light">
                     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
                     <ul class="nav nav-pills">
                         <li class="nav-item selected-item">
@@ -267,6 +282,37 @@
         </div><!-- container 끝-->
 
     </section>
+    
+    <script>
+    	$(".plus").click(function(){
+    		var num = Number($(".numBox").val());
+    		var str = <%= product.getpStock()%>
+    		/* console.log(str); */
+    		var price = Number(<%= product.getpPrice() %>);
+    		if(num<Number(str)){
+        		num = num + 1;
+        		console.log(num);
+        		var total = Number($("#totalPrice").html()) + price;
+        		$("#totalPrice").html(total);
+    		}
+    		$(".numBox").val(num);
+    	});
+    	
+    	$(".minus").click(function(){
+    		var num = Number($(".numBox").val());
+    		var price = Number(<%= product.getpPrice() %>);
+    		if(num>0){
+        		num = num - 1;
+        		console.log(num);
+        		var total = Number($("#totalPrice").html()) - price;
+        		$("#totalPrice").html(total);
+    		}
+    		$(".numBox").val(num);
+    	});
+    	
+    	
+    	
+    </script>
 	
 	<%@ include file="../common/footer.jsp" %>
 </body>
