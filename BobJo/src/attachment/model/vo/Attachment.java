@@ -1,6 +1,7 @@
 package attachment.model.vo;
 
 public class Attachment {
+
 	private String fId; 		// 파일 고유번호
 	private int btype; 		// 1.일반/2.상품/3.레시피/4.댓글/5.프로필/6.1:1문의내역
 	private String bprcId;	// 구분값에따른 게시판번호(FK)
@@ -23,6 +24,8 @@ public class Attachment {
 		this.fPath = fPath;
 		this.fName = fName;
 	}
+
+
 
 
 

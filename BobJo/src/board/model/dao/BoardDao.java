@@ -1,20 +1,31 @@
 package board.model.dao;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-
+import static common.JDBCTemplate.*;
 import post.model.vo.Post;
 import recipe.model.dao.RecipeDao;
 import recipe.model.vo.Recipe;
 
 public class BoardDao {
 	private Properties prop = new Properties();
+
+
+	public ArrayList<Post> boardSelectAll(Connection conn, int currentPage, int boardLimit, int typeNum) {
+		ArrayList<Post> list = null;
+		PreparedStatement pstmt;
+		ResultSet rset = null;
+	
+		String sql = "";
+
+	
+		return null;
 
 	public BoardDao() {
 		String fileName = RecipeDao.class.getResource("/sql/recipe/recipe-query.properties").getPath();
@@ -26,8 +37,6 @@ public class BoardDao {
 		}
 	}
 
-
-	
 	//레시피 등록
 	public int insertBoard(Connection conn, Recipe r) {
 		int result = 0;
@@ -51,6 +60,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
+
 	}
 
 }
