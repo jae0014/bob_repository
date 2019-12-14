@@ -1,19 +1,21 @@
 package post.model.vo;
 
+import java.sql.Date;
+
 public class Post {
 	private String pId;
 	private int pType;
 	private String pTitle;
 	private String pCotent;
 	private String pWriter;
-	private String pDateWritten;
-	private String pCount;
-	private String pLike;
+	private Date pDateWritten;
+	private int pCount;
+	private int pLike;
 	private String pStatus;
 	
 	public Post() {}
-	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, String pDateWritten,
-			String pCount, String pLike, String pStatus) {
+	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, Date pDateWritten,
+			int pCount, int pLike, String pStatus) {
 		super();
 		this.pId = pId;
 		this.pType = pType;
@@ -55,22 +57,22 @@ public class Post {
 	public void setpWriter(String pWriter) {
 		this.pWriter = pWriter;
 	}
-	public String getpDateWritten() {
+	public Date getpDateWritten() {
 		return pDateWritten;
 	}
-	public void setpDateWritten(String pDateWritten) {
+	public void setpDateWritten(Date pDateWritten) {
 		this.pDateWritten = pDateWritten;
 	}
-	public String getpCount() {
+	public int getpCount() {
 		return pCount;
 	}
-	public void setpCount(String pCount) {
+	public void setpCount(int pCount) {
 		this.pCount = pCount;
 	}
-	public String getpLike() {
+	public int getpLike() {
 		return pLike;
 	}
-	public void setpLike(String pLike) {
+	public void setpLike(int pLike) {
 		this.pLike = pLike;
 	}
 	public String getpStatus() {

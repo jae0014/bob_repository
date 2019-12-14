@@ -10,7 +10,6 @@ public class PostService {
 
 	public Post postSelect(String nPost) {
 		Connection conn = getConnection();
-		
 		Post p = new PostDao().postSelect(conn,nPost);
 		close(conn);
 		return p;
