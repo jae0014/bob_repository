@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import attachment.model.vo.Attachment;
+import board.model.vo.Board;
 import recipe.model.service.RecipeService;
 import recipe.model.vo.PageInfo;
 import recipe.model.vo.Recipe;
@@ -20,70 +22,55 @@ import recipe.model.vo.Recipe;
 @WebServlet("/list.re")
 public class RecipeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RecipeListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RecipeService rService = new RecipeService();
-		
-		int rCount = rService.getListCount();
-		
-		int currentPage;
-		int pageLimit;
-		int maxPage;
-		int startPage;
-		int endPage;
-		
-		int boardLimit = 10;
-		
-		currentPage = 1;
-		
-		
-		if(request.getParameter("currentPage") !=null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		pageLimit = 10;
-		
-		maxPage = (int)Math.ceil((double)(rCount/boardLimit));
-		
-		startPage = (currentPage - 1) /pageLimit * pageLimit + 1;
-		
-		endPage = startPage + pageLimit - 1;
-		
-		if(maxPage < endPage) {
-			
-			endPage = maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(currentPage, rCount, pageLimit, maxPage, startPage, endPage, boardLimit);
-		
-		
-		ArrayList<Recipe> rList = rService.selectList(currentPage, boardLimit);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/recipe/recipeListView.jsp");
-		request.setAttribute("rList", rList);
-		request.setAttribute("pi", pi);
-		view.forward(request, response);
-		
-		
-		
-		
+	public RecipeListServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		RecipeService rService = new RecipeService();
+
+		String rId = request.getParameter("rId");
+
+		
+		ArrayList<Recipe> rList = rService.selectList(rId);
+
+		ArrayList<Attachment> fList = new ArrayList<Attachment>();
+
+		for (int i = 0; i < rList.size(); i++) {
+			Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
+			fList.add(imgFile);
+
+		}
+
+		if (rList.size() != 0 && fList.size() !=0 ) {
+			request.setAttribute("rList", rList);
+			request.setAttribute("rId", rId);
+			 request.setAttribute("fList", fList); 
+			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
+
+		} else {
+			request.setAttribute("msg", "레시피 조회에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
