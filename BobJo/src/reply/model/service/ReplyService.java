@@ -1,0 +1,21 @@
+package reply.model.service;
+
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import reply.model.dao.ReplyDao;
+import reply.model.vo.Reply;
+public class ReplyService {
+
+	public ArrayList<Reply> selectAll(String nPost, int type) {
+		Connection conn = getConnection();
+		ArrayList<Reply> list = new ReplyDao().selectAll(conn, nPost, type);
+		close(conn);
+		return list;
+	}
+	
+}
+	

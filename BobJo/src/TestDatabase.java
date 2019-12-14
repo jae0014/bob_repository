@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-import comment.model.service.CommentService;
-import comment.model.vo.Comment;
+import reply.model.service.ReplyService;
+import reply.model.vo.Reply;
 
 public class TestDatabase {
 
 	public static void main(String[] args) {
-		ArrayList<Comment> list = new CommentService().selectAll("testPost",1);
-		
+		ArrayList<Reply> list = new ReplyService().selectAll("testPost",1);
+		System.out.println(list);
 
 	}
 

@@ -1,8 +1,8 @@
-package comment.model.vo;
+package reply.model.vo;
 
 import java.util.Date;
 
-public class Comment {
+public class Reply {
 	private String cId;
 	private int bType;
 	private String Board_Id;
@@ -12,10 +12,10 @@ public class Comment {
 	private String status;
 	private String name;
 	
-	public Comment() {}
+	public Reply() {}
 	
 	
-	public Comment(String cId, int bType, String board_Id, String writerId, String content, Date writtenDate,
+	public Reply(String cId, int bType, String board_Id, String writerId, String content, Date writtenDate,
 			String status , String name) {
 		super();
 		this.cId = cId;
@@ -85,7 +85,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [cId=" + cId + ", bType=" + bType + ", Board_Id=" + Board_Id + ", writerId=" + writerId
+		return "Reply [cId=" + cId + ", bType=" + bType + ", Board_Id=" + Board_Id + ", writerId=" + writerId
 				+ ", content=" + content + ", writtenDate=" + writtenDate + ", status=" + status + ", name=" + name
 				+ "]";
 	}
