@@ -398,12 +398,17 @@
 			</a>
 		</div>
 
-		<!-- 네비 바 -->
+		<!--/////////////////////// 네비 바/////////////////////// -->
 		<div class="wrap ">
 			<div class="nav">
 				<div class="menu main_menu" onclick="goMain();">
-					<a href="#"><i class="hamburger material-icons">menu</i> <span
-						class="ttt">전체 레시피</span></a> <br>
+					<a href="<%=request.getContextPath() %>/list.re">
+					
+						<i class="hamburger material-icons">menu</i>
+						
+						<span class="ttt">전체 레시피</span>
+					</a><br>
+					
 					<div class="sub_menu" style="text-align: left">
 						<!-- 서브메뉴 리스트 -->
 						<ul class="cate_main">
@@ -447,7 +452,7 @@
 				</div>
 
 				<div class="menu" onclick="goNotice();">
-					<a href="#">베스트 레시피</a>
+					<a href="<%=request.getContextPath() %>/list.re">베스트 레시피</a>
 				</div>
 
 				<div class="menu main_menu2" onclick="goBoard();">
@@ -467,7 +472,7 @@
 					</div>
 				</div>
 				<div class="menu" onclick="goThumbnail();">
-					<a href="#">게시판</a>
+					<a href="<%=request.getContextPath() %>/board.list">게시판</a>
 				</div>
 				<div class="menu2" onclick="goThumbnail();">
 					<input type="text" class="total_search"> <i
