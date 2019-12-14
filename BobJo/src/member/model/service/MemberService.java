@@ -21,4 +21,14 @@ public class MemberService {
 			return loginUser;
 		}
 
+		// 아이디 중복확인
+		public int idCheck(String userId) {
+			Connection conn = getConnection();
+			int result = new MemberDao().idCheck(conn, userId);
+			
+			close(conn);
+			
+			return result;
+		}
+
 }

@@ -14,13 +14,13 @@
     .sale_list {
         width: 1050px;
         height: 400px;
-        border: 1px solid purple;
+        /* border: 1px solid purple; */
         margin: auto;
     }
     .sale_item {
         /* 상품하나 */
         float: left;
-        border: 1px solid green;
+        /* border: 1px solid green; */
         width: 20%;
         height: 80%;
         margin: 20px;
@@ -31,7 +31,7 @@
         /* 상품 하나 이미지 div */
         width: 100%;
         height: 70%;
-        border: 1px solid tan;
+        /* border: 1px solid tan; */
         position: relative;
     }
     .sale_rate{
@@ -52,7 +52,7 @@
 
     }
     .sale_info{
-        border:1px solid red;
+        /* border:1px solid red; */
         text-decoration: none;
         padding: 5px;
         height:30%;
