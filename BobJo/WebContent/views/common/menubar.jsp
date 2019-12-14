@@ -1,26 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%
-    String contextPath = request.getContextPath();
-
-    %>
-   
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
+
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="shortcut icon" href="<%=contextPath %>/resources/icon/favicon.ico" type='image/x-ico' />
+    <!--부트스트랩-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <!-- 탭 아이콘 -->
+    <link rel="shortcut icon" href="resources/icon/favicon.ico" type='image/x-ico' />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-      
+    <title>Chef J</title>
 <title>Chef J</title>
    <style>
 
    *{
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <!-- 아이콘 사이트 -->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<title>Chef J</title>
+    <style>
+
+        *,{
+
         box-sizing: border-box;
         margin:0;
         padding:0;
@@ -187,9 +197,8 @@
 </style>
 </head>
 <body>
-	
     <!-- 헤더 전체 -->
-    <div class="header " align="center">
+    <div class="header" align="center">
 
         <!--헤더 우측 상단-->
         <div class="mini_menu">
@@ -197,8 +206,10 @@
             <div class="h_small">
                 <!-- 로그인 안했을 때 -->
                 <div><a href="회원가입.html"><span class="txt join_txt">회원가입</span></a></div>
-                <div><a href="로그인.html"><span class="txt login_user">로그인</span></a></div>    
-                <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
+                    <div><a href="로그인.html"><span class="txt login_user">로그인</span></a></div>    
+                    <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
+
+                    <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
 
                 <!-- 로그인 했을 때 -->
                 <!-- <div class="name_txt_div"><a href="마이페이지.html"><span class="txt login_name_txt">홍길동 님</span></a>
@@ -233,20 +244,22 @@
                         </table>
                     </div>
                 </div> -->
-                <!-- <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div> -->
+                <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
 
             </div><!-- h_small-->
+
+            
         </div><!-- mini_menu -->
 
         <br clear="both"><!-- float속성 지워줌 -->
 
         <!-- 로고 -->
         <div class="h_logo">
-            <img class="h_logo2" src="<%=contextPath %>/resources/logo/logo.png">
+            <img class="h_logo2" src="resources/logo/logo.png">
         </div>
 
         <!-- 네비 바 -->
-        <div class="wrap ">
+        <div class="wrap">
             <div class="nav">
                 <div class="menu" onclick="goMain();"><a href="#"><i class="hamburger material-icons">menu</i><span class="ttt">전체 레시피</span></a></div>
                 <div class="menu" onclick="goNotice();"><a href="#">베스트 레시피</a></div>
@@ -256,13 +269,14 @@
                         <input type="text" class="total_search">
                         <i class="search_icon material-icons">search</i>
                 </div>
-                <div class="menu3" onclick="goThumbnail();"><a href="#"><img src="<%=contextPath %>/resources/icon/장바구니715x715.png"
-                            width="36px" height="36px"></a>
-                </div>
+                <div class="menu3" onclick="goThumbnail();"><a href="#"><img src="resources/icon/장바구니715x715.png"
+                            width="36px" height="36px"></a></div>
                             
             </div><!--nav-->
-         </div><!-- wrap -->
-     </div><!-- header -->
-      
+        </div>
+
+
+        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+
 </body>
 </html>
