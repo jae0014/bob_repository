@@ -65,8 +65,24 @@ body {
 	padding: 0px !important;
 }
 
-#cartBtn {
-	padding : 0.2rem !important;
+.cartBtn {
+	padding: 0.2rem !important;
+}
+
+.plus, .minus {
+	height: 2rem;
+	width: 2rem;
+	line-height: 0.5rem;
+	font-weight: 700;
+	border-radius: 0.5rem;
+	background-color: rgb(250, 250, 250);
+}
+
+.numBox {
+	height: 2rem;
+	width: 4rem;
+	text-align: center;
+	border-radius: 0.5rem;
 }
 
 .card-text {
@@ -166,6 +182,7 @@ body {
 			<div class="product-wrap">
 				<%
 					for (int i = 0; i < pList.size(); i++) {
+						Product product = pList.get(i);
 				%>
 				<%
 					if (i % 4 == 0) {
@@ -177,27 +194,42 @@ body {
 					<div class="col-sm-3 gg">
 						<div class="card">
 							<div class="card-img">
-								<a 
-									href="<%= request.getContextPath() %>/detail.pr?pId=<%= pList.get(i).getpId() %>">
-									<% for (Attachment at : fList) { %> 
-										<% if (pList.get(i).getpId().equals(at.getBprcId())) { %>
-									<%-- <img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="..."> --%>
+								<a
+									href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>">
+									<%
+										for (Attachment at : fList) {
+									%> <%
+ 	if (pList.get(i).getpId().equals(at.getBprcId())) {
+ %> <%-- <img src="<%= request.getContextPath() %>/resources/sampleImg/당근.png" class="card-img-top" alt="..."> --%>
 									<img
 									src="<%=request.getContextPath()%>/resources/product/<%=cate%>/<%=at.getfName()%>"
-									class="card-img-top" alt="..."> 
-										<% } %> 
-									<% 	} %> 
-									<%-- <img src="<%= request.getContextPath() %>/resources/product/<%= fList.get(i).getfPath() %>" class="card-img-top" alt="..."> --%>
+									class="card-img-top" alt="..."> <%
+ 	}
+ %> <%
+ 	}
+ %> <%-- <img src="<%= request.getContextPath() %>/resources/product/<%= fList.get(i).getfPath() %>" class="card-img-top" alt="..."> --%>
 								</a>
 							</div>
 							<div class="card-body">
 								<div class="row">
 									<div class="col-9">
-										<h5 class="card-title"><%=pList.get(i).getpName()%></h5>
+										<h5 class="card-title">
+											<a
+												href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>">
+												<%=pList.get(i).getpName()%>
+											</a>
+										</h5>
 									</div>
 									<div class="col-3 row">
-										<button class="btn btn-outline-danger col" id="cartBtn">
-											cart</a>
+										<!-- 장바구니 담기 버튼 -->
+										<button class="btn btn-outline-danger col cartBtn" id="cartBtn<%= i %>">
+											cart
+											<input type="hidden" name="pId<%=i %>" value="<%= pList.get(i).getpId() %>">
+											<input type="hidden" name="pName<%=i %>" value="<%= pList.get(i).getpName() %>">
+											<input type="hidden" name="pPrice<%=i %>" value="<%= pList.get(i).getpPrice() %>">
+											<input type="hidden" name="pStock<%=i %>" value="<%= pList.get(i).getpStock() %>">
+										</button>
+
 									</div>
 								</div>
 								<div class="row">
@@ -246,12 +278,120 @@ body {
 			</nav>
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="cartModal" data-backdrop="static"
+			tabindex="-1" role="dialog"
+			aria-labelledby="staticBackd  aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">장바구니</h5>
+						<button type="butt =" close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<input type="hidden" name="putProductId" value="0">
+							<p id="putProduct"></p>
+							<button type="button" class="minus">-</button>
+							<input type="number" class="numBox" min="0" value="0"
+								readonly="readonly" />
+							<button type="button" class="plus">+</button>
+							<span id="totalPrice">0</span> 원
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" id="modal_close">닫기</button>
+						<button type="button" class="btn btn-danger" id="putProductBtn">장바구니 담기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 모달 끝부분 -->
+
+
 	</section>
 
 	<script>
 		$(function() {
-			console.log(fList);
+			console.log("test");
+			
+			$(".cartBtn").click(function(){
+				// 혹시 모르니까 모달 안 데이터 초기화
+				$(".numBox").val(0);
+				$("#totalPrice").html(0);
+				$('input[name=putProductId]').val(0);
+				
+				// 모달 보이게 하기
+				$('#cartModal').modal("show");
+				
+				var i = $(this).attr("id").substring(7);
+
+				// i를 전달하기 위해...
+				$('input[name=putProductId]').val(i);
+				
+				var pName = $('input[name=pName'+i+']').val();
+				$("#putProduct").text(pName);
+				
+			});
+			
+			$(".plus").click(function(){
+				var i = $('input[name=putProductId]').val();
+	    		var num = Number($(".numBox").val());
+	    		var stock = Number($('input[name=pStock'+i+']').val());
+	    		var price = Number($('input[name=pPrice'+i+']').val());
+	    		if(num<Number(stock)){
+	        		num = num + 1;
+	        		console.log(num);
+	        		var total = Number($("#totalPrice").html()) + price;
+	        		$("#totalPrice").html(total);
+	    		}
+	    		$(".numBox").val(num);
+	    	});
+			
+			$(".minus").click(function(){
+				var i = $('input[name=putProductId]').val();
+	    		var num = Number($(".numBox").val());
+	    		var price = Number($('input[name=pPrice'+i+']').val());
+	    		if(num>0){
+	        		num = num - 1;
+	        		console.log(num);
+	        		var total = Number($("#totalPrice").html()) - price;
+	        		$("#totalPrice").html(total);
+	    		}
+	    		$(".numBox").val(num);
+	    	});
+			
+			
+			$("#modal_close").click(function(){
+				// 모달 창을 닫으면 모달 안에 있는 데이터 모두 초기화해야함
+				$(".numBox").val(0);
+				$("#totalPrice").html(0);
+				$('input[name=putProductId]').val(0);
+				
+			});
+			
+			$("#putProductBtn").click(function(){
+				// 장바구니 담기 버튼 클릭 시 로그인 여부 확인
+				<%if (loginUser != null) {%>
+					// 로그인 한 상태일때
+				
+				<%} else {%>
+					// 로그인 안되어 있을 때 로그인 페이지로 이동
+					alert('로그인 후 장바구니를 이용할 수 있습니다.');
+					location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
+				<%}%>
+			});
+			
+			
+			
 		});
+		
+		
+		
 	</script>
 
 	<%@ include file="../common/footer.jsp"%>
