@@ -358,10 +358,10 @@
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">종류별</li>
-                     <li>한식</li>
-                     <li>양식</li>
-                     <li>중식</li>
-                     <li>일식</li>
+                     <li id="cate1">한식</li>
+                     <li id="cate2">양식</li>
+                     <li id="cate3">중식</li>
+                     <li id="cate4">일식</li>
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">재료별</li>
@@ -475,6 +475,27 @@
          var cate = "8";
          location.href = "<%= request.getContextPath() %>/list.pr?cate="+cate;
       });
+      
+      </script>
+      <script>
+      $("#cate1").click(function(){
+    	  var nation="1";
+    	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
+      });
+      $("#cate2").click(function(){
+    	  var nation="2";
+    	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
+      });
+      $("#cate3").click(function(){
+    	  var nation="3";
+    	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
+      });
+      $("#cate4").click(function(){
+    	  var nation="4";
+    	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
+      });
+      
+      
       
       </script>
 </body>

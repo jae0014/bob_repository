@@ -39,9 +39,9 @@ div {
 }
 
 .mold {
-	width: 20%;
+	/* width: 20%; */
 	/* 	margin-left: 2%; */
-	margin: 35px;
+	/* margin: 35px */;
 	display:inline-block;
 	float:left;
 	
@@ -155,20 +155,23 @@ height:100%;
 
 		
 		<div class="recipeWrap" style="border: 1px solid blue;">
-			<% for(Recipe r : rList) { %>
+		<!-- 리스트 전체 테두리 -->
+			<% for(int i = 0; i<rList.size(); i++) { %>
+					<% if(i%4 == 0) {%>
+						<div class="row"> <!-- 한 행(레시피 4개씩 들어갈 예정) -->
+					<% } %>
 					
-			<div class="rowrow">
-					
-				<div class="mold">
+				<div class="mold col-3"> <!-- 레시피 하나 -->
 					
 					<div class="card mb-3 shadow-sm">
 					
 						<div class="thumbnail">
 							
 							<% for(Attachment at : fList){ %>
-								
-							<a href=""><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>" style="width:100%; height:100%"></a>
-						<%} %>
+								<% if(rList.get(i).getrId().equals(at.getBprcId())) {%>
+									<a href=""><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>"></a>
+								<% } %>
+							<%} %><!-- at for문 끝 -->
 						</div>
 						<div class="card-body">
 
@@ -189,11 +192,11 @@ height:100%;
 								</div>
 								<div class="yy">
 
-									<div class="date" id="date1"><%=r.getrDate() %></div>
+									<div class="date" id="date1"><%= rList.get(i).getrDate() %></div>
 
 
-									<div class="views views" id="views">조회수 :</div>
-									<div class="views viewsnum" id="views1"><%=r.getrCount() %></div>
+									<div class="views" id="views">조회수 :</div>
+									<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount() %></div>
 
 								</div>
 
@@ -211,21 +214,18 @@ height:100%;
 							</div>
 						
 
-						</div> <%-- card-body 끝 --%>
+						</div> 
 						
-
-
-
-
-						</div>
+						</div><%-- card-body 끝 --%>
 
 					</div>
 				</div> <%--mold 끝 --%>
 			
 			
-			</div>
-
-			<%} %>
+				<%if(i%4 == 3) { %>
+					</div>
+				<% } %>
+			<% } %> <!-- 레시피 불러오는 for문 끝 -->
 
 		</div>
 
@@ -247,11 +247,6 @@ height:100%;
 		</nav>
 
 	</div>
-
-
-
-
-
 
 	</main>
 
