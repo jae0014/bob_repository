@@ -164,7 +164,7 @@
             <table border="1" align="center" class="button_table">
                 <tr>
                     <td>
-                        <button class="chefj_join_btn btnn"><div class="bbb"><span class="chefj_icon icon"></span><span class="btxt">Chef J 회원가입</span></div></button><br>
+                        <button class="chefj_join_btn btnn" onclick="location.href='<%= request.getContextPath() %>/views/member/memberJoinForm.jsp'"><div class="bbb"><span class="chefj_icon icon"></span><span class="btxt">Chef J 회원가입</span></div></button><br>
                     </td>
                 </tr>
                 <tr>
@@ -191,5 +191,11 @@
 
 
 <%@ include file="../common/footer.jsp" %>
+
+<script>
+	function goJoinForm(){
+		location.href = "<%=contextPath%>/login.me"
+	};
+</script>
 </body>
 </html>

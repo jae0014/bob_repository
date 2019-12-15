@@ -1,3 +1,4 @@
+
 package board.model.dao;
 
 import static common.JDBCTemplate.*;
