@@ -3,8 +3,11 @@ package recipe.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import attachment.model.vo.Attachment;
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
+import product.model.dao.ProductDao;
+import product.model.vo.Product;
 import recipe.model.dao.RecipeDao;
 import recipe.model.vo.Ingredient;
 import recipe.model.vo.Recipe;
@@ -26,14 +29,7 @@ public class RecipeService {
 		
 	}
 
-	public ArrayList<Recipe> selectList(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-		
-		ArrayList<Recipe> rList = new RecipeDao().selectList(conn, currentPage, boardLimit);
-		
-		close(conn);
-		return rList;
-	}
+	 
 
 	//레시피 상세보기(조회수 증가)
 	public Recipe selectRecipe(String rId) {
@@ -56,38 +52,37 @@ public class RecipeService {
 		return r;
 	}
 
-	// 레시피 상세보기(조회수 증가 없이)
-	public Recipe selectRecipeNoCnt(String rId) {
-		Connection conn = getConnection();
-		
-		Recipe r = new RecipeDao().selectRecipe(conn, rId);
-		
-		close(conn);
-		
-		
-		return r;
-	}
+
 
 	
-	// 레시피 등록 서비스
-	public int insertRecipe(Recipe r, ArrayList<Step> stepList, ArrayList<Ingredient> ingredientList) {
-		Connection conn = getConnection();
+	  public Attachment selectThumbnail(String rId) { 
+		 Connection conn =getConnection(); 
+		 RecipeDao rDao = new RecipeDao();
+	  
+	  Attachment thumnail = rDao.selectThumbnail(conn, rId); 
+	  close(conn);
+	  
+	  return thumnail;
+	  
+	  }
+	 
+
+
+
+	public ArrayList<Recipe> selectList( String rId ) {
 		
-		RecipeDao rDao = new RecipeDao();
+		  Connection conn = getConnection(); 
+		  RecipeDao rDao = new RecipeDao();
+		  
+		  ArrayList<Recipe> rList = rDao.selectList(conn,rId); 
+		  close(conn);
+		  
+		  return rList;
+		 
 		
-		int result1 = rDao.insertRecipe(conn, r);
-		int result2 = rDao.insertStep(conn, stepList);
-		int result3 = rDao.insertIngredient(conn,ingredientList);
-		
-		if(result1 > 0 && result2 > 0 && result3 > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result1;
+	
+	
 	}
 
 }
+

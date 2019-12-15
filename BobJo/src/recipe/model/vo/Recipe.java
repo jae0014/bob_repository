@@ -28,26 +28,21 @@ public class Recipe {
 	private String status; //상태
 
 	
-	
-	
-	
-
-
-
-
-
-	
-	
-	
-	
-
-	
 
 
 
 
 
 
+	public Recipe(String rId, String rName, String mNo, Date rDate, int rCount, int rLike) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.rDate = rDate;
+		this.rCount = rCount;
+		this.rLike = rLike;
+	}
 
 	public Recipe(String rId, String rName, String mNo, String rInfo, int rCount, int rCookTime, int rCookLevel, String rInName,
 			String rWeight, int sStep, String sDesc) {
