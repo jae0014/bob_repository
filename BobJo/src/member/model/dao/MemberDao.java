@@ -46,26 +46,14 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 			
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				loginUser = new Member(
-						rs.getString("m_no"),
-						rs.getString("m_id"),
-						rs.getString("m_pwd"),
-						rs.getString("m_name"),
-						rs.getDate("m_ent_date"),
-						rs.getString("email"),
-						rs.getString("phone"),
-						rs.getString("addr"),
-						rs.getString("gender"),
-						rs.getString("nickname"),
-						rs.getDate("birth"),
-						rs.getString("m_grade"),
-						rs.getDate("m_out_date"),
-						rs.getString("m_status"),
-						rs.getString("m_intro")
-						);
-			}
+			/*
+			 * if(rs.next()) { loginUser = new Member( rs.getString("m_no"),
+			 * rs.getString("m_id"), rs.getString("m_pwd"), rs.getString("m_name"),
+			 * rs.getDate("m_ent_date"), rs.getString("email"), rs.getString("phone"),
+			 * rs.getString("addr"), rs.getString("gender"), rs.getString("nickname"),
+			 * rs.getDate("birth"), rs.getString("m_grade"), rs.getDate("m_out_date"),
+			 * rs.getString("m_status"), rs.getString("m_intro") ); }
+			 */
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
