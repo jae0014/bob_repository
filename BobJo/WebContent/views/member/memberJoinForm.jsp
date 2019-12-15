@@ -22,11 +22,11 @@
         }
         .outer{
             width: 680px;
-            height: 630px;
+            height: auto;
             background: white;
             margin:auto;
             padding: 10px;
-            border:1px solid black;
+            /* border:1px solid black; */
         }
         
         .s_btn{
