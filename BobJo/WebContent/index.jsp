@@ -24,7 +24,6 @@
         width: 20%;
         height: 80%;
         margin: 20px;
-        
     }
 
     .sale_thumb {

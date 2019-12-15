@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 			
 		}else {
 			System.out.println("로그인 실패");
-			request.getSession().setAttribute("msg",  "아이디 또는 비밀번호를 잘못입력하셨습니다.");
+			request.getSession().setAttribute("loginFailMsg",  "아이디 또는 비밀번호를 잘못입력하셨습니다.");
 			response.sendRedirect(request.getContextPath()+"/views/member/memberLoginForm.jsp");
 		}
 	}
