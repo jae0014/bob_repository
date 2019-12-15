@@ -15,16 +15,26 @@ import post.model.vo.Post;
 
 public class PostDao {
 	private Properties prop =null;
-	
+	public PostDao() {
+		String fileName = PostDao.class.getResource("/sql/post/post-query.properties").getPath();
+		prop = new Properties();
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Post postSelect(Connection conn, String nPost) {
 		Post p = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String fileName = PostDao.class.getResource("/sql/post/post-query.properties").getPath();
 		try {
-			prop.load(new FileReader(fileName));
+		
 			String sql = prop.getProperty("postSelect");
+			sql = "SELECT * FROM POST WHERE b_id = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nPost);
 			rset = pstmt.executeQuery();
 			while(rset.next())
 			{
@@ -43,13 +53,8 @@ public class PostDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally
+		} 
+		finally
 		{	close(rset);
 			close(pstmt);
 		}
@@ -60,33 +65,34 @@ public class PostDao {
 	public int postEdit(Connection conn, Post p) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String fileName = PostDao.class.getResource("/sql/board/post-query.properties").getPath();
+		
 
 		try {
-			prop.load(new FileReader(fileName));
+			
 			String sql = prop.getProperty("postEdit");
+			sql = "UPDATE BOARD "
+					+ "SET B_ID = ?,B_TYPE =?, B_TITLE = ?,"
+					+ " B_CONTENT=?, M_NO =?, B_DATE =?,"
+					+ "B_COUNT =?,B_LIKE = ?, B_STATUS =? "
+					+ "WHERE B_ID="+p.getpId();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,p.getpId());
 			pstmt.setInt(2,p.getpType());
 			pstmt.setString(3,p.getpTitle());
+			
 			pstmt.setString(4,p.getpCotent());
 			pstmt.setString(5,p.getpWriter());
 			pstmt.setDate(6,p.getpDateWritten());
+			
 			pstmt.setInt(7,p.getpCount());
 			pstmt.setInt(8,p.getpLike());
 			pstmt.setString(9,p.getpStatus());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally
+		} finally
 		{
 			close(pstmt);
 		}
@@ -97,21 +103,14 @@ public class PostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String fileName = PostDao.class.getResource("/sql/board/post-query.properties").getPath();
 
 		try {
-			prop.load(new FileReader(fileName));
 			String sql = prop.getProperty("postDelete");
+			sql = "UPDATE BOARD SET B_STATUS='n' WHERE B_ID=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nPost);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally
@@ -125,11 +124,10 @@ public class PostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String fileName = PostDao.class.getResource("/sql/board/post-query.properties").getPath();
 
 		try {
-			prop.load(new FileReader(fileName));
 			String sql = prop.getProperty("postInsert");
+			sql = "INSERT INTO BOARD VALUES(?,?,? ,?,?,? ,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,p.getpId());
 			pstmt.setInt(2,p.getpType());
@@ -144,16 +142,58 @@ public class PostDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally
+		} finally
 		{
 			close(pstmt);
 		}
+		return result;
+	}
+	
+	//****************************************************
+	//조회수 (visotor).
+	public int increaseCount(Connection conn, String bid) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String sql = prop.getProperty("increaseCount");
+		sql = "UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_ID=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bid);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	//****************************************************
+		//조회수 (visotor).
+	public int increaseLikeCount(Connection conn, String bid) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String sql = prop.getProperty("increaseLikeCount");
+		sql = "UPDATE BOARD SET B_LIKE=B_LIKE+1 WHERE B_ID=?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bid);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 

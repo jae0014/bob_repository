@@ -4,7 +4,7 @@
 
 <%
 	ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
-	ArrayList<Post> listView = new ArrayList<Post>();
+
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	Post postview = new Post();
 	int listCount = pi.getListCount();
@@ -150,7 +150,7 @@
                                     <td class = "mycolSize2"><%=newDateFormat %></td>
                                 </tr>
 								<%
-								listView.add(list.get(i));
+							
                         		}%>
                         </tbody>
                         <tfoot>
@@ -189,7 +189,9 @@
 											<% } else
 											{ %>
 											<li class="page-item ">
-                                                <a class="page-link pageList" href="#" ><%= p%></a>
+                                                <a class="page-link pageList" 
+                                                href="location.href='<%=request.getContextPath() %>
+                                                    /board.list?currentPage=<%= currentPage-1 %>'" ><%= p%></a>
                                             </li>											
                                             <% } %>
 											<% } %>
@@ -205,7 +207,9 @@
                                             </li>
                                             <% } else { %>
                                              <li class="page-item">
-                                                    <a class="page-link " href="#">Next</a>
+                                                    <a class="page-link " 
+                                                    href="location.href='<%=request.getContextPath() %>
+                                                    /board.list?currentPage=<%= currentPage +1 %>'">Next</a>
                                             </li>
                                        
                                             <% } %>
@@ -223,7 +227,7 @@
             </div>
                 	<!-- 게시판이 없다면  -->
             <%} else { %>
-            	<p>없음 </p>
+            	<p>게시글 없음 </p>
            <% }%>
         </div>
         

@@ -35,24 +35,16 @@ public class PostSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		//goPost 메서드 발생 
 		String nPost = request.getParameter("pId");
-		/*
-		PostService ps = new PostService();
-		Post post = ps.postSelect(nPost);
 		
-		private String pId;
-		private int pType;
-		private String pTitle;
-		private String pCotent;
-		private String pWriter;
-		private Date pDateWritten;
-		private String pCount;
-		private String pLike;
-		private String pStatus;*/
+		System.out.println("getting post");
 		PostService ps = new PostService();
+	
 		Post post = ps.postSelect(nPost);
-		ArrayList<Reply> listcomment = new ReplyService().selectAll(nPost , 1);
-		
+		System.out.println("getting comments");
+		ArrayList<Reply> listcomment = new ReplyService().selectAll("testPost" , 1);
+		System.out.println("completed");
 		SimpleDateFormat sdf =new SimpleDateFormat("");
 		
 		if(post !=null)

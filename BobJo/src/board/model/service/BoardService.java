@@ -10,15 +10,38 @@ import static common.JDBCTemplate.*;
 public class BoardService {
 
 	public ArrayList<Post> boardSelectAll(int currentPage, int boardLimit, int typeNum) {
-		//Connection conn  = getConnection();
-		Connection conn = null;
-		 ArrayList<Post> list = new BoardDao().boardSelectAll(conn,currentPage, boardLimit, typeNum);
-		return list;
+		Connection conn  = getConnection();
+		
+		 ArrayList<Post> list = new BoardDao().selectList(conn,currentPage, boardLimit, typeNum);
+		close(conn);
+		 return list;
 	}
 
 	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		Connection conn = getConnection();
 
+		int listCount = new BoardDao().getListCount(conn);
+
+		close(conn);
+
+		return listCount;
+	}
+	public Post selectBoard(int bid) {
+		Connection conn = getConnection();
+		BoardDao bDao = new BoardDao();
+		int result = bDao.increaseCount(conn, bid);
+		Post b = null;
+		if (result > 0) {
+			commit(conn);
+			b = bDao.selectBoard(conn, bid);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return b;
+	}
+	
+	
 }

@@ -27,6 +27,12 @@ public class Post {
 		this.pLike = pLike;
 		this.pStatus = pStatus;
 	}
+	public Post(String bId, String bTitle, String wId, Date date) {
+		this.pId = bId;
+		this.pTitle = pTitle;
+		this.pWriter = wId;
+		this.pDateWritten =date;
+	}
 	public String getpId() {
 		return pId;
 	}

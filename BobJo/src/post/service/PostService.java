@@ -60,4 +60,36 @@ public class PostService {
 		return result;
 	}
 
+	public int increaseCount(String string) {
+		Connection conn = getConnection();
+		int result=  new PostDao().increaseCount(conn,string);
+		if(result>0)
+		{
+			commit(conn);
+		}
+		else
+		{
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+
+	public int increaseLikeCount(String string) {
+		Connection conn = getConnection();
+		int result=  new PostDao().increaseLikeCount(conn,string);
+		if(result>0)
+		{
+			commit(conn);
+		}
+		else
+		{
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+
 }
