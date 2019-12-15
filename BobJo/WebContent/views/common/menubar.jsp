@@ -7,6 +7,8 @@
 
 	//세션에 담긴 로그인유저 받아오기.
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	  String msg = (String)session.getAttribute("msg");
+	
 	
 %>
 <!DOCTYPE html>
@@ -268,9 +270,28 @@
 .cate_main2 li {
    font-size: 14px;
 }
+
+.my_sub:hover{
+cursor : pointer;
+}
+
+
+
+
+
 </style>
 </head>
 <body>
+
+<script>
+   var msg = "<%= msg %>";
+   $(function(){
+      if(msg != "null"){
+         alert(msg);
+         <% session.removeAttribute("msg"); %>
+      }
+   });
+</script>
 
    <!-- 헤더 전체 -->
    <div class="header " align="center">
@@ -296,7 +317,7 @@
             </div>
 <%}else{ %>
             <!-- 로그인 했을 때 -->
-            <div class="name_txt_div"><a href="마이페이지.html"><span class="txt login_name_txt"><%=loginUser.getmName() %> 님</span></a>
+            <div class="name_txt_div"><a href="myProfile.jsp"><span class="txt login_name_txt"><%=loginUser.getmName() %> 님</span></a>
 				
                     <div class="my_sub">
                         <table class="" style="text-align:left" width="80px">
@@ -306,8 +327,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    마이페이지
+                                <td class="myPage">
+                                    	마이페이지
                                 </td>
                             </tr>
                             <tr>
@@ -441,6 +462,11 @@
              $(this).css({"background": "none"});
           });
          
+         $(".myPage").click(function(){
+        	 location.href="<%= request.getContextPath() %>/views/myPageUpdate/myProfile.jsp"; 
+          });
+          
+         
       });
       
       /* J market 하위 메뉴 클릭시 카테고리별 상품목록으로 이동 */
@@ -499,6 +525,8 @@
     	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
       });
       
+      
+     
       
       </script>
 </body>
