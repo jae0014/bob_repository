@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,22 +40,22 @@ public class InsertMemberServlet extends HttpServlet {
 				String userId = request.getParameter("userId");
 				String userPwd = request.getParameter("userPwd");
 				String userName = request.getParameter("userName");
-				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
-				String address=request.getParameter("address");
+				String phone = request.getParameter("phone");
+				String address = request.getParameter("address");
+				String gender = request.getParameter("gender");
+				String birth_year = request.getParameter("birth_year");
+				String[] birth = request.getParameterValues("birth[]");
+				//name이 같으면 배열로 부를 수 있음.
+
+				// 1992-04-20
 				
-				// 단, checkbox는 배열로 값을 받아 하나의 문자열로 만들어 저장(, 기준 문자열 합치기)
-				String[] interest = request.getParameterValues("interest");
-				String inter = "";
-				if(interest !=null) {
-					inter = String.join(", ", interest);
-					
-				}
 				
-				// 3. 비즈니스 로직을 수행할 서비스 메소드 전달하고 결과 값 받기
-				Member mem = new Member(userId, userPwd, userName, phone, email, address, inter);
+				//멤버 객체 만들자.
+				Member m = new Member(userId, userPwd, userName, email, phone, address, gender, birthday);
+				
 				MemberService ms = new MemberService();
-				int result = ms.insertMember(mem);
+				int result = ms.insertMember(m);
 				// 4. 결과 값에 따라 성공 / 실패 페이지로 이동
 				
 				// 성공 시 메인 페이지
