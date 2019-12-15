@@ -141,40 +141,31 @@ public class RecipeDao {
 
 
 
-	public ArrayList<Recipe> selectList(Connection conn, String rId) {
-		ArrayList<Recipe> rList = new ArrayList<Recipe>();
-
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("selectList");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, rId);
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				rList.add(new Recipe(
-						// 레시피명, 작성자명, 좋아요수, 날짜, 조회수
-						rset.getString("R_ID"), rset.getString("R_NAME"), rset.getString("M_NO"),
-						rset.getDate("R_DATE"), rset.getInt("R_COUNT"), rset.getInt("R_LIKE")
-
-				));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return rList;
-	}
-
+	/*
+	 * public ArrayList<Recipe> selectList(Connection conn, String nation) {
+	 * ArrayList<Recipe> rList = new ArrayList<Recipe>();
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rset = null;
+	 * 
+	 * String sql = prop.getProperty("selectList");
+	 * 
+	 * try { pstmt = conn.prepareStatement(sql);
+	 * 
+	 * pstmt.setString(1, nation);
+	 * 
+	 * rset = pstmt.executeQuery();
+	 * 
+	 * while (rset.next()) { rList.add(new Recipe( // 레시피명, 작성자명, 좋아요수, 날짜, 조회수
+	 * rset.getString("R_ID"), rset.getString("R_NAME"), rset.getString("M_NO"),
+	 * rset.getDate("R_DATE"), rset.getInt("R_COUNT"), rset.getInt("R_LIKE")
+	 * 
+	 * )); }
+	 * 
+	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
+	 * close(pstmt); }
+	 * 
+	 * return rList; }
+	 */
 	
 	public Attachment selectThumbnail(Connection conn, String rId) {
 		PreparedStatement pstmt = null;
@@ -209,9 +200,10 @@ public class RecipeDao {
 
 	
 	////////////////내가사용한메소드 이거는 내가 만들었어
-	public ArrayList<Recipe> selectList(Connection conn) {
+	public ArrayList<Recipe> selectList(Connection conn, String nation) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		ArrayList<Recipe> rlist = new ArrayList<Recipe>();
 		Recipe r = null;
 		
@@ -220,6 +212,8 @@ public class RecipeDao {
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nation);
 			
 			rs = pstmt.executeQuery();
 			
@@ -243,7 +237,7 @@ public class RecipeDao {
 				
 				rlist.add(r);
 			}
-			
+			System.out.println(rlist);
 			
 			
 		} catch (SQLException e) {

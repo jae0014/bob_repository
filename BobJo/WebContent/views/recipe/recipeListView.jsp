@@ -16,8 +16,10 @@
 
 <title>Insert title here</title>
 <style>
+
+
 div {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 }
 
 .recipeWrap {
@@ -34,7 +36,7 @@ div {
 	/* position: relative; */
 	margin: auto;
 	width: 90%;
-	border: 1px solid green;
+/* 	border: 1px solid green; */
 	box-sizing: border-box;
 }
 
@@ -76,8 +78,9 @@ div {
 }
 
 .yy {
-	font-size: 5px;
+	font-size: 15px;
 	text-align: right;
+	
 }
 
 .views {
@@ -123,9 +126,35 @@ div {
 	margin-bottom: 1.5rem;
 }
 
+
+.rName a:link, .rName a:visited, .rWirter a:link, .rWriter a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+.rName a:hover, .rWirter a:hover{
+	color: rgb(212, 106, 106);
+	text-decoration: underline;
+}
+
 .at{
 width:100%;
 height:100%;
+}
+
+ #dropdownMenuButton {
+	background-color: white;
+	border: rgb(257, 157, 157) solid 1px;
+	color: rgb(257, 157, 157);
+} 
+
+.dropdown{
+float:right;
+}
+
+
+.like #heart:hover{
+cursor:pointer;
 }
 }
 </style>
@@ -136,7 +165,7 @@ height:100%;
 
 	<main role="main"> <br>
 	<br>
-	<div class="contentsMain" style="border: 1px solid aqua">
+	<div class="contentsMain">
 
 		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -154,22 +183,22 @@ height:100%;
 		
 
 		
-		<div class="recipeWrap" style="border: 1px solid blue;">
+		<div class="recipeWrap" >
 		<!-- 리스트 전체 테두리 -->
 			<% for(int i = 0; i<rList.size(); i++) { %>
 					<% if(i%4 == 0) {%>
 						<div class="row"> <!-- 한 행(레시피 4개씩 들어갈 예정) -->
 					<% } %>
 					
-				<div class="mold col-3"> <!-- 레시피 하나 -->
+				<div class="mold col-3" > <!-- 레시피 하나 -->
 					
 					<div class="card mb-3 shadow-sm">
 					
-						<div class="thumbnail">
+						<div class="thumbnail" style="height:250px">
 							
 							<% for(Attachment at : fList){ %>
 								<% if(rList.get(i).getrId().equals(at.getBprcId())) {%>
-									<a href=""><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>"></a>
+									<a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(i).getrId()%>"><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>" style="width:100%; height:100%"></a>
 								<% } %>
 							<%} %><!-- at for문 끝 -->
 						</div>
@@ -178,12 +207,14 @@ height:100%;
 							<div class="d-flex justify-content-between align-items-center" >
 
 								<div class="btn-group">
+								
 
-									<div class="like" id="like1">
-										<img width=20px, height=20px,
+									<div class="like" id="like">
+										<img id="heart" onclick="change()" width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/like.png">
+											<%-- <input type="hidden" name="rLike<%=i%>" value="<%=rList.get(i).getrId()%>"> --%>
 									</div>
-									<div class="likenum" id="likenum1">66</div>
+									<div class="likenum" id="likenum1"><%=rList.get(i).getrLike() %></div>
 									<div class="qna" id="qna1">
 										<%-- <img width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/speech-bubble.png"> --%>
@@ -205,12 +236,12 @@ height:100%;
 							
 						<div class="main">
 							<div class="rName">
-								<a href="">갈비찜</a>
+								<a href=""><%=rList.get(i).getrName() %></a>
 							</div>
 
 
 							<div class="rWriter" >
-								<a href="">홍길동</a>
+								<a href=""><%=rList.get(i).getmNo() %></a>
 							</div>
 						
 
@@ -228,6 +259,34 @@ height:100%;
 			<% } %> <!-- 레시피 불러오는 for문 끝 -->
 
 		</div>
+		
+		<script>
+		
+	<%-- 	function change(){
+			var hh = document.getElementById("heart");
+			
+			hh.src="<%=request.getContextPath()%>/resources/images/fulllike.png"
+		} --%>
+		
+		
+		state = 0;
+		function change(){
+		
+			
+			
+			if(state==0){
+				state = 1;
+				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/fulllike.png"
+				console.log(state);
+			}
+			else {
+				state = 0;
+				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/like.png"
+			}
+		}
+		 
+		
+		</script>
 
 
 
