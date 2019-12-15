@@ -54,9 +54,9 @@ public class RecipeService {
 
 
 
-	
+////////////////////////내가 사용한 메소드 이거는 수정이꺼 그대로씀	
 	  public Attachment selectThumbnail(String rId) { 
-		 Connection conn =getConnection(); 
+		 Connection conn = getConnection(); 
 		 RecipeDao rDao = new RecipeDao();
 	  
 	  Attachment thumnail = rDao.selectThumbnail(conn, rId); 
@@ -82,6 +82,18 @@ public class RecipeService {
 		
 	
 	
+	}
+
+
+
+	public ArrayList<Recipe> selectList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Recipe> rlist = new RecipeDao().selectList(conn);
+		
+		
+		close(conn);
+		return rlist;
 	}
 
 }

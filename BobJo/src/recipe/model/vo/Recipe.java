@@ -32,6 +32,28 @@ public class Recipe {
 
 
 
+	public Recipe() {};
+
+	
+	
+	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
+			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel, String status) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = rDate;
+		this.rInfo = rInfo;
+		this.rCount = rCount;
+		this.rLike = rLike;
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		this.status = status;
+	}
+
 
 
 	public Recipe(String rId, String rName, String mNo, Date rDate, int rCount, int rLike) {
