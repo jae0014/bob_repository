@@ -10,6 +10,7 @@
     <link href="../../resources/API/quill/quill.snow.css" rel="stylesheet">
     <script src="../../resources/API/quill/quill.min.js"></script>
     <script src="../../resources/API/quill/quill.js"></script>
+    <script src ="../../resources/API/quill/image-resize.min.js"></script>
 </head>
 <body>
 
