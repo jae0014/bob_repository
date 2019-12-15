@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comment.model.service.CommentService;
-import comment.model.vo.Comment;
 import post.model.vo.Post;
+import post.service.PostService;
+import reply.model.service.ReplyService;
+import reply.model.vo.Reply;
 
 /**
  * Servlet implementation class PostViewServlet
@@ -34,23 +35,16 @@ public class PostSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		//goPost 메서드 발생 
 		String nPost = request.getParameter("pId");
-		/*
-		PostService ps = new PostService();
-		Post post = ps.postSelect(nPost);*/
-		/*
-		private String pId;
-		private int pType;
-		private String pTitle;
-		private String pCotent;
-		private String pWriter;
-		private Date pDateWritten;
-		private String pCount;
-		private String pLike;
-		private String pStatus;*/
-		Post post = new Post();
-		ArrayList<Comment> listcomment = new CommentService().selectAll(nPost , 1);
 		
+		System.out.println("getting post");
+		PostService ps = new PostService();
+	
+		Post post = ps.postSelect(nPost);
+		System.out.println("getting comments");
+		ArrayList<Reply> listcomment = new ReplyService().selectAll("testPost" , 1);
+		System.out.println("completed");
 		SimpleDateFormat sdf =new SimpleDateFormat("");
 		
 		if(post !=null)
@@ -61,7 +55,7 @@ public class PostSelectServlet extends HttpServlet {
 		}
 		else
 		{
-			request.setAttribute("msg", "");
+			request.setAttribute("msg", "게시물이 없습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		

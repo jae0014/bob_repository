@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import post.model.vo.Post;
+import post.service.PostService;
+
 /**
  * Servlet implementation class PostDeleteServlet
  */
@@ -26,8 +29,18 @@ public class PostDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		String nPost = request.getParameter("pId");
+		
+		
+		int result = new PostService().postDelete(nPost);
+		
+		if(result > 0) {
+			response.sendRedirect("board.view");
+		}else {
+			request.setAttribute("msg", "삭제에 실패하였습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

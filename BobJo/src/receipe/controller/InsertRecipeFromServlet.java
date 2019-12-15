@@ -1,4 +1,4 @@
-package post.controller;
+package receipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import post.model.vo.Post;
-import post.service.PostService;
-
 /**
- * Servlet implementation class PostUpdateServlet
+ * Servlet implementation class InsertRecipeFromServlet
  */
-@WebServlet("/post.update")
-public class PostUpdateServlet extends HttpServlet {
+@WebServlet("/recipe.insert")
+public class InsertRecipeFromServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PostUpdateServlet() {
+	public InsertRecipeFromServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,16 +29,10 @@ public class PostUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		Post nPost = (Post)request.getAttribute("post");
-
-		int result = new PostService().postEdit(nPost);
-
-		if (result > 0) {
-			response.sendRedirect("board.view");
-		} else {
-			request.setAttribute("msg", "삭제에 실패하였습니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		String categoy1 = request.getParameter("category1");
+		String categoy2 = request.getParameter("category2");
+		String categoy3 = request.getParameter("category3");
+		System.out.println(categoy1 + categoy2 + categoy3);
 	}
 
 	/**
