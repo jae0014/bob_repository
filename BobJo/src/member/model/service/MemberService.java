@@ -48,5 +48,18 @@ public class MemberService {
 			
 			return result;
 		}
+		
+		// 회원가입 이메일중복확인 메소드
+		public int checkMemberEmail(String email) {
+			//select
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().checkMemberEmail(conn, email);
+
+			
+			close(conn);
+			
+			return result;
+		}
 
 }

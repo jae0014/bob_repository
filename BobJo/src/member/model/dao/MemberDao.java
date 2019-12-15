@@ -114,9 +114,9 @@ public class MemberDao {
 			pstmt.setString(1, m.getmId());
 			pstmt.setString(2, m.getmPwd());
 			pstmt.setString(3, m.getmName());
-			pstmt.setString(4, m.getmName());
-			pstmt.setString(5, m.getmName());
-			pstmt.setString(6, m.getmName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddr());
 			pstmt.setString(7, m.getGender());
 			pstmt.setString(8, m.getBirth());
 					
@@ -131,6 +131,38 @@ public class MemberDao {
 			
 		}
 		
+		
+		return result;
+	}
+	
+	// 회원가입 이메일중복확인 메소드
+	public int checkMemberEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		
+		String sql = prop.getProperty("checkMemberEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);			
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			
+		}
 		
 		return result;
 	}
