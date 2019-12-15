@@ -47,7 +47,7 @@ public class BoardDao {
 
 			// startRow : (currentPage - 1) * boardLimit + 1
 			// endRow : startRow + boardLimit - 1
-
+			
 			int startRow = (currentPage - 1) * boardLimit + 1;
 			int endRow = startRow + boardLimit - 1;
 
