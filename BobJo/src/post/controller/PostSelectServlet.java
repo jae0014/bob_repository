@@ -34,17 +34,17 @@ public class PostSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		//goPost 메서드 발생 
+		request.setCharacterEncoding("UTF-8"); 
 		String nPost = request.getParameter("pId");
-		
-		System.out.println("getting post");
+		System.out.println("getting post: " + nPost);
 		PostService ps = new PostService();
-	
+		// 조회수 +1
+		ps.increaseCount(nPost);
+		// 불러오기
 		Post post = ps.postSelect(nPost);
-		System.out.println("getting comments");
+		//ArrayList<Reply> listcomment = new ReplyService().selectAll(nPost , 1);
 		ArrayList<Reply> listcomment = new ReplyService().selectAll("testPost" , 1);
-		System.out.println("completed");
+
 		SimpleDateFormat sdf =new SimpleDateFormat("");
 		
 		if(post !=null)
