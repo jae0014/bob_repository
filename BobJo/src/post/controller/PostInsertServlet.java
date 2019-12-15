@@ -31,17 +31,20 @@ public class PostInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		
-		Post nPost = (Post)request.getAttribute("post");
-		int result = new PostService().postInsert(nPost);
-		
-		if(result > 0) {
-			response.sendRedirect("board.view");
-		}else {
-			request.setAttribute("msg", "실패하였습니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		String pCotent = (String)request.getParameter("quillData");
+		System.out.println(pCotent);
+		/*
+		 * String nPost = (String)request.getAttribute("pId"); Post post = new
+		 * PostService().postSelect(nPost);
+		 * 
+		 * String pCotent = (String)request.getParameter("quillData");
+		 * post.setpCotent(pCotent); int result = new PostService().postInsert(post);
+		 * 
+		 * if(result > 0) { response.sendRedirect("board.view"); }else {
+		 * request.setAttribute("msg", "실패하였습니다");
+		 * request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,
+		 * response); }
+		 */
 	}
 
 	/**

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  import = "post.model.vo.*"%>
     <%
-    	Post p = (Post)request.getAttribute("postview");
+    	//Post p = (Post)request.getAttribute("postview");
+    	//String edit = (String)request.getAttribute("edit");
     %>
 <!DOCTYPE html>
 <%@ include file = "../common/quillAPI.jsp" %>
@@ -141,7 +142,7 @@
                     <input class="form-control"  name="URL" type="text" >
                   </div>
                   <div class="form-group">
-                  	<label for="display_name">작성자: ???</label>
+                  	<label for="display_name">작성자:</label>
                   	
                   </div>
           <!-- Include the Quill library -->
@@ -149,7 +150,12 @@
         
           </div>
           <div style="width: 100%;">
+          
             <button class = "btn submitBTN" onclick= "getQuill()">작성하기</button>
+        	
+            <!-- 
+            <button class = "btn submitBTN" onclick= "update()">수정하기</button>
+             -->
           </div>
           
 
@@ -186,10 +192,20 @@
     });
     function getQuill()
     {  
-      var OBJECT =  quill.getContents();
-      
+      var quill_object =   quill.container.firstChild.innerHTML;
+      var textarea = document.createElement('textarea');
+      textarea.name = 'quillData';
+      textarea.id = 'quillData';
+      var newTxt = document.getElementById('quillData');
+      newTxt.value = quill_object;
+      console.log(textarea);
+     //location.href =  "<%=request.getContextPath()%>/post.insert";
 
-
+    }
+    function update()
+    {
+        var quill_object =   quill.container.firstChild.innerHTML;
+        
     }
 
 
