@@ -32,22 +32,22 @@ public class PostDao {
 		try {
 		
 			String sql = prop.getProperty("postSelect");
-			sql = "SELECT * FROM POST WHERE b_id = ?";
+			sql = "SELECT * FROM Board WHERE b_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nPost);
 			rset = pstmt.executeQuery();
 			while(rset.next())
 			{
 				p=new Post(
-					rset.getString(1),
-					rset.getInt(2),
-					rset.getString(3),
-					rset.getString(4),
-					rset.getString(5),
-					rset.getDate(6),
-					rset.getInt(7),
-					rset.getInt(8),
-					rset.getString(9)
+					rset.getString("B_ID"),
+					rset.getInt("b_type"),
+					rset.getString("b_title"),
+					rset.getString("b_content"),
+					rset.getString("m_no"),
+					rset.getDate("b_date"),
+					rset.getInt("b_count"),
+					rset.getInt("b_like"),
+					rset.getString("b_status")
 						);
 			}
 		} catch (SQLException e) {
