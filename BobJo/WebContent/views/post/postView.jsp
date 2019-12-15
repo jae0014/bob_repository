@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList,post.model.vo.Post, comment.model.vo.*, java.text.SimpleDateFormat"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList,post.model.vo.Post, reply.model.vo.*, java.text.SimpleDateFormat"%>
     
     
   <%
+  //latestversion
    Post p = (Post)request.getAttribute("post");
-   
-  
-  
-   ArrayList<Comment>  list= (ArrayList<Comment>)request.getAttribute("commentList");
+   ArrayList<Reply>  list= (ArrayList<Reply>)request.getAttribute("commentList");
    int index = list.size(); 
+   
    SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
    String newDateFormat = simple.format(p.getpDateWritten());
    
