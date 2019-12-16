@@ -41,7 +41,7 @@ public class BoardListVIewServlet extends HttpServlet {
 		int typeNum = 0;
 	
 		//
-		int currentPage =0;	
+		int currentPage =1;	
 		// 한 페이지 하단에 보여질 페이지 수
 		int pageLimit;
 		// 전체 페이지에서 가장 마지막 페이지
@@ -53,8 +53,7 @@ public class BoardListVIewServlet extends HttpServlet {
 		
 		//게시글 최대치
 		int boardLimit = 10; 
-		
-		
+
 		if(request.getParameter("currentPage") != null) {
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -62,8 +61,8 @@ public class BoardListVIewServlet extends HttpServlet {
 			typeNum = Integer.parseInt(request.getParameter("typeOfBoard"));
 		}
 		
-		System.out.println(currentPage);
-		pageLimit =10;
+	
+		pageLimit =5;
 		
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -73,20 +72,17 @@ public class BoardListVIewServlet extends HttpServlet {
 	
 		endPage = startPage + pageLimit - 1;
 		
-		System.out.println(startPage + " " +endPage);
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
 		
-
+		
+	
+		System.out.println("typenum: "+ typeNum);
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
-		ArrayList<Post> list = bService.boardSelectAll(startPage, endPage,typeNum);
-		System.out.println(startPage+ " " +endPage);
-		for (Post post : list) {
-			System.out.println(post);
-		}
-	
+		ArrayList<Post> list = bService.boardSelectAll(currentPage,boardLimit ,typeNum);
+		
 		RequestDispatcher view = request.getRequestDispatcher("views/board/boardView.jsp?type="+typeNum);
 		request.setAttribute("typeNum",typeNum);
 		request.setAttribute("list", list);
