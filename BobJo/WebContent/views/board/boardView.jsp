@@ -5,7 +5,7 @@
 <%
 	ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
 	int typeOfBoard = Integer.parseInt(request.getParameter("type"));
-	System.out.println(typeOfBoard);
+	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -144,7 +144,7 @@
                         <tbody>
                         		<% for(int i = 0; i <list.size();i++){
                         			newDateFormat = simple.format(list.get(i).getpDateWritten());
-                        			int num = i +1;%>
+                        			int num = i + ((currentPage-1)* 10)+1;%>
                                 <tr class = "postRow">
                                     <td style="width: 7%;" id = "<%=list.get(i).getpId()%>"><%=num %></td>
                                     <td class = "mycolSize"><%=list.get(i).getpTitle()%></td>
@@ -167,14 +167,14 @@
                                             
 											
 											<!-- 이전 페이지로 (<) -->
-											<% if(currentPage == 1){ %>
+											<% if(startPage == 1){ %>
 											<li class="page-item disabled">
                                                      <a class="page-link" href="#" tabindex="-1">Previous</a>
                                             </li>
 											<% } else { %>
 											<li class="page-item">
                                                         <a class="page-link" 
-                                                        href='<%=request.getContextPath() %>/board.list?currentPage=<%= currentPage -5 %>' 
+                                                        href='<%=request.getContextPath() %>/board.list?currentPage=<%= startPage-1 %>&typeOfBoard=<%=typeOfBoard %>' 
                                                        tabindex="-1">Previous</a>
                                             </li>
 											
@@ -187,14 +187,14 @@
 											<!--  페이지 목록 -->
 										<% for(int p = startPage; p <= endPage; p++){ %>
 											<% if(p == currentPage){ %>
-											<li class="page-item active">
+											<li class="page-item active pageNum">
                                                 <a class="page-link pageList" 
                                                 href='<%=request.getContextPath() %>/board.list?currentPage=<%=p%>&typeOfBoard=<%=typeOfBoard %>'
                                                 ><%= p%></a>
                                             </li>
 											<% } else
 											{ %>
-											<li class="page-item ">
+											<li class="page-item pageNum">
                                                 <a class="page-link pageList" 
                                                 href='<%=request.getContextPath() %>/board.list?currentPage=<%=p%>&typeOfBoard=<%=typeOfBoard %>' ><%= p%></a>
                                             </li>											
@@ -215,7 +215,7 @@
                                             <% } else { %>
                                              <li class="page-item">
                                                     <a class="page-link "
-                                                    href='<%=request.getContextPath() %>/board.list?currentPage=<%= currentPage +5 %>' >Next</a>
+                                                    href='<%=request.getContextPath() %>/board.list?currentPage=<%= endPage +1 %>&typeOfBoard=<%=typeOfBoard %>' >Next</a>
                                             </li>
                                        
                                             <% } %>
