@@ -46,6 +46,7 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 			
 			rs = pstmt.executeQuery();
+
 			
 			if(rs.next()) {
 				loginUser = new Member(
@@ -67,6 +68,7 @@ public class MemberDao {
 						rs.getString("m_intro")
 						);
 			}
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
