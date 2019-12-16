@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Chef J</title>
 <style>
     *{
         box-sizing: border-box;
