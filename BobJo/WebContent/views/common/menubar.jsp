@@ -425,10 +425,10 @@ cursor : pointer;
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">종류별</li>
-                     <li>한식</li>
-                     <li>양식</li>
-                     <li>중식</li>
-                     <li>일식</li>
+                      <li id="cate1">한식</li>
+                     <li id="cate2">양식</li>
+                     <li id="cate3">중식</li>
+                     <li id="cate4">일식</li>
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">재료별</li>
@@ -514,6 +514,7 @@ cursor : pointer;
          $(".logout").click(function(){
             location.href = "<%=contextPath%>/logout.me";
          });
+         
          
       });
       
