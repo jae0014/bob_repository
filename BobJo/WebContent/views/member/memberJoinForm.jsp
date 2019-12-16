@@ -203,11 +203,9 @@ td {
 				<tr>
 					<td class="cols1">*이메일</td>
 					<td><input type="email" placeholder="예: memberchefj@chefj.com"
-						class="email" required>
+						class="email" name="email" required>
 						<button type="button" class="chk_email_btn s_btn">인증번호받기</button>
-
-
-						</td>
+					</td>
 
 
 				</tr>
