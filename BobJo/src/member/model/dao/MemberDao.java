@@ -46,6 +46,7 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 			
 			rs = pstmt.executeQuery();
+
 			
 			if(rs.next()) {
 				loginUser = new Member(
@@ -59,13 +60,15 @@ public class MemberDao {
 						rs.getString("addr"),
 						rs.getString("gender"),
 						rs.getString("nickname"),
-						rs.getDate("birth"),
+						//생일때문에 너무 고통스러움..
+						rs.getString("birth"),
 						rs.getString("m_grade"),
 						rs.getDate("m_out_date"),
 						rs.getString("m_status"),
 						rs.getString("m_intro")
 						);
 			}
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,6 +98,72 @@ public class MemberDao {
 		}finally {
 			close(rset);
 			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//회원가입 Dao
+	public int insertMember(Connection conn, Member m) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getmId());
+			pstmt.setString(2, m.getmPwd());
+			pstmt.setString(3, m.getmName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddr());
+			pstmt.setString(7, m.getGender());
+			pstmt.setString(8, m.getBirth());
+					
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		
+		return result;
+	}
+	
+	// 회원가입 이메일중복확인 메소드
+	public int checkMemberEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		
+		String sql = prop.getProperty("checkMemberEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);			
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			
 		}
 		
 		return result;

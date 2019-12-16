@@ -28,13 +28,13 @@
             background: white;
             margin: auto;
             padding: 10px;
-            border: 1px solid black;
+            /* border: 1px solid black; */
         }
 
         .buttons_div {
             margin: auto;
             width: 400px;
-            border: 1px solid blue;
+            /* border: 1px solid blue; */
         }
 
 
@@ -126,11 +126,11 @@
         }
 
         .btxt{
-            border:1px solid black;
+            /* border:1px solid black; */
             /* line-height: 3.5; */
         }
         button .icon{
-            border: 1px solid black;
+            /* border: 1px solid black; */
             float:left;
             margin: auto;
             margin-left:50px;
@@ -139,7 +139,7 @@
             display: inline-block;
             width: 100%;
             height: 100%;
-            border:1px solid black;
+            /* border:1px solid black; */
             /* padding: 1% 20% 1% 20%; */
 
         }
@@ -161,7 +161,7 @@
     <p align="center" class="sub_title">회원가입</p>
         <p align="center" class="sub_title sub_title2">회원가입 방법을 선택해주세요.</p><br>
         <div class="buttons_div">
-            <table border="1" align="center" class="button_table">
+            <table align="center" class="button_table">
                 <tr>
                     <td>
                         <button class="chefj_join_btn btnn" onclick="location.href='<%= request.getContextPath() %>/views/member/memberJoinForm.jsp'"><div class="bbb"><span class="chefj_icon icon"></span><span class="btxt">Chef J 회원가입</span></div></button><br>

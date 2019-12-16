@@ -1,27 +1,23 @@
-package post.controller;
+package member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import post.model.vo.Post;
-import post.service.PostService;
-
 /**
- * Servlet implementation class PostInsertServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/post.insert")
-public class PostInsertServlet extends HttpServlet {
+@WebServlet("/logout.me")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PostInsertServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +26,9 @@ public class PostInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String pCotent = (String)request.getParameter("quillData");
-		System.out.println(pCotent);
-		/*
-		 * String nPost = (String)request.getAttribute("pId"); Post post = new
-		 * PostService().postSelect(nPost);
-		 * 
-		 * String pCotent = (String)request.getParameter("quillData");
-		 * post.setpCotent(pCotent); int result = new PostService().postInsert(post);
-		 * 
-		 * if(result > 0) { response.sendRedirect("board.view"); }else {
-		 * request.setAttribute("msg", "실패하였습니다");
-		 * request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,
-		 * response); }
-		 */
+		// session에 저장된 값들을 지움 -> 로그인 되어 있던 회원의 정보를 없애 로그아웃 시킴
+		request.getSession().invalidate(); // 해당 세션 만료
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

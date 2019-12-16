@@ -47,7 +47,7 @@ public class EncryptFilter implements Filter {
 		// request나 response를 특정한 형태로 감싸서 변형시키는 애
 		
 		// 전달 받아 온 request를 암호화 래퍼로 감싼채로 생성
-		EncryptWrapper encWrapper = new EncryptWrapper((HttpServletRequest)request);
+		//EncryptWrapper encWrapper = new EncryptWrapper((HttpServletRequest)request);
 		
 		chain.doFilter(encWrapper, response);// 내가 보내줘야할 애는 래퍼처리가된 리퀘스트다.
 		
