@@ -31,26 +31,21 @@ public class RecipeService {
 
 	 
 
-	//레시피 상세보기(조회수 증가)
-	public Recipe selectRecipe(String rId) {
-		Connection conn = getConnection();
-		
-		RecipeDao rDao = new RecipeDao();
-		
-		int result = rDao.increaseCount(conn,rId);
-		
-		Recipe r = null;
-		
-		if(result>0) {
-			commit(conn);
-			r = rDao.selectRecipe(conn, rId);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return r;
-	}
+	/*
+	 * //레시피 상세보기(조회수 증가) public Recipe selectRecipe(String rId) { Connection conn =
+	 * getConnection();
+	 * 
+	 * RecipeDao rDao = new RecipeDao();
+	 * 
+	 * int result = rDao.increaseCount(conn,rId);
+	 * 
+	 * Recipe r = null;
+	 * 
+	 * if(result>0) { commit(conn); r = rDao.selectRecipe(conn, rId); }else {
+	 * rollback(conn); } close(conn);
+	 * 
+	 * return r; }
+	 */
 
 
 
@@ -69,12 +64,12 @@ public class RecipeService {
 
 
 
-	public ArrayList<Recipe> selectList( String rId ) {
+	public ArrayList<Recipe> selectList(String nation) {
 		
 		  Connection conn = getConnection(); 
 		  RecipeDao rDao = new RecipeDao();
 		  
-		  ArrayList<Recipe> rList = rDao.selectList(conn,rId); 
+		  ArrayList<Recipe> rList = rDao.selectList(conn,nation); 
 		  close(conn);
 		  
 		  return rList;
@@ -85,16 +80,6 @@ public class RecipeService {
 	}
 
 
-
-	public ArrayList<Recipe> selectList() {
-		Connection conn = getConnection();
-		
-		ArrayList<Recipe> rlist = new RecipeDao().selectList(conn);
-		
-		
-		close(conn);
-		return rlist;
-	}
 
 }
 

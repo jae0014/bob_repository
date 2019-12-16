@@ -39,12 +39,25 @@ public class RecipeListServlet extends HttpServlet {
 
 //	카테아이디는 일단 나중에 생각하고 전체리스트 가져오는걸로 해볼것
 /*		String rId = request.getParameter("rId");*/
+		String nation = request.getParameter("nation");
+		
+	 
+		System.out.println(nation);
+		String nationStr = "";
+		
+		switch(nation) {
+		case "1" : nationStr = "한식";break;
+		case "2" : nationStr = "양식";break;
+		case "3" : nationStr = "중식";break;
+		case "4" : nationStr = "일식";break;
+		}
 
 		//일단 서비스는 여러번쓸꺼니까 선언해두장
 		RecipeService rService = new RecipeService();
 		
 		// 레시피 테이블 안에 있는 리스트를 전부 가져올 리스트변수를 선언합니다,,
-		ArrayList<Recipe> rList = rService.selectList();
+		//ArrayList<Recipe> rList = rService.selectList();
+		ArrayList<Recipe> rList = rService.selectList(nation);
 
 		// 레시피 아이디에 맞는 첨부파일 불러올꺼임
 		ArrayList<Attachment> fList = new ArrayList<Attachment>();
@@ -62,7 +75,8 @@ public class RecipeListServlet extends HttpServlet {
 
 		if (rList.size() != 0 && fList.size() !=0 ) {
 			request.setAttribute("rList", rList);
-			//request.setAttribute("rId", rId);
+			request.setAttribute("nation", nation);
+			 request.setAttribute("nationStr", nationStr); 
 			request.setAttribute("fList", fList); 
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
 
