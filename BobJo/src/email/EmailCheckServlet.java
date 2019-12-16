@@ -97,8 +97,11 @@ public class EmailCheckServlet extends HttpServlet {
 				}
 			}
 			String AuthenticationKey = temp.toString();
+			HttpSession saveKey = request.getSession();
+			saveKey.setAttribute("keynum", AuthenticationKey);			
 			System.out.println("인증번호 : " + AuthenticationKey);
 
+			// 이게무슨.. 용도일까...
 			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(user, password);
@@ -124,9 +127,8 @@ public class EmailCheckServlet extends HttpServlet {
 			}
 
 			// 세션에 인증키 저장
-			HttpSession saveKey = request.getSession();
-			saveKey.setAttribute("AuthenticationKey", AuthenticationKey);			
 			
+			System.out.println("테스트1(서블릿내부) : " + AuthenticationKey);
 			out.print("success");
 
 		}

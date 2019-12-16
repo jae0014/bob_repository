@@ -13,7 +13,6 @@
 body {
 	background: #f9f9f9 !important;
 }
-
 .outer_top {
 	width: 640px;
 	height: 25px;
@@ -21,7 +20,6 @@ body {
 	margin: auto;
 	font-size: 12px;
 }
-
 .outer {
 	width: 680px;
 	height: auto;
@@ -30,7 +28,6 @@ body {
 	padding: 10px;
 	/* border:1px solid black; */
 }
-
 .s_btn {
 	width: 150px;
 	height: 40px;
@@ -40,17 +37,14 @@ body {
 	border-radius: 3px;
 	font-size: 12px;
 }
-
 .guide_txt {
 	display: block;
 	margin: 5px;
 }
-
 .txt {
 	font-size: 12px;
 	display: block;
 }
-
 .userId, input[type="email"], input[type="password"], .userName, .phone,
 	.address, .email_num_input {
 	width: 288px;
@@ -60,23 +54,19 @@ body {
 	padding: 0 0 0 10px;
 	font-size: 12px;
 }
-
 .cols1 {
 	font-weight: 700;
 	font-size: 14px;
 	padding: 0 0 0 30px;
 	width: 140px;
 }
-
 .join_table {
 	margin-top: 10px;
 	border: 1px solid white;
 }
-
 td {
 	border: 1px solid white;
 }
-
 .birth .birth_day {
 	overflow: hidden;
 	width: 300px;
@@ -84,11 +74,9 @@ td {
 	border: 1px solid #ccc;
 	border-radius: 3px
 }
-
 .birth .birth_day.on {
 	border: 1px solid #333
 }
-
 .birth .birth_day input[type="text"] {
 	float: left;
 	width: 80px;
@@ -96,14 +84,12 @@ td {
 	border: 0 none;
 	text-align: center
 }
-
 .birth .birth_day .bar {
 	width: 20px;
 	height: 38px;
 	padding-top: 10px;
 	text-align: center
 }
-
 .birth .birth_day .bar span {
 	position: static;
 	width: auto;
@@ -118,28 +104,23 @@ td {
 	font-size: 20px;
 	font-weight: 700;
 }
-
 .join_btn {
 	background: rgb(170, 57, 57) !important;
 	border: 1px solid rgb(170, 57, 57) !important;
 	right: 50% !important;
 	font-size: 15px !important;
 }
-
 .submit_td {
 	text-align: right;
 }
-
 .guide_txt {
 	display: none;
 }
-
 .chk_email_num_btn {
 	border: 1px solid rgb(170, 57, 57);
 	background: white;
 	color: rgb(170, 57, 57);
 }
-
 .guide_email {
 	display: none;
 }
@@ -222,7 +203,6 @@ td {
 
 				</tr>
 				<script>
-
             </script>
 
 
@@ -245,7 +225,7 @@ td {
 
 				</tr>
 				<tr>
-					<td><input type="button" value="주소검색" onclick="" class="s_btn">
+					<td><input type="button" value="주소검색" class="juso_btn s_btn">
 					</td>
 				</tr>
 				<tr>
@@ -312,6 +292,11 @@ td {
         
         
     $(function(){
+    	
+    	$(".juso_btn").click(function(){
+    		var pop = window.open("<%=request.getContextPath()%>/views/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+    		
+    	});
         // 해당 input keyup때마다 색변경
         // ID 유효성
         $(".userId").keyup(function(){
@@ -326,11 +311,8 @@ td {
                 id_flag = true;
             }
         });
-
-
         //PW 유효성
         $(".userPwd").keyup(function(){
-
             //정규식 유효성검사
             if(!regexp_pw.test($(".userPwd").val())){
                 $(".guide_txt2").css({"display":"block"});
@@ -341,7 +323,6 @@ td {
                 $(".pw_reg_txt2").css({"color":"green"});
                 pw_re_flag = true;
             }
-
             //비밀번호 6자이상 판별
             var pwlength = $(".userPwd").val();
             if(pwlength.length < 6){
@@ -354,7 +335,6 @@ td {
                 pw_re_flag = true;
             }
         });
-
         
         //PW 확인
         $(".userPwd2").keyup(function(){
@@ -367,13 +347,10 @@ td {
                 $(".pw_chk_txt").css({"color":"green"});
                 pw_ch_flag = true;
             }
-
         });
-
         //NAME
         $(".userName").keyup(function(){
             var userName = $.trim($(".userName").val());
-
             if(!regexp_nm.test(userName)){
                 $(".guide_txt4").css({"display":"block"});
                 $(".nm_chk_txt").css({"color":"red"});
@@ -388,7 +365,6 @@ td {
         
     	
     });
-
         
         // id 중복확인용 값
         var id_Usable = false;
@@ -475,7 +451,6 @@ td {
 								String AuthenticationKey = (String)session.getAttribute("AuthenticationKey");
 							%>
 							 AuthenticationKey = "<%= AuthenticationKey %>";
-
 							
 						}
 					},
@@ -486,14 +461,12 @@ td {
         		});
         	}
             
-
             	
            
         });
         
         
            
-
             //Phone
             //$(".userPhone")
             var ch_key_input = $.trim($(".email_num_input").val());
@@ -508,7 +481,6 @@ td {
             	}
             });
         
-
         
         
         // 폼 제출할때 발생하는 함수

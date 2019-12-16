@@ -54,6 +54,7 @@
 <%@ include file="../common/menubar.jsp" %>
 
 <!-- 사이드바 메뉴 링크걸기 -->
+<%@ include file="../sidemenubar/sidemenu.jsp" %>
 <p class="memberAdmin_txt">회원관리</p>
     <div class="outer">
         <div class="sorting">
