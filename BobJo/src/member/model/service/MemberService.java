@@ -31,4 +31,35 @@ public class MemberService {
 			return result;
 		}
 
+		
+		// 회원가입!!!!!!!!!!!!
+		public int insertMember(Member m) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().insertMember(conn, m);
+			
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
+		
+		// 회원가입 이메일중복확인 메소드
+		public int checkMemberEmail(String email) {
+			//select
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().checkMemberEmail(conn, email);
+
+			
+			close(conn);
+			
+			return result;
+		}
+
 }

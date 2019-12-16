@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	// 로그인 실패 메세지(아이디가 안맞거나, 비번이 안맞거나 둘다 틀릴 경우)
-	String msg = (String)session.getAttribute("msg");
+	String loginFailMsg = (String)session.getAttribute("loginFailMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -89,13 +89,13 @@ box-sizing:border-box;}
 <%@ include file="../common/bootstrap.jsp" %>
 <%@ include file="../common/menubar.jsp" %>
 	<script>
-	var msg = "<%= msg %>";
+	var loginFailMsg = "<%= loginFailMsg %>";
 	$(function(){
-		if(msg != "null"){
-			alert(msg);
-			<% session.removeAttribute("msg"); %>
+		if(loginFailMsg != "null"){
+			alert(loginFailMsg);
+			<% session.removeAttribute("loginFailMsg"); %>
 		}
-		console.log(msg);
+		console.log(loginFailMsg);
 		
 	});
 </script>

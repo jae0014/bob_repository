@@ -33,7 +33,7 @@ public class InsertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 한글이 있을 경우 인코딩 처리
+				// 1. 한글이 있을 경우 인코딩 처리
 				request.setCharacterEncoding("utf-8");
 				
 				// 2. request에 담겨있는 값들 꺼내서 변수에 저장 및 객체 생성
@@ -48,8 +48,8 @@ public class InsertMemberServlet extends HttpServlet {
 				String[] birth = request.getParameterValues("birth[]");
 				//name이 같으면 배열로 부를 수 있음.
 
-				// 1992-04-20
-				
+				// 1992 + 04 + 20
+				String birthday = birth_year + birth[0] + birth[1];
 				
 				//멤버 객체 만들자.
 				Member m = new Member(userId, userPwd, userName, email, phone, address, gender, birthday);

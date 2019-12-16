@@ -4,7 +4,7 @@
 
 <%
     String contextPath = request.getContextPath();
-
+	String msg = (String)session.getAttribute("msg");	
 	//세션에 담긴 로그인유저 받아오기.
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
@@ -282,7 +282,15 @@
 </style>
 </head>
 <body>
-
+<script>
+	var msg = "<%= msg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+		}
+	});
+</script>
 	<!-- 헤더 전체 -->
 	<div class="header " align="center">
 
@@ -333,7 +341,7 @@
 								<td>회원정보수정</td>
 							</tr>
 							<tr>
-								<td>로그아웃</td>
+								<td class="logout">로그아웃</td>
 							</tr>
 						</table>
 					</div>
@@ -367,7 +375,7 @@
 								<td>회원정보수정</td>
 							</tr>
 							<tr>
-								<td>로그아웃</td>
+								<td class="logout">로그아웃</td>
 							</tr>
 						</table>
 					</div>
@@ -497,6 +505,10 @@
           }).mouseleave(function(){
              $(this).css({"background": "none"});
           });
+         
+         $(".logout").click(function(){
+        	 location.href = "<%=contextPath%>/logout.me";
+         });
          
       });
       
