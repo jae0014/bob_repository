@@ -283,7 +283,6 @@ cursor : pointer;
 </style>
 </head>
 <body>
-
 <script>
    var msg = "<%= msg %>";
    $(function(){
@@ -293,7 +292,6 @@ cursor : pointer;
       }
    });
 </script>
-
    <!-- 헤더 전체 -->
    <div class="header " align="center">
 
@@ -301,55 +299,99 @@ cursor : pointer;
       <div class="mini_menu">
 
          <div class="h_small">
-         <%if(loginUser == null) {%>
-            <!-- 로그인 안했을 때 -->
+            <%
+               if (loginUser == null) {
+            %>
+            <!-- 로그인 안했을 때는 회원가입과 로그인이 보여야 함 -->
             <div>
                <a
-                  href='<%= request.getContextPath() %>/views/member/selectJoin.jsp'><span
+                  href='<%=request.getContextPath()%>/views/member/selectJoin.jsp'><span
                   class="txt join_txt">회원가입</span></a>
             </div>
             <div>
                <a
-                  href='<%= request.getContextPath() %>/views/member/memberLoginForm.jsp'><span
+                  href='<%=request.getContextPath()%>/views/member/memberLoginForm.jsp'><span
                   class="txt login_user">로그인</span></a>
             </div>
             <div>
                <a href="고객센터.html"><span class="txt">고객센터</span></a>
             </div>
-<%}else{ %>
-            <!-- 로그인 했을 때 -->
-            <div class="name_txt_div"><a href="myProfile.jsp"><span class="txt login_name_txt"><%=loginUser.getmName() %> 님</span></a>
-				
-                    <div class="my_sub">
-                        <table class="" style="text-align:left" width="80px">
-                            <tr>
-                                <td>
-                                    레시피등록
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="myPage">
-                                    	마이페이지
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    주문조회
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    회원정보수정
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="logout">로그아웃</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            <div><a href="고객센터.html"><span class="txt">고객센터</span></a></div>
-<%} %>
+            <%
+               } else {
+            %>
+            <%
+               if (loginUser.getmId().equals("admin")) {
+            %>
+            <!-- 관리자인 경우 -->
+            <div class="name_txt_div">
+               <a href="#"><span class="txt login_name_txt"><%=loginUser.getmName()%>
+                     님</span></a>
+
+               <div class="my_sub">
+                  <table class="my_sub_table" style="text-align: left">
+                     <tr>
+                        <td>상품등록</td>
+                     </tr>
+                     <tr>
+                        <td class="myPage">마이페이지</td>
+                     </tr>
+                     <!-- <tr>
+                        <td>주문조회</td>
+                     </tr> -->
+                     <tr>
+                        <td>회원정보수정</td>
+                     </tr>
+                     <tr>
+                        <td class="logout">로그아웃</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div>
+               <a href="고객센터.html"><span class="txt">관리자페이지</span></a>
+            </div>
+
+            <%
+               } else {
+            %>
+            <!-- 관리자 아닌 경우 -->
+
+            <!-- 로그인 했을 때는 이름과 고객센터가 보여야 함 -->
+            <div class="name_txt_div">
+               <a href="마이페이지.html"><span class="txt login_name_txt"><%=loginUser.getmName()%>
+                     님</span></a>
+
+               <div class="my_sub">
+                  <table class="" style="text-align: left" width="80px">
+                     <tr>
+                        <td>레시피등록</td>
+                     </tr>
+                     <tr>
+                        <td class="myPage">마이페이지</td>
+                     </tr>
+                     <tr>
+                        <td>주문조회</td>
+                     </tr>
+                     <tr>
+                        <td>회원정보수정</td>
+                     </tr>
+                     <tr>
+                        <td class="logout">로그아웃</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div>
+               <a href="고객센터.html"><span class="txt">고객센터</span></a>
+            </div>
+
+            <%
+               }
+            %>
+
+            <%
+               }
+            %>
          </div>
          <!-- h_small-->
       </div>
@@ -361,16 +403,21 @@ cursor : pointer;
       <!-- 로고 -->
       <div class="h_logo">
          <a href="<%=contextPath%>"> <img class="h_logo2"
-            src="<%=contextPath %>/resources/logo/logo.png">
+            src="<%=contextPath%>/resources/logo/logo.png">
          </a>
       </div>
 
-      <!-- 네비 바 -->
+      <!--/////////////////////// 네비 바/////////////////////// -->
       <div class="wrap ">
          <div class="nav">
-            <div class="menu main_menu">
-               <a href="#"><i class="hamburger material-icons">menu</i>
-               <span   class="ttt">전체 레시피</span></a> <br>
+            <div class="menu main_menu" onclick="goMain();">
+               <a href="<%=request.getContextPath() %>/list.re">
+               
+                  <i class="hamburger material-icons">menu</i>
+                  
+                  <span class="ttt">전체 레시피</span>
+               </a><br>
+               
                <div class="sub_menu" style="text-align: left">
                   <!-- 서브메뉴 리스트 -->
                   <ul class="cate_main">
@@ -378,10 +425,10 @@ cursor : pointer;
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">종류별</li>
-                     <li id="cate1">한식</li>
-                     <li id="cate2">양식</li>
-                     <li id="cate3">중식</li>
-                     <li id="cate4">일식</li>
+                     <li>한식</li>
+                     <li>양식</li>
+                     <li>중식</li>
+                     <li>일식</li>
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">재료별</li>
@@ -414,9 +461,9 @@ cursor : pointer;
             </div>
 
             <div class="menu" onclick="goNotice();">
-               <a href="#">베스트 레시피</a>
+               <a href="<%=request.getContextPath() %>/list.re">베스트 레시피</a>
             </div>
-            
+
             <div class="menu main_menu2" onclick="goBoard();">
                <a href="#">J Market</a><br>
                <div class="sub_menu2" style="text-align: left">
@@ -434,7 +481,7 @@ cursor : pointer;
                </div>
             </div>
             <div class="menu" onclick="goThumbnail();">
-               <a href="#">게시판</a>
+               <a href="<%=request.getContextPath() %>/board.list">게시판</a>
             </div>
             <div class="menu2" onclick="goThumbnail();">
                <input type="text" class="total_search"> <i
@@ -442,7 +489,7 @@ cursor : pointer;
             </div>
             <div class="menu3" onclick="goThumbnail();">
                <a href="#"><img
-                  src="<%=contextPath %>/resources/icon/장바구니715x715.png"
+                  src="<%=contextPath%>/resources/icon/장바구니715x715.png"
                   width="36px" height="36px"></a>
             </div>
 
@@ -462,9 +509,11 @@ cursor : pointer;
           });
          
          $(".myPage").click(function(){
-        	 location.href="<%= request.getContextPath() %>/views/myPageUpdate/myProfile.jsp"; 
+        	location.href="<%= request.getContextPath() %>/views/myPageUpdate/myProfile.jsp"; 
           });
-          
+         $(".logout").click(function(){
+            location.href = "<%=contextPath%>/logout.me";
+         });
          
       });
       
