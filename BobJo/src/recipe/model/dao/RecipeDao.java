@@ -86,10 +86,10 @@ public class RecipeDao {
 	 */
 
 	// 레시피 상세보기
-	public Recipe selectRecipe(Connection conn, String rId) {
+	public ArrayList<Recipe> selectRecipe(Connection conn, String rId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		ArrayList<Recipe> list = new ArrayList<>();
 		Recipe r = null;
 
 		String query = prop.getProperty("selectRecipe");
@@ -101,11 +101,23 @@ public class RecipeDao {
 
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				r = new Recipe(rs.getString("rId"), rs.getString("rName"), rs.getString("mNo"), rs.getString("rInfo"),
-						rs.getInt("rCount"), rs.getInt("rCookTime"), rs.getInt("rCookLevel"), rs.getString("rInName"),
-						rs.getString("rWeight"), rs.getInt("sStep"), rs.getString("sDesc"));
+			while(rs.next()) {
+				r= new Recipe(rs.getString("r_Id"), 
+								rs.getString("r_Name"), 
+								rs.getString("m_No"), 
+								rs.getString("r_Info"),
+								rs.getInt("r_Count"), 
+								rs.getInt("r_CookTime"), 
+								rs.getInt("r_CookLevel"), 
+								rs.getString("r_In_Name"),
+								rs.getString("r_Weight"), 
+								rs.getInt("s_Step"), 
+								rs.getString("s_Desc"));
+				list.add(r);
+				System.out.println("테스트2: " + r);
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -113,7 +125,7 @@ public class RecipeDao {
 			close(pstmt);
 		}
 
-		return r;
+		return list;
 	}
 
 	// 조회수 증가 dao
@@ -251,5 +263,41 @@ public class RecipeDao {
 		
 		return rlist;
 	}
+
+	public ArrayList<Attachment> selectImages(Connection conn, String rId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Attachment> imgList = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectImages");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				imgList.add(new Attachment(
+						rset.getString("F_ID"),
+						rset.getInt("BTYPE"),
+						rset.getString("BPRC_ID"),
+						rset.getInt("F_LEVEL"),
+						rset.getString("F_STATUS"),
+						rset.getString("F_PATH"),
+						rset.getString("F_NAME")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
+	}
+
 
 }
