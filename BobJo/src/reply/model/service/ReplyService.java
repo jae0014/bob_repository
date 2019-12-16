@@ -12,7 +12,7 @@ public class ReplyService {
 
 	public ArrayList<Reply> selectAll(String nPost, int type) {
 		Connection conn = getConnection();
-		ArrayList<Reply> list = new ReplyDao().selectAll(conn, nPost, type);
+		ArrayList<Reply> list = new ReplyDao().selectAll(conn, nPost, 1);
 		close(conn);
 		return list;
 	}

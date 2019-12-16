@@ -243,7 +243,7 @@
                                     <% } %>
                                     <button class="btn" type="button"  style=" background-color: rgb(170,57,57); color:white" id = "moreID">더보기</button>
                                     <% }else {%>
-                                    	<%@ include file = "../common/empty.jsp" %>
+                                    	
                                     <%}%>
                                				
                                    	  </ul>
