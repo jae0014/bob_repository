@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" 
+	import="java.util.ArrayList,attachment.model.vo.*, recipe.model.vo.*"%>
+	
+<% 
+	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList"); 
+	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,52 +18,50 @@
 <style>
 
 
-div{
-border:1px solid red;
-}
-.row {
-	width: 125%;
-	margin: auto;
-	text-align: center;
+div {
+	/*  border: 1px solid red;  */
 }
 
-.container {
+.recipeWrap {
+	width: 100%;
+	/* margin: auto; */
+	text-align: center;
+	display: inline-block;
+}
+
+.contentsMain {
 	margin-top: 4%;
 	margin-bottom: 3%;
 	margin-left: 10%;
-	position: relative;
-	height: 100%;
+	/* position: relative; */
+	margin: auto;
+	width: 90%;
+/* 	border: 1px solid green; */
+	box-sizing: border-box;
 }
 
 .mold {
-
-	width: 20%;
-	margin-left: 2%;
+	/* width: 20%; */
+	/* 	margin-left: 2%; */
+	/* margin: 35px */;
+	display:inline-block;
+	float:left;
+	
 }
 
-.thumbnail {
-	width: 100%;
-	height: 200px;
-}
 
 .likenum, .qnanum {
 	width: 50px;
 	height: 30px;
 }
 
-.content {
-	width: 100%;
-	height: 30%;
-	box-sizing: border-box;
-	display: inline-block;
-}
 
 .name {
 	width: 100%;
 	height: 30%;
 }
 
-.writer {
+.rWriter {
 	width: 100%;
 	height: 70%;
 }
@@ -66,8 +71,10 @@ border:1px solid red;
 }
 
 .yy {
-	font-size: 5px;
+	font-size: 12px;
 	text-align: right;
+	color:#999999;
+	
 }
 
 .views {
@@ -78,13 +85,13 @@ border:1px solid red;
 	display: inline-block;
 }
 
-.name {
+.rName {
 	height: 100%;
-	width: 60%;
+	width: 100%;
 	display: inline-block;
 	font-size: 25px;
 	font-weight: bold;
-	text-align: right;
+
 }
 
 .recipe {
@@ -106,18 +113,67 @@ border:1px solid red;
 	border: rgb(257, 157, 157) solid 1px;
 	color: rgb(257, 157, 157);
 }
+
+.rowrow {
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 1.5rem;
 }
+
+
+.rName a:link, .rName a:visited, .rWirter a:link, .rWriter a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+.rName a:hover, .rWirter a:hover{
+	color: rgb(212, 106, 106);
+	text-decoration: underline;
+}
+
+.at{
+width:100%;
+height:100%;
+}
+
+ #dropdownMenuButton {
+	background-color: white;
+	border: rgb(257, 157, 157) solid 1px;
+	color: rgb(257, 157, 157);
+} 
+
+.dropdown{
+float:right;
+}
+
+
+.like .heart:hover{
+cursor:pointer;
+}
+
+
+
+.card:hover{
+	outline : 2px solid rgb(257, 157, 157);
+	 opacity:0.7;
+}
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
-	<%@ include file="../common/bootstrap.jsp" %>
+	<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
 
-	<main role="main">
-
-
-
-	<div class="container">
+	<main role="main"> <br>
+	<br>
+	<div class="contentsMain">
 
 		<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -129,690 +185,168 @@ border:1px solid red;
 			</div>
 		</div>
 		<br> <br> <br>
+ 
 
 
+		
 
-		<div class="row">
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
+		
+		<div class="recipeWrap" >
+		<!-- 리스트 전체 테두리 -->
+			<% for(int i = 0; i<rList.size(); i++) { %>
+					<% if(i%4 == 0) {%>
+						<div class="row"> <!-- 한 행(레시피 4개씩 들어갈 예정) -->
+					<% } %>
+				
+				<div class="mold col-3" style="margin-top:10px" > <!-- 레시피 하나 -->
+				
+					<div class="card mb-3 shadow-sm">
+					
+						<div class="thumbnail" style="height:300px;">
+							
+							<% for(Attachment at : fList){ %>
+								<% if(rList.get(i).getrId().equals(at.getBprcId())) {%>
+									<a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(i).getrId()%>"><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>" style="width:100%; height:100%"></a>
+								<% } %>
+							<%} %><!-- at for문 끝 -->
 						</div>
-						<hr>
+						<div class="card-body" style="padding:10px;">
 
+							<div class="d-flex justify-content-between align-items-center" >
 
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
+								<div class="btn-group">
+								
 
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
+									<div class="like" id="like">
+										<img class="heart" id="heart<%=i%>"  width=20px, height=20px,
+											src="<%=request.getContextPath()%>/resources/images/like.png">
+											<input type="hidden" id="rLike<%=i%>" value="<%=rList.get(i).getrLike()%>">
+											
+										
+										
+		
+											
+											
+									</div>
+									<div class="likenum" id="likenum1" style="text-align:left;">&nbsp;<%=rList.get(i).getrLike() %></div>
+									<div class="qna" id="qna1">
+										<%-- <img width=20px, height=20px,
+											src="<%=request.getContextPath()%>/resources/images/speech-bubble.png"> --%>
+									</div>
+									<div class="qnanum" id="qnanum1"></div>
 								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
+								<div class="yy">
+
+									<div class="date" id="date1"><%= rList.get(i).getrDate() %></div>
+
+
+									<div class="views" id="views">조회수 :</div>
+									<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount() %></div>
+
 								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
+
 							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
+							<!-- <hr> -->
+							
+						<div class="main" style="text-align:left;">
+							<div class="rName" >
+								<a href=""><%=rList.get(i).getrName() %></a>
 							</div>
 
 
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
+							<div class="rWriter" >
+								<a href=""><%=rList.get(i).getmNo() %></a>
 							</div>
+						
 
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
+						</div> 
+						
+						</div><%-- card-body 끝 --%>
 
 					</div>
-				</div>
-			</div>
-
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
+					
+				</div> <%--mold 끝 --%>
+			
+			
+				<%if(i%4 == 3) { %>
 					</div>
-					<div class="card-body">
+				<% } %>
+			<% } %> <!-- 레시피 불러오는 for문 끝 -->
 
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<div class="mold">
-				<div class="card mb-3 shadow-sm">
-					<div class="thumbnail" id="thumbnail1">
-						<a href=""><img width=100%, height=100%,
-							src="../../resources/images/갈비찜.jpg"></a>
-					</div>
-					<div class="card-body">
-
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group">
-
-								<div class="like" id="like1">
-									<img width=20px, height=20px,
-										src="../../resources/images/like.png">
-								</div>
-								<div class="likenum" id="likenum1">&nbsp;521</div>
-								<div class="qna" id="qna1">
-									<img width=20px, height=20px,
-										src="../../resources/images/speech-bubble.png">
-								</div>
-								<div class="qnanum" id="qnanum1">&nbsp;860</div>
-							</div>
-							<div class="yy">
-
-								<div class="date" id="date1">2019-12-02</div>
-
-
-								<div class="views views" id="views">조회수 :</div>
-								<div class="views viewsnum" id="views1">8555</div>
-
-							</div>
-
-
-
-						</div>
-						<hr>
-
-
-						<div class="main">
-							<div class="name" id="name1">
-								<a href="">갈비찜</a>
-							</div>
-
-
-							<div class="recipe writer" id="writer1">
-								<a href="">홍길동</a>
-							</div>
-							<div class="recipe blank"></div>
-
-
-						</div>
-
-					</div>
-				</div>
-			</div>
 		</div>
+		
+<script>
+		
+		
+	<%-- 	state = 0;
+		function change(){
+		
+			if(state==0){
+				state = 1;
+				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/fulllike.png"
+				console.log(state);
+			}
+			else {
+				state = 0;
+				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/like.png"
+			}
+		}; --%>
+		
+		
+	<%-- 	$(function(){
+			$(".heart").click(function(){
+				var i = $(this).attr("id").substring(5);
+				/* var heart = $(this).attr("id"); */
+				$(this).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png') ;
+				$("#heart"+i).click(function(){
+					$(this).attr('src','<%=request.getContextPath()%>/resources/images/like.png') ;
+				});
+			});
+			
+		}); --%>
+		
+		
+		state=0;
+	
+			$(".heart").click(function(){
+				var i = $(this).attr("id").substring(5); 
+				
+				if(state==0){
+					state=1;
+					$("#heart"+i).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png');
+					
+					console.log(state);
+				}else{
+					state=0;
+					$("#heart"+i).attr('src','<%=request.getContextPath()%>/resources/images/like.png');
+					console.log(state);
+				}
+			});
+
+		
+	
+
+		
+	
+		</script>
+
+
+
+		<%-- 페이징 --%>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item disabled"><a class="page-link" href="#"
+					tabindex="-1" aria-disabled="true">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">4</a></li>
+				<li class="page-item"><a class="page-link" href="#">5</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
+		</nav>
+
 	</div>
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1" aria-disabled="true">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">4</a></li>
-			<li class="page-item"><a class="page-link" href="#">5</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
-
-
-
 
 	</main>
 
@@ -820,7 +354,7 @@ border:1px solid red;
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-		
-		<%@include file="../common/footer.jsp" %>
+
+	<%@include file="../common/footer.jsp"%>
 </body>
 </html>

@@ -1,107 +1,111 @@
 package attachment.model.vo;
 
 public class Attachment {
-   private String fId;       // 파일 고유번호
-   private int btype;       // 1.일반/2.상품/3.레시피/4.댓글/5.프로필/6.1:1문의내역
-   private String bprcId;   // 구분값에따른 게시판번호(FK)
-   private int fLevel;      // 썸네일:1/일반:2
-   private String fStatus;   // 파일삭제여부
-   private String fPath;   // 파일경로
-   private String fName;
-   
-   
-   public Attachment() {}
-   
 
-   public Attachment(String fId, int btype, String bprcId, int fLevel, String fStatus, String fPath, String fName) {
-      super();
-      this.fId = fId;
-      this.btype = btype;
-      this.bprcId = bprcId;
-      this.fLevel = fLevel;
-      this.fStatus = fStatus;
-      this.fPath = fPath;
-      this.fName = fName;
-   }
+	private String fId; 		// 파일 고유번호
+	private int btype; 		// 1.일반/2.상품/3.레시피/4.댓글/5.프로필/6.1:1문의내역
+	private String bprcId;	// 구분값에따른 게시판번호(FK)
+	private int fLevel;		// 썸네일:1/일반:2
+	private String fStatus;	// 파일삭제여부
+	private String fPath;	// 파일경로
+	private String fName;
+	
+	
+	public Attachment() {}
+	
 
-
-
-
-   public String getfId() {
-      return fId;
-   }
+	public Attachment(String fId, int btype, String bprcId, int fLevel, String fStatus, String fPath, String fName) {
+		super();
+		this.fId = fId;
+		this.btype = btype;
+		this.bprcId = bprcId;
+		this.fLevel = fLevel;
+		this.fStatus = fStatus;
+		this.fPath = fPath;
+		this.fName = fName;
+	}
 
 
-   public void setfId(String fId) {
-      this.fId = fId;
-   }
 
 
-   public int getBtype() {
-      return btype;
-   }
 
 
-   public void setBtype(int btype) {
-      this.btype = btype;
-   }
+	public String getfId() {
+		return fId;
+	}
 
 
-   public String getBprcId() {
-      return bprcId;
-   }
+	public void setfId(String fId) {
+		this.fId = fId;
+	}
 
 
-   public void setBprcId(String bprcId) {
-      this.bprcId = bprcId;
-   }
+	public int getBtype() {
+		return btype;
+	}
 
 
-   public int getfLevel() {
-      return fLevel;
-   }
+	public void setBtype(int btype) {
+		this.btype = btype;
+	}
 
 
-   public void setfLevel(int fLevel) {
-      this.fLevel = fLevel;
-   }
+	public String getBprcId() {
+		return bprcId;
+	}
 
 
-   public String getfStatus() {
-      return fStatus;
-   }
+	public void setBprcId(String bprcId) {
+		this.bprcId = bprcId;
+	}
 
 
-   public void setfStatus(String fStatus) {
-      this.fStatus = fStatus;
-   }
+	public int getfLevel() {
+		return fLevel;
+	}
 
 
-   public String getfPath() {
-      return fPath;
-   }
+	public void setfLevel(int fLevel) {
+		this.fLevel = fLevel;
+	}
 
 
-   public void setfPath(String fPath) {
-      this.fPath = fPath;
-   }
+	public String getfStatus() {
+		return fStatus;
+	}
 
 
-   public String getfName() {
-      return fName;
-   }
+	public void setfStatus(String fStatus) {
+		this.fStatus = fStatus;
+	}
 
 
-   public void setfName(String fName) {
-      this.fName = fName;
-   }
+	public String getfPath() {
+		return fPath;
+	}
 
 
-   @Override
-   public String toString() {
-      return "Attachment [fId=" + fId + ", btype=" + btype + ", bprcId=" + bprcId + ", fLevel=" + fLevel
-            + ", fStatus=" + fStatus + ", fPath=" + fPath + ", fName=" + fName + "]";
-   }
-   
-   
+	public void setfPath(String fPath) {
+		this.fPath = fPath;
+	}
+
+
+	public String getfName() {
+		return fName;
+	}
+
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Attachment [fId=" + fId + ", btype=" + btype + ", bprcId=" + bprcId + ", fLevel=" + fLevel
+				+ ", fStatus=" + fStatus + ", fPath=" + fPath + ", fName=" + fName + "]";
+	}
+
+	
+	
 }

@@ -227,7 +227,7 @@
                                     	<%} else{%>
                                    	<li class="media commentShow" >
                                    	<%}%>
-                                      			<img class="mr-3" src="" alt="Generic placeholder image">
+                                      			<img class="mr-3" src="" alt="no image">
                                       			
                                       			<div class ="media-header">
                                       			<h5 class="mt-0 mb-1"><%=list.get(i).getName()%></h5>

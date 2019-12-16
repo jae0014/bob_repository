@@ -6,15 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
- *{
+ 		*{
             box-sizing: border-box;
         }
-    .footer{
-        min-width: 1050px;
-        height: 300px;
-        /* background: rgb(242, 242, 242); */
-        border: 1px solid lightgrey;
-
+        
+        .outer_f{
+        	width: 100%;
+        	/* border: 1px solid black; */
+        	border-top:1px solid lightgrey;
+        	border-bottom:1px solid lightgrey;
+        }
+        
+    	.footer{
+        	max-width: 1050px;
+        	height: 300px;
+        	/* background: rgb(242, 242, 242); */
+        	/* border: 1px solid red; */
+        	margin: auto;
     }
 
     .left_f{
@@ -23,16 +31,14 @@
         float:left;
         width:40%;
         padding: 15px;
-
     }
+    
     .right_f{
-
         /* border:1px solid red; */
         float:left;
         width: 60%;
         height: 100%;
         padding: 15px;
-
     }
     .cs_txt{
         font-size:23px;
@@ -41,7 +47,6 @@
     .cs_num_txt{
         font-size:23px;
         font-weight: bolder;
- 
     }
     .qna_btn{
         border: 1px solid lightgray;
@@ -52,46 +57,46 @@
         border-radius: 3px;
     }
 
-.desc2{
-    color:grey;
-}
-.Ldesc{
-    font-size: 11px;
-}
+	.desc2{
+    	color:grey;
+	}
+	.Ldesc{
+    	font-size: 11px;
+	}
 
-.right_f_top{
-    text-decoration: none;
-    color: black;
-    font-size: 12px;
-    font-weight: bold;
-}
+	.right_f_top{
+	    text-decoration: none;
+	    color: black;
+	    font-size: 12px;
+	    font-weight: bold;
+	}
 
-.Rdesc{
-    font-size: 12px;
-    color: grey;
+	.Rdesc{
+    	font-size: 12px;
+    	color: grey;
 
-}
-.Rdesc a{
-    text-decoration: none;
-    color:rgb(170, 57, 57);
-}
+	}
+	.Rdesc a{
+    	text-decoration: none;
+    	color:rgb(170, 57, 57);
+	}
 
-.cpr_txt{
- font-weight: bolder;
- font-size:13px;
+	.cpr_txt{
+ 		font-weight: bolder;
+ 		font-size:13px;
+	}
 
-}
-
-table{
-    height: 50px;
-    /* border: 1px solid black; */
-}
-td{
-    padding: 3px;
-}
+	table{
+    	height: 50px;
+    	/* border: 1px solid black; */
+	}
+	td{
+    	padding: 3px;
+	}
 </style>
 </head>
 <body>
+<div class="outer_f">
     <div class="footer">
         <div class="left_f">
             <span class="cs_txt">고객행복센터<br></span>
@@ -139,6 +144,7 @@ td{
             </span>
 
         </div>
+    </div>
     </div>
 </body>
 </html>
