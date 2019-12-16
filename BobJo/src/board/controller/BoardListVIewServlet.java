@@ -34,69 +34,61 @@ public class BoardListVIewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// µÎ °³ÀÇ ¼­ºñ½º¸¦ È£ÃâÇÏ±â ¶§¹®¿¡ ÂüÁ¶º¯¼ö·Î »ı¼ºÇØ ³õÀÚ
+		request.setCharacterEncoding("UTF-8");
 		BoardService bService = new BoardService();
 		
-		// 1_1. °Ô½Ã±Û ¸®½ºÆ® ÃÑ °¹¼ö ±¸ÇÏ±â
 		int listCount = bService.getListCount();
 		int typeNum = 0;
-		//System.out.println("listCount : " + listCount);
-		listCount = 3;
-		// 1_2. ÆäÀÌÂ¡ Ã³¸® Ãß°¡
-		// ÆäÀÌÁö ¼ö Ã³¸®¿ë º¯¼ö ¼±¾ğ
-		int currentPage;		// ÇöÀç ÆäÀÌÁö
-		int pageLimit;			// ÇÑ ÆäÀÌÁö ÇÏ´Ü¿¡ º¸¿©Áú ÆäÀÌÁö ¼ö
-		int maxPage;			// ÀüÃ¼ ÆäÀÌÁö¿¡¼­ °¡Àå ¸¶Áö¸· ÆäÀÌÁö
-		int startPage;			// ÇÑ ÆäÀÌÁö ÇÏ´Ü¿¡ º¸¿©Áú ½ÃÀÛ ÆäÀÌÁö
-		int endPage;			// ÇÑ ÆäÀÌÁö ÇÏ´Ü¿¡ º¸¿©Áú ³¡ ÆäÀÌÁö
+	
+		//
+		int currentPage =0;	
+		// í•œ í˜ì´ì§€ í•˜ë‹¨ì— ë³´ì—¬ì§ˆ í˜ì´ì§€ ìˆ˜
+		int pageLimit;
+		// ì „ì²´ í˜ì´ì§€ì—ì„œ ê°€ì¥ ë§ˆì§€ë§‰ í˜ì´ì§€
+		int maxPage;	
+		// í•˜ë‹¨ ìˆ«ì
+		int startPage;	
+		// ë¦¬ìŠ¤íŠ¸ ë
+		int endPage;	
 		
-		int boardLimit = 5;	// ÇÑ ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Û ÃÖ´ë ¼ö
+		//ê²Œì‹œê¸€ ìµœëŒ€ì¹˜
+		int boardLimit = 10; 
 		
-		// * currentPage : ÇöÀç ÆäÀÌÁö
-		// ±âº»ÀûÀ¸·Î °Ô½ÃÆÇÀº 1 ÆäÀÌÁöºÎÅÍ ½ÃÀÛÇÔ
-		currentPage = 1;
 		
-		// ÇÏÁö¸¸ ÆäÀÌÁö ÀüÈ¯ ½Ã Àü´Ş ¹ŞÀº ÇöÀç ÆäÀÌÁö°¡ ÀÖÀ» ½Ã ÇØ´ç ÆäÀÌÁö¸¦ currentPage·Î Àû¿ë
 		if(request.getParameter("currentPage") != null) {
+			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			
 			typeNum = Integer.parseInt(request.getParameter("typeOfBoard"));
 		}
 		
-		// * pageLimit : ÇÑ ÆäÀÌÁö ÇÏ´Ü¿¡ º¸¿©Áú ÆäÀÌÁö ¼ö
-		pageLimit = 5;
+		System.out.println(currentPage);
+		pageLimit =10;
 		
-		// * maxPage : ÃÑ ÆäÀÌÁöÀÇ ¸¶Áö¸· ¼ö
-		// ±Û °³¼ö°¡ 105°³ÀÌ¸é ÆäÀÌÁö ¼ö´Â 10°³°¡ ¾Æ´Ñ Â¥Åõ¸® 5°³±îÁö ÇÑ ÆäÀÌÁö·Î ÃÄ¼­ 11ÆäÀÌÁö
-		// ÀüÃ¼ °Ô½Ã±Û ¼ö / ÇÑÆäÀÌÁö¿¡ º¸¿©Áú °³¼ö -> ¿Ã¸² Ã³¸®
+		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
-		// * startPage : ÇöÀç ÆäÀÌÁö¿¡ º¸¿©Áö´Â ÆäÀÌÂ¡ ¹ÙÀÇ ½ÃÀÛ ¼ö
-		// ³ªÀÇ ÇöÀç ÆäÀÌÁö(currentPage)¿¡¼­ pageLimit¸¸Å­À» ³ª´©°í ´Ù½Ã °öÇÑ µÚ 1À» ´õÇÑ´Ù
-		// 1 / 10 * 10 + 1 -> 1
-		// 5 / 10 * 10 + 1 -> 1
-		// 11 / 10 * 10 + 1 -> 11
-		// 15 / 10 * 10 + 1 -> 11
-		// ¿©±â¼­ ÇÑ °¡Áö ¿¹¿Ü »óÈ²Àº 10(20, 30, ...)
-		// 10 / 10 * 10 + 1 -> 11
-		// ±×°ÍÀ» ¸·±â À§ÇØ currentPage - 1À» ÇÑ´Ù
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		
-		// * endPage : ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©Áú ¸¶Áö¸· ÆäÀÌÁö ¼ö
+	
 		endPage = startPage + pageLimit - 1;
 		
-		// ÇÏÁö¸¸ ¸¶Áö¸· ÆäÀÌÁö ¼ö°¡ ÃÑ ÆäÀÌÁö ¼öº¸´Ù Å¬ °æ¿ì
-		// ¸¸¾à maxPage°¡ 13ÀÎµ¥ endPage°¡ 20ÀÏ¼ö´Â ¾øÀ¸¹Ç·Î
+		System.out.println(startPage + " " +endPage);
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
 		
-		// ÆäÀÌÁö Á¤º¸¸¦ °øÀ¯ÇÒ VO °´Ã¼ PageInfo Å¬·¡½º¸¦ ¸¸µéÀÚ~~
+
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
-		ArrayList<Post> list = bService.boardSelectAll(currentPage, boardLimit,typeNum);
-		
+		ArrayList<Post> list = bService.boardSelectAll(startPage, endPage,typeNum);
+		System.out.println(startPage+ " " +endPage);
+		for (Post post : list) {
+			System.out.println(post);
+		}
 	
-		RequestDispatcher view = request.getRequestDispatcher("views/board/boardView.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/board/boardView.jsp?type="+typeNum);
+		request.setAttribute("typeNum",typeNum);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		view.forward(request, response);

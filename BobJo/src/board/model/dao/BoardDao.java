@@ -20,7 +20,8 @@ public class BoardDao {
 
 	public BoardDao() {
 		String fileName = BoardDao.class.getResource("/sql/board/board.properties").getPath();
-		 Properties prop = new Properties();
+		System.out.println(fileName);
+		  prop = new Properties();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
@@ -32,12 +33,12 @@ public class BoardDao {
 	
 	public ArrayList<Post> selectList(Connection conn, int currentPage, int boardLimit ,int type) {
 		ArrayList<Post> list = new ArrayList<Post>();
-		 Properties prop = new Properties();
+	
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectList");
-		sql = "SELECT * FROM BoardType1 WHERE ROWNUM BETWEEN ? AND ?";
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -73,13 +74,13 @@ public class BoardDao {
 	}
 
 	public int getListCount(Connection conn) {
-		 Properties prop = new Properties();
+		
 		int listCount = 0;
 		Statement stmt = null;
 		ResultSet rset = null;
 		// SELECT COUNT(*) FROM BOARDTYPE1
 		String sql = prop.getProperty("getListCount");
-		sql = "SELECT COUNT(*) FROM BOARDTYPE1";
+		
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
@@ -99,28 +100,7 @@ public class BoardDao {
 
 	// 2. 게시판 리스트 조회용 dao
 
-	// 3. 조회수 증가 dao
-	public int increaseCount(Connection conn, int bid) {
-		PreparedStatement pstmt = null;
 
-		int result = 0;
-
-		String query = prop.getProperty("increaseCount");
-
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bid);
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
 
 	// 4. 게시판 상세 보기 dao
 	public Post selectBoard(Connection conn, int bid) {

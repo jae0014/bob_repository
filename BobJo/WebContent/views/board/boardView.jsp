@@ -4,17 +4,19 @@
 
 <%
 	ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
-
+	int typeOfBoard = Integer.parseInt(request.getParameter("type"));
+	System.out.println(typeOfBoard);
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Post postview = new Post();
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	
 	SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-	 String newDateFormat= "";
-	   
+	String newDateFormat= "";
+	 
 %>
 <!DOCTYPE html>
 <html>
@@ -171,7 +173,9 @@
                                             </li>
 											<% } else { %>
 											<li class="page-item">
-                                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                                        <a class="page-link" 
+                                                        href='<%=request.getContextPath() %>/board.list?currentPage=<%= currentPage -5 %>' 
+                                                       tabindex="-1">Previous</a>
                                             </li>
 											
 											<% } %>
@@ -184,14 +188,15 @@
 										<% for(int p = startPage; p <= endPage; p++){ %>
 											<% if(p == currentPage){ %>
 											<li class="page-item active">
-                                                <a class="page-link pageList" href="#" tabindex="-1"><%= p%></a>
+                                                <a class="page-link pageList" 
+                                                href='<%=request.getContextPath() %>/board.list?currentPage=<%=p%>&typeOfBoard=<%=typeOfBoard %>'
+                                                ><%= p%></a>
                                             </li>
 											<% } else
 											{ %>
 											<li class="page-item ">
                                                 <a class="page-link pageList" 
-                                                href="location.href='<%=request.getContextPath() %>
-                                                    /board.list?currentPage=<%= currentPage-1 %>'" ><%= p%></a>
+                                                href='<%=request.getContextPath() %>/board.list?currentPage=<%=p%>&typeOfBoard=<%=typeOfBoard %>' ><%= p%></a>
                                             </li>											
                                             <% } %>
 											<% } %>
@@ -201,15 +206,16 @@
       			
       			
 											<!-- 다음 페이지로(>) -->
-											<% if(currentPage == maxPage) { %>
+											<% 
+											
+											if(endPage == maxPage) { %>
                                             <li class="page-item disabled">
-                                                    <a class="page-link " href="#">Next</a>
+                                                    <a class="page-link " href="#" tabindex="-1">Next</a>
                                             </li>
                                             <% } else { %>
                                              <li class="page-item">
-                                                    <a class="page-link " 
-                                                    href="location.href='<%=request.getContextPath() %>
-                                                    /board.list?currentPage=<%= currentPage +1 %>'">Next</a>
+                                                    <a class="page-link "
+                                                    href='<%=request.getContextPath() %>/board.list?currentPage=<%= currentPage +5 %>' >Next</a>
                                             </li>
                                        
                                             <% } %>
@@ -252,7 +258,7 @@
     	})
     	function goPost(index){
 			
-  		  location.href="<%=request.getContextPath()%>/post.view?pId="+index;
+  		  location.href="<%=request.getContextPath()%>/post.view?typeOfBoard=<%=typeOfBoard %>&pId="+index;
      } </script>
     </body>
 </html>
