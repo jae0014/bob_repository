@@ -19,7 +19,7 @@
 
 
 div {
-	/* border: 1px solid red; */
+	/*  border: 1px solid red;  */
 }
 
 .recipeWrap {
@@ -49,19 +49,12 @@ div {
 	
 }
 
-.thumbnail {
-	width: 100%;
-	height: 200px;
-}
 
 .likenum, .qnanum {
 	width: 50px;
 	height: 30px;
 }
 
-.content {
-	
-}
 
 .name {
 	width: 100%;
@@ -78,8 +71,9 @@ div {
 }
 
 .yy {
-	font-size: 15px;
+	font-size: 12px;
 	text-align: right;
+	color:#999999;
 	
 }
 
@@ -97,7 +91,7 @@ div {
 	display: inline-block;
 	font-size: 25px;
 	font-weight: bold;
-	text-align: center;
+
 }
 
 .recipe {
@@ -153,10 +147,24 @@ float:right;
 }
 
 
-.like #heart:hover{
+.like .heart:hover{
 cursor:pointer;
 }
+
+
+
+.card:hover{
+	outline : 2px solid rgb(257, 157, 157);
+	 opacity:0.7;
 }
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -189,12 +197,12 @@ cursor:pointer;
 					<% if(i%4 == 0) {%>
 						<div class="row"> <!-- 한 행(레시피 4개씩 들어갈 예정) -->
 					<% } %>
-					
-				<div class="mold col-3" > <!-- 레시피 하나 -->
-					
+				
+				<div class="mold col-3" style="margin-top:10px" > <!-- 레시피 하나 -->
+				
 					<div class="card mb-3 shadow-sm">
 					
-						<div class="thumbnail" style="height:250px">
+						<div class="thumbnail" style="height:300px;">
 							
 							<% for(Attachment at : fList){ %>
 								<% if(rList.get(i).getrId().equals(at.getBprcId())) {%>
@@ -202,7 +210,7 @@ cursor:pointer;
 								<% } %>
 							<%} %><!-- at for문 끝 -->
 						</div>
-						<div class="card-body">
+						<div class="card-body" style="padding:10px;">
 
 							<div class="d-flex justify-content-between align-items-center" >
 
@@ -210,11 +218,17 @@ cursor:pointer;
 								
 
 									<div class="like" id="like">
-										<img id="heart" onclick="change()" width=20px, height=20px,
+										<img class="heart" id="heart<%=i%>"  width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/like.png">
-											<%-- <input type="hidden" name="rLike<%=i%>" value="<%=rList.get(i).getrId()%>"> --%>
+											<input type="hidden" id="rLike<%=i%>" value="<%=rList.get(i).getrLike()%>">
+											
+										
+										
+		
+											
+											
 									</div>
-									<div class="likenum" id="likenum1"><%=rList.get(i).getrLike() %></div>
+									<div class="likenum" id="likenum1" style="text-align:left;">&nbsp;<%=rList.get(i).getrLike() %></div>
 									<div class="qna" id="qna1">
 										<%-- <img width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/speech-bubble.png"> --%>
@@ -232,10 +246,10 @@ cursor:pointer;
 								</div>
 
 							</div>
-							<hr>
+							<!-- <hr> -->
 							
-						<div class="main">
-							<div class="rName">
+						<div class="main" style="text-align:left;">
+							<div class="rName" >
 								<a href=""><%=rList.get(i).getrName() %></a>
 							</div>
 
@@ -250,6 +264,7 @@ cursor:pointer;
 						</div><%-- card-body 끝 --%>
 
 					</div>
+					
 				</div> <%--mold 끝 --%>
 			
 			
@@ -260,20 +275,12 @@ cursor:pointer;
 
 		</div>
 		
-		<script>
-		
-	<%-- 	function change(){
-			var hh = document.getElementById("heart");
-			
-			hh.src="<%=request.getContextPath()%>/resources/images/fulllike.png"
-		} --%>
+<script>
 		
 		
-		state = 0;
+	<%-- 	state = 0;
 		function change(){
 		
-			
-			
 			if(state==0){
 				state = 1;
 				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/fulllike.png"
@@ -283,11 +290,45 @@ cursor:pointer;
 				state = 0;
 				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/like.png"
 			}
-		}
-		 
+		}; --%>
 		
-		</script>
+		
+	<%-- 	$(function(){
+			$(".heart").click(function(){
+				var i = $(this).attr("id").substring(5);
+				/* var heart = $(this).attr("id"); */
+				$(this).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png') ;
+				$("#heart"+i).click(function(){
+					$(this).attr('src','<%=request.getContextPath()%>/resources/images/like.png') ;
+				});
+			});
+			
+		}); --%>
+		
+		
+		state=0;
+	
+			$(".heart").click(function(){
+				var i = $(this).attr("id").substring(5); 
+				
+				if(state==0){
+					state=1;
+					$("#heart"+i).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png');
+					
+					console.log(state);
+				}else{
+					state=0;
+					$("#heart"+i).attr('src','<%=request.getContextPath()%>/resources/images/like.png');
+					console.log(state);
+				}
+			});
 
+		
+	
+
+		
+	
+		</script>
 
 
 

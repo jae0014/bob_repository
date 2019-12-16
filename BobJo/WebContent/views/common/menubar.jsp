@@ -342,9 +342,7 @@ cursor : pointer;
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    로그아웃
-                                </td>
+                                <td class="logout">로그아웃</td>
                             </tr>
                         </table>
                     </div>
@@ -525,7 +523,7 @@ cursor : pointer;
     	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;
       });
       
-      
+   
      
       
       </script>
