@@ -26,22 +26,7 @@ public class BoardService {
 
 		return listCount;
 	}
-	public Post selectBoard(int bid) {
-		Connection conn = getConnection();
-		BoardDao bDao = new BoardDao();
-		int result = bDao.increaseCount(conn, bid);
-		Post b = null;
-		if (result > 0) {
-			commit(conn);
-			b = bDao.selectBoard(conn, bid);
-		} else {
-			rollback(conn);
-		}
 
-		close(conn);
-
-		return b;
-	}
 	
 	
 }
