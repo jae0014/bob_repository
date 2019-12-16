@@ -161,9 +161,6 @@
 <%@ include file="views/common/bootstrap.jsp" %>
 <%@ include file="views/common/menubar.jsp" %>
 
-<button onclick="testing()">보드 테스트</button>
-<button id="testbtn">모달 테스트</button>
-
 <div id="carouselExampleCaptions" class="carousel slide main_type1" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -359,25 +356,6 @@
 
 
 <%@ include file="views/common/footer.jsp" %>
-
-
-
-
-
-
-  
-
 </body>
-<script>
-
-$("#testbtn").click(function(){
-    $('#cartModal').modal("show");
- });
-	function testing()
-	{
-		location.href="<%= request.getContextPath() %>/board.list";
-	}
-	
-</script>
 
 </html>

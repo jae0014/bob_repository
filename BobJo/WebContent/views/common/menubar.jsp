@@ -68,7 +68,8 @@
    float: left;
    list-style-type: none;
    margin: 5px;
-   width: 60px;
+   /* 글자수에 맞게 늘어나는 방법 찾아봤으면 픽스된 사이즈 문제가있음*/
+   width: 70px;
    text-align: center;
 }
 
