@@ -10,48 +10,8 @@
 </head>
 <style>
 
-	div{
-	/*border:1px solid red;*/
-	}
-	.wraps {
-		background:rgb(212,106,106);
-		width:80%;
-		height:50px;
-		border-radius:10px;
-		margin:auto;
-	
-	}
-	
-	.navis {
-		width:80%;
-		margin:auto;
-		border-radius:10px;
 
-	
-	}
-	
-	.menues {
-		background:rgb(212,106,106);
-		color:white;
-		text-align:center;
-		vertical-align:middle;
-		width:700px;
-		height:50px;
-		display:table-cell;
-		border-radius:10px;
-		
-		
-	}
-	
-	.menues:hover {
-		background:rgb(128, 21, 21);
-		color:rgb(255, 235, 235);
-		font-weight:bold;
-		cursor:pointer;
-		border-radius:10px;
-	}
-	
-	.whole{
+.whole{
 width:80%;
 height:500px;
 margin:auto;
@@ -63,12 +23,12 @@ margin:auto;
 width:30%;
 height:50px;
 text-align:center;
+
 border-radius:5px;
 display:table-cell;
 vertical-align:middle;
 background-color:rgb(255, 235, 235);
 color:rgb(85, 0, 0);
-
 }
 
 .tab:hover {
@@ -141,40 +101,54 @@ margin-bottom:10px;
 .introduce{
 text-align:center;
 }
+
+.myprofile{
+
+width:25%;
+height:70%;
+margin:3% 5% 3% 3%;
+border-radius:5px;
+border:1px solid grey;
+}
+
+.contents{
+border:1px solid grey;
+
+}
+
+
 	
 </style>
 <body>
 
 <%@ include file="../common/bootstrap.jsp" %>
 <%@ include file="../common/menubar.jsp" %>
-
-		<div class="wraps">
-		<div class="navis">
-			<div class="menues" onclick="">프로필</div>
-			<div class="menues" onclick="">레시피</div>
-			<div class="menues" onclick="">댓글</div>
-			<div class="menues" onclick="">내가 작성한 게시글</div>
-			<div class="menues" onclick="">주문조회</div>
-			<div class="menues" onclick="">회원정보수정</div>
-		</div>
-	</div>
-	<br>
+<br><br>
+<%@ include file="myPage.jsp" %>
 	<div class="whole">
 	<div class="tab">프로필</div>
-	<div class="content">
+	<div class="contents">
 	<div class="myprofile">
-	<div class="p background"><img class="bg" src="../../resources/images/마카롱.jpg"></div>
-	<div class="p pic"><a href=""><img class="pf" src="../../resources/images/강아지.jpg" ></a></div>
+	<div class="p background"></div>
+	<div class="p pic"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=400,width=400, status=yes,toolbar=no,menubar=no,location=no");return false'><img class="pf" src="<%=request.getContextPath() %>/resources/images/강아지.jpg" ></a></div>
 
 	<div class="p text">
-		<div class="p nickname"><a href="">홍길동</a></div>
+		<div class="p nickname"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=400,width=400, status=yes,toolbar=no,menubar=no,location=no");return false'>홍길동</a></div>
 		<div class="p introduce">집밥이 짱~~</div>
+		
+		
+		<br><br>
 	</div>
 	
 	</div>
 	
 	</div>
 	</div>
+	
+	
+
+	
+	<br><br>
 
 <%@ include file="../common/footer.jsp" %>
 </body>

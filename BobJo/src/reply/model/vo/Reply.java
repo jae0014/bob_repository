@@ -13,10 +13,12 @@ public class Reply {
 	private String name;
 	
 	public Reply() {}
+
 	
 	
 	public Reply(String cId, int bType, String board_Id, String writerId, String content, Date writtenDate,
 			String status , String name) {
+
 		super();
 		this.cId = cId;
 		this.bType = bType;
@@ -27,6 +29,7 @@ public class Reply {
 		this.status = status;
 		this.name = name;
 	}
+
 
 
 	public String getcId() {
@@ -68,6 +71,7 @@ public class Reply {
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -88,9 +92,9 @@ public class Reply {
 		return "Reply [cId=" + cId + ", bType=" + bType + ", Board_Id=" + Board_Id + ", writerId=" + writerId
 				+ ", content=" + content + ", writtenDate=" + writtenDate + ", status=" + status + ", name=" + name
 				+ "]";
+
 	}
 
 
-	
 	
 }
