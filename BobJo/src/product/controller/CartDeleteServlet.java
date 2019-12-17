@@ -11,19 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
 import product.model.service.ProductService;
-import product.model.vo.Cart;
 
 /**
- * Servlet implementation class MyCartServlet
+ * Servlet implementation class CartDeleteServlet
  */
-@WebServlet("/myCart")
-public class MyCartServlet extends HttpServlet {
+@WebServlet("/delCart.pr")
+public class CartDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyCartServlet() {
+    public CartDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,30 +31,26 @@ public class MyCartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인 유저의 장바구니 페이지 이동
-		Member m = (Member)request.getSession().getAttribute("loginUser");
-		String userId = "";
-		if(m != null) {
-			userId = m.getmId();
-		}else {
-			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
-		}
+		// 해당 상품 장바구니에서 삭제하기
+		request.setCharacterEncoding("utf-8");
 		
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		String pId = request.getParameter("pId");
 		
 		ProductService pService = new ProductService();
+
+		int result = pService.deleteCart(m.getmId(), pId); 
 		
-		// 해당 유저의 아이디의 장바구니 상품들을 가져와 ArrayList에 담기
-		ArrayList<Cart> cartList = pService.selectCartList(userId);
-		
-		request.setAttribute("cartList", cartList);
-		request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);
-		/*if(cartList.size() != 0) {
-			request.setAttribute("cartList", cartList);
-			request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);
+		if(result > 0) {
+			// 장바구니에서 삭제 성공
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print(m.getmId() + "님의 장바구니 안 상품ID : 삭제 완료");
+			
 		}else {
-			request.setAttribute("msg", "장바구니 리스트 조회 실패!!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}*/
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print("실패");
+		}
 		
 	}
 

@@ -267,6 +267,96 @@ public class ProductDao {
 		return list;
 	}
 
+	// 장바구니에 같은 상품 있는지 확인
+	public Cart checkSameProduct(Connection conn, Cart ccc) {
+		Cart same = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("checkSameProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ccc.getUserId());
+			pstmt.setString(2, ccc.getpId());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				same = new Cart(
+						rset.getString("PID"),
+						rset.getInt("QUANTITY"),
+						rset.getString("USER_ID")
+						);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return same;
+	}
+
+	// 장바구니 중복 상품 수량 추가
+	public int addQuantity(Connection conn, Cart ccc, int q) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("addQuantity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int quantity = q + ccc.getQuantity();
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setString(2, ccc.getUserId());
+			pstmt.setString(3, ccc.getpId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteCart(Connection conn, String user, String pId) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("deleteCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user);
+			pstmt.setString(2, pId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
 
 
 }

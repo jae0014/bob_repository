@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, common.vo.*, product.model.vo.*, attachment.model.vo.*"%>
+
 <%
 	ArrayList<Cart> cartList = (ArrayList<Cart>) request.getAttribute("cartList");
-	/* ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList"); */
 %>
 <!DOCTYPE html>
 <html>
@@ -79,6 +78,8 @@ body {
 .deco {
 	float: left;
 	text-align: center;
+	font-weight:bold;
+	font-size:1.7rem;
 }
 
 #orderBtn {
@@ -102,13 +103,38 @@ body {
 	padding: 1rem;
 	background-color: rgb(240, 240, 240);
 }
+
+.proImg {
+	width:15%;
+	heigh:auto;
+}
+
+.table {
+	/* width:90% !important; */
+}
+
+.table td, .table th {
+	vertical-align : middle !important;
+	font-size:1.2rem;
+}
+
+input[type=checkbox] {
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  margin-left:2rem;
+}
+
+
 </style>
 </head>
 <body>
 
 	<%@ include file="../common/menubar.jsp" %>
 	<%@ include file="../common/bootstrap.jsp" %>
-	
+
 	<section class="content">
 		<div class="container-fluid">
 			<div class="cart_top">
@@ -119,55 +145,43 @@ body {
 				<table class="table table-hover">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col"><input type="checkbox">&nbsp;&nbsp;전체 선택</th>
-							<th scope="col">상품 정보</th>
-							<th scope="col">수량</th>
-							<th scope="col">상품 금액</th>
+							<th scope="col" style="width:20%"><input type="checkbox" id="allCheck">&nbsp;&nbsp;&nbsp;전체 선택</th>
+							<th scope="col" style="width:40%">상품 정보</th>
+							<th scope="col" style="width:15%">수량</th>
+							<th scope="col" style="width:25%">상품 금액</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr>
-							<th scope="row"><input type="checkbox"></th>
-							<td><img src="" alt="상품이미지">Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-						<tr>
-							<th scope="row"><input type="checkbox"></th>
-							<td><img src="" alt="상품이미지">Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<th scope="row"><input type="checkbox"></th>
-							<td><img src="" alt="상품이미지">Larry</td>
-							<td>the Bird</td>
-							<td>@twitter</td>
-						</tr> -->
-						<% for(int i = 0; i<cartList.size(); i++) {
-							Cart c = cartList.get(i);
+						<% if(cartList.size() == 0) {%>
+							<tr>
+								<td colspan="4" style="text-align:center">장바구니에 담은 상품이 없습니다.</td>
+							</tr>
+						<%}else{
+						 	for(int i = 0; i<cartList.size(); i++) {
+								Cart c = cartList.get(i);
+								int price = c.getpPrice() * c.getQuantity();
 						%>
 							<!-- 장바구니의 상품ID와 상품리스트의 상품ID를 비교하여 상품정보 가져오기 -->
 							<tr>
-								<th scope="row"><input type="checkbox"></th>
-								<td><img src="" alt="상품이미지"><%= c.getpName() %></td>
+								<th scope="row"><input type="checkbox" name="checkRow" value="<%= c.getpId() %>"></th>
+								<td><img src="<%= contextPath %>/resources/product/<%= c.getCateInId() %>/<%= c.getfName() %>" class="proImg">&nbsp;&nbsp;&nbsp;<%= c.getpName() %></td>
 								<td><%= c.getQuantity() %></td>
-								<td><%= c.getpPrice() %>*<%= c.getQuantity() %></td>
+								<td><%= price %>&nbsp; 원</td>
 							</tr>
-							
+							<% } %>
 						<% } %>
 					</tbody>
 				</table>
 				<!-- <input type="checkbox"><p>전체 선택</p> -->
-				<button type="button" class="btn btn-outline-dark" id="selectDelBtn">선택 삭제</button>
+				<button type="button" class="btn btn-outline-dark" id="selectDelBtn")>선택 삭제</button>
 			</div>
 			<div class="cart_result">
 				<div class="cart_amount row align-items-center">
 					<div class="col-1"></div>
 					<div class="total_product_price col-3">
 						<!-- 총 상품 금액-->
-						<p>총 상품 금액</p>
-						<span>원</span>
+						<p style="font-weight:700">총 상품 금액</p>
+						<span id="tt">원</span>
 					</div>
 					<div class="deco deco_plus col-1">
 						<!-- 더하기 -->
@@ -175,8 +189,8 @@ body {
 					</div>
 					<div class="delivery_price col-2">
 						<!-- 배송비-->
-						<p>배송비</p>
-						<span>3000원</span>
+						<p style="font-weight:700">배송비</p>
+						<span>3,000원</span>
 					</div>
 					<div class="deco deco_equal col-1">
 						<!-- 등호-->
@@ -184,7 +198,7 @@ body {
 					</div>
 					<div class="total_payment_amount col-3">
 						<!-- 총 결제 예정 금액 -->
-						<p>총 결제 예정 금액</p>
+						<p style="font-weight:700">총 결제 예정 금액</p>
 						<span>원</span>
 					</div>
 					<div class="col-1"></div>
@@ -201,6 +215,53 @@ body {
 
 		</div>
 	</section>
+	
+	<script>
+		$(function(){
+			
+			/* 체크박스 전체선택, 전체해제 */
+			$("#allCheck").click(function(){
+				if($(this).is(":checked")){
+					$("input[name=checkRow]").prop("checked", true);
+				}else{
+			        $("input[name=checkRow]").prop("checked", false);
+			      }
+
+			});
+
+			$("#selectDelBtn").click(function(){
+				// 선택 삭제 버튼 클릭 했을 때 선택 상품 삭제하기
+
+				// 체크박스 체크한 값 가져오기				
+				$("input[name=checkRow]:checked").each(function() { 
+					var test = $(this).val(); 
+					
+					$.ajax({
+						url : "delCart.pr",
+						data : {pId : test},
+						type : "post",
+						success : function(re){
+							console.log(re);
+						},
+						error : function() {
+							alert('ajax 에러');
+						}
+						
+					}); /* ajax 끝부분 */
+				});
+				
+				alert('해당 상품을 장바구니에서 삭제 했습니다.');
+				location.href="<%= contextPath %>/myCart";
+				
+			});
+
+			/* if($("input[name=checkRow]").is(":checked")){
+				console.log("test ghkrdls");
+			} */
+		});
+	
+	</script>
+	
 	
 	<%@ include file="../common/footer.jsp" %>
 </body>

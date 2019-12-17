@@ -40,7 +40,20 @@ public class PutInCartServlet extends HttpServlet {
 		ProductService pService = new ProductService();
 		
 		Cart ccc = new Cart(pId, quantity, userId);
-		int result = pService.putInCart(ccc);
+		
+		// 같은 상품 있는지 확인
+		Cart same = pService.checkSameProduct(ccc);
+		int result = 0;
+		if(same != null) {
+			// 같은 상품이 있을 때 해당 상품 수량 추가
+			result = pService.addQuantity(ccc, same.getQuantity());
+			System.out.println("같은 상품 있을 때 : " + result);
+		}else {
+			// 중복 상품 없을 때 장바구니에 담기
+			result = pService.putInCart(ccc);
+			System.out.println("같은 상품 없을 때 : " + result);
+		}
+		
 		
 		if(result > 0) {
 			// 장바구니 넣기 성공
