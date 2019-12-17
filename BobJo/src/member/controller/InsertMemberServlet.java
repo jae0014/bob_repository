@@ -42,7 +42,8 @@ public class InsertMemberServlet extends HttpServlet {
 				String userName = request.getParameter("userName");
 				String email = request.getParameter("email");
 				String phone = request.getParameter("phone");
-				String address = request.getParameter("address");
+				String address1 = request.getParameter("roadFullAddr");
+				String address2 = request.getParameter("addrDetail");
 				String gender = request.getParameter("gender");
 				String birth_year = request.getParameter("birth_year");
 				String[] birth = request.getParameterValues("birth[]");
@@ -50,6 +51,9 @@ public class InsertMemberServlet extends HttpServlet {
 
 				// 1992 + 04 + 20
 				String birthday = birth_year + birth[0] + birth[1];
+				
+				// 주소 합치기
+				String address = address1+", "+address2;
 				
 				//멤버 객체 만들자.
 				Member m = new Member(userId, userPwd, userName, email, phone, address, gender, birthday);

@@ -1,4 +1,4 @@
-package board.controller;
+package notice.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import common.vo.PageInfo;
+import notice.model.vo.Notice;
 import post.model.vo.Post;
 
 /**
- * Servlet implementation class BoardListVIew
+ * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/board.list")
-public class BoardListVIewServlet extends HttpServlet {
+@WebServlet("/NoticeListServlet")
+public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListVIewServlet() {
+    public NoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +34,10 @@ public class BoardListVIewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
+		
 		BoardService bService = new BoardService();
-		
-		
+
 		int typeNum = 0;
-	
 		//
 		int currentPage =1;	
 		// 한 페이지 하단에 보여질 페이지 수
@@ -53,7 +51,6 @@ public class BoardListVIewServlet extends HttpServlet {
 		
 		//게시글 최대치
 		int boardLimit = 10; 
-		
 		
 		if(request.getParameter("currentPage") != null) {
 			
@@ -81,17 +78,17 @@ public class BoardListVIewServlet extends HttpServlet {
 
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
-		ArrayList<Post> list = bService.boardSelectAll(startPage, endPage,typeNum);
+		ArrayList<Notice> list = bService.selectNoticeList(startPage, endPage,typeNum);
 		System.out.println(startPage+ " " +endPage);
-		for (Post post : list) {
-			System.out.println(post);
+		for (Notice Notice : list) {
+			System.out.println(Notice);
 		}
-	
+		
 		RequestDispatcher view = request.getRequestDispatcher("views/board/boardView.jsp?type="+typeNum);
 		request.setAttribute("typeNum",typeNum);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-		view.forward(request, response);		
+		view.forward(request, response);
 		
 	}
 

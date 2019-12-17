@@ -73,7 +73,8 @@
                 <a class="nav-link active" href="#">공지사항</a>
            </li>
            
-           <% if(loginUser.getmNo().equals("M0")){ %>
+           <% if(loginUser != null && loginUser.getmId().equals("admin")){ %>
+       
            <li class="nav-item border border-light">
               <a class="nav-link" href="#">회원관리</a>
            </li>
