@@ -1,6 +1,8 @@
 package post.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,14 +34,20 @@ public class PostUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		Post nPost = (Post)request.getAttribute("post");
-
-		int result = new PostService().postEdit(nPost);
+		String pCotent = (String) request.getParameter("quillData");
+		String pTitle = request.getParameter("display_title");
+		String pId = (String) request.getParameter("pId");
+		Post post = new Post();
+		post.setpId(pId);
+		post.setpTitle(pTitle);
+		post.setpCotent(pCotent);
+		
+		int result = new PostService().postEdit(post);
 
 		if (result > 0) {
 			response.sendRedirect("board.view");
 		} else {
-			request.setAttribute("msg", "삭제에 실패하였습니다");
+			request.setAttribute("msg", "실패하였습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

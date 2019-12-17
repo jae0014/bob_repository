@@ -482,7 +482,7 @@ cursor : pointer;
                </div>
             </div>
             <div class="menu" onclick="goThumbnail();">
-               <a href="<%=request.getContextPath() %>/board.list">게시판</a>
+               <a href="<%=request.getContextPath() %>/board.list?currentPage=1&typeOfBoard=1">게시판</a>
             </div>
             <div class="menu2" onclick="goThumbnail();">
                <input type="text" class="total_search"> <i
