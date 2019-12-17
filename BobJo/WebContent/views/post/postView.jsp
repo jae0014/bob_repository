@@ -3,14 +3,18 @@
     
     
   <%
-  //latestversion
-   Post p = (Post)request.getAttribute("post");
-   ArrayList<Reply>  list= (ArrayList<Reply>)request.getAttribute("commentList");
-   int index = list.size(); 
-   
-   SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-   String newDateFormat = simple.format(p.getpDateWritten());
-   
+  Post p = (Post)request.getAttribute("post");
+  ArrayList<Reply>  list= (ArrayList<Reply>)request.getAttribute("commentList");
+  int index = list.size(); 
+  Member userID = (Member)session.getAttribute("loginUser");
+  SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+  String newDateFormat = simple.format(p.getpDateWritten());
+  String writer= "Na";
+  String id = "noIDNA";
+  if(userID != null){
+   writer = p.getpWriter();
+   id = userID.getmId();
+  } 
   	
   %>
 <!DOCTYPE html>
@@ -125,7 +129,13 @@
       {
       	 display: none !important;
       }
-    
+    	.profilePic
+    	{
+    		width:150px;
+    		height:150px;
+           
+    		
+    	}
      
     </style>
     <body>
@@ -144,43 +154,7 @@
             <!-- 게시판 글 -->
             <div class=" board-post-list" style="height: 350px;">
                     <table class="table table-sm" >
-                            <caption>
-                           	<%= p.getpTitle()%>
-                          
-                            </caption>
-                     
-                               <thead>
-                                       <tr>
-                                            <th class = "th">
-                                             		   제목
-                                            </th>
-                                            <td colspan="3">
-                                                <%= p.getpTitle()%>
-                                            </td>
-                                       </tr>
-                                       <tr>
-                                            <th class = "th">
-                                            	작성자
-                                            </th>
-                                            <td colspan="3">
-                                                <%=p.getpWriter() %>
-                                            </td>
-                                       </tr>
-                                       <tr>
-                                            <th class = "th">
-                                                	작성일자
-                                             </th>
-                                             <td>
-                                               <%= newDateFormat%>
-                                             </td>
-                                             <th class = "th">
-                                               		 조회수
-                                             </th>
-                                             <td>
-                                                <%= p.getpCount()%>
-                                             </td>
-                                       </tr>
-                                </thead>
+                           
                                 <tbody border = 1>
                                     <tr>
                                         <th colspan="4" class = "th">내용</th>
@@ -194,17 +168,22 @@
                                
                                 <!-- 댓글 -->
                                 <tfoot>
+                                <tr>
+                                	<td style = "text-align: none !important">
+                                		<img class = "profilePic" src="<%= request.getContextPath()%>/resources/icon/baseline_account_box_black_48dp.png" alt="...">
+                                		
+                                	</td>
+                                </tr>
                                  <tr>
                                         <td colspan="4">
-                                        		<% 
-                                        		// 사용자가 작성자일시
-                                        		//if (p.getpId()== "1"){ %>
-                                        		<button  class="btn" type="button"  style="float: right; background-color: rgb(170,57,57); color:white" id="ListMenu">목록으로</button>                                      		
+                                                                        		<button  class="btn" type="button"  style="float: right; background-color: rgb(170,57,57); color:white" id="ListMenu">목록으로</button>  
+                                        		<%// 사용자가 로그인시
+                                        		if (userID !=null){ %>              		
                                                 <button  class="btn" type="button"  style="float: right; background-color: rgb(170,57,57); color:white" id="CreateNew">글쓰기</button>
-                                                <%//}%>
+                                                <%}%>
                                                 <% 
-                                                // 로그인 상태일시 
-                                        		if(false){
+                                                // 사용자가 작성자일시 
+                                               if(writer.equals(id)){
                                         		%>
                                                 <button  class="btn" type="button"  style="float: right; background-color: rgb(170,57,57); color:white" id="EditList">수정하기</button>
 												<%}%>

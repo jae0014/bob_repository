@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import attachment.model.vo.Attachment;
+import product.model.vo.Cart;
 import product.model.vo.Product;
 
 public class ProductDao {
@@ -199,6 +200,162 @@ public class ProductDao {
 		
 		return imgList;
 	}
+
+	// 로그인유저의 장바구니에 상품, 수량 넣기
+	public int putInCart(Connection conn, Cart ccc) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("putInCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ccc.getpId());
+			pstmt.setInt(2, ccc.getQuantity());
+			pstmt.setString(3, ccc.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 로그인 유저의 장바구니 상품 조회하기
+	public ArrayList<Cart> selectCartList(Connection conn, String userId) {
+		ArrayList<Cart> list = new ArrayList<Cart>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCartList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Cart(
+						rset.getString("PID"),
+						rset.getInt("QUANTITY"),
+						rset.getString("USER_ID"),
+						rset.getString("P_NAME"),
+						rset.getInt("P_PRICE"),
+						rset.getString("CATE_IN_ID"),
+						rset.getString("F_NAME")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	// 장바구니에 같은 상품 있는지 확인
+	public Cart checkSameProduct(Connection conn, Cart ccc) {
+		Cart same = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("checkSameProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ccc.getUserId());
+			pstmt.setString(2, ccc.getpId());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				same = new Cart(
+						rset.getString("PID"),
+						rset.getInt("QUANTITY"),
+						rset.getString("USER_ID")
+						);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return same;
+	}
+
+	// 장바구니 중복 상품 수량 추가
+	public int addQuantity(Connection conn, Cart ccc, int q) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("addQuantity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int quantity = q + ccc.getQuantity();
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setString(2, ccc.getUserId());
+			pstmt.setString(3, ccc.getpId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteCart(Connection conn, String user, String pId) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("deleteCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user);
+			pstmt.setString(2, pId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 

@@ -71,22 +71,15 @@ public class PostDao {
 			
 			String sql = prop.getProperty("postEdit");
 			sql = "UPDATE BOARD "
-					+ "SET B_ID = ?,B_TYPE =?, B_TITLE = ?,"
-					+ " B_CONTENT=?, M_NO =?, B_DATE =?,"
-					+ "B_COUNT =?,B_LIKE = ?, B_STATUS =? "
+					+ "SET B_TITLE = ?,"
+					+ " B_CONTENT=?"
 					+ "WHERE B_ID="+p.getpId();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,p.getpId());
-			pstmt.setInt(2,p.getpType());
-			pstmt.setString(3,p.getpTitle());
-			
-			pstmt.setString(4,p.getpCotent());
-			pstmt.setString(5,p.getpWriter());
-			pstmt.setDate(6,p.getpDateWritten());
-			
-			pstmt.setInt(7,p.getpCount());
-			pstmt.setInt(8,p.getpLike());
-			pstmt.setString(9,p.getpStatus());
+			pstmt.setString(1,p.getpTitle());
+			pstmt.setString(2,p.getpCotent());
+
+
+
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -127,17 +120,17 @@ public class PostDao {
 
 		try {
 			String sql = prop.getProperty("postInsert");
-			sql = "INSERT INTO BOARD VALUES(?,?,? ,?,?,? ,?,?,?)";
+			sql = "INSERT INTO BOARD VALUES(BoardSeq.NEXTVAL,?,? ,?,?,? ,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,p.getpId());
-			pstmt.setInt(2,p.getpType());
-			pstmt.setString(3,p.getpTitle());
-			pstmt.setString(4,p.getpCotent());
-			pstmt.setString(5,p.getpWriter());
-			pstmt.setDate(6,p.getpDateWritten());
-			pstmt.setInt(7,p.getpCount());
-			pstmt.setInt(8,p.getpLike());
-			pstmt.setString(9,p.getpStatus());
+			
+			pstmt.setInt(1,p.getpType());
+			pstmt.setString(2,p.getpTitle());
+			pstmt.setString(3,p.getpCotent());
+			pstmt.setString(4,p.getpWriter());
+			pstmt.setDate(5,p.getpDateWritten());
+			pstmt.setInt(6,p.getpCount());
+			pstmt.setInt(7,p.getpLike());
+			pstmt.setString(8,p.getpStatus());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

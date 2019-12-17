@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="recipe.model.vo.*"%>
+	pageEncoding="UTF-8" import="recipe.model.vo.*" import="attachment.model.vo.*, recipe.model.vo.*, java.util.ArrayList"%>
 <%
-Recipe r = (Recipe)request.getAttribute("recipe");
+	ArrayList<Recipe> rlist = (ArrayList<Recipe>)request.getAttribute("rlist");
 
-
+	Attachment thumbnail = (Attachment)request.getAttribute("thumbnail");
 %>
 
 <!DOCTYPE html>
@@ -21,20 +21,16 @@ Recipe r = (Recipe)request.getAttribute("recipe");
 
 <style>
 div{
-
+/* 	border: 1px solid red; */
 }
 
-.wraps {
-	width: 1200px;
-	height: 100%;
-	margin: auto;
-}
 
-.rImage {
+
+/* .rImage {
 	margin-left: 30%;
 	width: 500px;
 	height: 300px;
-}
+} */
 
 .userImage {
 	border-radius: 50px;
@@ -62,6 +58,9 @@ div{
 .introduce {
 	width: 100%;
 	height: 20%;
+	vertical-align:middle;
+	text-align:center;
+	font-size:20px;
 }
 
 .ex {
@@ -111,18 +110,18 @@ div{
 .ep {
 	color: grey;
 }
-
+/* 
 .recipe {
-	width: 360px;
+	width: 50%;
 	height: 200px;
 	display: inline-block;
 	float: left;
-}
+} */
 
-.step {
+/* .step {
 	display: inline-block;
 	width: 80%;
-}
+} */
 
 .recipe {
 	display: inline-block;
@@ -210,6 +209,44 @@ div{
 display:inline-block;
 float:left;
 }
+
+
+.rPic{
+width:100%;
+height:100%;
+}
+
+
+.stepImg{
+width:100%;
+height:100%;
+}
+
+
+.rStep{
+height:300px;
+display:inline-block;
+
+
+
+}
+
+
+.stepNo{
+font-size:2em;
+color:red;
+vertical-align:top;
+text-align:right;
+}
+
+
+.stepSeq{
+vertical-align:top;
+}
+
+td,tr,th{
+/* border:1px solid red; */
+}
 </style>
 
 <script>
@@ -233,36 +270,31 @@ float:left;
 	<%@include file="../common/menubar.jsp" %>
 	<%@include file="../common/bootstrap.jsp" %>
 	<br>
-	<div class="wraps">
-		<div class="thumbnail">
-			<img class="rImage" src="<%= request.getContextPath() %>/resources/images/갈비찜.jpg">
+	
+	<div class="wholewhole" style="width:80%; margin:auto;">
+	<div class="wraps" style="width:100%; height: 300px">
+		<div class="thumbnail" style="width:40%; height:100%; margin:auto; border: 1px solid black;" >
+			
+				<img class="rPic" src="<%=request.getContextPath() %>/resources/images/강아지.jpg">
+                </div>
 		</div>
 		<div class="user">
-			<img class="userImage"src="<%= request.getContextPath() %>/resources/images/강아지.jpg">
+			<img class="userImage"src="<%=request.getContextPath() %>/resources/images/강아지.jpg">
 		</div>
-		<div class="rWriter" ><h3 align="center">홍길동</h3></div>
-		<div class="rName" ><h1 align="center">갈비찜</h1></div>
+		<div class="rWriter" ><h3 align="center"><%=loginUser.getmName() %></h3></div>
+		<div class="rName" ><h1 align="center"><%= rlist.get(0).getrName()%></h1></div>
 
 		<hr>
 
-		<div class="introduce">
-			<div class="hole">
-				<div class="test test1">
-					<img class="sign" src="<%= request.getContextPath() %>/resources/images/1.PNG" style="width:10%; height:10%">
-				</div>
-				<div class="test test2">
-					<h4 class="explain" align="center">맛있는 갈비찜 같이 만들어 먹어요</h4>
-				</div>
-				<div class="test test3">
-					<img class="sign" src="<%= request.getContextPath() %>/resources/images/2.PNG" style="width:10%; height:10%">
-				</div>
-			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<hr>
+		<div class="introduce" >
+		
+					<br><br>
+				
+					맛있는 갈비찜 같이 만들어 먹어요
+				
+					<br><br><br><hr>
+
+			
 		</div>
 
 		<br>
@@ -271,7 +303,7 @@ float:left;
 			<div class="complex">
 				<div class="ex ex1">
 					<img class="img img1" src="<%= request.getContextPath() %>/resources/images/인분.PNG">
-					<div class="exe exe1">1인분</div>
+					<div class="exe exe1">sss</div>
 				</div>
 				<div class="ex ex2">
 					<img class="img img2" src="<%= request.getContextPath() %>/resources/images/소요시간.PNG">
@@ -292,7 +324,7 @@ float:left;
 				<img src="<%= request.getContextPath() %>/resources/images/재료.PNG">
 			</div>
 			<br>
-			<div class="second">
+			<!-- <div class="second">
 				<h6>[재료]</h6>
 				<div class="third ing1">갈비</div>
 				<div class="third ep ep1">500g</div>
@@ -303,7 +335,19 @@ float:left;
 				<div class="third ing4">멸치액젓</div>
 				<div class="third ep ep4">2큰술</div>
 			</div>
-
+ -->
+ 
+ 				<table style="margin: 30px">
+ 				<tr>
+ 					<th width="200">재료명</th>
+ 					<th width="200">수량/중량</th>
+ 				</tr>
+ 				<tr>
+ 					<td width="200">갈비</td>
+ 					<td>500g</td>
+ 				</tr>
+ 			
+ 				</table>
 			<hr>
 			<br>
 
@@ -312,7 +356,7 @@ float:left;
 			<div class="product">
 				<h5 class="pp">연관상품</h5>
 			</div>
-			<div class="boots">
+			<div class="boots" style= "display:inline-block; box-sizing:border-box;">
 				<div class="card" style="width: 18rem;">
 					<img class="card-img" src="<%= request.getContextPath() %>/resources/images/갈빗살.jpg"
 						alt="...">
@@ -323,36 +367,7 @@ float:left;
 						<a href="#" class="btn btn-primary">상세보기</a>
 					</div>
 				</div>
-				<div class="card" style="width: 18rem;">
-					<img class="card-img" src="<%= request.getContextPath() %>/resources/images/갈빗살.jpg"
-						alt="...">
-					<div class="card-body">
-						<h5 class="card-title">갈빗살</h5>
-						<p class="card-text">1kg</p>
-						<p class="card-price">60,000원</p>
-						<a href="#" class="btn btn-primary">상세보기</a>
-					</div>
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img class="card-img" src="<%= request.getContextPath() %>/resources/images/갈빗살.jpg"
-						alt="...">
-					<div class="card-body">
-						<h5 class="card-title">갈빗살</h5>
-						<p class="card-text">1kg</p>
-						<p class="card-price">60,000원</p>
-						<a href="#" class="btn btn-primary">상세보기</a>
-					</div>
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img class="card-img" src="<%= request.getContextPath() %>/resources/images/갈빗살.jpg"
-						alt="...">
-					<div class="card-body">
-						<h5 class="card-title">갈빗살</h5>
-						<p class="card-text">1kg</p>
-						<p class="card-price">60,000원</p>
-						<a href="#" class="btn btn-primary">상세보기</a>
-					</div>
-				</div>
+				
 
 
 			</div>
@@ -365,37 +380,51 @@ float:left;
 		<br>
 		<hr>
 		<br>
-		<div class="div5">
+	<%-- 	<div class="div5" style="border:10px solid black;" >
 			<div class="steps">
 				<img src="<%= request.getContextPath() %>/resources/images/조리순서.PNG">
 			</div>
 			<br>
-			<div class="step">
-				<div class="recipe rstep">
+			<div class="stepstep" style="width:50%; border: 10px solid blue;">
+				<!-- <div class="wrapwrap" style="border:10px solid purple;"> -->
+				<div class="col-6 rstep"  style="height:250px; display:inline-block; float:left;">
 					<div class="num">1</div>
 					갈빗살을 반나절 이상 물에 담가 핏물을 제거해 줍니다.
 				</div>
-				<div class="recipe rpic">
-					<img src="<%= request.getContextPath() %>/resources/images/step1.PNG">
+				<div class="col-6 rpic" style="height:250px; display:inline-block; float:left; border:10px solid blue;">
+					<img class="stepImg"src="<%= request.getContextPath() %>/resources/images/step1.PNG">
 				</div>
-				<div class="recipe rstep">
-					<div class="num">2</div>
-					갈빗살을 반나절 이상 물에 담가 핏물을 제거해 줍니다.
-				</div>
-				<div class="recipe rpic">
-					<img src="<%= request.getContextPath() %>/resources/images/step1.PNG">
-				</div>
-				<div class="recipe rstep">
-					<div class="num">3</div>
-					갈빗살을 반나절 이상 물에 담가 핏물을 제거해 줍니다.
-				</div>
-				<div class="recipe rpic">
-					<img src="<%= request.getContextPath() %>/resources/images/step1.PNG">
-				</div>
+				<!-- </div> -->wrapwrap 한 줄 끝
+				
 
 			</div>
 
+		</div> --%>
+		
+		<div class="div5" >
+		<div class="steps">
+		<img src="<%= request.getContextPath() %>/resources/images/조리순서.PNG">
 		</div>
+		<div class="mainStep" >
+			<div class="wrapwrap" style="width:60%;">
+				<%-- <div class="rStep col-2">1</div>
+				<div class="rStep col-5">gdgdgadag</div>
+				<div class="rStep col-5"><img class="rPic" src="<%= request.getContextPath() %>/resources/images/갈비찜.jpg"></div> --%>
+				
+				
+				<table class="stepstep" style="margin-left:100px;">
+				<tr>
+					<td class="stepNo" width="100">1</td>
+					<td class="stepSeq" width="300">요리순서1</td>
+					<td width="300" height="200" ><img class="rPic" src="<%= request.getContextPath() %>/resources/images/갈비찜.jpg"></td>
+					
+				</tr>
+				
+				</table>
+			</div>
+		</div>
+		</div>
+	
 		<hr>
 
 		<div class="div6">
@@ -403,7 +432,7 @@ float:left;
 				<img src="<%= request.getContextPath() %>/resources/images/레시피작성자.PNG">
 			</div>
 			<br>
-			<div class="writer">
+			<div class="writer" >
 				<div class="dddd">
 					<img class="dog" src="../../resources/images/강아지.jpg">
 				</div>
@@ -444,7 +473,6 @@ float:left;
 	</div>
 
 
-	</div>
 
 	<%@include file="../common/footer.jsp" %>
 </body>

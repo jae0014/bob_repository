@@ -287,18 +287,18 @@ body {
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">장바구니</h5>
 						<button type="butt =" close" data-dismiss="modal"
-							aria-label="Close">
+							aria-label="Close" style="border:none">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<div>
 							<input type="hidden" name="putProductId" value="0">
-							<p id="putProduct"></p>
+							<span id="putProduct"></span>&nbsp;&nbsp;&nbsp;
 							<button type="button" class="minus">-</button>
 							<input type="number" class="numBox" min="0" value="0"
 								readonly="readonly" />
-							<button type="button" class="plus">+</button>
+							<button type="button" class="plus">+</button>&nbsp;&nbsp;&nbsp;
 							<span id="totalPrice">0</span> 원
 						</div>
 					</div>
@@ -317,7 +317,6 @@ body {
 
 	<script>
 		$(function() {
-			console.log("test");
 			
 			$(".cartBtn").click(function(){
 				// 혹시 모르니까 모달 안 데이터 초기화
@@ -375,10 +374,50 @@ body {
 			});
 			
 			$("#putProductBtn").click(function(){
+				var i = $('input[name=putProductId]').val();
 				// 장바구니 담기 버튼 클릭 시 로그인 여부 확인
 				<%if (loginUser != null) {%>
 					// 로그인 한 상태일때
-				
+					
+					// 구매수량이 1 이상인 경우 상품정보(상품아이디)와 구매수량 저장
+					if(Number($(".numBox").val())>0){
+						var productId = $('input[name=pId'+i+']').val();
+						var q = Number($(".numBox").val());
+						var userId = "<%= loginUser.getmId() %>";
+						
+						// 장바구니 상품 담기
+						$.ajax({
+							url : "cart.pr",
+							data : { pId : productId,
+									quantity : q,
+									userId : userId},
+							type : "post",
+							success : function(re){
+								console.log(re);
+								var cartPage = confirm('장바구니로 이동하시겠습니까?');
+								if(cartPage){
+									// 장바구니 페이지로 이동
+									location.href = "<%= request.getContextPath() %>/myCart";
+									
+								}else {
+									$('#cartModal').modal("hide");
+									$(".numBox").val(0);
+									$("#totalPrice").html(0);
+									$('input[name=putProductId]').val(0);
+								}
+								
+							},
+							error : function() {
+								alert('장바구니에 담기 실패!!.');
+							}
+							
+						});
+						
+					}else {
+						alert('구매 수량을 1개 이상 선택해주세요.');
+					} 
+										
+					
 				<%} else {%>
 					// 로그인 안되어 있을 때 로그인 페이지로 이동
 					alert('로그인 후 장바구니를 이용할 수 있습니다.');

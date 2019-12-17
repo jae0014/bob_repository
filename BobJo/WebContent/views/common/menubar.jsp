@@ -139,8 +139,8 @@
 
 /* 장바구니 */
 .menu3 {
-   width: 36px;
-   height: 36px;
+   width: 100px;
+   height: 36px; 
    background: transparent;
    /* background:brown; */
    margin: 0;
@@ -482,16 +482,26 @@ cursor : pointer;
                </div>
             </div>
             <div class="menu" onclick="goThumbnail();">
-               <a href="<%=request.getContextPath() %>/board.list">게시판</a>
+               <a href="<%=request.getContextPath() %>/board.list?currentPage=1&typeOfBoard=1">게시판</a>
             </div>
             <div class="menu2" onclick="goThumbnail();">
                <input type="text" class="total_search"> <i
                   class="search_icon material-icons">search</i>
             </div>
             <div class="menu3" onclick="goThumbnail();">
-               <a href="#"><img
+            <a href="<%=contextPath%>/myCart"><img
                   src="<%=contextPath%>/resources/icon/장바구니715x715.png"
-                  width="36px" height="36px"></a>
+                  width="36px" height="36px">
+                  <span class="badge badge-pill badge-danger" id="cartCount">
+					<%if(loginUser == null) {%>
+					0
+			<%}else { %>
+			99
+			<%} %>
+				</span>
+               </a>
+            
+               
             </div>
 
          </div>
@@ -553,9 +563,9 @@ cursor : pointer;
          var cate = "8";
          location.href = "<%= request.getContextPath() %>/list.pr?cate="+cate;
       });
-  
-      
-      </script>
+ 
+
+     </script>
       
       <script>
       $("#cate1").click(function(){

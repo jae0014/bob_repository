@@ -1,3 +1,4 @@
+
 package board.model.dao;
 
 import static common.JDBCTemplate.*;
@@ -21,7 +22,7 @@ public class BoardDao {
 
 	public BoardDao() {
 		String fileName = BoardDao.class.getResource("/sql/board/board.properties").getPath();
-		System.out.println(fileName);
+
 		  prop = new Properties();
 		try {
 			prop.load(new FileReader(fileName));
@@ -39,7 +40,7 @@ public class BoardDao {
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectList");
-		System.out.println(sql);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -52,7 +53,7 @@ public class BoardDao {
 			
 			int startRow = (currentPage - 1) * boardLimit + 1;
 			int endRow = startRow + boardLimit - 1;
-
+			System.out.println(startRow +" "+ endRow);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 
