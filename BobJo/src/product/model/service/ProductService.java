@@ -93,6 +93,51 @@ public class ProductService {
 		return cartList;
 	}
 
+	// 장바구니에 같은 상품 있는지 조회
+	public Cart checkSameProduct(Cart ccc) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		Cart same = pDao.checkSameProduct(conn, ccc);
+		
+		close(conn);
+		
+		return same;
+	}
+
+	// 중복 상품 수량 추가
+	public int addQuantity(Cart ccc, int q) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		int result = pDao.addQuantity(conn, ccc, q);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	// 선택 상품 장바구니에서 제거
+	public int deleteCart(String user, String pId) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		int result = pDao.deleteCart(conn, user, pId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
 	
 	
 	

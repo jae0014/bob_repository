@@ -287,20 +287,19 @@ body {
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">장바구니</h5>
 						<button type="butt =" close" data-dismiss="modal"
-							aria-label="Close">
+							aria-label="Close" style="border:none">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<div>
 							<input type="hidden" name="putProductId" value="0">
-							<p id="putProduct"></p>
+							<span id="putProduct"></span>&nbsp;&nbsp;&nbsp;
 							<button type="button" class="minus">-</button>
 							<input type="number" class="numBox" min="0" value="0"
 								readonly="readonly" />
-							<button type="button" class="plus">+</button>
+							<button type="button" class="plus">+</button>&nbsp;&nbsp;&nbsp;
 							<span id="totalPrice">0</span> 원
-							<input type="text" id="output1">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -385,6 +384,8 @@ body {
 						var productId = $('input[name=pId'+i+']').val();
 						var q = Number($(".numBox").val());
 						var userId = "<%= loginUser.getmId() %>";
+						
+						// 장바구니 상품 담기
 						$.ajax({
 							url : "cart.pr",
 							data : { pId : productId,
@@ -392,6 +393,7 @@ body {
 									userId : userId},
 							type : "post",
 							success : function(re){
+								console.log(re);
 								var cartPage = confirm('장바구니로 이동하시겠습니까?');
 								if(cartPage){
 									// 장바구니 페이지로 이동
