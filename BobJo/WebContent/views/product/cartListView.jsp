@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.util.ArrayList, common.vo.*, product.model.vo.*, attachment.model.vo.*"%>
+<%
+	ArrayList<Cart> cartList = (ArrayList<Cart>) request.getAttribute("cartList");
+	/* ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
+	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList"); */
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +126,7 @@ body {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<!-- <tr>
 							<th scope="row"><input type="checkbox"></th>
 							<td><img src="" alt="상품이미지">Mark</td>
 							<td>Otto</td>
@@ -137,7 +143,19 @@ body {
 							<td><img src="" alt="상품이미지">Larry</td>
 							<td>the Bird</td>
 							<td>@twitter</td>
-						</tr>
+						</tr> -->
+						<% for(int i = 0; i<cartList.size(); i++) {
+							Cart c = cartList.get(i);
+						%>
+							<!-- 장바구니의 상품ID와 상품리스트의 상품ID를 비교하여 상품정보 가져오기 -->
+							<tr>
+								<th scope="row"><input type="checkbox"></th>
+								<td><img src="" alt="상품이미지"><%= c.getpName() %></td>
+								<td><%= c.getQuantity() %></td>
+								<td><%= c.getpPrice() %>*<%= c.getQuantity() %></td>
+							</tr>
+							
+						<% } %>
 					</tbody>
 				</table>
 				<!-- <input type="checkbox"><p>전체 선택</p> -->

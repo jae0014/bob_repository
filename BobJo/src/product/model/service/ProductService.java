@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import attachment.model.vo.Attachment;
 import product.model.dao.ProductDao;
+import product.model.vo.Cart;
 import product.model.vo.Product;
 
 import static common.JDBCTemplate.*;
@@ -63,6 +64,33 @@ public class ProductService {
 		close(conn);
 		
 		return imgList;
+	}
+
+	// 장바구니에 상품, 구매수량 넣기
+	public int putInCart(Cart ccc) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		int result = pDao.putInCart(conn, ccc);
+
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	// 로그인 유저의 장바구니 상품 조회하기
+	public ArrayList<Cart> selectCartList(String userId) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		
+		ArrayList<Cart> cartList = pDao.selectCartList(conn, userId);
+		close(conn);
+		
+		return cartList;
 	}
 
 	
