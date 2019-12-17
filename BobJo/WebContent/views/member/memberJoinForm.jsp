@@ -13,7 +13,6 @@
 body {
 	background: #f9f9f9 !important;
 }
-
 .outer_top {
 	width: 640px;
 	height: 25px;
@@ -21,7 +20,6 @@ body {
 	margin: auto;
 	font-size: 12px;
 }
-
 .outer {
 	width: 680px;
 	height: auto;
@@ -30,7 +28,6 @@ body {
 	padding: 10px;
 	/* border:1px solid black; */
 }
-
 .s_btn {
 	width: 150px;
 	height: 40px;
@@ -40,19 +37,16 @@ body {
 	border-radius: 3px;
 	font-size: 12px;
 }
-
 .guide_txt {
 	display: block;
 	margin: 5px;
 }
-
 .txt {
 	font-size: 12px;
 	display: block;
 }
-
 .userId, input[type="email"], input[type="password"], .userName, .phone,
-	.address, .email_num_input {
+	.address, .email_num_input, .addrDetail {
 	width: 288px;
 	height: 40px;
 	border-radius: 3px;
@@ -60,23 +54,19 @@ body {
 	padding: 0 0 0 10px;
 	font-size: 12px;
 }
-
 .cols1 {
 	font-weight: 700;
 	font-size: 14px;
 	padding: 0 0 0 30px;
 	width: 140px;
 }
-
 .join_table {
 	margin-top: 10px;
 	border: 1px solid white;
 }
-
 td {
 	border: 1px solid white;
 }
-
 .birth .birth_day {
 	overflow: hidden;
 	width: 300px;
@@ -84,11 +74,9 @@ td {
 	border: 1px solid #ccc;
 	border-radius: 3px
 }
-
 .birth .birth_day.on {
 	border: 1px solid #333
 }
-
 .birth .birth_day input[type="text"] {
 	float: left;
 	width: 80px;
@@ -96,14 +84,12 @@ td {
 	border: 0 none;
 	text-align: center
 }
-
 .birth .birth_day .bar {
 	width: 20px;
 	height: 38px;
 	padding-top: 10px;
 	text-align: center
 }
-
 .birth .birth_day .bar span {
 	position: static;
 	width: auto;
@@ -118,28 +104,23 @@ td {
 	font-size: 20px;
 	font-weight: 700;
 }
-
 .join_btn {
 	background: rgb(170, 57, 57) !important;
 	border: 1px solid rgb(170, 57, 57) !important;
 	right: 50% !important;
 	font-size: 15px !important;
 }
-
 .submit_td {
 	text-align: right;
 }
-
 .guide_txt {
 	display: none;
 }
-
 .chk_email_num_btn {
 	border: 1px solid rgb(170, 57, 57);
 	background: white;
 	color: rgb(170, 57, 57);
 }
-
 .guide_email {
 	display: none;
 }
@@ -149,6 +130,22 @@ td {
 <body>
 	<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
+	
+	
+<!-- <form name= "form"  id= "form"  method= "post" >
+<input type= "button"  onClick="goPopup();" value= "팝업" />
+도로명주소 전체(포맷)<input type= "text" id= "roadFullAddr" name= "roadFullAddr"  /><br>
+도로명주소 <input type= "text"  id= "roadAddrPart1" name= "roadAddrPart1"  /><br>
+고객입력 상세주소<input type= "text" id= "addrDetail" name= "addrDetail"  /><br>
+참고주소<input type= "text" id= "roadAddrPart2" name= "roadAddrPart2"  /><br>
+우편번호<input type= "text" id= "zipNo" name= "zipNo"  />
+</form> -->
+	
+	
+	
+	
+	
+	
 	<br>
 	<p align="center" class="subtitle">회원가입</p>
 	<br>
@@ -222,7 +219,6 @@ td {
 
 				</tr>
 				<script>
-
             </script>
 
 
@@ -238,14 +234,19 @@ td {
 				</tr>
 
 				<tr>
-					<td class="cols1" rowspan="2">배송 주소</td>
-					<!-- <td>
-                    <input type="text" class="address" name="address" disabled>
-                </td> -->
-
+					<td class="cols1" rowspan="3">배송 주소</td>
+					<td>
+                    	<input type="text" class="address roadFullAddr" name="roadFullAddr"  id="roadFullAddr" disabled>
+                	</td>
 				</tr>
 				<tr>
-					<td><input type="button" value="주소검색" onclick="" class="s_btn">
+					<td>
+                    	<input type= "text" id= "addrDetail" name= "addrDetail"  id="addrDetail" class="addrDetail" disabled/><br>
+                	</td>
+				</tr>
+				<tr>
+					<td><input type="button" value="주소검색" class="juso_btn s_btn" onclick="goPopup();">
+					
 					</td>
 				</tr>
 				<tr>
@@ -296,6 +297,45 @@ td {
 
 	<br>
 	<br>
+	
+	
+	
+	
+	
+	<script language= "javascript" >
+// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다.
+// (＂팝업 API 호출 소스"도 동일하게 적용시켜야 합니다.)
+//document.domain = "abc.go.kr";
+function goPopup(){
+//경로는 시스템에 맞게 수정하여 사용
+//호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를
+//호출하게 됩니다.
+var pop = window.open("<%=request.getContextPath()%>/views/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+//** 2017년 5월 모바일용 팝업 API 기능 추가제공 **/
+// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서
+// 실제 주소검색 URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+// var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes");
+}
+
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd,
+rnMgtSn, bdMgtSn , detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm,
+buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+// 2017년 2월 제공항목이 추가되었습니다. 원하시는 항목을 추가하여 사용하시면 됩니다.
+	document.getElementById("roadFullAddr").value = roadFullAddr;
+	document.getElementById("addrDetail").value = addrDetail;
+
+} 
+</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<script>
     	// 회원가입폼 유효성검사
     	// ID: 6~12자 사이의 영문+숫자조합
@@ -326,11 +366,8 @@ td {
                 id_flag = true;
             }
         });
-
-
         //PW 유효성
         $(".userPwd").keyup(function(){
-
             //정규식 유효성검사
             if(!regexp_pw.test($(".userPwd").val())){
                 $(".guide_txt2").css({"display":"block"});
@@ -341,7 +378,6 @@ td {
                 $(".pw_reg_txt2").css({"color":"green"});
                 pw_re_flag = true;
             }
-
             //비밀번호 6자이상 판별
             var pwlength = $(".userPwd").val();
             if(pwlength.length < 6){
@@ -354,7 +390,6 @@ td {
                 pw_re_flag = true;
             }
         });
-
         
         //PW 확인
         $(".userPwd2").keyup(function(){
@@ -367,13 +402,10 @@ td {
                 $(".pw_chk_txt").css({"color":"green"});
                 pw_ch_flag = true;
             }
-
         });
-
         //NAME
         $(".userName").keyup(function(){
             var userName = $.trim($(".userName").val());
-
             if(!regexp_nm.test(userName)){
                 $(".guide_txt4").css({"display":"block"});
                 $(".nm_chk_txt").css({"color":"red"});
@@ -388,7 +420,6 @@ td {
         
     	
     });
-
         
         // id 중복확인용 값
         var id_Usable = false;
@@ -475,7 +506,6 @@ td {
 								String AuthenticationKey = (String)session.getAttribute("AuthenticationKey");
 							%>
 							 AuthenticationKey = "<%= AuthenticationKey %>";
-
 							
 						}
 					},
@@ -486,14 +516,12 @@ td {
         		});
         	}
             
-
             	
            
         });
         
         
            
-
             //Phone
             //$(".userPhone")
             var ch_key_input = $.trim($(".email_num_input").val());
@@ -508,7 +536,6 @@ td {
             	}
             });
         
-
         
         
         // 폼 제출할때 발생하는 함수

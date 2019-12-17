@@ -37,7 +37,7 @@ public class BoardListVIewServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		BoardService bService = new BoardService();
 		
-		int listCount = bService.getListCount();
+		
 		int typeNum = 0;
 	
 		//
@@ -60,9 +60,10 @@ public class BoardListVIewServlet extends HttpServlet {
 			
 			typeNum = Integer.parseInt(request.getParameter("typeOfBoard"));
 		}
-		
+
 	
 		pageLimit =5;
+
 		
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -87,8 +88,7 @@ public class BoardListVIewServlet extends HttpServlet {
 		request.setAttribute("typeNum",typeNum);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-		view.forward(request, response);
-		
+		view.forward(request, response);		
 		
 	}
 

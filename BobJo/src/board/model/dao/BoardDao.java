@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import notice.model.vo.Notice;
 import post.model.vo.Post;
 
 public class BoardDao {
@@ -74,13 +75,62 @@ public class BoardDao {
 		return list;
 	}
 
-	public int getListCount(Connection conn) {
+	
+	public ArrayList<Notice> selectNoticeList(Connection conn, int currentPage, int boardLimit ,int type) {
+		ArrayList<Notice> list = new ArrayList<Notice>();
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectList");
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			// 쿼리문 실행 시 조건절에 넣을 변수들
+			// currentPage = 1 --> startRow 1 ~ endRow 10
+			// currentPage = 2 --> startRow 11 ~ endRow 20
+
+			// startRow : (currentPage - 1) * boardLimit + 1
+			// endRow : startRow + boardLimit - 1
+			
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				String title = rset.getString("n_title");
+				Date date = rset.getDate("n_date");
+				String bid = rset.getString("n_id");
+				String writer = rset.getString("m_no");
+				list.add(new Notice(bid,title,writer,date));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	
+	
+	public int getListCount(Connection conn, int type) {
 		
 		int listCount = 0;
 		Statement stmt = null;
 		ResultSet rset = null;
 		// SELECT COUNT(*) FROM BOARDTYPE1
 		String sql = prop.getProperty("getListCount");
+		if(type == 3) {
+			 sql = prop.getProperty("getNoticeListCount");
+		}
 		
 		try {
 			stmt = conn.createStatement();

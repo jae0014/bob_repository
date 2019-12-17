@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.*"%>
+    
+    <%
+    	Member loginUser = (Member)request.getAttribute("loginUser");
+    
+    %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +35,12 @@
 
         .board-postnav-side
         {   
-            width:10%;
+            width:200px;
             height: 350px;
             float: left;
             margin: 10px;
-            background-color: rgb(255, 243, 239);
-            border: 1px solid black;
+            background-color: white;
+            border: 1px solid lightgrey;
              
             
         }
@@ -48,7 +54,7 @@
         }
         .board-postnav-side > ul>li>a:hover
         {
-            color:red;
+            color:rgb(170,57,57);
         }
         .board-postnav-side > ul> li:hover
         {
@@ -59,17 +65,23 @@
     </style>
 
 <body>
+
+
  <div class="board-postnav-side">
       <ul class="nav flex-column " id ="sidebar">
            <li class="nav-item  border border-light">
                 <a class="nav-link active" href="#">공지사항</a>
            </li>
+           
+           <% if(loginUser != null && loginUser.getmId().equals("admin")){ %>
+       
            <li class="nav-item border border-light">
               <a class="nav-link" href="#">회원관리</a>
            </li>
            <li class="nav-item border border-light">
               <a class="nav-link" href="#">매출관리</a>
            </li>
+           <%} %>
            <li class="nav-item border border-light">
               <a class="nav-link" href="#">1:1문의 내역</a>
            </li>         

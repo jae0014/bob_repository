@@ -546,6 +546,7 @@ cursor : pointer;
          var cate = "4";
          location.href = "<%= request.getContextPath() %>/list.pr?cate="+cate;
       });
+      
       $("#cateInId5").click(function(){
          var cate = "5";
          location.href = "<%= request.getContextPath() %>/list.pr?cate="+cate;
