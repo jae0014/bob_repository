@@ -85,7 +85,24 @@ public class RecipeService {
 		ArrayList<Attachment> imgList = rDao.selectImages(conn,rId);
 		
 		close(conn);
+		
 		return imgList;
+	}
+
+
+
+
+	//step 이미지 불러오기
+	public ArrayList<Attachment> selectStep(String rId) {
+		Connection conn = getConnection();
+		RecipeDao rDao = new RecipeDao();
+		
+		/*
+		 * ArrayList<Attachment> imgList =rDao.selectStep(conn,rId); return imgList;
+		 */
+		
+		ArrayList<Attachment> rStepList= rDao.selectStep(conn, rId);
+		return rStepList;
 	}
 
 

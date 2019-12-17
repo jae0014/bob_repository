@@ -5,7 +5,7 @@
 <% 
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList"); 
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -277,34 +277,7 @@ cursor:pointer;
 		
 <script>
 		
-		
-	<%-- 	state = 0;
-		function change(){
-		
-			if(state==0){
-				state = 1;
-				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/fulllike.png"
-				console.log(state);
-			}
-			else {
-				state = 0;
-				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/like.png"
-			}
-		}; --%>
-		
-		
-	<%-- 	$(function(){
-			$(".heart").click(function(){
-				var i = $(this).attr("id").substring(5);
-				/* var heart = $(this).attr("id"); */
-				$(this).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png') ;
-				$("#heart"+i).click(function(){
-					$(this).attr('src','<%=request.getContextPath()%>/resources/images/like.png') ;
-				});
-			});
-			
-		}); --%>
-		
+	
 		
 		state=0;
 	

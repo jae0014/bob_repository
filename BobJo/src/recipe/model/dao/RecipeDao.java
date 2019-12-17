@@ -299,5 +299,42 @@ public class RecipeDao {
 		return imgList;
 	}
 
+	//step 이미지
+	public ArrayList<Attachment> selectStep(Connection conn, String rId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Attachment> rStepList = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectStep");
+		
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rStepList.add(new Attachment(
+						rset.getString("F_ID"),
+						rset.getInt("BTYPE"),
+						rset.getString("BPRC_ID"),
+						rset.getInt("F_LEVEL"),
+						rset.getString("F_STATUS"),
+						rset.getString("F_PATH"),
+						rset.getString("F_NAME")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rStepList;
+	}
+		
 
 }
