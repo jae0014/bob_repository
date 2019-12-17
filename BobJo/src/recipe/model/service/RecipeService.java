@@ -31,22 +31,6 @@ public class RecipeService {
 
 	 
 
-	/*
-	 * //레시피 상세보기(조회수 증가) public Recipe selectRecipe(String rId) { Connection conn =
-	 * getConnection();
-	 * 
-	 * RecipeDao rDao = new RecipeDao();
-	 * 
-	 * int result = rDao.increaseCount(conn,rId);
-	 * 
-	 * Recipe r = null;
-	 * 
-	 * if(result>0) { commit(conn); r = rDao.selectRecipe(conn, rId); }else {
-	 * rollback(conn); } close(conn);
-	 * 
-	 * return r; }
-	 */
-
 
 
 ////////////////////////내가 사용한 메소드 이거는 수정이꺼 그대로씀	
@@ -77,6 +61,31 @@ public class RecipeService {
 		
 	
 	
+	}
+
+
+	// 레시피 상세보기
+	public ArrayList<Recipe> selectRecipe(String rId) {
+		Connection conn = getConnection();
+		RecipeDao rDao = new RecipeDao();
+		ArrayList<Recipe> list = rDao.selectRecipe(conn, rId);
+		
+		close(conn);
+		return list;
+	}
+
+
+
+
+
+	public ArrayList<Attachment> selectImages(String rId) {
+		Connection conn = getConnection();
+		RecipeDao rDao = new RecipeDao();
+		
+		ArrayList<Attachment> imgList = rDao.selectImages(conn,rId);
+		
+		close(conn);
+		return imgList;
 	}
 
 

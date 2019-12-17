@@ -18,8 +18,8 @@ public class Recipe {
 	private int rLike; //좋아요
 	private int rCookTime; //소요시간
 	private int rCookLevel; //난이도
-	private ArrayList<Step> Step; //요리순서
-	private ArrayList<Ingredient> Ingredient; //재료
+	private String Step; //요리순서
+	private String Ingredient; //재료
 	private String rInName; //재료명
 	private String rWeight; //용량
 	private String sId; //요리순서번호
@@ -84,7 +84,7 @@ public class Recipe {
 
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
 			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel,
-			ArrayList<recipe.model.vo.Step> step, ArrayList<recipe.model.vo.Ingredient> ingredient, int fId,
+			String step, String ingredient, int fId,
 			int fileLevel, String rInName, String rWeight, String sId, int sStep, String sDesc, String status) {
 		super();
 		this.rId = rId;
@@ -99,8 +99,8 @@ public class Recipe {
 		this.rLike = rLike;
 		this.rCookTime = rCookTime;
 		this.rCookLevel = rCookLevel;
-		Step = step;
-		Ingredient = ingredient;
+		this.Step = step;
+		this.Ingredient = ingredient;
 		this.rInName = rInName;
 		this.rWeight = rWeight;
 		this.sId = sId;
@@ -403,7 +403,7 @@ public class Recipe {
 
 
 
-	public ArrayList<Step> getStep() {
+	public String getStep() {
 		return Step;
 	}
 
@@ -415,7 +415,7 @@ public class Recipe {
 
 
 
-	public void setStep(ArrayList<Step> step) {
+	public void setStep(String step) {
 		Step = step;
 	}
 
@@ -427,7 +427,7 @@ public class Recipe {
 
 
 
-	public ArrayList<Ingredient> getIngredient() {
+	public String getIngredient() {
 		return Ingredient;
 	}
 
@@ -439,7 +439,7 @@ public class Recipe {
 
 
 
-	public void setIngredient(ArrayList<Ingredient> ingredient) {
+	public void setIngredient(String ingredient) {
 		Ingredient = ingredient;
 	}
 
