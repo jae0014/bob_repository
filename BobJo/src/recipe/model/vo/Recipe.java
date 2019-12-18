@@ -17,6 +17,24 @@ public class Recipe {
 	private int rCount; //조회수
 	private int rLike; //좋아요
 	private int rCookTime; //소요시간
+	
+	public Recipe(String rId, String rName, String mNo, int rCount, int rLike) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.rCount = rCount;
+		this.rLike = rLike;
+	}
+
+
+
+
+
+
+
+
+
 	private int rCookLevel; //난이도
 	private String Step; //요리순서
 	private String Ingredient; //재료
@@ -468,6 +486,34 @@ public class Recipe {
 
 
 
+
+
+
+	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
+			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel, String step,
+			String ingredient, String rInName, String rWeight, String sId, int sStep, String sDesc, String status) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = rDate;
+		this.rInfo = rInfo;
+		this.rCount = rCount;
+		this.rLike = rLike;
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		Step = step;
+		Ingredient = ingredient;
+		this.rInName = rInName;
+		this.rWeight = rWeight;
+		this.sId = sId;
+		this.sStep = sStep;
+		this.sDesc = sDesc;
+		this.status = status;
+	}
 
 
 

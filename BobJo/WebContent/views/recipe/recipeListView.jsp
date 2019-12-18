@@ -158,7 +158,14 @@ cursor:pointer;
 	 opacity:0.7;
 }
 
-
+.heart{
+background: url( "<%=request.getContextPath()%>/resources/images/like.png" ) no-repeat;
+background-size:30px; 30px;
+        border: none;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+}
 
 
 
@@ -218,8 +225,10 @@ cursor:pointer;
 								
 
 									<div class="like" id="like">
-										<img class="heart" id="heart<%=i%>"  width=20px, height=20px,
-											src="<%=request.getContextPath()%>/resources/images/like.png">
+										<button class="heart" id="heart<%=i%>">
+										<%-- <img class="heart" id="heart<%=i%>"  width=20px, height=20px,
+											src="<%=request.getContextPath()%>/resources/images/like.png"> --%>
+											</button>
 											<input type="hidden" id="rLike<%=i%>" value="<%=rList.get(i).getrLike()%>">
 											
 										
@@ -266,7 +275,7 @@ cursor:pointer;
 					</div>
 					
 				</div> <%--mold 끝 --%>
-			
+					
 			
 				<%if(i%4 == 3) { %>
 					</div>
@@ -275,36 +284,10 @@ cursor:pointer;
 
 		</div>
 		
-<script>
+<%-- <script>
 		
 		
-	<%-- 	state = 0;
-		function change(){
-		
-			if(state==0){
-				state = 1;
-				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/fulllike.png"
-				console.log(state);
-			}
-			else {
-				state = 0;
-				document.getElementById("heart").src="<%=request.getContextPath()%>/resources/images/like.png"
-			}
-		}; --%>
-		
-		
-	<%-- 	$(function(){
-			$(".heart").click(function(){
-				var i = $(this).attr("id").substring(5);
-				/* var heart = $(this).attr("id"); */
-				$(this).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png') ;
-				$("#heart"+i).click(function(){
-					$(this).attr('src','<%=request.getContextPath()%>/resources/images/like.png') ;
-				});
-			});
-			
-		}); --%>
-		
+
 		
 		state=0;
 	
@@ -326,6 +309,29 @@ cursor:pointer;
 		
 	
 
+		
+	
+		</script> --%>
+		
+		<script>
+		$(function(){
+			var i = $(".heart").attr("id").substring(5);
+			/* var isLike = false; */
+			
+			$("#heart"+i).click(function(){
+				var rId = $("rId");
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/like.re",
+					type : "post",
+					dae : {rId:rId},
+					success : function(data){
+						$(this).attr('src','<%=request.getContextPath()%>/resources/images/fulllike.png');
+					}
+				});
+			});
+			
+		});
 		
 	
 		</script>
