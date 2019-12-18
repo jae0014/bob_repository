@@ -72,6 +72,50 @@ public class RecipeListServlet extends HttpServlet {
 		System.out.println("레시피 리스트 : " + rList.size());
 		System.out.println("첨부파일리스트 : " + fList.size());
 		
+		
+		
+		
+		
+		
+		// 페이징
+		int listCount =  rService.getListCount();
+		
+		int currentPage;		// 현재 페이지
+		int pageLimit;			// 한 페이지 하단에 보여질 페이지 수
+		int maxPage;			// 전체 페이지에서 가장 마지막 페이지
+		int startPage;			// 한 페이지 하단에 보여질 시작 페이지
+		int endPage;			// 한 페이지 하단에 보여질 끝 페이지
+		
+		int boardLimit = 10;	// 한 페이지에 보여질 게시글 최대 수
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		
+		pageLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+		
+		
+		
+		/* System.out.println("reList : " + reList); */
+		
+
+	
+		
+		
+		
 
 		if (rList.size() != 0 && fList.size() !=0 ) {
 			request.setAttribute("rList", rList);
@@ -79,6 +123,12 @@ public class RecipeListServlet extends HttpServlet {
 			 request.setAttribute("nationStr", nationStr); 
 			request.setAttribute("fList", fList); 
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
+			ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
+			request.setAttribute("reList", reList);
+			request.setAttribute("pi", pi);
+			
+			System.out.println("reList : " + reList);
+			
 
 		} else {
 			request.setAttribute("msg", "레시피 조회에 실패하였습니다.");

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import attachment.model.vo.Attachment;
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
+import member.model.dao.MemberDao;
 import product.model.dao.ProductDao;
 import product.model.vo.Product;
 import recipe.model.dao.RecipeDao;
@@ -68,7 +69,16 @@ public class RecipeService {
 	public ArrayList<Recipe> selectRecipe(String rId) {
 		Connection conn = getConnection();
 		RecipeDao rDao = new RecipeDao();
-		ArrayList<Recipe> list = rDao.selectRecipe(conn, rId);
+		ArrayList<Recipe> list = null;
+		
+		int result = rDao.increaseCount(conn, rId);
+		
+		if(result > 0) {
+			commit(conn);
+			list = rDao.selectRecipe(conn,rId);
+		} else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		return list;
@@ -85,8 +95,72 @@ public class RecipeService {
 		ArrayList<Attachment> imgList = rDao.selectImages(conn,rId);
 		
 		close(conn);
+		
 		return imgList;
 	}
+
+
+
+
+	//step 이미지 불러오기
+	public ArrayList<Attachment> selectStep(String rId) {
+		Connection conn = getConnection();
+		RecipeDao rDao = new RecipeDao();
+		
+		/*
+		 * ArrayList<Attachment> imgList =rDao.selectStep(conn,rId); return imgList;
+		 */
+		
+		ArrayList<Attachment> rStepList= rDao.selectStep(conn, rId);
+		return rStepList;
+	}
+
+
+
+
+
+	public ArrayList<Recipe> selectReList(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+
+		ArrayList<Recipe> reList = new RecipeDao().selectReList(conn, currentPage, boardLimit);
+
+		close(conn);
+
+		return reList;
+	}
+
+
+
+
+
+	public int isLike(String rId) {
+		Connection conn = getConnection();
+		int result = new RecipeDao().isLike(conn,rId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+
+
+	// 좋아요 체크
+	/*
+	 * public int isLike(String rId) { Connection conn = getConnection(); int result
+	 * = new RecipeDao().isLike(conn, rId);
+	 * 
+	 * close(conn);
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
+
+
+
+
+
 
 
 
