@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import post.model.vo.Post;
 import qna.model.vo.Qna;
 
 public class QnaDao {
@@ -98,6 +99,56 @@ public class QnaDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+
+
+	public Qna selectQna(Connection conn, String qId) {
+		Qna q = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<String> alist = new ArrayList<>();
+		ArrayList<String> dlist = new ArrayList<>();
+		try {
+		
+			String sql = prop.getProperty("selectQna");
+			sql = "SELECT * FROM Q_DETAIL_V WHERE Q_ID = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				q = new Qna();
+				q.setqId(rs.getString("q_id"));
+				q.setqCate(rs.getString("q_cate"));
+				q.setqTitle(rs.getString("q_title"));
+				q.setqContent(rs.getString("q_content"));
+				q.setmId(rs.getString("m_id"));
+				q.setqDate(rs.getDate("q_date"));
+				q.setaStatus(rs.getString("a_status"));
+				alist.add(rs.getString("a_content"));
+				dlist.add(rs.getString("a_date"));
+				q.setqTitle(rs.getString("q_title"));
+			}
+			
+			//q.setaContent(/*리스트가 들어가야됨*/);
+			q.setaContent(alist);
+			q.setaDate(dlist);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		finally
+		{	close(rs);
+			close(pstmt);
+		}
+	
+		return q;
 	}
 
 }

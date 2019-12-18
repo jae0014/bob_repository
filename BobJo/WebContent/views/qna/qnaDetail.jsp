@@ -3,8 +3,9 @@
 	import="java.util.ArrayList, qna.model.vo.Qna, reply.model.vo.*, java.text.SimpleDateFormat"%>
 <%
   Qna q = (Qna)request.getAttribute("qna");
-  ArrayList<Reply>  list= (ArrayList<Reply>)request.getAttribute("commentList");
-  int index = list.size(); 
+  ArrayList<String>  alist= q.getaContent();
+  ArrayList<String>	dlist=  q.getaDate();
+  int aIndex = alist.size(); 
   
   Member userID = (Member)session.getAttribute("loginUser");
 
@@ -125,7 +126,7 @@ tfoot>tr {
 	<%@ include file="../../views/common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
 	<div class="board-post">
-
+<%@ include file="../sidemenubar/sidemenu.jsp"%>
 
 
 		<!-- 게시판 & 네비게이션 -->
@@ -179,8 +180,8 @@ tfoot>tr {
 									<ul class="list-unstyled">
 
 										<%
-                                    if(list !=null){
-                                    for (int i = 0; i < index;i++) {
+                                    if(alist !=null){
+                                    for (int i = 0; i < aIndex; i++) {
                                     	
                                     	%>
 										<%if(i <5){ %>
@@ -191,13 +192,13 @@ tfoot>tr {
 											<%}%> <img class="mr-3" src="" alt="no image">
 
 											<div class="media-header">
-												<h5 class="mt-0 mb-1"><%=list.get(i).getName()%></h5>
-												<%=list.get(i).getWrittenDate()%>
+												<h5 class="mt-0 mb-1"><%=q.getmId()%></h5>
+												<%=dlist.get(i)%>
 											</div>
 
 											<div class="media-body">
 
-												<%=list.get(i).getContent()%>
+												<%=alist.get(i)%>
 											</div>
 										</li>
 

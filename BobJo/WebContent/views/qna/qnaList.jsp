@@ -95,9 +95,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
 <%@ include file="../common/menubar.jsp"%>
+<%@ include file="../sidemenubar/sidemenu.jsp"%>
 <body>
+
+
 
 	<div class="board-post">
 
@@ -131,7 +133,7 @@
 					<tbody>
 						<% for(int i = 0; i <list.size();i++){
                         			newDateFormat = simple.format(list.get(i).getqDate());
-                        			int num = i +1;%>
+                        			int num = list.size() - i;%>
 						<tr class="postRow">
 							<td style="width: 7%;" id="<%=list.get(i).getqId()%>"><%=num %></td>
 							<td class="mycolSize"><%=list.get(i).getqTitle()%></td>
@@ -238,7 +240,7 @@
     	})
     	function goPost(index){
 			
-  		  location.href="<%=request.getContextPath()%>/post.view?pId="+index;
+  		  location.href="<%=request.getContextPath()%>/detail.qna?qId="+index;
      } </script>
 </body>
 </html>
