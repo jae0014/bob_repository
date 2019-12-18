@@ -204,9 +204,14 @@
 
 									</ul>
 								</nav>
-
+								<!-- 로그인 했을때 글쓰기버튼 활성화 -->
+								<%if (loginUser != null) { %>
 								<button class="btn" type="button"
-									style="float: right; background-color: rgb(170, 57, 57); color: white">글쓰기</button>
+									style="float: right; background-color: rgb(170, 57, 57); color: white"
+									onclick="location.href = '<%=request.getContextPath()%>/views/qna/qnaInsert.jsp'">글쓰기</button>
+								<%
+									}
+								%>
 							</td>
 
 						</tr>

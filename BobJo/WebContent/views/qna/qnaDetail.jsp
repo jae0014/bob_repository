@@ -252,7 +252,7 @@ tfoot>tr {
   			})	
   			
   			$("#EditList").click(function(){
-  				location.href = "<%=request.getContextPath()%>/";
+  				location.href = "<%=request.getContextPath()%>/updateForm.qna?qId="+<%=q.getqId()%>;
   			})
   			$("#ListMenu").click(function(){
   				location.href = "<%=request.getContextPath()%>/";
