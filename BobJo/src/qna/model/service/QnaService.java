@@ -5,6 +5,8 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import post.dao.PostDao;
+import post.model.vo.Post;
 import qna.model.dao.QnaDao;
 import qna.model.vo.Qna;
 
@@ -24,9 +26,19 @@ public class QnaService {
 		Connection conn  = getConnection();
 		
 		 ArrayList<Qna> list = new QnaDao().selectQnaList(conn, currentPage, boardLimit, typeNum);
-		 
+
 		close(conn);
 		 return list;
+	}
+
+	public Qna selectQna(String qId) {
+		Connection conn = getConnection();
+		
+		Qna q = new QnaDao().selectQna(conn, qId);
+		
+		close(conn);
+		
+		return q;	
 	}
 
 }

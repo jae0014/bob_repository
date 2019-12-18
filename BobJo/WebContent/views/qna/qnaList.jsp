@@ -95,9 +95,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
 <%@ include file="../common/menubar.jsp"%>
+<%@ include file="../sidemenubar/sidemenu.jsp"%>
 <body>
+
+
 
 	<div class="board-post">
 
@@ -131,7 +133,7 @@
 					<tbody>
 						<% for(int i = 0; i <list.size();i++){
                         			newDateFormat = simple.format(list.get(i).getqDate());
-                        			int num = i +1;%>
+                        			int num = list.size() - i;%>
 						<tr class="postRow">
 							<td style="width: 7%;" id="<%=list.get(i).getqId()%>"><%=num %></td>
 							<td class="mycolSize"><%=list.get(i).getqTitle()%></td>
@@ -202,9 +204,14 @@
 
 									</ul>
 								</nav>
-
+								<!-- 로그인 했을때 글쓰기버튼 활성화 -->
+								<%if (loginUser != null) { %>
 								<button class="btn" type="button"
-									style="float: right; background-color: rgb(170, 57, 57); color: white">글쓰기</button>
+									style="float: right; background-color: rgb(170, 57, 57); color: white"
+									onclick="location.href = '<%=request.getContextPath()%>/views/qna/qnaInsert.jsp'">글쓰기</button>
+								<%
+									}
+								%>
 							</td>
 
 						</tr>
@@ -238,7 +245,7 @@
     	})
     	function goPost(index){
 			
-  		  location.href="<%=request.getContextPath()%>/post.view?pId="+index;
+  		  location.href="<%=request.getContextPath()%>/detail.qna?qId="+index;
      } </script>
 </body>
 </html>

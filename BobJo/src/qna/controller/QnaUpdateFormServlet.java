@@ -1,8 +1,6 @@
 package qna.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import qna.model.service.QnaService;
 import qna.model.vo.Qna;
 
 /**
- * Servlet implementation class QnaDetailServlet
+ * Servlet implementation class QnaUpdateFormServlet
  */
-@WebServlet("/detail.qna")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/updateForm.qna")
+public class QnaUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public QnaUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +29,9 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String qId = request.getParameter("qId");
-		QnaService qs = new QnaService();
 		
-		
-		// 불러오기
-		// 게시글
-		Qna qna = qs.selectQna(qId);
-		 
-		 // 답변 여러개
-		SimpleDateFormat sdf =new SimpleDateFormat("");
-		
-		//ArrayList<Reply> listcomment = new ReplyService().selectAll("testPost" , 1);
+		Qna qna = new QnaService().selectQna(qId);
 		
 		if(qna !=null)
 		{	
@@ -52,11 +40,9 @@ public class QnaDetailServlet extends HttpServlet {
 		}
 		else
 		{
-			request.setAttribute("msg", "문의내역 세부사항 확인 오류");
+			request.setAttribute("msg", "업데이트 폼 로딩 오류");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		
 		
 	}
 

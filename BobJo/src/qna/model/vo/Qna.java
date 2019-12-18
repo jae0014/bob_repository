@@ -1,6 +1,7 @@
 package qna.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Qna {
 	private String qId;
@@ -11,13 +12,17 @@ public class Qna {
 	private Date qDate;
 	private String qCate;
 	private String aStatus;
-	private String aContent;
-	private Date aDate;
+	private ArrayList<String> aContent;
+	private ArrayList<String> aDate;
 	
 	public Qna() {}
 
+
+
+	
+	
 	public Qna(String qId, String qTitle, String qContent, String mId, String orderId, Date qDate, String qCate,
-			String aStatus, String aContent, Date aDate) {
+			String aStatus, ArrayList<String> aContent, ArrayList<String> aDate) {
 		super();
 		this.qId = qId;
 		this.qTitle = qTitle;
@@ -31,8 +36,10 @@ public class Qna {
 		this.aDate = aDate;
 	}
 
-	
-	
+
+
+
+
 	public Qna(String qId, String qTitle, String mId, Date qDate, String qCate, String aStatus) {
 		super();
 		this.qId = qId;
@@ -43,85 +50,169 @@ public class Qna {
 		this.aStatus = aStatus;
 	}
 
+
+
+
+
 	public String getqId() {
 		return qId;
 	}
+
+
+
+
 
 	public void setqId(String qId) {
 		this.qId = qId;
 	}
 
+
+
+
+
 	public String getqTitle() {
 		return qTitle;
 	}
+
+
+
+
 
 	public void setqTitle(String qTitle) {
 		this.qTitle = qTitle;
 	}
 
+
+
+
+
 	public String getqContent() {
 		return qContent;
 	}
+
+
+
+
 
 	public void setqContent(String qContent) {
 		this.qContent = qContent;
 	}
 
+
+
+
+
 	public String getmId() {
 		return mId;
 	}
+
+
+
+
 
 	public void setmId(String mId) {
 		this.mId = mId;
 	}
 
+
+
+
+
 	public String getOrderId() {
 		return orderId;
 	}
+
+
+
+
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 
+
+
+
+
 	public Date getqDate() {
 		return qDate;
 	}
+
+
+
+
 
 	public void setqDate(Date qDate) {
 		this.qDate = qDate;
 	}
 
+
+
+
+
 	public String getqCate() {
 		return qCate;
 	}
+
+
+
+
 
 	public void setqCate(String qCate) {
 		this.qCate = qCate;
 	}
 
+
+
+
+
 	public String getaStatus() {
 		return aStatus;
 	}
+
+
+
+
 
 	public void setaStatus(String aStatus) {
 		this.aStatus = aStatus;
 	}
 
-	public String getaContent() {
+
+
+
+
+	public ArrayList<String> getaContent() {
 		return aContent;
 	}
 
-	public void setaContent(String aContent) {
+
+
+
+
+	public void setaContent(ArrayList<String> aContent) {
 		this.aContent = aContent;
 	}
 
-	public Date getaDate() {
+
+
+
+
+	public ArrayList<String> getaDate() {
 		return aDate;
 	}
 
-	public void setaDate(Date aDate) {
+
+
+
+
+	public void setaDate(ArrayList<String> aDate) {
 		this.aDate = aDate;
 	}
+
+
+
+
 
 	@Override
 	public String toString() {
@@ -129,6 +220,7 @@ public class Qna {
 				+ orderId + ", qDate=" + qDate + ", qCate=" + qCate + ", aStatus=" + aStatus + ", aContent=" + aContent
 				+ ", aDate=" + aDate + "]";
 	}
+
 
 	
 	
