@@ -130,32 +130,53 @@ public class RecipeService {
 	}
 
 
-
-
-
-	public int isLike(String rId) {
+	public int updateLike(String rId,String mId) {
+		RecipeDao rDao = new RecipeDao();
 		Connection conn = getConnection();
-		int result = new RecipeDao().isLike(conn,rId);
+		int result =  rDao.updateLike(conn, rId, mId);
 		
+		
+		if(result > 0) {
+			commit(conn);
+			result = rDao.selectLike(conn, rId);
+			
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		
 		return result;
+		
 	}
 
 
 
 
-	// 좋아요 체크
-	/*
-	 * public int isLike(String rId) { Connection conn = getConnection(); int result
-	 * = new RecipeDao().isLike(conn, rId);
-	 * 
-	 * close(conn);
-	 * 
-	 * return result;
-	 * 
-	 * }
-	 */
+
+	public int updateDislike(String rId, String mId) {
+		RecipeDao rDao = new RecipeDao();
+		Connection conn = getConnection();
+		int result =  rDao.updatedisLike(conn, rId, mId);
+		
+		if(result > 0) {
+			commit(conn);
+			result = rDao.selectDislike(conn,rId);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+		
+	}
+
+
+
+
+
+	 
 
 
 
