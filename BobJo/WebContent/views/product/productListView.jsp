@@ -404,6 +404,7 @@ body {
 									$(".numBox").val(0);
 									$("#totalPrice").html(0);
 									$('input[name=putProductId]').val(0);
+									location.reload();
 								}
 								
 							},
@@ -424,7 +425,6 @@ body {
 					location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
 				<%}%>
 			});
-			
 			
 			
 		});

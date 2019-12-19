@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
 import product.model.service.ProductService;
+import product.model.vo.Cart;
 
 /**
  * Servlet implementation class CartDeleteServlet
@@ -41,6 +43,17 @@ public class CartDeleteServlet extends HttpServlet {
 		ProductService pService = new ProductService();
 
 		int result = pService.deleteCart(m.getmId(), pId); 
+		
+		ArrayList<Cart> cartList = pService.selectCartList(m.getmId());
+		int cartSize = 0;
+		if(cartList == null) {
+			System.out.println("장바구니 없음");
+		}else {
+			cartSize = cartList.size();
+			System.out.println("장바구니 크기 : " + cartSize);
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("cartSize", cartSize);
 		
 		if(result > 0) {
 			// 장바구니에서 삭제 성공

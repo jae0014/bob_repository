@@ -9,8 +9,10 @@
 	//세션에 담긴 로그인유저 받아오기.
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	  String msg = (String)session.getAttribute("msg");
-	
-	
+	int cartSize = 0;
+	if(loginUser != null){
+	cartSize = (int)session.getAttribute("cartSize");
+	}
 %>
 <!DOCTYPE html>
 
@@ -493,13 +495,9 @@ cursor : pointer;
                   src="<%=contextPath%>/resources/icon/장바구니715x715.png"
                   width="36px" height="36px">
                   <span class="badge badge-pill badge-danger" id="cartCount">
-					<%if(loginUser == null) {%>
-					0
-			<%}else { %>
-			99
-			<%} %>
+					<%= cartSize %>
 				</span>
-               </a>
+            </a>
             
                
             </div>

@@ -1,12 +1,14 @@
 package product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import product.model.service.ProductService;
 import product.model.vo.Cart;
@@ -54,6 +56,16 @@ public class PutInCartServlet extends HttpServlet {
 			System.out.println("같은 상품 없을 때 : " + result);
 		}
 		
+		ArrayList<Cart> cartList = pService.selectCartList(userId);
+		int cartSize = 0;
+		if(cartList == null) {
+			System.out.println("장바구니 없음");
+		}else {
+			cartSize = cartList.size();
+			System.out.println("장바구니 크기 : " + cartSize);
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("cartSize", cartSize);
 		
 		if(result > 0) {
 			// 장바구니 넣기 성공
