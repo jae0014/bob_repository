@@ -1,6 +1,8 @@
-package qna.controller;
+package order.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import qna.model.service.QnaService;
-import qna.model.vo.Qna;
+import member.model.service.MemberService;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
+import order.model.service.OrderService;
+import order.model.vo.Order;
 
 /**
- * Servlet implementation class QnaUpdateServlet
+ * Servlet implementation class OrderListServlet
  */
-@WebServlet("/update.qna")
-public class QnaUpdateServlet extends HttpServlet {
+@WebServlet("/selectOrder.me")
+public class OrderMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaUpdateServlet() {
+    public OrderMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,17 +35,14 @@ public class QnaUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String qId = request.getParameter("qId");
+		//접속자 아이디
+		String mNo = request.getParameter("mNo");
 		
-		Qna q = new QnaService().selectQna(qId);	
-		
-		if(q != null) {
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaUpdateForm.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "수정할 문의글을 불러오는데 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		ArrayList<Order> list = new OrderService().selectOrderList(mNo);
+		//	번호에 따라 아이디 중복확인, 핸드폰 번호 중복확인 할 것 일단은 아이디만 해보기
+		System.out.println(list);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/qna/qnaInsert.jsp").forward(request, response);
 		
 	}
 

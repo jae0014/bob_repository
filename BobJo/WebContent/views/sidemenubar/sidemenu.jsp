@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.*"%>
-    <%
-    Member loginUser = (Member)session.getAttribute("loginUser");
-    %>
+
 <!DOCTYPE html>
 
 <html>
@@ -28,22 +26,9 @@
 </head>
 
   <style>
-        .board-post
-        {
-            width: 100%;
-            padding:0px;
-            margin:0px;
-            height:500px;
-            text-align: center;
-           
-        }
-        .board-post-list
-        {
-            height:600px;
-            width:60%;
-            float: left;
-            margin-top: 10px;
-        }
+.question_link{
+background: #f9f9f9;
+}
 
 
 
@@ -55,8 +40,6 @@
             margin: 10px;
             background-color: white;
             border: 1px solid lightgrey;
-             
-            
         }
     
         
@@ -80,6 +63,8 @@
 
 <body>
 <%@ include file="../common/bootstrap.jsp"%>
+<%@ include file="../common/menubar.jsp"%>
+
  <div class="board-postnav-side">
       <ul class="nav flex-column " id ="sidebar">
            <li class="nav-item  border border-light">
@@ -96,13 +81,13 @@
            </li>
            <%} %>
            <li class="nav-item border border-light question_link">
-              <a class="nav-link question_lll" onclick="goqnaList();">1:1문의 내역</a>
+              <a class="nav-link question_a" onclick="goQnaList();">1:1문의 내역</a>
            </li>         
       </ul>
 </div>
 
 <script>
-	function goqnaList(){
+	function goQnaList(){
 		if(<%=loginUser%>!= null){
 			location.href="<%=request.getContextPath()%>/list.qna";
 			
@@ -112,9 +97,6 @@
 		}
 		
 	};
-
-
-
 </script>
 </body>
 </html>

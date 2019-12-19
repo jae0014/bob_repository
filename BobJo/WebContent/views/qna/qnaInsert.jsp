@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="member.model.vo.*,qna.model.vo.*"%>
+	pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList, order.model.vo.Order"%>
 <%
-	//Member loginUser = (Member)session.getAttribute("loginUser");
-	Qna qna = null;
-	// String nPost = request.getParameter("pId");
-	//int type = Integer.parseInt(request.getParameter("typeOfBoard"));
+
+// 문의 시 해당 주문번호 조회 모달을 눌렀을때 뿌려줄 주문리스트를 가져올 것.
+	//System.out.println("list");
+	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+	//System.out.println(list);
+
 %>
+
 <!DOCTYPE html>
-<%@ include file="../common/quillAPI.jsp"%>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<%-- <%@ include file="../common/quillAPI.jsp"%> --%>
+    <!-- Main Quill library -->
+    <link href="resources/API/quill/quill.snow.css" rel="stylesheet">
+    <script src="resources/API/quill/quill.min.js"></script>
+    <script src="resources/API/quill/quill.js"></script>
+    <script src ="resources/API/quill/image-resize.min.js"></script>
 <title>Insert title here</title>
-</head>
 
 
 <style>
@@ -72,11 +78,6 @@
 	font-size: 1.5em;
 }
 
-.text-left {
-	text-align: left;
-	width: 20%;
-}
-
 .margin-padding-zero {
 	margin: 0;
 	padding: 0;
@@ -87,10 +88,6 @@
 .commentBox {
 	width: 100%;
 	float: left;
-}
-
-.th {
-	background-color: lightgrey;
 }
 
 .commentShow {
@@ -114,23 +111,29 @@
 
 
 .qna_table{
-width: 500px;
+width: 1050px;
 
 height: 700px;
 }
 
-.cols1{
-width: 80px;
-
+.sub_cols{
+width: 80px !important;
+text-align: center;
+background: #f9f9f9;
 }
 /* td :first-child{
 width: 40px;
 } */
-</style>
 
+.warning_txt{
+font-size:12px;
+padding: 3px;
+}
+</style>
+</head>
 <body>
-	<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
+	<%@ include file="../common/bootstrap.jsp"%>
 
 	<form action="<%=request.getContextPath()%>/insert.qna" method="post"
 		id="postInsert">
@@ -138,24 +141,23 @@ width: 40px;
 
 			<table border="1" class="qna_table">
 				<tr>
-					<td rowspan="2" class="cols1">제목</td>
+					<td rowspan="2" class="sub_cols">제목</td>
 					<td>
 						<div class="dropdown">
 							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">선택해주세요</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#" valu e="1">배송</a> <a
+								<a class="dropdown-item" href="#" value="1">배송</a> <a
 									class="dropdown-item" href="#" value="2">교환</a>
 							</div>
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td><input class="form-control" name="display_title"
-						type="text"></td>
+					<td><input class="qTitle" name="display_title" type="text" name="qTitle"></td>
 				</tr>
 				<tr>
-				<td>
+				<td class="sub_cols">
 				주문번호
 				</td>
 				<td>
@@ -164,17 +166,17 @@ width: 40px;
 				</td>
 				</tr>
 				<tr>
-				<td>이메일</td>
-				<td><input type="text" value="<%= loginUser.getEmail()%>" readonly>
-					<input type="checkbox" name="chk_email_answer"><lable style="font-size:12px">답변수신을 문자메세지로 받겠습니다.</lable>
+				<td class="sub_cols">이메일</td>
+				<td><input type="text" value="<%-- <%= loginUser.getEmail()%> --%>" readonly>
+					<input type="checkbox" name="chk_email_answer"><label style="font-size:12px">답변수신을 문자메세지로 받겠습니다.</label>
 				</td>
 				
 				</tr>
 				<tr>
-				<td>내용</td>
+				<td class="sub_cols">내용</td>
 				<td>
-				<pre>
-				<b>1:1 문의 작성 전 확인해주세요!</b>
+					<pre class="warning_txt">
+<b>1:1 문의 작성 전 확인해주세요!</b>
 
 반품 / 환불
 - 제품 하자 혹은 이상으로 반품(환불)이 필요한 경우 사진과 함께 구체적인 내용을 남겨주세요.
@@ -194,51 +196,35 @@ width: 40px;
 - 배송일 및 배송시간 지정은 불가능합니다. (예약배송 포함)
 * 전화번호, 이메일, 주소, 계좌번호 등의 상세 개인정보가 문의 내용에 저장되지 않도록 주의해 주시기 바랍니다.
 				
-				</pre>
-				
-				
-				<!-- Include the Quill library -->
-				<div id="editor-container" style="height: 500px;"></div>
-				<div style="width: 100%;">
-					<button class="btn submitBTN" onclick="getQuill()">작성하기</button>
-				</div>
+					</pre>
 
-
-				<div id="testBox"></div>
 				
 				</td>
 				</tr>
+				<tr>
+				<td>
+								
+				
+			<!-- Include the Quill library -->
+			<div id="editor-container" style="height: 500px;"></div>
+			<div style="width: 100%;">
+			
+				<button class="btn submitBTN" onclick="getQuill()">작성하기</button>
+		
+			</div>
+
+			<div id="testBox"></div>
+				</td>
+				</tr>
 			</table>
+			
+			
 			<div class="form-group">
 
-				<input type="hidden" name="writer" value=""> <input
-					type="hidden" name="quillData" value="11">
+				<input type="hidden" name="writer" value="">
+				<input type="hidden" name="quillData" value="11">
 
-				<div class="col-xs-8">
-					<div class="form-group">
-						<label for="display_title">제목</label> <input class="form-control"
-							name="display_title" type="text">
-					</div>
-
-
-					<div class="form-group">
-						<label for="URL">주문내역</label> <input class="form-control"
-							name="URL" type="text">
-					</div>
-
-
-				</div>
-				<!-- Include the Quill library -->
-				<div id="editor-container" style="height: 500px;"></div>
-				<div style="width: 100%;">
-					<button class="btn submitBTN" onclick="getQuill()">작성하기</button>
-				</div>
-
-
-				<div id="testBox"></div>
-
-
-
+			</div>
 			</div>
 	</form>
 
@@ -246,67 +232,167 @@ width: 40px;
 
 
 
-	<!-- Initialize Quill editor -->
-	<script>
-		var quill = new Quill('#editor-container', {
-			modules : {
-				imageResize : {
-					displaySize : true
-				},
-				toolbar : [
-						[ {
-							header : [ 1, 2, false ]
-						} ],
-						[ 'bold', 'italic', 'underline' ],
-						[
-								{
-									color : [ "#000000", "#e60000", "#ff9900",
-											"#ffff00", "#008a00", "#0066cc",
-											"#9933ff", "#ffffff", "#facccc",
-											"#ffebcc", "#ffffcc", "#cce8cc",
-											"#cce0f5", "#ebd6ff", "#bbbbbb",
-											"#f06666", "#ffc266", "#ffff66",
-											"#66b966", "#66a3e0", "#c285ff",
-											"#888888", "#a10000", "#b26b00",
-											"#b2b200", "#006100", "#0047b2",
-											"#6b24b2", "#444444", "#5c0000",
-											"#663d00", "#666600", "#003700",
-											"#002966", "#3d1466",
-											'custom-color' ]
-								},
-								{
-									background : [ "#000000", "#e60000",
-											"#ff9900", "#ffff00", "#008a00",
-											"#0066cc", "#9933ff", "#ffffff",
-											"#facccc", "#ffebcc", "#ffffcc",
-											"#cce8cc", "#cce0f5", "#ebd6ff",
-											"#bbbbbb", "#f06666", "#ffc266",
-											"#ffff66", "#66b966", "#66a3e0",
-											"#c285ff", "#888888", "#a10000",
-											"#b26b00", "#b2b200", "#006100",
-											"#0047b2", "#6b24b2", "#444444",
-											"#5c0000", "#663d00", "#666600",
-											"#003700", "#002966", "#3d1466",
-											'custom-color' ]
-								} ], [ 'image' ]
+<!-- Modal -->
+<div class="modal fade ttt" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+					<div class="modal-body">
+						<div>
+							<table border="1">
+							<tr>
+							<td>주문번호</td>
+							<td>가격총액</td>
+							</tr>
 
-				]
+							<%if(list != null){ %>
+								<% for(int i = 0; i < list.size(); i++){ %>
+									<tr>
+									<td>뭐라도 뜨니..?</td>
+										<td class="oId"><%=list.get(i).getOrderId() %></td>
+										<td class="price"><%=list.get(i).getTotalPrice() %></td>
+									</tr>
+								<%} %>
+							<%}else{%>
+								<tr>
+									<td>주문내역이 없습니다.</td>
+								</tr>
+							<%} %>
+							
+	
+							</table>
+							
+						</div>
+					</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>/* 모달 */
+$(function() {
+	$(".order_select_btn").click(function(){
+<%-- 	var userId = "<%=loginUser.getmId()%>";
+		// 주문리스트 가져오기
+		$.ajax({
+			url : "ajList.order",
+			data : {
+					userId : userId},
+			type : "post",
+			success : function(re){
+				// 주문리스트 가져오면 모달 창에 보여지게하기
+				$(".oId").val(re);
+					
 			},
-
-			theme : 'snow' // or 'bubble'
+			error : function() {
+				alert('장바구니에 담기 실패!!.');
+			}
+			
 		});
-		function getQuill() {
-			var quill_object = quill.container.firstChild.innerHTML;
-			$("input[name=quillData]").val(quill_object);
+		 --%>
+		// 모달 보이게 하기
+		$('.ttt').modal("show");
+	
+		/* 
+		var i = $(this).attr("id").substring(7);
 
-			$("#postInsert").submit();
-		}
-		function update() {
-			var quill_object = quill.container.firstChild.innerHTML;
-			$("input[name=quillData]").val(quill_object);
+		// i를 전달하기 위해...
+		$('input[name=putProductId]').val(i);
+		
+		var pName = $('input[name=pName'+i+']').val();
+		$("#putProduct").text(pName); */
+		
+	});
+		
+	
+	$(".modal_close").click(function(){
+		// 모달 창을 닫으면 모달 안에 있는 데이터 모두 초기화해야함
+	$(".ttt").modal("close");
+	});
 
-			$("#postInsert").submit();
-		}
+});
+
+
+	<!-- Initialize Quill editor -->
+	
+	var quill = new Quill('#editor-container', {
+		modules : {
+			imageResize : {
+				displaySize : true
+			},
+			toolbar : [
+					[ {
+						header : [ 1, 2, false ]
+					} ],
+					[ 'bold', 'italic', 'underline' ],
+					[
+							{
+								color : [ "#000000", "#e60000",
+										"#ff9900", "#ffff00",
+										"#008a00", "#0066cc",
+										"#9933ff", "#ffffff",
+										"#facccc", "#ffebcc",
+										"#ffffcc", "#cce8cc",
+										"#cce0f5", "#ebd6ff",
+										"#bbbbbb", "#f06666",
+										"#ffc266", "#ffff66",
+										"#66b966", "#66a3e0",
+										"#c285ff", "#888888",
+										"#a10000", "#b26b00",
+										"#b2b200", "#006100",
+										"#0047b2", "#6b24b2",
+										"#444444", "#5c0000",
+										"#663d00", "#666600",
+										"#003700", "#002966",
+										"#3d1466", 'custom-color' ]
+							},
+							{
+								background : [ "#000000", "#e60000",
+										"#ff9900", "#ffff00",
+										"#008a00", "#0066cc",
+										"#9933ff", "#ffffff",
+										"#facccc", "#ffebcc",
+										"#ffffcc", "#cce8cc",
+										"#cce0f5", "#ebd6ff",
+										"#bbbbbb", "#f06666",
+										"#ffc266", "#ffff66",
+										"#66b966", "#66a3e0",
+										"#c285ff", "#888888",
+										"#a10000", "#b26b00",
+										"#b2b200", "#006100",
+										"#0047b2", "#6b24b2",
+										"#444444", "#5c0000",
+										"#663d00", "#666600",
+										"#003700", "#002966",
+										"#3d1466", 'custom-color' ]
+							} ], [ 'image' ]
+
+			]
+		},
+
+		theme : 'snow' // or 'bubble'
+	});
+	function getQuill() {
+		var quill_object = quill.container.firstChild.innerHTML;
+		$("input[name=quillData]").val(quill_object);
+		
+		$("#postInsert").submit();
+	}
+	function update() {
+		var quill_object = quill.container.firstChild.innerHTML;
+		$("input[name=quillData]").val(quill_object);
+
+		$("#postInsert").submit();
+	}
 	</script>
 </body>
 </html>

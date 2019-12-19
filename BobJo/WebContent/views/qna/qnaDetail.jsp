@@ -117,6 +117,7 @@ tfoot>tr {
 	display: none !important;
 }
 
+
 .profilePic {
 	width: 150px;
 	height: 150px;
@@ -124,7 +125,7 @@ tfoot>tr {
 </style>
 <body>
 	<%@ include file="../../views/common/bootstrap.jsp"%>
-	<%@ include file="../common/menubar.jsp"%>
+	<%-- <%@ include file="../common/menubar.jsp"%> --%>
 	<div class="board-post">
 <%@ include file="../sidemenubar/sidemenu.jsp"%>
 
@@ -148,6 +149,7 @@ tfoot>tr {
 						</tr>
 					</tbody>
 
+
 					<!-- 댓글 -->
 					<tfoot>
 						<tr>
@@ -160,7 +162,7 @@ tfoot>tr {
 							<td colspan="4">
 								<button class="btn" type="button"
 									style="float: right; background-color: rgb(170, 57, 57); color: white"
-									id="ListMenu">목록으로</button>
+									id="ListMenu" onclick="history.back();">목록으로</button>
 									<%// 사용자가 로그인시
 									if (userID != null){ %>
 										<button class="btn" type="button" style="float: right; background-color: rgb(170, 57, 57); color: white"
@@ -253,12 +255,13 @@ tfoot>tr {
   			
   			$("#EditList").click(function(){
   				location.href = "<%=request.getContextPath()%>/updateForm.qna?qId="+<%=q.getqId()%>;
+  				
   			})
-  			$("#ListMenu").click(function(){
+  			<%-- $("#ListMenu").click(function(){
   				location.href = "<%=request.getContextPath()%>/";
-  			})
+  			}) --%>
   			$("#CreateNew").click(function(){
-  				location.href = "<%=request.getContextPath()%>/";
+  				location.href = "<%=request.getContextPath()%>/views/qna/qnaInsert.jsp"
   			})
   		})
   		

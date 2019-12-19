@@ -20,34 +20,81 @@
 %>
 <!DOCTYPE html>
 <html>
-<%@ include file="../common/bootstrap.jsp"%>
 
 
 <style>
+*{
+	border-sizing:box-sizing;
+}
+.question_link{
+	background: #f9f9f9;
+}
+
+.outer_m{
+	display: block;
+	width: 1050px;
+	height: 800px;
+	border:1px solid red;
+	margin:auto;
+	/* magin-left:300px; */
+}
+
+/*사이드메뉴 영역*/
+.content1{
+	width: 25%;
+	height: 100%;
+	display: inline-block;
+	float:left;
+	border:1px solid green;;
+}
+
+/*본문영역*/
+.content2{
+width: 75%;
+height: 100%;
+	display: inline-block;
+	float:left;
+
+border:1px solid black;
+}
+.board-postnav-side
+{   
+    width:200px;
+    height: 350px;
+    float: left;
+    margin: 10px;
+    background-color: white;
+    border: 1px solid lightgrey;
+}
+
+.board-postnav-side > ul>li>a
+{
+    color:black;
+    
+}
+.board-postnav-side > ul>li>a:hover
+{
+    color:rgb(170,57,57);
+}
+.board-postnav-side > ul> li:hover
+{
+    background-color: lightgrey;
+ 
+}
+
 .board-post {
-	width: 900px !important;
+	width: 100%;
 	padding: 0px;
 	margin: 0px;
 	height: 500px;
 	text-align: center;
-	padding-right: 20%;
-	padding-left: 20%;
-	float:left;
-	border: 1px solid black;
+	padding-right: 5%;
+	padding-left: 5%;
 }
 
 .board-post-list {
 	float: left;
 	margin-top: 10px;
-}
-
-.board-postnav-side {
-	width: 10%;
-	height: 350px;
-	float: left;
-	margin: 10px;
-	background-color: rgb(255, 243, 239);
-	border: 1px solid black;
 }
 
 .board-postnav-side>ul>li>a {
@@ -96,11 +143,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="../common/bootstrap.jsp"%>
 </head>
-<%@ include file="../sidemenubar/sidemenu.jsp"%>
+
+
+
+
 <body>
+	<%@ include file="../common/menubar.jsp"%>
+	
+	
+<div class="outer_m">
+	<!-- 사이드메뉴 영역-->
+<div class="content1">
+ <div class="board-postnav-side">
+      <ul class="nav flex-column " id ="sidebar">
+           <li class="nav-item  border border-light">
+                <a class="nav-link active" href="#">공지사항</a>
+           </li>
+           
+           <% if(loginUser != null && loginUser.getmId().equals("admin")){ %>
+       
+           <li class="nav-item border border-light">
+              <a class="nav-link" href="#">회원관리</a>
+           </li>
+           <li class="nav-item border border-light">
+              <a class="nav-link" href="#">매출관리</a>
+           </li>
+           <%} %>
+           <li class="nav-item border border-light question_link">
+              <a class="nav-link question_a" onclick="goQnaList();">1:1문의 내역</a>
+           </li>         
+      </ul>
+</div>
+</div><!-- content2 -->
+
+<script>
+	function goQnaList(){
+		if(<%=loginUser%>!= null){
+			location.href="<%=request.getContextPath()%>/list.qna";
+			
+		}else{
+			alert("로그인하셔야 본 서비스를 이용할 수 있습니다.");
+			location.href="<%=request.getContextPath()%>/views/member/MemberLoginForm.jsp";
+		}
+	};
+</script>
 
 
+
+<!-- 게시판 영역 -->
+<div class="content2">
 
 	<div class="board-post">
 
@@ -117,7 +210,7 @@
 
 
 			<!-- 게시판 글 -->
-			<div class=" board-post-list table-responsive"">
+			<div class=" board-post-list table-responsive">
 				<table class="table table-sm" border="1">
 					<caption id="boardTypeTitle">1:1 문의</caption>
 					<thead>
@@ -209,7 +302,7 @@
 								<%if (loginUser != null) { %>
 								<button class="btn" type="button"
 									style="float: right; background-color: rgb(170, 57, 57); color: white"
-									onclick="location.href = '<%=request.getContextPath()%>/views/qna/qnaInsert.jsp'">글쓰기</button>
+									onclick="location.href = '<%=request.getContextPath()%>/selectOrder.me?mNo=<%=loginUser.getmNo() %>'" >글쓰기</button>
 								<%
 									}
 								%>
@@ -226,7 +319,8 @@
 		</div>
 
 	</div>
-
+</div><!-- content2 -->
+</div><!-- outer -->
 	<script>
      	
     	  $(function(){
