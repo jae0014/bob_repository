@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.*"%>
-    
-<%
+    <%
     Member loginUser = (Member)session.getAttribute("loginUser");
-%>
-    
+    %>
 <!DOCTYPE html>
 
 <html>
@@ -82,7 +80,6 @@
 
 <body>
 <%@ include file="../common/bootstrap.jsp"%>
-
  <div class="board-postnav-side">
       <ul class="nav flex-column " id ="sidebar">
            <li class="nav-item  border border-light">
@@ -111,7 +108,7 @@
 			
 		}else{
 			alert("로그인하셔야 본 서비스를 이용할 수 있습니다.");
-			location.href="<%=request.getContextPath()%>/views/member/loginMember.jsp";
+			location.href="<%=request.getContextPath()%>/views/member/MemberLoginForm.jsp";
 		}
 		
 	};

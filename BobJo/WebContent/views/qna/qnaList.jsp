@@ -25,13 +25,15 @@
 
 <style>
 .board-post {
-	width: 100%;
+	width: 900px !important;
 	padding: 0px;
 	margin: 0px;
 	height: 500px;
 	text-align: center;
 	padding-right: 20%;
 	padding-left: 20%;
+	float:left;
+	border: 1px solid black;
 }
 
 .board-post-list {
@@ -95,7 +97,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%@ include file="../common/menubar.jsp"%>
 <%@ include file="../sidemenubar/sidemenu.jsp"%>
 <body>
 
