@@ -1,11 +1,17 @@
 package order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.vo.Member;
+import product.model.vo.Cart;
 
 /**
  * Servlet implementation class OrderSheetServlet
@@ -31,7 +37,15 @@ public class OrderSheetServlet extends HttpServlet {
 		 * 1. 상품 정보 리스트
 		 * 2. 로그인 유저(아마 세션에서 가져올듯)
 		 */
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("loginUser");
 		
+		String[] arr = request.getParameterValues("arr");
+		String[] idArr = request.getParameterValues("checkRow");
+		String[] priceArr = request.getParameterValues("checkPrice");
+		
+		System.out.println("테스트1 : " +priceArr);
+		System.out.println("테스트2 : " +idArr);
 		
 	}
 

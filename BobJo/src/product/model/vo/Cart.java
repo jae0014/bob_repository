@@ -36,6 +36,13 @@ public class Cart {
 		this.cateInId = cateInId;
 		this.fName = fName;
 	}
+	
+	public Cart(String pId, int quantity, int pPrice) {
+		super();
+		this.pId = pId;
+		this.quantity = quantity;
+		this.pPrice = pPrice;
+	}
 
 	public String getpId() {
 		return pId;

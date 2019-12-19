@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import product.model.service.ProductService;
+import product.model.vo.Cart;
 
 /**
  * Servlet implementation class LoginServlet
@@ -45,6 +48,19 @@ public class LoginServlet extends HttpServlet {
 //			session.setMaxInactiveInterval(interval); 로그인 후 10분 뒤 자동로그아웃
 			session.setAttribute("loginUser", loginUser);
 			System.out.println(loginUser);
+			
+			ProductService pService = new ProductService();
+			ArrayList<Cart> cartList = pService.selectCartList(userId);
+			
+			int cartSize = 0;
+			if(cartList == null) {
+				System.out.println("장바구니 없음");
+			}else {
+				cartSize = cartList.size();
+				System.out.println("장바구니 크기 : " + cartSize);
+			}
+			session.setAttribute("cartSize", cartSize);
+			
 			// 로그인 완료 후 메인페이지로
 			response.sendRedirect(request.getContextPath());
 			
