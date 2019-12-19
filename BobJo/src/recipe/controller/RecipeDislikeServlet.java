@@ -1,8 +1,6 @@
 package recipe.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
-import recipe.model.dao.RecipeDao;
 import recipe.model.service.RecipeService;
 
 /**
- * Servlet implementation class RecipeLikeServlet
+ * Servlet implementation class RecipeDislikeServlet
  */
-@WebServlet("/like.re")
-public class RecipeLikeServlet extends HttpServlet {
+@WebServlet("/dislike.re")
+public class RecipeDislikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeLikeServlet() {
+    public RecipeDislikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +29,27 @@ public class RecipeLikeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*String rId = request.getParameter("rId");
-		int result = new RecipeService().isLike(rId);
-		
-		
-		PrintWriter out = response.getWriter();
-		if(result > 0) {
-			out.print("fail");
-		}else {
-			out.print("success");
-		}*/
+
+
 		String mId = ((Member)request.getSession().getAttribute("loginUser")).getmId();
 		String rId = request.getParameter("rId");
 		RecipeService rService = new RecipeService();
-		int rLike = rService.updateLike(rId, mId);
+		int rLike = rService.updateDislike(rId, mId);
 		
 		
 		response.getWriter().print(rLike);
 		request.setAttribute("rLike", rLike);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

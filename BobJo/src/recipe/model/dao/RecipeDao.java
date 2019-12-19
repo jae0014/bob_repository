@@ -375,36 +375,111 @@ public class RecipeDao {
 		return reList;
 	}
 
-	// 좋아요
-	public int isLike(Connection conn, String rId) {
+	
+
+	public int updateLike(Connection conn, String rId, String mId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("isLike");
-		
-		
+		String sql = prop.getProperty("insertLike");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rId);
+			pstmt.setString(2, mId);
 			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return result;
+
+	}
+
+	public int selectLike(Connection conn, String rId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectLike");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,rId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int selectDislike(Connection conn, String rId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectDislike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return result;
+		}
+
+	public int updatedisLike(Connection conn, String rId, String mId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("insertDislike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, rId);
+			pstmt.setString(2, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+		
 	}
 
 	
 	
 		
 
-}
+

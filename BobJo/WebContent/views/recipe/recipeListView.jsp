@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" 
+	pageEncoding="UTF-8"
 	import="java.util.ArrayList,attachment.model.vo.*, recipe.model.vo.*"%>
-	
-<% 
-	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList"); 
-	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
 
+<%
+	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
+	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
+	
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -16,10 +18,9 @@
 
 <title>Insert title here</title>
 <style>
-
-
 div {
 	/*  border: 1px solid red;  */
+	
 }
 
 .recipeWrap {
@@ -36,7 +37,7 @@ div {
 	/* position: relative; */
 	margin: auto;
 	width: 90%;
-/* 	border: 1px solid green; */
+	/* 	border: 1px solid green; */
 	box-sizing: border-box;
 }
 
@@ -44,17 +45,14 @@ div {
 	/* width: 20%; */
 	/* 	margin-left: 2%; */
 	/* margin: 35px */;
-	display:inline-block;
-	float:left;
-	
+	display: inline-block;
+	float: left;
 }
-
 
 .likenum, .qnanum {
 	width: 50px;
 	height: 30px;
 }
-
 
 .name {
 	width: 100%;
@@ -73,8 +71,7 @@ div {
 .yy {
 	font-size: 12px;
 	text-align: right;
-	color:#999999;
-	
+	color: #999999;
 }
 
 .views {
@@ -91,7 +88,6 @@ div {
 	display: inline-block;
 	font-size: 25px;
 	font-weight: bold;
-
 }
 
 .recipe {
@@ -120,58 +116,50 @@ div {
 	margin-bottom: 1.5rem;
 }
 
-
 .rName a:link, .rName a:visited, .rWirter a:link, .rWriter a:visited {
 	color: black;
 	text-decoration: none;
 }
 
-.rName a:hover, .rWirter a:hover{
+.rName a:hover, .rWirter a:hover {
 	color: rgb(212, 106, 106);
 	text-decoration: underline;
 }
 
-.at{
-width:100%;
-height:100%;
+.at {
+	width: 100%;
+	height: 100%;
 }
 
- #dropdownMenuButton {
+#dropdownMenuButton {
 	background-color: white;
 	border: rgb(257, 157, 157) solid 1px;
 	color: rgb(257, 157, 157);
-} 
-
-.dropdown{
-float:right;
 }
 
-
-.like .heart:hover{
-cursor:pointer;
+.dropdown {
+	float: right;
 }
 
-
-
-.card:hover{
-	outline : 2px solid rgb(257, 157, 157);
-	 opacity:0.7;
+.like .heartBtn:hover {
+	cursor: pointer;
 }
 
-.heart{
-background: url( "<%=request.getContextPath()%>/resources/images/like.png" ) no-repeat;
-background-size:30px; 30px;
-        border: none;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
+.card:hover {
+	outline: 2px solid rgb(257, 157, 157);
+	opacity: 0.7;
 }
 
-
-
-
-
-
+.heartBtn {
+	background:
+		url( "<%=request.getContextPath()%>/resources/images/like.png" )
+		no-repeat;
+	background-size: 30px; 30 px;
+	border: none;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -192,52 +180,90 @@ background-size:30px; 30px;
 			</div>
 		</div>
 		<br> <br> <br>
- 
 
 
-		
 
-		
-		<div class="recipeWrap" >
-		<!-- 리스트 전체 테두리 -->
-			<% for(int i = 0; i<rList.size(); i++) { %>
-					<% if(i%4 == 0) {%>
-						<div class="row"> <!-- 한 행(레시피 4개씩 들어갈 예정) -->
-					<% } %>
-				
-				<div class="mold col-3" style="margin-top:10px" > <!-- 레시피 하나 -->
-				
+
+
+
+		<div class="recipeWrap">
+			<!-- 리스트 전체 테두리 -->
+			<%
+				for (int i = 0; i < rList.size(); i++) {
+			%>
+			<%
+				if (i % 4 == 0) {
+			%>
+			<div class="row">
+				<!-- 한 행(레시피 4개씩 들어갈 예정) -->
+				<%
+					}
+				%>
+
+				<div class="mold col-3" style="margin-top: 10px">
+					<!-- 레시피 하나 -->
+
 					<div class="card mb-3 shadow-sm">
-					
-						<div class="thumbnail" style="height:300px;">
-							
-							<% for(Attachment at : fList){ %>
-								<% if(rList.get(i).getrId().equals(at.getBprcId())) {%>
-									<a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(i).getrId()%>"><img src= "<%=contextPath%>/resources/recipe/<%=at.getfName() %>" style="width:100%; height:100%"></a>
-								<% } %>
-							<%} %><!-- at for문 끝 -->
-						</div>
-						<div class="card-body" style="padding:10px;">
 
-							<div class="d-flex justify-content-between align-items-center" >
+						<div class="thumbnail" style="height: 300px;">
+
+							<%
+								for (Attachment at : fList) {
+							%>
+							<%
+								if (rList.get(i).getrId().equals(at.getBprcId())) {
+							%>
+							<a
+								href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(i).getrId()%>"><img
+								src="<%=contextPath%>/resources/recipe/<%=at.getfName()%>"
+								style="width: 100%; height: 100%"></a>
+							<%
+								}
+							%>
+							<%
+								}
+							%><!-- at for문 끝 -->
+						</div>
+						<div class="card-body" style="padding: 10px;">
+
+							<div class="d-flex justify-content-between align-items-center">
 
 								<div class="btn-group">
-								
+
 
 									<div class="like" id="like">
-										<button class="heart" id="heart<%=i%>">
-										<%-- <img class="heart" id="heart<%=i%>"  width=20px, height=20px,
-											src="<%=request.getContextPath()%>/resources/images/like.png"> --%>
-											</button>
-											<input type="hidden" id="rLike<%=i%>" value="<%=rList.get(i).getrLike()%>">
-											
+
+										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>" onclick="like(this)">
 										
-										
-		
-											
-											
+										</button>
+
+
+										<%-- 	<form id="like_form">
+										<table id="list" style="border:1px solid red;">
+										<input type="hidden" name="command" value="like_it">
+										<input type="hidden" name="rId" value="${rId}">
+										<tr><input type="button" value="좋아요!" onclick="return like()" > </tr>
+										<tr><div id="like_result"><%=rList.get(i).getrLike() %></div> </tr>
+										</table>
+										</form> --%>
+
+
+
+
+
+
+
+
 									</div>
-									<div class="likenum" id="likenum1" style="text-align:left;">&nbsp;<%=rList.get(i).getrLike() %></div>
+									<div class="likenum" id="like<%=rList.get(i).getrId() %>"
+										style="text-align: left;">
+										&nbsp;
+										
+										<%=rList.get(i).getrLike()%>
+										
+										
+										
+										</div>
 									<div class="qna" id="qna1">
 										<%-- <img width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/speech-bubble.png"> --%>
@@ -246,45 +272,54 @@ background-size:30px; 30px;
 								</div>
 								<div class="yy">
 
-									<div class="date" id="date1"><%= rList.get(i).getrDate() %></div>
+									<div class="date" id="date1"><%=rList.get(i).getrDate()%></div>
 
 
 									<div class="views" id="views">조회수 :</div>
-									<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount() %></div>
+									<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount()%></div>
 
 								</div>
 
 							</div>
 							<!-- <hr> -->
-							
-						<div class="main" style="text-align:left;">
-							<div class="rName" >
-								<a href=""><%=rList.get(i).getrName() %></a>
+
+							<div class="main" style="text-align: left;">
+								<div class="rName">
+									<a href=""><%=rList.get(i).getrName()%></a>
+								</div>
+
+
+								<div class="rWriter">
+									<a href=""><%=rList.get(i).getmNo()%></a>
+								</div>
+
+
 							</div>
 
-
-							<div class="rWriter" >
-								<a href=""><%=rList.get(i).getmNo() %></a>
-							</div>
-						
-
-						</div> 
-						
-						</div><%-- card-body 끝 --%>
+						</div>
+						<%-- card-body 끝 --%>
 
 					</div>
-					
-				</div> <%--mold 끝 --%>
-					
-			
-				<%if(i%4 == 3) { %>
-					</div>
-				<% } %>
-			<% } %> <!-- 레시피 불러오는 for문 끝 -->
+
+				</div>
+				<%--mold 끝 --%>
+
+
+				<%
+					if (i % 4 == 3) {
+				%>
+			</div>
+			<%
+				}
+			%>
+			<%
+				}
+			%>
+			<!-- 레시피 불러오는 for문 끝 -->
 
 		</div>
-		
-<%-- <script>
+
+		<%-- <script>
 		
 		
 
@@ -312,8 +347,8 @@ background-size:30px; 30px;
 		
 	
 		</script> --%>
-		
-		<script>
+
+		<%-- <script>
 		$(function(){
 			var i = $(".heart").attr("id").substring(5);
 			/* var isLike = false; */
@@ -334,12 +369,116 @@ background-size:30px; 30px;
 		});
 		
 	
+		</script> --%>
+		<!-- <script>
+		$(".heartBtn").click(function(){
+			var i = $('.heartBtn').attr("id").subString(5);
+			
+			
+			
+			$.ajax({
+				url : "like.re",
+				data : {rId : rId,
+						userId : userId,
+						rLike : rLike},
+				type : "post",
+				success : function(re){
+					console.log(re);
+				
+				}
+			
+			});
+			
+			
+			
+		});
+		
+		
+		</script> -->
+		<script>
+		
+	
+		function like(e){
+			// 
+			
+			<% if(loginUser !=null) {%>
+			
+			var rId = e.id.substring(3);
+			$.ajax({
+				url: "like.re",
+				type: "POST",
+				data: {rId :rId},
+				
+				success:function(data){ 
+					/* 
+					alert("'좋아요'가 반영되었습니다!") ;
+					alert(data); */
+				
+					
+					
+					$("#like"+rId).html("&nbsp;"+data);
+					$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"});
+					
+					
+					
+					
+				},
+				error:function (request, status, error){
+					alert("ajax실패");
+					
+				}
+			});
+		<%}else {%>
+			alert('로그인을 해주세요');
+			location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
+		<%}%>
+		
+	<%-- 	if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})){
+			/* $("#btn"+rId).attr("disabled",true); */
+			
+			
+			
+			
+			$("#btn"+rId).click(function(){
+				/* $("#btn"+rId).attr("disabled",true); */
+				$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
+				var rId = e.id.substring(3);
+			
+				$.ajax({
+					url : "dislike.re",
+					type : "post",
+					data : {rId : rId},
+					
+					success:function(data){
+						alert{"좋아요 취소"};
+					},error:function(request,status,error){
+						alert("ajax 실패");
+					}
+					
+				});
+				
+				
+			});
+		}; --%>
+		
+	
+		
+		
+		}
 		</script>
-
-
+		<script>
+		function dislike(e){
+			var rId = e.id.substring(3);
+			
+		}
+		
+		
+		
+		</script>
+	
 
 		<%-- 페이징 --%>
-		<nav aria-label="Page navigation example">
+		<!-- <nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item disabled"><a class="page-link" href="#"
 					tabindex="-1" aria-disabled="true">Previous</a></li>
@@ -350,7 +489,7 @@ background-size:30px; 30px;
 				<li class="page-item"><a class="page-link" href="#">5</a></li>
 				<li class="page-item"><a class="page-link" href="#">Next</a></li>
 			</ul>
-		</nav>
+		</nav> -->
 
 	</div>
 
