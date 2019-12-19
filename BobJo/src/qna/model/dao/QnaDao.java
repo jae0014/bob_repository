@@ -38,6 +38,7 @@ public class QnaDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("getListCount");
+		System.out.println("리스트카운트sql : "+sql);
 	
 		try {
 			stmt = conn.createStatement();
@@ -53,10 +54,11 @@ public class QnaDao {
 			close(rset);
 			close(stmt);
 		}
+		System.out.println("리스트카우느트 : " + listCount);
 		return listCount;
 	}
 
-	public ArrayList<Qna> selectQnaList(Connection conn, int currentPage, int boardLimit, int typeNum) {
+	public ArrayList<Qna> selectQnaList(Connection conn, int currentPage, int boardLimit) {
 		ArrayList<Qna> list = new ArrayList<Qna>();
 		
 		PreparedStatement pstmt = null;

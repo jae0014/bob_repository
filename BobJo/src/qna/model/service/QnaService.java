@@ -22,10 +22,10 @@ public class QnaService {
 		return listCount;
 	}
 
-	public ArrayList<Qna> selectQnaList(int currentPage, int boardLimit, int typeNum) {
+	public ArrayList<Qna> selectQnaList(int currentPage, int boardLimit) {
 		Connection conn  = getConnection();
 		
-		 ArrayList<Qna> list = new QnaDao().selectQnaList(conn, currentPage, boardLimit, typeNum);
+		 ArrayList<Qna> list = new QnaDao().selectQnaList(conn, currentPage, boardLimit);
 
 		close(conn);
 		 return list;
