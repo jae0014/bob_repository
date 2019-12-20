@@ -114,7 +114,7 @@ public class QnaDao {
 		try {
 		
 			String sql = prop.getProperty("selectQna");
-			sql = "SELECT * FROM Q_DETAIL_V WHERE Q_ID = ?";
+			
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, qId);

@@ -1,11 +1,18 @@
 package qna.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import post.model.vo.Post;
+import post.service.PostService;
+import qna.model.service.QnaService;
+import qna.model.vo.Qna;
 
 /**
  * Servlet implementation class QnaInsertServlet
@@ -26,9 +33,24 @@ public class QnaInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String qTitle = (String)request.getAttribute("qTitle");
+		String qCotent = (String) request.getParameter("quillData");
+		String mId = (String) request.getParameter("mId");
+		//String qCate = (String)request.getParameter("delevery");
+		String qCate = "배송";
+		String qTitle = request.getParameter("display_title");
+		String orderId = request.getParameter("orderId");
 		
+		Qna q = new Qna(qTitle,qCotent, mId, qCate, orderId);
+		
+		int result = new QnaService().insertQna(q);
+
+		if (result > 0) {
+			response.sendRedirect("list.qna");
+		} else {
+			request.setAttribute("msg", "실패하였습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+
 	}
 
 	/**

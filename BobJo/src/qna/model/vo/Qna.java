@@ -21,6 +21,19 @@ public class Qna {
 
 	
 	
+	public Qna(String qTitle, String qContent, String mId, String orderId, String qCate) {
+		super();
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.mId = mId;
+		this.orderId = orderId;
+		this.qCate = qCate;
+	}
+
+
+
+
+
 	public Qna(String qId, String qTitle, String qContent, String mId, String orderId, Date qDate, String qCate,
 			String aStatus, ArrayList<String> aContent, ArrayList<String> aDate) {
 		super();
