@@ -54,7 +54,7 @@ public class QnaDao {
 			close(rset);
 			close(stmt);
 		}
-		System.out.println("리스트카우느트 : " + listCount);
+		System.out.println("리스트카운트 : " + listCount);
 		return listCount;
 	}
 
@@ -128,7 +128,7 @@ public class QnaDao {
 				q.setqCate(rs.getString("q_cate"));
 				q.setqTitle(rs.getString("q_title"));
 				q.setqContent(rs.getString("q_content"));
-				q.setmId(rs.getString("m_id"));
+				q.setmNo(rs.getString("m_id"));
 				q.setqDate(rs.getDate("q_date"));
 				q.setaStatus(rs.getString("a_status"));
 				alist.add(rs.getString("a_content"));
@@ -151,6 +151,33 @@ public class QnaDao {
 		}
 	
 		return q;
+	}
+
+
+
+	public int insertQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, q.getqTitle());
+			pstmt.setString(2, q.getqContent());
+			pstmt.setString(3, q.getmNo());
+			pstmt.setString(4, q.getOrderId());
+			pstmt.setString(5, q.getqCate());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

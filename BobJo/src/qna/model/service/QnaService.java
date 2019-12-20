@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.dao.BoardDao;
 import post.dao.PostDao;
 import post.model.vo.Post;
 import qna.model.dao.QnaDao;
@@ -42,8 +43,19 @@ public class QnaService {
 	}
 
 	public int insertQna(Qna q) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().insertQna(conn, q);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

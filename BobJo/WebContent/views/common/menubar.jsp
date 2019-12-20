@@ -317,7 +317,7 @@ cursor : pointer;
                   class="txt login_user">로그인</span></a>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">고객센터</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">고객센터</span></a>
             </div>
             <%
                } else {
@@ -351,7 +351,7 @@ cursor : pointer;
                </div>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">관리자페이지</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">관리자페이지</span></a>
             </div>
 
             <%
@@ -385,7 +385,7 @@ cursor : pointer;
                </div>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">고객센터</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">고객센터</span></a>
             </div>
 
             <%
