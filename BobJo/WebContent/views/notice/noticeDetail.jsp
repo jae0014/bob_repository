@@ -1,24 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, qna.model.vo.Qna, reply.model.vo.*, java.text.SimpleDateFormat"%>
+	import="java.util.ArrayList, notice.model.vo.Notice, java.text.SimpleDateFormat"%>
 <%
-  Qna q = (Qna)request.getAttribute("qna");
-  ArrayList<String>  alist= q.getaContent();
-  ArrayList<String>	dlist=  q.getaDate();
-  int aIndex = alist.size(); 
-  
+	Notice n = (Notice)request.getAttribute("n");
   Member userID = (Member)session.getAttribute("loginUser");
 
-  //문의 날짜
   SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-  String newDateFormat = simple.format(q.getqDate());
+  String newDateFormat = simple.format(n.getnDate());
+  
   String writer= "Na";
   String id = "noIDNA";
   if(userID != null){
-   writer = q.getmNo();// 이거는 qna에 저장된 아이디
+   writer = n.getmNo();// 이거는 qna에 저장된 아이디
    id = userID.getmId(); //이거는 지금 로그인세션 아이디
   } 
-  	
+
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +35,7 @@
 }
 
 .board-post-list {
-	width: 100%;
+	width: 70%;
 	float: left;
 	margin-top: 10px;
 }
@@ -144,7 +140,7 @@ tfoot>tr {
 							<th colspan="4" class="th">내용</th>
 						</tr>
 						<tr>
-							<td colspan="4" style="height: 500px;"><%= q.getqContent()%>
+							<td colspan="4" style="height: 500px;"><%= n.getnContent()%>
 							</td>
 						</tr>
 					</tbody>
@@ -163,11 +159,13 @@ tfoot>tr {
 								<button class="btn" type="button"
 									style="float: right; background-color: rgb(170, 57, 57); color: white"
 									id="ListMenu" onclick="history.back();">목록으로</button>
-									<%// 사용자가 로그인시
+
+<%-- 									<%// 사용자가 로그인시
 									if (userID != null){ %>
 										<button class="btn" type="button" style="float: right; background-color: rgb(170, 57, 57); color: white"
 									id="CreateNew">글쓰기</button>
-									<%}%>
+									<%}%> --%>
+									
 									<% 
                                     // 로그인유저 == 글작성자일 때 
                                     if(writer.equals(id)){
@@ -176,47 +174,7 @@ tfoot>tr {
 									id="EditList">수정하기</button> <%}%>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="commentBox">
-									<ul class="list-unstyled">
 
-										<%
-                                    if(alist !=null){
-                                    for (int i = 0; i < aIndex; i++) {
-                                    	
-                                    	%>
-										<%if(i <5){ %>
-										<li class="media">
-											<%} else{%>
-										
-										<li class="media commentShow">
-											<%}%> <img class="mr-3" src="" alt="no image">
-
-											<div class="media-header">
-												<h5 class="mt-0 mb-1"><%=q.getmNo()%></h5>
-												<%=dlist.get(i)%>
-											</div>
-
-											<div class="media-body">
-
-												<%=alist.get(i)%>
-											</div>
-										</li>
-
-										<% } %>
-										<button class="btn" type="button"
-											style="background-color: rgb(170, 57, 57); color: white"
-											id="moreID">더보기</button>
-										<% }else {%>
-
-										<%}%>
-
-									</ul>
-								</div>
-							</td>
-
-						</tr>
 					</tfoot>
 				</table>
 
@@ -254,7 +212,7 @@ tfoot>tr {
   			})	
   			
   			$("#EditList").click(function(){
-  				location.href = "<%=request.getContextPath()%>/updateForm.qna?qId="+<%=q.getqId()%>;
+  				location.href = "<%=request.getContextPath()%>/updateForm.no?nId="+<%=n.getnId()%>;
   				
   			})
   			<%-- $("#ListMenu").click(function(){

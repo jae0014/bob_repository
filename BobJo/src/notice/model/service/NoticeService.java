@@ -7,16 +7,37 @@ import java.util.ArrayList;
 
 import notice.model.dao.NoticeDao;
 import notice.model.vo.Notice;
+import qna.model.dao.QnaDao;
+import qna.model.vo.Qna;
 
 public class NoticeService {
 
+	public ArrayList<Notice> selectNoticeList(int currentPage, int boardLimit) {
+		Connection conn  = getConnection();
+		
+		 ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn, currentPage, boardLimit);
 
-	public ArrayList<Notice> selectNoticeList() {
+		close(conn);
+		 return list;
+	}
+	public int getListCount() {
 		Connection conn = getConnection();
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+
+		int listCount = new NoticeDao().getListCount(conn);
+
+		close(conn);
+
+		return listCount;
+	}
+	
+	public Notice selectNotice(String nId) {
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNotice(conn, nId);
 		
 		close(conn);
-		return list;
+		
+		return n;	
 	}
 /*
 	public ArrayList<Notice> noticeInsert(Notice notice) {
@@ -101,4 +122,10 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}*/
+
+
+
+
+
+
 }

@@ -1,7 +1,7 @@
-package qna.controller;
+package notice.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,23 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.vo.Member;
-import post.model.vo.Post;
-import post.service.PostService;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
 import qna.model.service.QnaService;
 import qna.model.vo.Qna;
 
 /**
- * Servlet implementation class QnaInsertServlet
+ * Servlet implementation class NoticeDetailServlet
  */
-@WebServlet("/insert.qna")
-public class QnaInsertServlet extends HttpServlet {
+@WebServlet("/detail.no")
+public class NoticeDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaInsertServlet() {
+    public NoticeDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,27 +33,29 @@ public class QnaInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String qCotent = (String) request.getParameter("quillData");
 		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		System.out.println(loginUser);
-		String mNo = String.valueOf(loginUser.getmNo());
+		String nId = request.getParameter("nId");
+		NoticeService ns = new NoticeService();
 		
-		String qCate = (String)request.getParameter("qCate");
 		
-		String qTitle = request.getParameter("qTitle");
-		String oId = request.getParameter("oId");
+		// 불러오기
+		// 게시글
+		Notice n = ns.selectNotice(nId);
+		System.out.println(n); 
 		
-		Qna q = new Qna(qTitle, qCotent, mNo, oId, qCate);
-		int result = new QnaService().insertQna(q);
-
-		if (result > 0) {
-			response.sendRedirect("list.qna");
-		} else {
-			request.setAttribute("msg", "실패하였습니다");
+		SimpleDateFormat sdf =new SimpleDateFormat("");
+		
+		if(n !=null)
+		{	
+			request.setAttribute("n", n);
+			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
+		}
+		else
+		{
+			request.setAttribute("msg", "공지사항 세부사항 확인 오류");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-
+		
 	}
 
 	/**

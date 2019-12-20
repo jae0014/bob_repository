@@ -139,6 +139,11 @@ border:1px solid black;
 .postRow:hover {
 	background-color: rgb(255, 243, 239);
 }
+
+.qDateCols{
+widht: 120px !important;
+
+}
 </style>
 <head>
 <meta charset="UTF-8">
@@ -159,7 +164,7 @@ border:1px solid black;
  <div class="board-postnav-side">
       <ul class="nav flex-column " id ="sidebar">
            <li class="nav-item  border border-light">
-                <a class="nav-link active" href="#">공지사항</a>
+                <a class="nav-link active" href="list.no">공지사항</a>
            </li>
            
            <% if(loginUser != null && loginUser.getmId().equals("admin")){ %>
@@ -211,17 +216,14 @@ border:1px solid black;
 
 			<!-- 게시판 글 -->
 			<div class=" board-post-list table-responsive">
+			<p>1:1 문의</p>
 				<table class="table table-sm" border="1">
-					<caption id="boardTypeTitle">1:1 문의</caption>
 					<thead>
-						<tr>
-							<th colspan="4" id="boardTypeTitle">문의 게시판</th>
-						</tr>
 						<tr>
 							<th scope="col" style="width: 7%;">번호</th>
 							<th class="mycolSize" scope="col">제목</th>
 							<th scope="col">작성자</th>
-							<th scope="col">작성일</th>
+							<th scope="qDateCols">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -231,8 +233,8 @@ border:1px solid black;
 						<tr class="postRow">
 							<td style="width: 7%;" id="<%=list.get(i).getqId()%>"><%=num %></td>
 							<td class="mycolSize"><%=list.get(i).getqTitle()%></td>
-							<td class="mycolSize2"><%=list.get(i).getmId()%></td>
-							<td class="mycolSize2"><%=newDateFormat %></td>
+							<td class="mycolSize2"><%=list.get(i).getmNo()%></td>
+							<td class="mycolSize3"><%=newDateFormat %></td>
 						</tr>
 						<%
 							

@@ -7,7 +7,7 @@ public class Qna {
 	private String qId;
 	private String qTitle;
 	private String qContent;
-	private String mId;
+	private String mNo;
 	private String orderId;
 	private Date qDate;
 	private String qCate;
@@ -21,11 +21,11 @@ public class Qna {
 
 	
 	
-	public Qna(String qTitle, String qContent, String mId, String orderId, String qCate) {
+	public Qna(String qTitle, String qContent, String mNo, String orderId, String qCate) {
 		super();
 		this.qTitle = qTitle;
 		this.qContent = qContent;
-		this.mId = mId;
+		this.mNo = mNo;
 		this.orderId = orderId;
 		this.qCate = qCate;
 	}
@@ -34,13 +34,13 @@ public class Qna {
 
 
 
-	public Qna(String qId, String qTitle, String qContent, String mId, String orderId, Date qDate, String qCate,
+	public Qna(String qId, String qTitle, String qContent, String mNo, String orderId, Date qDate, String qCate,
 			String aStatus, ArrayList<String> aContent, ArrayList<String> aDate) {
 		super();
 		this.qId = qId;
 		this.qTitle = qTitle;
 		this.qContent = qContent;
-		this.mId = mId;
+		this.mNo = mNo;
 		this.orderId = orderId;
 		this.qDate = qDate;
 		this.qCate = qCate;
@@ -53,11 +53,11 @@ public class Qna {
 
 
 
-	public Qna(String qId, String qTitle, String mId, Date qDate, String qCate, String aStatus) {
+	public Qna(String qId, String qTitle, String mNo, Date qDate, String qCate, String aStatus) {
 		super();
 		this.qId = qId;
 		this.qTitle = qTitle;
-		this.mId = mId;
+		this.mNo = mNo;
 		this.qDate = qDate;
 		this.qCate = qCate;
 		this.aStatus = aStatus;
@@ -115,16 +115,16 @@ public class Qna {
 
 
 
-	public String getmId() {
-		return mId;
+	public String getmNo() {
+		return mNo;
 	}
 
 
 
 
 
-	public void setmId(String mId) {
-		this.mId = mId;
+	public void setmNo(String mNo) {
+		this.mNo = mNo;
 	}
 
 
@@ -229,7 +229,7 @@ public class Qna {
 
 	@Override
 	public String toString() {
-		return "Qna [qId=" + qId + ", qTitle=" + qTitle + ", qContent=" + qContent + ", mId=" + mId + ", orderId="
+		return "Qna [qId=" + qId + ", qTitle=" + qTitle + ", qContent=" + qContent + ", mNo=" + mNo + ", orderId="
 				+ orderId + ", qDate=" + qDate + ", qCate=" + qCate + ", aStatus=" + aStatus + ", aContent=" + aContent
 				+ ", aDate=" + aDate + "]";
 	}
