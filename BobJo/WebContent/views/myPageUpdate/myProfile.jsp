@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+</html><%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,11 +10,8 @@
 <link rel="stylesheet" href="css/operate.css">
 
 
-
-
 </head>
 <style>
-
 
 .part1,.mypage-contents,.sub-container{
 diplay:inline-block;
@@ -37,11 +35,13 @@ float:left;
 }
 
 .mypage-contents{
-width:50%;
+width:80%;
 float:left;
 
 
 }
+
+
 
 
 .content{
@@ -51,90 +51,104 @@ height:90%;
 border:1px solid grey;
 }
 
-.myprofile{
-
-width:25%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
-}
-
-.background,.text{
-height:50%;
-}
 
 
-.pic{
-width:30%;
-height:30%;
-border-radius:50%;
-margin-top:-12%;
-margin-left:33%;
-positon:relative;
-z-index: 2;
-}
-
-.text{
-margin-top:-12%;
-}
-
-.pf{
-width:100%;
-height:100%;
-border-radius:50%;
-position:relative; 
-z-index:1;
-
-}
-
-.bg{
-width:100%;
-height:100%;
-opacity:0.5;
-z-index: -1;
-}
-
-.nickname{
-margin-top:13%;
-height:20%;
-text-align:center;
-font-size:40px;
-margin-bottom:10px;
-
-}
-
-.introduce{
-text-align:center;
-font-size:20px;
-
-}
-
-.myprofile{
-
+.whole{
 width:80%;
-height:70%;
-margin:3% 5% 3% 3%;
-border-radius:5px;
-border:1px solid grey;
+height:600px;
 margin:auto;
 
-}
-
-
-.cover{
-margin-left:10%;
-background-color:grey;
-border-radius:5px;
-width:45%;
-
 
 }
 
+.mold{
+width:27%;
+margin-left:5%;
+margin-top:2%;
+display:inline-block;
 
+}
 
+.thumbnail{
+	width:100%;
+	height:200px;
+	}
+	
 
+	
+	.likenum, .qnanum{
+	width:50px;
+	height:30px;
+	font-size:15px;
+	
+		}
+		
+	.content{
+	width:100%;
+	height:30%;
+	box-sizing:border-box;
+	display:inline-block;
+	}
+	
+	.name{
+		width:100%;
+		height:30%;
+	}
+	
+	.writer{
+	width:100%;
+	height:70%;
 
+	}
+	
+	.card-body{
+	border-radius:5px;
+	}
+	
+	.yy{
+	font-size:10px;
+	text-align:right;
+	}
+	
+	.views{
+	display:inline-block;
+	}
+	
+	
+	
+	
+	.name{
+		height:100%;
+		width:60%;
+		display:inline-block;
+		font-size:25px;
+		font-weight:bold;
+		text-align:right;
+	}
+	
+	
+	.recipe{
+		box-sizing:border-box;
+		height:100%;
+		width:20%;
+		display:inline-block;
+		float:right;
+		font-size:10px;
+		margin-top:20px;
+	
+		
+	}
+	
+	.content{
+	border-radius:5px;
+	width:100%;
+	height:90%;
+	border:1px solid grey;
+	}
+	
+div{
+border: 1px solid red;
+}
 
 
 
@@ -190,7 +204,7 @@ width:45%;
 	<dd>
 		<ul>
 			<li>
-				<a href="myRecipe.jsp" >
+				<a href="<%=request.getContextPath()%>/recipelist.mp" >
 					나의 레시피
 				</a>
 			</li>
@@ -261,7 +275,7 @@ width:45%;
 	<div class="shopping-info">
 		<div class="area info01">
 			<p>
-				안녕하세요. 홍길동님<br>
+				안녕하세요. <%=loginUser.getmName() %>님<br>
 				chef J를 이용해주셔서 감사합니다.
 			</p>
 		</div>
@@ -270,46 +284,94 @@ width:45%;
 		
 	</div>
 </section>
-<%--프로필 자리 --%>
-<div class="contents">
-	<br><br>
-	<div class="wrap-profile">
-		<h2>나의 프로필</h2>
-		<p class="desc">사진과 닉네임,인사말을 수정할 수 있습니다.</p>
+<%--여기서부터 시작 자리 --%>
+<div class="wrap-profile">
+<h2>나의 레시피 보기</h2>
+<p class="desc">내가 작성한 레시피를 볼 수 있습니다.</p>
+</div>
 
 
-
-	<div class="shadow-sm p-3 mb-5 bg-white rounded">
-	<div class="p background"><img class="bg" src="<%=request.getContextPath() %>/resources/images/마카롱.jpg"></div>
-	<div class="p pic"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=350,width=300, status=yes,toolbar=no,menubar=no,location=no");return false'><img class="pf" src="<%=request.getContextPath() %>/resources/images/강아지.jpg" ></a></div>
-
-	<div class="p text">
-		<div class="p nickname"><a href="#" onclick='window.open("updateProfile.jsp","_blank","height=330,width=300, status=yes,toolbar=no,menubar=no,location=no");return false'>홍길동</a></div>
-		<div class="p introduce">집밥이 짱~~</div>
+<div class="shadow p-3 mb-5 bg-white rounded" style="width:95%; height:75%;"><br>
+<div class="wrap-order-overview">
 		
-		
-		<br><br>
 	</div>
-	
-	</div>
-	</div>
-	</div>
+ <div class="mold">
+          <div class="card mb-3 shadow-sm">
+           	<div class="thumbnail" id="thumbnail1"><a href=""><img width=100%, height=100%, src="<%=request.getContextPath() %>/resources/images/갈비찜.jpg"></a></div>
+            <div class="card-body" >
+   
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                
+                  <div class="like" id="like1"><img width =20px, height =20px, src="<%=request.getContextPath() %>/resources/images/like.png"></div>
+                  <div class="likenum" id="likenum1">&nbsp;521</div>
+                  <div class="qna" id="qna1"><img width=20px, height = 20px, src = "<%=request.getContextPath() %>/resources/images/speech-bubble.png"></div>
+                  <div class="qnanum" id="qnanum1" >&nbsp;860</div>
+                </div>
+                <div class="yy" >
+              
+                <div class="date" id="date1" >2019-12-02</div>
+          
+          	
+                <div class="views views" id="views">조회수 : </div>
+                <div class="views viewsnum" id="views1" >8555</div>
+                
+                </div>
+            
+              
+                
+              </div><hr>
+              	<div class="card shadow-s"></div>
+         		
+				<div class="main">
+              	<div class="name" id="name1"><a href="" >갈비찜</a></div>
+             
+             	
+             	<div class="recipe writer" id="writer1"><a href="">홍길동</a></div>
+             	<div class="recipe blank"></div>
+              	
+              	
+            </div>
+         		
+            </div>
+          </div>
+        </div>
+     
+            
+              
+                
+             
+      
+        
+        
+        <br><br>
+          <navig aria-label="Page navigation example" >
+  <ul class="pagination justify-content-center" >
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</navig>
 
-
+</div>
 </div>
 
 </div>
 
 
 
-</div>
-
-</div>
 
 
 
 
-</script>
 
 
 <%@include file="../common/footer.jsp"%>
