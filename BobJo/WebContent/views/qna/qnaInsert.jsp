@@ -129,6 +129,43 @@ width: 40px;
 font-size:12px;
 padding: 3px;
 }
+
+
+.modal_select_btn, .submitBTN, .order_select_btn{
+	background: rgb(170, 57, 57) !important;
+	border: none;
+	border-radius: 3px;
+	font-size: 12px !important;
+}
+
+.orderList_div{
+	width: 450px;
+	border: 1px solid red;
+	margin: auto;
+	
+}
+.orderList_table th{
+	background: #f9f9f9;
+}
+.orderList_table{
+	width: 100%;
+	text-align: center;
+	
+}
+.orderCols{
+width: 20%;
+
+}
+.oDateCols{
+width: 30%;
+}
+.priceCols{
+width: 40%;
+}
+
+.chCols{
+width: 10%;
+}
 </style>
 </head>
 <body>
@@ -138,7 +175,8 @@ padding: 3px;
 	<form action="<%=request.getContextPath()%>/insert.qna" method="post"
 		id="postInsert">
 		<div class="updateBox">
-
+		<input type="hidden" name="mId" value="<%=loginUser.getmId() %>">
+		<input type="hidden" name="quillData" value="11">
 			<table border="1" class="qna_table">
 				<tr>
 					<td rowspan="2" class="sub_cols">제목</td>
@@ -147,7 +185,7 @@ padding: 3px;
 							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">선택해주세요</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#" value="1">배송</a> <a
+								<a class="dropdown-item" href="#" value="1" name="delivery">배송</a> <a
 									class="dropdown-item" href="#" value="2">교환</a>
 							</div>
 						</div>
@@ -157,17 +195,17 @@ padding: 3px;
 					<td><input class="qTitle" name="display_title" type="text" name="qTitle"></td>
 				</tr>
 				<tr>
-				<td class="sub_cols">
-				주문번호
-				</td>
-				<td>
-				<input type="text" class="oId" name="oId">
-				<button type="button" class="order_select_btn btn-primary">주문조회</button>
-				</td>
+					<td class="sub_cols">
+						주문번호
+					</td>
+					<td>
+						<input type="text" class="oId" name="oId" id="oIdInput">
+						<button type="button" class="order_select_btn btn-primary">주문조회</button>
+					</td>
 				</tr>
 				<tr>
 				<td class="sub_cols">이메일</td>
-				<td><input type="text" value="<%-- <%= loginUser.getEmail()%> --%>" readonly>
+				<td><input type="text" value="<%= loginUser.getEmail()%>" readonly>
 					<input type="checkbox" name="chk_email_answer"><label style="font-size:12px">답변수신을 문자메세지로 받겠습니다.</label>
 				</td>
 				
@@ -197,14 +235,6 @@ padding: 3px;
 * 전화번호, 이메일, 주소, 계좌번호 등의 상세 개인정보가 문의 내용에 저장되지 않도록 주의해 주시기 바랍니다.
 				
 					</pre>
-
-				
-				</td>
-				</tr>
-				<tr>
-				<td>
-								
-				
 			<!-- Include the Quill library -->
 			<div id="editor-container" style="height: 500px;"></div>
 			<div style="width: 100%;">
@@ -214,6 +244,7 @@ padding: 3px;
 			</div>
 
 			<div id="testBox"></div>
+				
 				</td>
 				</tr>
 			</table>
@@ -229,49 +260,47 @@ padding: 3px;
 	</form>
 
 
-
-
-
 <!-- Modal -->
 <div class="modal fade ttt" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalCenterTitle">내 주문번호 조회하기</h5>
+        <button type="button" class="close modal_close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 					<div class="modal-body">
-						<div>
-							<table border="1">
+						<div class="orderList_div">
+							<table class="orderList_table" border="1" border-color="lightgrey">
 							<tr>
-							<td>주문번호</td>
-							<td>가격총액</td>
+							<th class="orderCols">주문번호</th>
+							<th class="oDateCols">주문일</th>
+							<th class="priceCols">주문금액</th>
+							<th class="ckCols">선택</th>
 							</tr>
 
 							<%if(list != null){ %>
 								<% for(int i = 0; i < list.size(); i++){ %>
 									<tr>
-									<td>뭐라도 뜨니..?</td>
 										<td class="oId"><%=list.get(i).getOrderId() %></td>
+										<td class="oDate"><%=list.get(i).getOrderDate() %></td>
 										<td class="price"><%=list.get(i).getTotalPrice() %></td>
+										<td><input type="radio" id="check_oId" value="<%=list.get(i).getOrderId() %>"></td>
 									</tr>
 								<%} %>
 							<%}else{%>
 								<tr>
-									<td>주문내역이 없습니다.</td>
+									<td colspan="4">주문내역이 없습니다.</td>
 								</tr>
 							<%} %>
-							
-	
 							</table>
 							
 						</div>
 					</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary modal_select_btn">선택하기</button>
       </div>
     </div>
   </div>
@@ -281,24 +310,7 @@ padding: 3px;
 <script>/* 모달 */
 $(function() {
 	$(".order_select_btn").click(function(){
-<%-- 	var userId = "<%=loginUser.getmId()%>";
-		// 주문리스트 가져오기
-		$.ajax({
-			url : "ajList.order",
-			data : {
-					userId : userId},
-			type : "post",
-			success : function(re){
-				// 주문리스트 가져오면 모달 창에 보여지게하기
-				$(".oId").val(re);
-					
-			},
-			error : function() {
-				alert('장바구니에 담기 실패!!.');
-			}
-			
-		});
-		 --%>
+
 		// 모달 보이게 하기
 		$('.ttt').modal("show");
 	
@@ -316,13 +328,20 @@ $(function() {
 	
 	$(".modal_close").click(function(){
 		// 모달 창을 닫으면 모달 안에 있는 데이터 모두 초기화해야함
-	$(".ttt").modal("close");
+		$(".ttt").modal("hide");
+	});
+	
+	$(".modal_select_btn").click(function(){
+		// 선택하기 버튼을 누르면 radio value값 주문번호 인풋에 전달
+		
+		$("#oIdInput").val()=$("#check_oId:checked").val()
+		$(".ttt").modal("hide");
 	});
 
 });
 
 
-	<!-- Initialize Quill editor -->
+<!-- Initialize Quill editor -->
 	
 	var quill = new Quill('#editor-container', {
 		modules : {
@@ -384,9 +403,10 @@ $(function() {
 	function getQuill() {
 		var quill_object = quill.container.firstChild.innerHTML;
 		$("input[name=quillData]").val(quill_object);
-		
+		//insert 폼 제출
 		$("#postInsert").submit();
 	}
+	
 	function update() {
 		var quill_object = quill.container.firstChild.innerHTML;
 		$("input[name=quillData]").val(quill_object);

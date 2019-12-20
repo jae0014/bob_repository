@@ -41,4 +41,9 @@ public class QnaService {
 		return q;	
 	}
 
+	public int insertQna(Qna q) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
