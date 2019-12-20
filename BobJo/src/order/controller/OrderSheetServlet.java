@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import product.model.service.ProductService;
 import product.model.vo.Cart;
 
 /**
@@ -39,14 +40,26 @@ public class OrderSheetServlet extends HttpServlet {
 		 */
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("loginUser");
+		String userId = "";
+		if(m != null) {
+			userId = m.getmId();
+		}else {
+			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
+		}
 		
-		String[] arr = request.getParameterValues("arr");
-		String[] idArr = request.getParameterValues("checkRow");
-		String[] priceArr = request.getParameterValues("checkPrice");
+		// 체크된 상품의 상품ID
+		String str = request.getParameter("pids");
+		//System.out.println("테스트 : " + str);
+		String[] pIdArr = str.split(",");
 		
-		System.out.println("테스트1 : " +priceArr);
-		System.out.println("테스트2 : " +idArr);
+		ProductService pService = new ProductService();
 		
+		ArrayList<Cart> cartList = pService.selectCartList(userId);
+		
+		request.setAttribute("cartList", cartList);
+		request.setAttribute("pIdArr", pIdArr);
+		request.setAttribute("pids", str);
+		request.getRequestDispatcher("views/order/orderSheetView.jsp").forward(request, response);
 	}
 
 	/**

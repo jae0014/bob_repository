@@ -158,8 +158,6 @@ input[type=checkbox] {
 						</tr>
 					</thead>
 					<tbody>
-						<form id="form1" name="form1" method="post" action=""
-							onsubmit="_submit(this);">
 							<%
 								if (cartList.size() == 0) {
 							%>
@@ -194,7 +192,6 @@ input[type=checkbox] {
 							<%
 								}
 							%>
-						</form>
 					</tbody>
 				</table>
 				<!-- <input type="checkbox"><p>전체 선택</p> -->
@@ -244,7 +241,9 @@ input[type=checkbox] {
 
 		</div>
 	</section>
-
+	<form id="pidsFrm" action="ordersheet" method="post">
+		<input type="hidden" name="pids" id="pids">
+	</form>
 	<script>
 		$(function() {
 			var sum = 0;
@@ -328,26 +327,21 @@ input[type=checkbox] {
 			// 주문하기 버튼 클릭 시 체크된 상품정보 보내기
 			$("#orderBtn").click(function(){
 				// 장바구니 데이터에서 일부 데이터만 주문서로 넘기려면?
-				var arr = new Array();
+				var num = 0;
+				var str = "";
 				$("input[name=checkRow]:checked").each(function() {
 					var pId = $(this).val();
-					arr.push(pId);
+					if(num == 0){
+						str += pId;
+						num++;
+					}else {
+						str += "," +pId;
+					}
 				});
 				
-				$.ajax({
-					url : "ordersheet",
-					data : {
-						arr : arr
-					},
-					type : "post",
-					success : function(re) {
-						console.log(re);
-					},
-					error : function() {
-						alert('ajax 에러');
-					}
-
-				}); /* ajax 끝부분 */
+				$("#pids").val(str);
+				$("#pidsFrm").submit();
+				
 			});
 			
 
