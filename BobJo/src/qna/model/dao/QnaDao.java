@@ -30,8 +30,6 @@ public class QnaDao {
 		}
 	}
 	
-	
-	
 	public int getListCount(Connection conn) {
 		int listCount = 0;
 		Statement stmt = null;
@@ -58,6 +56,33 @@ public class QnaDao {
 		return listCount;
 	}
 
+	public int getListCount(Connection conn, String mId) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount2");
+		System.out.println("리스트카운트sql : "+sql);
+		System.out.println("아이디뭐니" + mId);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			
+			rset = pstmt.executeQuery(sql);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("일반유저리스트카운트 : " + listCount);
+		return listCount;
+	}
 	public ArrayList<Qna> selectQnaList(Connection conn, int currentPage, int boardLimit) {
 		ArrayList<Qna> list = new ArrayList<Qna>();
 		
@@ -179,5 +204,56 @@ public class QnaDao {
 		}
 		return result;
 	}
+
+
+
+	public ArrayList<Qna> selectQnaList(Connection conn, int currentPage, int boardLimit, String mId2) {
+ArrayList<Qna> list = new ArrayList<Qna>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectQnaList2");
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			// 쿼리문 실행 시 조건절에 넣을 변수들
+			// currentPage = 1 --> startRow 1 ~ endRow 10
+			// currentPage = 2 --> startRow 11 ~ endRow 20
+
+			// startRow : (currentPage - 1) * boardLimit + 1
+			// endRow : startRow + boardLimit - 1
+			
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, mId2);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				String qId = rset.getString("q_id");
+				String qTitle = rset.getString("q_title");
+				String mId = rset.getString("m_id");
+				Date qDate = rset.getDate("q_date");
+				String qCate = rset.getString("q_cate");
+				String aStatus = rset.getString("a_status");
+				
+				list.add(new Qna(qId, qTitle, mId, qDate, qCate, aStatus));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+
 
 }

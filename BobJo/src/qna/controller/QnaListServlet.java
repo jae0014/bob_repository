@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.vo.PageInfo;
+import member.model.vo.Member;
 import qna.model.service.QnaService;
 import qna.model.vo.Qna;
 
@@ -38,6 +39,11 @@ public class QnaListServlet extends HttpServlet {
 		// 서비스 선언
 		QnaService qService = new QnaService();
 		
+		// 아이디비교 관리자인지 아닌지
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String mId = loginUser.getmId();
+		
+		
 		// 1_2. 페이징 처리 추가
 		// 페이지 수 처리용 변수 선언
 		// * currentPage : 현재 페이지
@@ -64,11 +70,19 @@ public class QnaListServlet extends HttpServlet {
 		// 하지만 페이지 전환 시 전달 받은 현재 페이지가 있을 시 해당 페이지를 currentPage로 적용
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			
 		}
 		
+		int listCount = 0;
+		
 		// Qna리스트 갯수 파악
-		int listCount = qService.getListCount();
+		if(mId.equals("admin")) {
+			System.out.println("관리자리스트");
+			listCount = qService.getListCount();	
+			
+		}else {
+			System.out.println("일반유저리스트");
+			listCount = qService.getListCount(mId);	
+		}
 		System.out.println("현재페이지: " + currentPage);
 		pageLimit = 10;
 		
@@ -101,8 +115,17 @@ public class QnaListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		
 		// qna 전체 리스트 가져오기
-		ArrayList<Qna> list = qService.selectQnaList(currentPage, boardLimit);
 		
+		ArrayList<Qna> list = null;
+		if(mId.equals("admin")) {
+			//전체리스트 담기
+			System.out.println("관리자 리스트");
+			list = qService.selectQnaList(currentPage, boardLimit);
+			
+		}else{
+			System.out.println("일반유저 리스트");
+			list = qService.selectQnaList(currentPage, boardLimit, mId);
+		}
 		System.out.println("시작2 : " + currentPage);
 
 	

@@ -23,6 +23,15 @@ public class QnaService {
 		return listCount;
 	}
 
+	public int getListCount(String mId) {
+		Connection conn = getConnection();
+
+		int listCount = new QnaDao().getListCount(conn, mId);
+
+		close(conn);
+
+		return listCount;
+	}
 	public ArrayList<Qna> selectQnaList(int currentPage, int boardLimit) {
 		Connection conn  = getConnection();
 		
@@ -57,5 +66,15 @@ public class QnaService {
 		
 		return result;
 	}
+
+	public ArrayList<Qna> selectQnaList(int currentPage, int boardLimit, String mId) {
+		Connection conn  = getConnection();
+		
+		 ArrayList<Qna> list = new QnaDao().selectQnaList(conn, currentPage, boardLimit, mId);
+
+		close(conn);
+		 return list;
+	}
+
 
 }

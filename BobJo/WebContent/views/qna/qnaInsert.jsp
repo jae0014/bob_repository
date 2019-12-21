@@ -432,5 +432,7 @@ $(function() {
 		$("#postInsert").submit();
 	}
 	</script>
+	
+     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
