@@ -422,8 +422,7 @@ body {
     		}
     		<%} else {%>
     			alert('로그인 후 장바구니를 이용할 수 있습니다.');
-				location.href="<%=contextPath%>
-		/views/member/memberLoginForm.jsp";
+				location.href="<%=contextPath%>/views/member/memberLoginForm.jsp";
 	<%}%>
 		});
 	</script>
