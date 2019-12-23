@@ -352,6 +352,7 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         
         
     $(function(){
+    	$(".userId").focus();
         // 해당 input keyup때마다 색변경
         // ID 유효성
         $(".userId").keyup(function(){

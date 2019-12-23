@@ -8,9 +8,9 @@ public class Attachment {
 	private int fLevel;		// 썸네일:1/일반:2
 	private String fStatus;	// 파일삭제여부
 	private String fPath;	// 파일경로
-	private String fName;
+	private String fName;	// 파일명
 	
-	private String changeName;
+	private String changeName;	
 	
 	public Attachment() {}
 	
@@ -27,8 +27,8 @@ public class Attachment {
 	}
 
 
-	public Attachment(String fId, int btype, String bprcId, int fLevel, String fStatus, String fName,
-			String foName, String changeName) {
+	public Attachment(String fId, int btype, String bprcId, int fLevel, String fStatus, String fPath, String fName,
+			String changeName) {
 		super();
 		this.fId = fId;
 		this.btype = btype;
@@ -37,10 +37,8 @@ public class Attachment {
 		this.fStatus = fStatus;
 		this.fPath = fPath;
 		this.fName = fName;
-
 		this.changeName = changeName;
 	}
-
 
 
 	public String getfId() {
@@ -125,8 +123,9 @@ public class Attachment {
 	@Override
 	public String toString() {
 		return "Attachment [fId=" + fId + ", btype=" + btype + ", bprcId=" + bprcId + ", fLevel=" + fLevel
-				+ ", fStatus=" + fStatus + ", fPath=" + fPath + ", fName=" + fName + "]";
+				+ ", fStatus=" + fStatus + ", fPath=" + fPath + ", fName=" + fName + ", changeName=" + changeName + "]";
 	}
+
 
 	
 	

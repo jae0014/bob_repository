@@ -2,19 +2,18 @@
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, notice.model.vo.Notice, java.text.SimpleDateFormat"%>
 <%
-	Notice n = (Notice)request.getAttribute("n");
-  Member userID = (Member)session.getAttribute("loginUser");
+	Notice n = (Notice) request.getAttribute("n");
+	Member userID = (Member) session.getAttribute("loginUser");
 
-  SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-  String newDateFormat = simple.format(n.getnDate());
-  
-  String writer= "Na";
-  String id = "noIDNA";
-  if(userID != null){
-   writer = n.getmNo();// 이거는 qna에 저장된 아이디
-   id = userID.getmId(); //이거는 지금 로그인세션 아이디
-  } 
+	SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+	String newDateFormat = simple.format(n.getnDate());
 
+	String writer = "Na";
+	String id = "noIDNA";
+	if (userID != null) {
+		writer = n.getmNo();// 이거는 qna에 저장된 아이디
+		id = userID.getmId(); //이거는 지금 로그인세션 아이디
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -22,65 +21,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
+* {
+	box-sizing: border-box;
+	margin: auto;
+}
+
+.outer_m {
+	display: block;
+	width: 1050px;
+	height: auto;
+	/* border: 1px solid red; */
+	margin: auto;
+}
+
 .board-post {
+
+	display:inline-block;
 	width: 100%;
+	height: auto;
 	padding: 0px;
 	margin: 0px;
-	height: 500px;
-	text-align: center;
-	padding-left: 25%;
-	padding-right: 25%
+	/* text-align: center; */
+	/* border: 1px solid green; */
+	margin: auto;
 }
 
 .board-post-list {
-	width: 70%;
+	width: 100%;
 	float: left;
 	margin-top: 10px;
 }
 
-.board-postnav-side {
-	width: 20%;
-	height: 350px;
-	float: left;
-	margin: 10px;
-	background-color: rgb(255, 243, 239);
-	border: 1px solid black;
-}
-
-.board-postnav-side>ul>li>a {
-	color: black;
-}
-
-.board-postnav-side>ul>li>a:hover {
-	color: red;
-}
-
-.board-postnav-side>ul>li:hover {
-	background-color: lightgrey;
-}
-
-.mycolSize {
-	width: 70%;
-}
-
-.mycolSize2 {
-	width: 10%;
-}
-
 .titles {
 	width: 100px;
-}
-
-.boardTItle {
-	display: inline-block;
-	font-size: 1.5em;
-}
-
-.text-left {
-	text-align: left;
-	width: 20%;
 }
 
 .margin-padding-zero {
@@ -90,98 +64,126 @@
 	padding-right: 10%;
 }
 
-.commentBox {
-	width: 100%;
-	float: left;
-}
-
-.th {
-	background-color: lightblue;
-}
-
-tbody>tr:nth-child(2) {
-	box-shadow: 0 0 0 1px lightgrey;
-	border-radius: 3px;
-}
-
-tfoot>tr {
-	box-shadow: 0 0 0 1px lightgrey;
-	border-radius: 3px;
-}
-
-.commentShow {
-	display: none !important;
-}
-
-
 .profilePic {
 	width: 150px;
 	height: 150px;
 }
+
+.firstCols {
+	width: 100px;
+}
+.table-sm{
+border-top: 2px solid rgb(170, 57, 57);
+	border-bottom: 1px solid rgb(170, 57, 57);
+	border-left: none;
+	border-right: none;
+	margin:0px !important;
+	margin-bottom:20px !important;
+		
+}
+.table-sm th{
+background: #f9f9f9;
+padding-left: 20px !important;
+height: 50px;
+font-size: 12px;
+vertical-align:middle !important;
+
+}
+.table-sm td:not(.contentArea){
+	border-left: none;
+	border-right: none;
+	vertical-align:middle !important;
+	font-size: 12px;
+	height: 35px;
+padding-left: 20px !important;
+}
+.contentArea{
+font-size: 12px;
+padding: 20px !important;
+}
+
+#ListMenu{
+background:rgb(170, 57, 57);
+ width: 150px;
+ height: 50px;
+ border-radius: none !important;
+}
+#ListMenu:hover{
+background:rgb(200, 70, 70);
+ width: 150px;
+ height: 50px;
+}
 </style>
+</head>
 <body>
 	<%@ include file="../../views/common/bootstrap.jsp"%>
-	<%-- <%@ include file="../common/menubar.jsp"%> --%>
-	<div class="board-post">
-<%@ include file="../sidemenubar/sidemenu.jsp"%>
+	<%@ include file="../common/menubar.jsp"%>
+
+	<div class="outer_m" style="margin: auto !important;">
+
+			<div class="board-post">
+				<div class="sub_text_area" style="diplay:inline-block; width: 100%;/*  border:1px solid black; */">				
+					<p style="font-size: 16px; font-weight: 900; text-align: left; line-height:'2';/*  border:1px solid black;  */margin-top:20px; margin-bottom:20px;">
+					공지사항</p>
+				</div>
+				<!-- 게시판 글 -->
+				<div class=" board-post-list">
+					<table class="table table-sm">
+						<tbody>
+							<tr>
+								<th class="thTitle firstCols"  style="vertical-align:middle;">제목</th>
+								<td colspan="3"><%=n.getnTitle()%></td>
+							</tr>
+
+							<tr>
+								<th class="thWriter">작성자</th>
+								<%-- <td><%=n.getmNo() %></td> --%>
+								<td colspan="3">ChefJ</td>
+							</tr>
+
+							<tr>
+								<th class="thDate">작성일</th>
+								<td><%=n.getnDate()%></td>
+								<th class="thCount">조회수</th>
+								<td><%=n.getnCount()%></td>
+							</tr>
+							<tr>
+								<td colspan="4" class="contentArea" style="height: 500px;"><%=n.getnContent()%></td>
+							</tr>
+						</tbody>
 
 
-		<!-- 게시판 & 네비게이션 -->
-		<div style="width: 100%;">
+						<!-- 댓글 -->
+						<tfoot>
 
+							<tr>
+								<td colspan="4">
+									<button class="btn" type="button"
+										style="float: right; background-color: rgb(170, 57, 57); color: white"
+										id="ListMenu" onclick="location.href='list.no'">목록</button>
 
-
-			<!-- 게시판 글 -->
-			<div class=" board-post-list" style="height: 350px;">
-				<table class="table table-sm">
-
-					<tbody border=1>
-						<tr>
-							<th colspan="4" class="th">내용</th>
-						</tr>
-						<tr>
-							<td colspan="4" style="height: 500px;"><%= n.getnContent()%>
-							</td>
-						</tr>
-					</tbody>
-
-
-					<!-- 댓글 -->
-					<tfoot>
-						<tr>
-							<td style="text-align: none !important"><img
-								class="profilePic"
-								src="<%= request.getContextPath()%>/resources/icon/baseline_account_box_black_48dp.png"
-								alt="..."></td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<button class="btn" type="button"
-									style="float: right; background-color: rgb(170, 57, 57); color: white"
-									id="ListMenu" onclick="history.back();">목록으로</button>
-
-<%-- 									<%// 사용자가 로그인시
+									<%-- 									<%// 사용자가 로그인시
 									if (userID != null){ %>
 										<button class="btn" type="button" style="float: right; background-color: rgb(170, 57, 57); color: white"
 									id="CreateNew">글쓰기</button>
-									<%}%> --%>
-									
-									<% 
-                                    // 로그인유저 == 글작성자일 때 
-                                    if(writer.equals(id)){
-                                    %>
-									<button class="btn" type="button" style="float: right; background-color: rgb(170, 57, 57); color: white"
-									id="EditList">수정하기</button> <%}%>
-							</td>
-						</tr>
+									<%}%> --%> <%
+ 	// 로그인유저 == 글작성자일 때 
+ 	if (writer.equals(id)) {
+ %>
+									<button class="btn" type="button"
+										style="float: right; background-color: rgb(170, 57, 57); color: white"
+										id="EditList">수정하기</button> <%
+ 	}
+ %>
+								</td>
+							</tr>
 
-					</tfoot>
-				</table>
+						</tfoot>
+					</table>
 
 
 
-			</div>
-
+				</div>
 
 		</div>
 	</div>
@@ -224,7 +226,7 @@ tfoot>tr {
   		})
   		
   	</script>
-
+	<%@ include file="../common/footer.jsp"%>
 
 </body>
 </html>
