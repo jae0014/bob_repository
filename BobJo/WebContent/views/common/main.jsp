@@ -5,11 +5,9 @@
     %>
     <%
 	ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-	ArrayList<Attachment> f_pList = (ArrayList<Attachment>) request.getAttribute("fList");
-	String cate = request.getAttribute("cate").toString();
-	String cateStr = request.getAttribute("cateStr").toString();
+	ArrayList<Attachment> p_fList = (ArrayList<Attachment>) request.getAttribute("p_fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	ArrayList<Attachment> f_rList = (ArrayList<Attachment>) request.getAttribute("fList");
+	ArrayList<Attachment> r_fList = (ArrayList<Attachment>) request.getAttribute("r_fList");
     %>
 <!DOCTYPE html>
 <html>
