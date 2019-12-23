@@ -112,6 +112,15 @@ public class Attachment {
 		this.fName = fName;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 
 	@Override
 	public String toString() {
