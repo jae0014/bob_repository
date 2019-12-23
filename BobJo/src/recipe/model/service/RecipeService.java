@@ -31,10 +31,6 @@ public class RecipeService {
 	}
 
 	 
-
-
-
-////////////////////////내가 사용한 메소드 이거는 수정이꺼 그대로씀	
 	  public Attachment selectThumbnail(String rId) { 
 		 Connection conn = getConnection(); 
 		 RecipeDao rDao = new RecipeDao();
@@ -46,9 +42,6 @@ public class RecipeService {
 	  
 	  }
 	 
-
-
-
 	public ArrayList<Recipe> selectList(String nation) {
 		
 		  Connection conn = getConnection(); 
@@ -58,12 +51,8 @@ public class RecipeService {
 		  close(conn);
 		  
 		  return rList;
-		 
-		
-	
-	
-	}
 
+	}
 
 	// 레시피 상세보기
 	public ArrayList<Recipe> selectRecipe(String rId) {
@@ -170,6 +159,26 @@ public class RecipeService {
 		return result;
 		
 		
+	}
+
+
+
+
+
+	public ArrayList<Recipe> selectRecommendR() {
+
+		  Connection conn = getConnection(); 
+		  RecipeDao rDao = new RecipeDao();
+		  ArrayList<Recipe> rList = null;
+		  
+		  ArrayList<String> r_idList = rDao.selectRecommendRNumbers(conn); 
+		  if(r_idList != null) {
+			  rList = rDao.selectRecommendRList(conn, r_idList);
+		  }
+		  
+		  close(conn);
+		  
+		  return rList;
 	}
 
 

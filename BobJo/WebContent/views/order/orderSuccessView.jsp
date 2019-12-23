@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% 
+	String orderId = (String)request.getParameter("orderId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,10 +57,8 @@ body {
 </head>
 <body>
 
-	<header>
-		<%@ include file="../common/menubar.jsp"%>
-		<%@ include file="../common/bootstrap.jsp"%>
-	</header>
+	<%@ include file="../common/menubar.jsp"%>
+	<%@ include file="../common/bootstrap.jsp"%>
 
 	<section class="content">
 		<div class="container-fluid">
@@ -65,10 +66,11 @@ body {
 				<div class="col-3"></div>
 				<div class="order-success col-6">
 					<p>주문 완료</p>
+					<%-- <p>주문 번호 : <%= orderId %>; --%>
 					<p>주문이 완료되었습니다. 마이페이지에서 주문을 확인하세요.</p>
 					<div class="button-div">
 						<button>주문 조회</button>
-						<button>홈으로</button>
+						<button><a href="<%= contextPath %>">홈으로</a></button>
 					</div>
 				</div>
 				<div class="col-3"></div>

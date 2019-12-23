@@ -317,7 +317,7 @@ cursor : pointer;
                   class="txt login_user">로그인</span></a>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">고객센터</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">고객센터</span></a>
             </div>
             <%
                } else {
@@ -351,7 +351,7 @@ cursor : pointer;
                </div>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">관리자페이지</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">관리센터</span></a>
             </div>
 
             <%
@@ -361,8 +361,9 @@ cursor : pointer;
 
             <!-- 로그인 했을 때는 이름과 고객센터가 보여야 함 -->
             <div class="name_txt_div">
-               <a href="마이페이지.html"><span class="txt login_name_txt"><%=loginUser.getmName()%>
-                     님</span></a>
+               <a href="<%= request.getContextPath() %>/views/myPageUpdate/myProfile.jsp">
+               	<span class="txt login_name_txt"><%=loginUser.getmName()%>님</span>
+               </a>
 
                <div class="my_sub">
                   <table class="" style="text-align: left" width="80px">
@@ -385,7 +386,7 @@ cursor : pointer;
                </div>
             </div>
             <div>
-               <a href="고객센터.html"><span class="txt">고객센터</span></a>
+               <a href="<%=request.getContextPath() %>/list.no"><span class="txt">고객센터</span></a>
             </div>
 
             <%

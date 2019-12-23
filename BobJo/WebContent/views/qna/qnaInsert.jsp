@@ -46,7 +46,7 @@
 	float: left;
 	margin: 10px;
 	background-color: rgb(255, 243, 239);
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .board-postnav-side>ul>li>a {
@@ -96,7 +96,6 @@
 
 .submitBTN {
 	float: right;
-	background-color: lightgrey;
 }
 
 .updateBox {
@@ -132,20 +131,24 @@ padding: 3px;
 
 
 .modal_select_btn, .submitBTN, .order_select_btn{
+width: 80px !important;
+height: 30px !important;
 	background: rgb(170, 57, 57) !important;
-	border: none;
+	border: none !important;
 	border-radius: 3px;
 	font-size: 12px !important;
+	color:white !important;
 }
 
 .orderList_div{
 	width: 450px;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	margin: auto;
 	
 }
 .orderList_table th{
 	background: #f9f9f9;
+	font-size: 15px;
 }
 .orderList_table{
 	width: 100%;
@@ -166,6 +169,23 @@ width: 40%;
 .chCols{
 width: 10%;
 }
+
+td{
+padding: 3px;
+}
+
+.qTitle{
+width: 100%;
+font-size: 14px;
+}
+
+.custom-select{
+width: 100px !important;
+border: 1px solid rgb(170, 57, 57) !important;
+font-size: 14px !important;
+margin-bottom:3px !important;
+}
+
 </style>
 </head>
 <body>
@@ -175,43 +195,40 @@ width: 10%;
 	<form action="<%=request.getContextPath()%>/insert.qna" method="post"
 		id="postInsert">
 		<div class="updateBox">
-		<input type="hidden" name="mId" value="<%=loginUser.getmId() %>">
+		<%-- <input type="hidden" name="mId" value="<%=loginUser.getmId() %>"> --%>
 		<input type="hidden" name="quillData" value="11">
 			<table border="1" class="qna_table">
 				<tr>
-					<td rowspan="2" class="sub_cols">제목</td>
+					<th class="sub_cols">제목</th>
 					<td>
-						<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">선택해주세요</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#" value="1" name="delivery">배송</a> <a
-									class="dropdown-item" href="#" value="2">교환</a>
-							</div>
-						</div>
+						<select class="custom-select" name="qCate">
+  							<option value="없음" selected>--선택--</option>
+							  <option value="결제">결제</option>
+							  <option value="교환">교환</option>
+						</select>
+												
+						<!-- 제목 쓰는 칸 -->
+						<input class="qTitle" type="text" name="qTitle" required>
 					</td>
-				</tr>
+				</tr>				
 				<tr>
-					<td><input class="qTitle" name="display_title" type="text" name="qTitle"></td>
-				</tr>
-				<tr>
-					<td class="sub_cols">
+					<th class="sub_cols">
 						주문번호
-					</td>
+					</th>
 					<td>
-						<input type="text" class="oId" name="oId" id="oIdInput">
+						<input type="text" class="oId" name="oId" id="oIdInput" style="font-size:14px">
 						<button type="button" class="order_select_btn btn-primary">주문조회</button>
 					</td>
 				</tr>
 				<tr>
-				<td class="sub_cols">이메일</td>
-				<td><input type="text" value="<%= loginUser.getEmail()%>" readonly>
+				<th class="sub_cols">이메일</th>
+				<td><input type="text" value="<%= loginUser.getEmail()%>" style="font-size:14px" readonly>
 					<input type="checkbox" name="chk_email_answer"><label style="font-size:12px">답변수신을 문자메세지로 받겠습니다.</label>
 				</td>
 				
 				</tr>
 				<tr>
-				<td class="sub_cols">내용</td>
+				<th class="sub_cols">내용</th>
 				<td>
 					<pre class="warning_txt">
 <b>1:1 문의 작성 전 확인해주세요!</b>
@@ -326,6 +343,7 @@ $(function() {
 	});
 		
 	
+	//모달 x버튼 누르면 창 종료
 	$(".modal_close").click(function(){
 		// 모달 창을 닫으면 모달 안에 있는 데이터 모두 초기화해야함
 		$(".ttt").modal("hide");
@@ -334,15 +352,15 @@ $(function() {
 	$(".modal_select_btn").click(function(){
 		// 선택하기 버튼을 누르면 radio value값 주문번호 인풋에 전달
 		
-		$("#oIdInput").val()=$("#check_oId:checked").val()
+		$("#oIdInput").val($("#check_oId:checked").val());
 		$(".ttt").modal("hide");
 	});
 
 });
 
 
-<!-- Initialize Quill editor -->
-	
+
+/* <!-- Initialize Quill editor --> */
 	var quill = new Quill('#editor-container', {
 		modules : {
 			imageResize : {
@@ -414,5 +432,7 @@ $(function() {
 		$("#postInsert").submit();
 	}
 	</script>
+	
+     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

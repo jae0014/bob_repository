@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import="java.util.ArrayList, notice.model.vo.Notice, common.vo.* ,java.text.SimpleDateFormat"%>
-    <%
+	pageEncoding="UTF-8"
+	import="java.util.ArrayList, notice.model.vo.Notice, common.vo.* ,java.text.SimpleDateFormat"%>
+
+
+<%
 	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
@@ -16,11 +18,10 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-   <style>
-   * {
+
+
+<style>
+* {
 	box-sizing: border-box;
 }
 
@@ -46,23 +47,16 @@
 	float: left;
 	/* border: 1px solid green; */
 }
-   
-    .memberAdmin_txt{
-        font-size:20px;
-        font-weight:700;
-    }
-    
-.admin_side_div {
-	border: 1px solid black;
-}
 
-.side_txt_div1 {
-	padding: 15px 5px 5px 5px;
-	font-size: 20px;
-	font-weight: 700;
-	text-align: center;
-}
+/*////////////본문영역*/
+.content2{
+	width: 75%;
+	height: 100%;
+	display: inline-block;
+	float:left;
 
+	/* border:1px solid black; */
+}
 
 .board-postnav-side {
 	width: 90%;
@@ -96,14 +90,136 @@
 	background-color: lightgrey;
 }
 
-    </style>
+
+
+/* 게시판부분 */
+.board-post {
+	display:inline-block;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	height: auto;
+	text-align: center;
+	padding-right: 5%;
+	padding-left: 5%;
+	/* border:1px solid blue; */
+}
+
+/* 보드포스트 안쪽 div */
+.board-post-list {
+	float: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	/* border: 1px solid red; */
+}
+
+
+/* 제목만 왼쪽정렬 */
+.tdTitle {
+	text-align: left;
+	padding-left: 10px !important;
+}
+
+.margin-padding-zero {
+	margin: 0;
+	padding: 0;
+}
+
+.postRow:hover {
+	background-color: rgb(255, 243, 239);
+}
+
+.thNum{
+width:70px;
+
+}
+.thWriter{
+	width: 80px;
+}
+.thCount{
+	width: 80px;
+}
+.thDate {
+	width: 100px !important;
+}
+
+.admin_side_div {
+	border: 1px solid black;
+}
+
+.side_txt_div1 {
+	padding: 15px 5px 5px 5px;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+}
+.table-sm {
+	border-top: 2px solid rgb(170, 57, 57) !important;
+	border-bottom: 1px solid rgb(170, 57, 57);
+	border-left: none;
+	border-right: none;
+	/* line-height: 2; */
+	padding: 0px !important;
+	margin:0px !important;
+}
+.table-sm th {
+	background: #f9f9f9;
+	border-bottom: 1px solid rgb(170, 57, 57) !important;
+	border-left: none;
+	border-right: none;
+	font-size: 12px;
+	height: 50px;
+	vertical-align:middle !important;
+}
+
+.table-sm td {
+	border-left: none;
+	border-right: none;
+	border-top:none!important;
+	border-bottom: 1px solid lightgrey !important;
+	font-size: 12px;
+	height: 35px;
+	vertical-align:middle !important;
+}
+
+
+
+
+
+/*/////////// 페이지 스타일 */
+.pagingDiv{
+display:inline-block;
+/* border: 1px solid red; */
+width: 100%;
+}
+
+.page-link {
+	color: rgb(170, 57, 57) !important;
+}
+
+.page-link:toggle {
+	background: rgb(170, 57, 57);
+}
+
+.page-item.active .page-link {
+	background: rgb(170, 57, 57) !important;
+	color: white !important;
+	border: 1px solid rgb(170, 57, 57) !important;
+}
+
+
+</style>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-<%@ include file="../common/bootstrap.jsp" %>
-<%@ include file="../common/menubar.jsp" %>
+<%@ include file="../common/bootstrap.jsp"%>
+	<%@ include file="../common/menubar.jsp"%>
 
-		<!-- 전체영억 -->
+
 	<div class="outer_m">
+		<!-- 전체영억 -->
 		<!-- 사이드메뉴 영역-->
 		<div class="content1">
 			<% if(loginUser == null){ %>
@@ -128,17 +244,22 @@
 						<li class="nav-item  border border-light notice_link"
 							onclick="goNoticeList()"><a class="nav-link active">공지사항</a>
 						</li>
-
-						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
-
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="#">매출관리</a></li>
-						<%}%>
 						<li class="nav-item border border-light question_link"
 							onclick="goQnaList()"><a class="nav-link question_a">1:1문의
 								내역</a></li>
+						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
+						<!--  탈퇴, 등급변경, 회원정보세부내용확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">주문관리</a></li><!-- 주문내역확인, 월별 매출확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">상품관리</a></li><!-- 상품등록(사진필요),삭제 재고변경, 추천상품선택 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">게시글관리(자유, 후기, 레시피)</a></li>
+
+						<%}%>
+
 					</ul>
 				</div>
 			</div>
@@ -160,11 +281,10 @@
 	};
 </script>
 
-
 		<!-- content2 -->
-<div class="content2">
-
-<div class="board-post">
+		<!-- 게시판 영역 -->
+		<div class="content2">
+			<div class="board-post">
 				<div class="sub_text_area" style="diplay:inline-block; width: 100%;/*  border:1px solid black; */">				
 				<p style="font-size: 16px; font-weight: 900; text-align: left; line-height:'2';/*  border:1px solid black;  */margin-top:20px; margin-bottom:20px;">
 				공지사항</p>
@@ -175,10 +295,11 @@
 					<table class="table table-sm" border="1">
 						<thead>
 							<tr>
-								<th class="thNum" scope="col">회원번호</th>
-								<th class="thTitle" scope="col">아이디</th>
-								<th class="thWriter" scope="col">회원등급</th>
-								<th class="thDate" scope="nDateCols">마지막접속</th>
+								<th class="thNum" scope="col">번호</th>
+								<th class="thTitle" scope="col">제목</th>
+								<th class="thWriter" scope="col">작성자</th>
+								<th class="thDate" scope="nDateCols">작성일</th>
+								<th class="thCount" scope="countCols">조회</th>
 							</tr>
 						</thead>
 						<!-- 게시판이 있다면  -->
@@ -270,71 +391,32 @@
 					</nav>
 					</div><!-- 페이징구역 끝-->
 			</div>
+		</div><!-- content2 -->
+	</div><!-- outer -->
+	<script>
+     	
+    	  $(function(){
+    		$(".pageList").click(function(){
+    			var page = $(this).text();
+             
+    		})	
+    		
+    		 $(".postRow").click(function(){
+                   $(this).each(function() {
+                         var index = $(this).children().first().attr('id'); 
+                         console.log(index);
+                        goPost(index)
+                    });
+    		})	
+    		
+    	})
+    	function goPost(index){
+			
+  		  location.href="<%=request.getContextPath()%>/detail.no?nId="+index;
+		}
+	</script>
 
 
-
-
-
-
-
-
-
-
-
-<p class="memberAdmin_txt">회원관리</p>
-    <div class="outer">
-        <div class="sorting">
-            <!-- 정렬 기준 추가-->
-            <div class="dropdown sort-by">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    정렬 기준
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button">회원번호 순</button>
-                    <button class="dropdown-item" type="button">마지막접속일 순</button>
-                    <button class="dropdown-item" type="button">회원등급 순</button>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="table_div">
-                <table class="table">
-                        <thead class="thead-light">
-                          <tr>
-                            <th scope="col">회원번호</th>
-                            <th scope="col">아이디</th>
-                            <th scope="col">가입일</th>
-                            <th scope="col">회원등급</th>
-                            <th scope="col">마지막 접속일</th>
-                          </tr>
-                        </thead>
-                      </table>
-        </div>
-    </div>
-<!-- paging -->
-<div class="paging">
-        <nav aria-label="Page navigation example" class="page-nav">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    </div><!-- content2 -->
-    
-    </div><!-- outer_m -->
-<%@ include file="../common/footer.jsp" %>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

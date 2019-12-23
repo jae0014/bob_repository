@@ -1,4 +1,4 @@
-package receipe.controller;
+package recipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

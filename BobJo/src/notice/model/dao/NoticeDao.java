@@ -6,13 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import notice.model.vo.Notice;
+import qna.model.vo.Qna;
 
 public class NoticeDao {
 
@@ -30,32 +33,163 @@ public class NoticeDao {
 	}
 	
 	// 1. 공지사항리스트용 dao
-	public ArrayList<Notice> selectNoticeList(Connection conn) {
-		ArrayList<Notice> nlist = new ArrayList<Notice>();
-		PreparedStatement pstmt = null;
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectNoticeList");
+		String sql = prop.getProperty("getListCount");
+	
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		System.out.println("NOTICE list카운트 : " + listCount);
+		return listCount;
+	}
+
+	public ArrayList<Notice> selectNoticeList(Connection conn, int currentPage, int boardLimit) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
 		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectNoticeList");
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
+
+			// 쿼리문 실행 시 조건절에 넣을 변수들
+			// currentPage = 1 --> startRow 1 ~ endRow 10
+			// currentPage = 2 --> startRow 11 ~ endRow 20
+
+			// startRow : (currentPage - 1) * boardLimit + 1
+			// endRow : startRow + boardLimit - 1
 			
-			while(rset.next()) {
-				nlist.add(new Notice(rset.getString("n_id"), rset.getString("n_title"),
-						rset.getString("n_content"), rset.getString("m_no"),
-						rset.getDate("n_date"), rset.getInt("n_count"),
-						rset.getString("n_status")));
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				String nId = rset.getString("n_id");
+				String nTitle = rset.getString("n_title");
+				String nContent = rset.getString("n_content");
+				String mId = rset.getString("m_id");
+				Date nDate = rset.getDate("n_date");
+				int nCount = rset.getInt("n_count");
+				String nStatus = rset.getString("n_status");
+	
+				list.add(new Notice(nId, nTitle, nContent, mId, nDate, nCount, nStatus));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		return nlist;
+		return list;
 	}
+
+	public Notice selectNotice(Connection conn, String nId) {
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+		
+			String sql = prop.getProperty("selectNotice");
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				n = new Notice();
+				n.setnId(rs.getString("n_id"));
+				n.setnTitle(rs.getString("n_title"));
+				n.setnContent(rs.getString("n_content"));
+				// 아이디가 필요한거라 아이디 넣음.
+				n.setmNo(rs.getString("m_id"));
+				n.setnDate(rs.getDate("n_date"));
+				n.setnStatus(rs.getString("n_status"));
+				n.setnCount(rs.getInt("n_count"));
+			}
+			System.out.println("dao내부의 n: "+ n);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		finally
+		{	close(rs);
+			close(pstmt);
+		}
+	
+		return n;
+	}
+
+	// 3. 조회수 증가용 dao메소드
+		public int increaseCount(Connection conn, String nId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("increaseCount");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, nId);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
+		public int insertNotice(Connection conn, Notice n) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			System.out.println("notice : " + n);
+			String sql = prop.getProperty("insertNotice");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, n.getnTitle());
+				pstmt.setString(2, n.getnContent());
+				pstmt.setString(3, n.getmNo());
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+	
 	/*
 	
 	
@@ -81,26 +215,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	// 3. 조회수 증가용 dao메소드
-	public int increaseCount(Connection conn, int nno) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("increaseCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, nno);
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
+	
 	
 	// 공지 글 읽기용 조회 메소드
 	public Notice selectNotice(Connection conn, int nno) {
@@ -217,4 +332,5 @@ public class NoticeDao {
 		}
 		return list;
 	}*/
+
 }

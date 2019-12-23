@@ -6,6 +6,14 @@
 	String cate = request.getAttribute("cate").toString();
 	String cateStr = request.getAttribute("cateStr").toString();
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -130,25 +138,18 @@ body {
 	border: rgb(257, 157, 157) solid 1px;
 	color: rgb(257, 157, 157);
 }
-
-.paging {
-	height: 100%;
-	text-align: center;
-	padding: 10px;
+.pagingArea {
+	margin:1rem;
 }
 
-.paging:before {
-	content: "";
-	display: inline-block;
-	width: 1px;
-	height: 100%;
-	margin-right: 0;
-	vertical-align: middle;
-}
-
-.page-nav {
-	display: inline-block;
-	vertical-align: middle;
+.pagingArea button {
+	border-style:none;
+	border-radius:0.5rem;
+	padding:10px;
+	font-weight:700;
+	background-color:rgb(212,106,106);
+	/* border:1px solid rgb(170,57,57); */
+	color:white;
 }
 </style>
 
@@ -166,10 +167,9 @@ body {
 			<div class="sorting">
 				<!-- 정렬 기준 추가-->
 				<div class="dropdown sort-by">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">정렬 기준</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<button class="btn btn-secondary" type="button"
+						id="dropdownMenuButton">정렬 기준</button>
+					<div class="dropdown-menu">
 						<button class="dropdown-item" type="button">신상품순</button>
 						<button class="dropdown-item" type="button">인기 상품순</button>
 						<button class="dropdown-item" type="button">가격 낮은 순</button>
@@ -177,6 +177,20 @@ body {
 					</div>
 				</div>
 			</div>
+			<script>
+				$("#dropdownMenuButton").hover(function(){
+					$(".dropdown-menu").show();
+					
+				});
+				
+				$(".sort-by").mouseout(function(){
+					$(".dropdown-menu").hide();
+				});
+				
+				$(".dropdown-menu").hover(function(){
+					$(".dropdown-menu").show();
+				});
+			</script>
 
 			<!-- 카트 아이콘 클릭시 장바구니 작은 창 뜨는거 modal 이용(알아봐야할 듯)-->
 			<div class="product-wrap">
@@ -262,20 +276,36 @@ body {
 		<!-- container 끝-->
 
 		<!-- paging -->
-		<div class="paging">
-			<nav aria-label="Page navigation example" class="page-nav">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%= contextPath %>/list.pr?cate=<%= cate %>&currentPage=1'"> &lt;&lt; </button>
+		
+			<!-- 이전 페이지로 (<) -->
+			<% if(currentPage == 1){ %>
+				<button disabled> &lt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= contextPath %>/list.pr?cate=<%= cate %>&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage){ %>
+					<button style="background-color:rgb(170,57,57)" disabled> <%= p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%= contextPath %>/list.pr?cate=<%= cate %>&currentPage=<%= p %>'"> <%= p %> </button>
+				<% } %>
+			<% } %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage == maxPage) { %>
+				<button disabled> &gt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= contextPath %>/list.pr?cate=<%= cate %>&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
+			<% } %>
+			
+			<!--  맨 끝으로 (>>) -->
+			<button onclick="location.href='<%= contextPath %>/list.pr?cate=<%= cate %>&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
+			
 		</div>
 
 		<!-- Modal -->
