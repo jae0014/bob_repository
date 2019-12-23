@@ -37,7 +37,7 @@
 	display: block;
 	width: 1050px;
 	height: auto !important;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	margin: auto;
 }
 
@@ -49,7 +49,7 @@
 	padding: 0px;
 	margin: 0px;
 	/* text-align: center; */
-	border: 1px solid green;
+	/* border: 1px solid green; */
 	margin: auto;
 }
 
@@ -58,7 +58,7 @@
 	float: left;
 	height: auto !important;
 	margin-top: 10px;
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
 }
 
 .margin-padding-zero {
@@ -140,7 +140,6 @@
 	width: 100%;
 	float: left;
 }
-
 
 .commentShow {
 	display: none !important;
@@ -242,9 +241,12 @@ background:rgb(200, 70, 70)!important;
 					
 					</div><!-- boardpostlist -->
 
+
+
+
+<!--//////////////////////////////////////////////////////////// 답변구역 -->
 					<div class="answerDiv">
-					<!--/////////////////////////// 답변구역 -->
-					<table class="answerTable1" style="border:1px solid purple;">
+					<table class="answerTable1" style="border:1px solid lightgrey;">
 					
 						<%System.out.println("alist.get(0) : "+alist.get(0));
 						System.out.println("dlist : "+dlist);
@@ -252,15 +254,15 @@ background:rgb(200, 70, 70)!important;
 						if(alist.get(0) != null){
                         	for (int i = 0; i < aIndex; i++) {%>
                         	<%if(i < 5){ %>
-								<tr class="liComment" style="border: 1px solid blue;">
+								<tr class="liComment" style="border: 1px solid lightgrey;">
 								<%} else{%>
-								<tr class="liComment commentShow" style="border: 1px solid blue;">
+								<tr class="liComment commentShow" style="border: 1px solid lightgrey;">
 							<%}%>
 						
 							<!-- 관리자이름 -->
-							<td class="tdWriter_a"style="border:1px solid purple;"><b>ChefJ</b></td>
+							<td class="tdWriter_a"style="border:1px solid lightgrey;"><b>ChefJ</b></td>
 							<!-- 답변 내용 -->
-							<td rowspan="2"  colspan="3"><%=alist.get(i)%></td>
+							<td rowspan="2"  colspan="3" style="vertical-align:top;"><%=alist.get(i)%></td>
 						</tr>
 
 						<!-- 답변 날짜 -->
@@ -280,10 +282,13 @@ background:rgb(200, 70, 70)!important;
 											
 						<% }else {%>
 						<tr>
-							<td style="align:center">답변이 없습니다</td>
+							<td>답변이 없습니다</td>
 						</tr>
 						<%}%>
 					</table>
+					
+					
+					
 					</div><!-- answerDiv -->
 					<div class="regiAnswerDiv">
 						<!-- 관리자면 답변등록구간 -->
@@ -329,39 +334,35 @@ background:rgb(200, 70, 70)!important;
   							qId:qId},
   					success: function(data){
   						console.log(data);//qna객체에 답변, 날짜 리스트담겨있음.
-  						
-  						$answerTable = $(".answerTable");
-  						$answerTable.html(""); // 기존 댓글 테이블 정보 초기화
+  						$answerTable1 = $(".answerTable1").css("border","1px solid lightgrey");
+  						$answerTable1.html(""); // 기존 댓글 테이블 정보 초기화
   						
   						// 새로 받아온 갱신 된 댓글 리스트 들을 for문을 통해
   						// 다시 table에 추가
-  						for(var key in data){ // 배열이므로 key 값은 인덱스
-  							
+  						for(var key in data.aContent){ // 배열이므로 key 값은 인덱스
   							var $tr = $("<tr>");
-  							var $writerTd = $("<td>").text("<b>ChefJ</b>");
-  							var $contentTd = $("<td rowspan='2' colspan='3'>").text(data.aContent[key]);
+  							var $writerTd = $("<td class='tdWriter_a'>").text("ChefJ").css({"font-weight": "900","border":"1px solid lightgrey"});
+  							var $contentTd = $("<td rowspan='2' colspan='3'>").text(data.aContent[key]).css("border","1px solid lightgrey");
   							var $tr2 = $("<tr>");
-  							var $dateTd = $("<td>").text(data.aDate[key]);
+  							var $dateTd = $("<td>").text(data.aDate[key]).css("border","1px solid lightgrey");
   							
 							$tr.append($writerTd);
   							$tr.append($contentTd);
   							$tr2.append($dateTd);
   							
-  							$answerTable.append($tr);
-  							$answerTable.append($tr2);
-  							
+  							$answerTable1.append($tr);
+  							$answerTable1.append($tr2);
   						}
-  						
   						// 댓글 작성 부분 리셋
   						$(".aContent").val("");
-  						
-  						
   					},
   					error : function(){
   						console.log('ajax 통신 실패');
   					}
   				});
   	        	}
+	        	 	        	
+  	        	
   			});
   		// 더보기 jquery
   			$("#moreID").click(function(){
