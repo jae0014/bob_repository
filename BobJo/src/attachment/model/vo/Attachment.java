@@ -10,6 +10,7 @@ public class Attachment {
 	private String fPath;	// 파일경로
 	private String fName;
 	
+	private String changeName;
 	
 	public Attachment() {}
 	
@@ -26,7 +27,19 @@ public class Attachment {
 	}
 
 
+	public Attachment(String fId, int btype, String bprcId, int fLevel, String fStatus, String fName,
+			String foName, String changeName) {
+		super();
+		this.fId = fId;
+		this.btype = btype;
+		this.bprcId = bprcId;
+		this.fLevel = fLevel;
+		this.fStatus = fStatus;
+		this.fPath = fPath;
+		this.fName = fName;
 
+		this.changeName = changeName;
+	}
 
 
 
