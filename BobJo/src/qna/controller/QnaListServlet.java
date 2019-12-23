@@ -121,10 +121,12 @@ public class QnaListServlet extends HttpServlet {
 			//전체리스트 담기
 			System.out.println("관리자 리스트");
 			list = qService.selectQnaList(currentPage, boardLimit);
+			System.out.println("관리자 리스트 : " + list);
 			
 		}else{
 			System.out.println("일반유저 리스트");
 			list = qService.selectQnaList(currentPage, boardLimit, mId);
+			System.out.println("유저 리스트 : " + list);
 		}
 		System.out.println("시작2 : " + currentPage);
 

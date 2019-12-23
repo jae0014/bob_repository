@@ -17,7 +17,7 @@
 
 <style>
 *{
-	border-sizing:box-sizing;
+	box-sizing: border-box;
 }
 .question_link{
 	background: #f9f9f9;
@@ -216,7 +216,7 @@ margin-bottom:3px !important;
 					<th class="sub_cols">제목</th>
 					<td>							
 						<!-- 제목 쓰는 칸 -->
-						<input class="nTitle" type="text" name="nTitle">
+						<input class="nTitle" type="text" name="nTitle" required>
 					</td>
 				</tr>				
 				<tr>

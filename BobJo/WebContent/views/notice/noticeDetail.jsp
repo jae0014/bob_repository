@@ -39,7 +39,7 @@
 
 	display:inline-block;
 	width: 100%;
-	height: 
+	height: auto;
 	padding: 0px;
 	margin: 0px;
 	/* text-align: center; */

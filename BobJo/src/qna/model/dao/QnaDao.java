@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import post.model.vo.Post;
 import qna.model.vo.Qna;
 
 public class QnaDao {
@@ -68,7 +67,7 @@ public class QnaDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
 			
-			rset = pstmt.executeQuery(sql);
+			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
 				listCount = rset.getInt(1);
@@ -135,7 +134,7 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<String> alist = new ArrayList<>();
-		ArrayList<String> dlist = new ArrayList<>();
+		ArrayList<Date> dlist = new ArrayList<>();
 		try {
 		
 			String sql = prop.getProperty("selectQna");
@@ -153,11 +152,12 @@ public class QnaDao {
 				q.setqCate(rs.getString("q_cate"));
 				q.setqTitle(rs.getString("q_title"));
 				q.setqContent(rs.getString("q_content"));
+				q.setOrderId(rs.getString("order_id"));
 				q.setmNo(rs.getString("m_id"));
 				q.setqDate(rs.getDate("q_date"));
 				q.setaStatus(rs.getString("a_status"));
 				alist.add(rs.getString("a_content"));
-				dlist.add(rs.getString("a_date"));
+				dlist.add(rs.getDate("a_date"));
 				q.setqTitle(rs.getString("q_title"));
 			}
 			
@@ -228,9 +228,9 @@ ArrayList<Qna> list = new ArrayList<Qna>();
 			int startRow = (currentPage - 1) * boardLimit + 1;
 			int endRow = startRow + boardLimit - 1;
 
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, mId2);
+			pstmt.setString(1, mId2);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 
@@ -252,6 +252,83 @@ ArrayList<Qna> list = new ArrayList<Qna>();
 		}
 		return list;
 	}
+
+	public int insertAnswer(Connection conn, String qId, String aContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertAnswer");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, qId);
+			pstmt.setString(2, aContent);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	//답변 등록하면 상태 y로 변경
+	public int updateAnswerStatus(Connection conn, String qId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateAnswerStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, qId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Qna selectAnswerList(Connection conn, String qId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Qna a = null;
+		ArrayList<String> alist = new ArrayList<>();
+		ArrayList<Date> dlist = new ArrayList<>();
+		String sql = prop.getProperty("selectAnswerList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				a = new Qna();
+				alist.add(rs.getString("a_content"));
+				dlist.add(rs.getDate("a_date"));
+			}
+			
+			a.setaContent(alist);
+			a.setaDate(dlist);			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return a;
+	}
+
 
 
 

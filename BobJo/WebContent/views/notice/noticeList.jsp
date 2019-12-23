@@ -212,9 +212,9 @@ width: 100%;
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../common/bootstrap.jsp"%>
 </head>
 <body>
+<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
 
 
@@ -248,7 +248,7 @@ width: 100%;
 						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
 
 						<li class="nav-item border border-light"><a class="nav-link"
-							href="#">회원관리</a></li>
+							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
 						<li class="nav-item border border-light"><a class="nav-link"
 							href="#">매출관리</a></li>
 						<%}%>
@@ -259,7 +259,6 @@ width: 100%;
 				</div>
 			</div>
 		</div>
-		<!-- content2 -->
 
 		<script>
 	function goQnaList(){
@@ -277,6 +276,7 @@ width: 100%;
 	};
 </script>
 
+		<!-- content2 -->
 		<!-- 게시판 영역 -->
 		<div class="content2">
 			<div class="board-post">

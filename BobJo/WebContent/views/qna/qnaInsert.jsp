@@ -202,13 +202,13 @@ margin-bottom:3px !important;
 					<th class="sub_cols">제목</th>
 					<td>
 						<select class="custom-select" name="qCate">
-  							<option selected>--선택--</option>
-							  <option value="1">배송</option>
-							  <option value="2">교환</option>
+  							<option value="없음" selected>--선택--</option>
+							  <option value="결제">결제</option>
+							  <option value="교환">교환</option>
 						</select>
 												
 						<!-- 제목 쓰는 칸 -->
-						<input class="qTitle" type="text" name="qTitle">
+						<input class="qTitle" type="text" name="qTitle" required>
 					</td>
 				</tr>				
 				<tr>

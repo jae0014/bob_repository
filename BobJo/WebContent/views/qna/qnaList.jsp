@@ -5,7 +5,7 @@
 
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
-
+	System.out.println(list);
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -24,7 +24,7 @@
 
 <style>
 * {
-	border-sizing: box-sizing;
+	box-sizing: border-box;
 }
 
 .question_link {
@@ -106,9 +106,10 @@
 	margin-bottom: 10px;
 	/* border: 1px solid red; */
 }
-
-.titles {
-	width: 100px;
+/* 제목만 왼쪽정렬 */
+.tdTitle {
+	text-align: left;
+	padding-left: 10px !important;
 }
 
 .margin-padding-zero {
@@ -287,6 +288,7 @@ width: 100%;
 						<thead>
 							<tr>
 								<th class="thNum" scope="col">번호</th>
+								<th class="thCate" scope="col">카테고리</th>
 								<th class="thTitle" scope="col">제목</th>
 								<th class="thWriter" scope="col">작성자</th>
 								<th class="thDate" scope="col">작성일</th>
@@ -300,14 +302,15 @@ width: 100%;
                         			newDateFormat = simple.format(list.get(i).getqDate());
                         			int num = list.size() - i;%>
 							<tr class="postRow">
-								<td class="tdNum"><%=num %></td>
+								<td class="tdNum" id="<%=list.get(i).getqId() %>"><%=num %></td>
+								<td class="tdCate" id="<%=list.get(i).getqCate() %>"><%=list.get(i).getqCate() %></td>
 								<td class="tdTitle"><%=list.get(i).getqTitle()%></td>
 								<td class="tdmNo"><%=list.get(i).getmNo()%></td>
 								<td class="tdDate"><%=newDateFormat %></td>
 								<td class="tdStatus"><%=list.get(i).getaStatus()%></td>
 							</tr>
 							</tbody>
-							<%}%>
+								<%}%>
 							<%} else { %>
 							<!-- 게시판이 없다면  -->
 						<tbody>
