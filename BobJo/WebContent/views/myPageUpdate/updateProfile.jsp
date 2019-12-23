@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="member.model.vo.*"%>
+	
+<%
+Member m = (Member)session.getAttribute("loginUser");
+
+String nickname = m.getNickname();
+String mIntro = m.getmIntro();
+/* String mId = m.getmId(); */
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +16,7 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/operate.css">
+<link rel="stylesheet" href="/css/operate.css">
 <link rel="stylesheet" href="css/master.css">
 <style>
 #preview, #imgArea {
@@ -26,13 +35,20 @@
 	background:
 		url('<%=request.getContextPath()%>/resources/images/useruser.png');
 	background-size: cover;
+	cursor:pointer;
 }
+
+#imgfile1{
+margin-left:50px;
+}
+
+
 </style>
 </head>
 <body>
 
 
-	<form action="<%=request.getContextPath()%>/insert.pr" method="post">
+	<form action="<%=request.getContextPath()%>/insert.pr" method="post" enctype="multipart/form-data">
 		<div id="thumbnail1" class="thumbnail"></div>
 
 
@@ -42,21 +58,14 @@
 				onchange="preview(this,1)">
 
 		</div>
-		<br> <input type="text" style="width: 300px;"
-			style="float:left; width:300px" placeholder="간단한 자기 소개를 해주세요">
-
-
-		<br><br>
-		<div align="center">
-			<!-- <button id="submit" type="submit">등록하기</button>
-			<button type="button" onclick="window.close()">취소하기</button> -->
-			
-				<input type="submit" value="등록하기" alt="등록하기" class="buttom_m main_k_buttom">
-			<button class="buttom_m sub_k_buttom" onclick="window.close();">취소</a>
+		<div class="te" style="margin-left:10px;">
+		<input name="nickname" type="text" style="width: 300px; height:30px; "  placeholder="닉네임을 작성해 주세요" value="<%=nickname%>"><hr>
+		<br> <input name="mIntro" type="text" style="width: 300px; height:30px;" placeholder="간단한 자기 소개를 해주세요" value="<%=mIntro%>">
+		<%-- <input name="mId" type="hidden" values="<%=mId%>"> --%>
 		</div>
 
-
-	</form>
+		<br>
+	
 	<script>
 		// 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 		$(function() {
@@ -94,6 +103,15 @@
 			}
 		}
 	</script>
+		<div align="center">
+		
+			
+			<input type="submit" value="등록하기" alt="등록하기" class="buttom_m main_k_buttom">
+			<button class="buttom_m sub_k_buttom" onclick="window.close();">취소</a>
+		</div>
+
+
+	</form>
 
 
 </body>

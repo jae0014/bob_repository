@@ -1,334 +1,240 @@
 
 </html><%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="css/master.css"> 
+<link rel="stylesheet" href="css/master.css">
 <link rel="stylesheet" href="css/operate.css">
 
 
 
 </head>
 <style>
-
-
-.part1,.mypage-contents,.sub-container{
-diplay:inline-block;
-/* border:1px solid red; */
-height:100%;
+.part1, .mypage-contents, .sub-container {
+	diplay: inline-block;
+	/* border:1px solid red; */
+	height: 100%;
 }
 
-.wholewhole{
-width:85%;
-height:1100px;
-margin:auto;
-/* border:1px solid blue; */
-
+.wholewhole {
+	width: 85%;
+	height: 1100px;
+	margin: auto;
+	/* border:1px solid blue; */
 }
 
-.part1{
-width:20%;
-height:100%;
-float:left;
-
-
-
+.part1 {
+	width: 20%;
+	height: 100%;
+	float: left;
 }
 
-.mypage-contents{
-width:50%;
-float:left;
-
-
+.mypage-contents {
+	width: 50%;
+	float: left;
 }
-
-
-
-
-
-
 
 
 
 </style>
 <body>
-<%@include file ="../common/menubar.jsp" %>
-<%@include file="../common/bootstrap.jsp" %>
+	<%@include file="../common/menubar.jsp"%>
+	<%@include file="../common/bootstrap.jsp"%>
 
-<br><br>
-<div class="wholewhole">
-<div class="part1">
-<article id="container" class='sub-container'>
-		<div class='site-sub-top'>
-			<!-- 추가 컨텐츠 [S] -->
-			
-			<!-- 추가 컨텐츠 [E] -->
+	<br>
+	<br>
+	<div class="wholewhole">
+		<div class="part1">
+			<article id="container" class='sub-container'>
+				<div class='site-sub-top'>
+					<!-- 추가 컨텐츠 [S] -->
+
+					<!-- 추가 컨텐츠 [E] -->
+				</div>
+				<section class='site-sub-layout'>
+					<nav class="lnb-area">
+						<h1 class="subtit-heading">
+							<a href="/mypage/"> <span class="font-en">MY PAGE</span>
+							</a>
+						</h1>
+
+						<dl class="menu-sub-left">
+							<dt>
+								<a href="myProfile.jsp">프로필 관리</a>
+							</dt>
+
+
+							<dt>
+								<br> <br> 나의 쇼핑 내역
+							</dt>
+							<dd>
+								<ul>
+									<li><a href="myOrder.jsp" class=''> 주문/배송 현황 </a></li>
+									<li><a href="myPageDisorder.jsp" class=''> 취소/반품/교환 현황
+									</a></li>
+
+								</ul>
+							</dd>
+							<dt>나의 레시피 관리</dt>
+							<dd>
+								<ul>
+									<li><a href="myRecipe.jsp"> 나의 레시피 </a></li>
+
+									<li><a href="likeRecipe.jsp"> 좋아요 한 레시피 </a></li>
+
+								</ul>
+							</dd>
+							<dt>댓글 관리</dt>
+							<dd>
+								<ul>
+									<li><a href="myReply.jsp"> 나의 댓글 </a></li>
+									<li><a href="getReply.jsp"> 내가 받은 댓글 </a></li>
+
+								</ul>
+							</dd>
+							<dt>나의 커뮤니티</dt>
+							<dd>
+								<ul>
+									<li><a href="myBoard.jsp"> 나의 게시글 </a></li>
+
+
+								</ul>
+							</dd>
+							<dt>
+								<a href="">회원정보</a>
+							</dt>
+							<dd>
+								<ul>
+									<li><a href="updateMember.jsp" class="on"> 회원정보수정 </a></li>
+
+									<li><a href="deleteMember.jsp"> 회원탈퇴 </a></li>
+								</ul>
+							</dd>
+						</dl>
 		</div>
-		<section class='site-sub-layout'>
-			<nav class="lnb-area">
-			<h1 class="subtit-heading">
-	<a href="/mypage/">
-		<span class="font-en">MY PAGE</span>
-	</a>
-</h1>
+		<div class="mypage-contents">
+			<section class="wrap-shopping-info">
+				<h2 class="hidden">회원 쇼핑정보</h2>
+				<div class="shopping-info">
+					<div class="area info01">
+						<p>
+							안녕하세요.
+							<%=loginUser.getmName()%>님<br> chef J를 이용해주셔서 감사합니다.
+						</p>
+					</div>
 
-	<dl class="menu-sub-left">
-	<dt>
-		<a href="myProfile.jsp">프로필 관리</a>
-	</dt>
-	
-	
-	<dt><br><br>
-		나의 쇼핑 내역
-	</dt>
-	<dd>
-		<ul>
-			<li>
-				<a href="myOrder.jsp" class=''>
-					주문/배송 현황
-				</a>
-			</li>
-			<li>
-				<a href="myPageDisorder.jsp" class=''>
-					취소/반품/교환 현황
-				</a>
-			</li>
-		
-		</ul>
-	</dd>
-	<dt>
-		나의 레시피 관리
-	</dt>
-	<dd>
-		<ul>
-			<li>
-				<a href="myRecipe.jsp" >
-					나의 레시피
-				</a>
-			</li>
 
-			<li>
-				<a href="likeRecipe.jsp" >
-					좋아요 한 레시피
-				</a>
-			</li>
-			
-		</ul>
-	</dd>
-	<dt>
-		댓글 관리
-	</dt>
-	<dd>
-		<ul>
-			<li>
-				<a href="myReply.jsp"   >
-					나의 댓글
-				</a>
-			</li>
-			<li>
-				<a href="getReply.jsp" >
-					내가 받은 댓글
-				</a>
-			</li>
-	
-		</ul>
-	</dd>
-	<dt>
-		나의 커뮤니티
-	</dt>
-	<dd>
-		<ul>
-			<li>
-				<a href="myBoard.jsp" >
-					나의 게시글
-				</a>
-			</li>
-			
-			
-		</ul>
-	</dd>
-	<dt>
-		<a href="">회원정보</a>
-	</dt>
-	<dd>
-		<ul>
-			<li>
-				<a href="updateMember.jsp" class="on">
-					회원정보수정
-				</a>
-			</li>
 
-			<li>
-				<a href="deleteMember.jsp"  >
-					회원탈퇴
-				</a>
-			</li>
-		</ul>
-	</dd>
-</dl>
-</div>
-<div class="mypage-contents">
-<section class="wrap-shopping-info">
-	<h2 class="hidden">회원 쇼핑정보</h2>
-	<div class="shopping-info">
-		<div class="area info01">
-			<p>
-				안녕하세요. 홍길동님<br>
-				chef J를 이용해주셔서 감사합니다.
-			</p>
-		</div>
-	
-		
-		
-	</div>
-</section>
-<%--여기서부터 시작 자리 --%>
-<div class="wrap-profile">
-		<h2>회원정보 수정</h2>
-		<p class="desc">고객님들의 회원정보 수정을 처리해드립니다.</p>
-		<!--Histori Belanja 영역 [E]-->
-		
-		
-		<form action="">
-		<table class="common-write">
-			<caption>회원정보 입력</caption>
-			<colgroup>
-				<col width="15%">
-				<col width="*">
-			</colgroup>
-			<tbody>
-			<tr>
-				<th scope="col">아이디<span class='main-color'>*</span></th>
-				<td><input type="text" name='mem_id' id='mem_id' value='' style='width:183px;' ></td>
-			</tr>
-		
-					<tr>
-						<th scope="col">패스워드<span class='main-color'>*</span></th>
-						<td><a href="#" onclick='window.open("updatePwd.jsp","_blank","height=330,width=380, status=yes,toolbar=no,menubar=no,location=no");return false' rel="facebox" class='main_ks_buttom buttom_ss' style='width:183px;'>비밀번호 변경</a></td>
-					</tr>
-		
-			<tr>
-				<th scope="col">이름<span class='main-color'>*</span></th>
-				<td>
-					<input type='text' name='mem_name' id='mem_name' value='' style='width:183px;'>
-				
-				</td>
-			</tr>
-		
-			<tr>
-				<th scope="col">생년월일<span class='main-color'>*</span></th>
-				<td>
-					<ul class='box_wrap'>
-						<div class="select-class" style="width:72px;">
-							<select name='birthday1' style="width:72px;" title='생년월일(년)' validation="true">
-								<option value="">년도</option>
-								<option value="2019" >2019</option>
-								<option value="2018" >2018</option>
-								<option value="2017" >2017</option>
-								<option value="2016" >2016</option>
-								<option value="2015" >2015</option>
-								<option value="2014" >2014</option>
-								<option value="2013" >2013</option>
-								<option value="2012" >2012</option>
-								<option value="2011" >2011</option>
-								<option value="2010" >2010</option>
-								<option value="2009" >2009</option>
-								<option value="2008" >2008</option>
-								<option value="2007" >2007</option>
-								<option value="2006" >2006</option>
-								<option value="2005" >2005</option>
-								<option value="2004" >2004</option>
-								<option value="2003" >2003</option>
-								<option value="2002" >2002</option>
-								<option value="2001" >2001</option>
-								<option value="2000" >2000</option>
-								<option value="1999" >1999</option>
-								<option value="1998" >1998</option>
-								<option value="1997" >1997</option>
-								<option value="1996" >1996</option>
-								<option value="1995" >1995</option>
-								<option value="1994" >1994</option>
-								<option value="1993" >1993</option>
-								<option value="1992" >1992</option>
-								<option value="1991" >1991</option>
-								<option value="1990" >1990</option>
-								<option value="1989" >1989</option>
-								<option value="1988" >1988</option>
-								<option value="1987" >1987</option>
-								<option value="1986" >1986</option>
-								<option value="1985" >1985</option>
-								<option value="1984" >1984</option>
-								<option value="1983" >1983</option>
-								<option value="1982" >1982</option>
-								<option value="1981" >1981</option>
-								<option value="1980" >1980</option>
-					
-							</select>
-						</div>
-						년
-						<div class="select-class" style="width:72px;">
-							<select name='birthday2' style="width:72px;" title='생년월일(월)' validation="false">
-								<option value="">월</option>
-								<option value="01" >01</option>
-								<option value="02" >02</option>
-								<option value="03" >03</option>
-								<option value="04" >04</option>
-								<option value="05" >05</option>
-								<option value="06" >06</option>
-								<option value="07" >07</option>
-								<option value="08" >08</option>
-								<option value="09" >09</option>
-								<option value="10" >10</option>
-								<option value="11" >11</option>
-								<option value="12" >12</option>
-							</select>
-						</div>
-						월
-						<div class='select-class' style="width:72px;">
-							<select name='birthday3' style="width:72px;" title='생년월일(일)' validation="false">
-								<option value="">일</option>
-								<option value="01" >01</option>
-								<option value="02" >02</option>
-								<option value="03" >03</option>
-								<option value="04" >04</option>
-								<option value="05" >05</option>
-								<option value="06" >06</option>
-								<option value="07" >07</option>
-								<option value="08" >08</option>
-								<option value="09" >09</option>
-								<option value="10" >10</option>
-								<option value="11" >11</option>
-								<option value="12" >12</option>
-								<option value="13" >13</option>
-								<option value="14" >14</option>
-								<option value="15" >15</option>
-								<option value="16" >16</option>
-								<option value="17" >17</option>
-								<option value="18" >18</option>
-								<option value="19" >19</option>
-								<option value="20" >20</option>
-								<option value="21" >21</option>
-								<option value="22" >22</option>
-								<option value="23" >23</option>
-								<option value="24" >24</option>
-								<option value="25" >25</option>
-								<option value="26" >26</option>
-								<option value="27" >27</option>
-								<option value="28" >28</option>
-								<option value="29" >29</option>
-								<option value="30" >30</option>
-								<option value="31" >31</option>
-							</select>
-						</div>
-						일
-					</ul>
-				</td>
-			</tr>
-			
-		<!-- 	<tr>
+				</div>
+			</section>
+			<%--여기서부터 시작 자리 --%>
+			<div class="wrap-profile">
+				<h2>회원정보 수정</h2>
+				<p class="desc">고객님들의 회원정보 수정을 처리해드립니다.</p>
+				<!--Histori Belanja 영역 [E]-->
+
+
+				<form action="">
+					<table class="common-write">
+						<caption>회원정보 입력</caption>
+						<colgroup>
+							<col width="15%">
+							<col width="*">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="col">아이디<span class='main-color'>*</span></th>
+								<td><input type="text" name='mem_id' id='mem_id'
+									value='<%=loginUser.getmId()%>' style='width: 183px;' readonly></td>
+							</tr>
+
+							<tr>
+								<th scope="col">패스워드<span class='main-color'>*</span></th>
+								<td><a href="#"
+									onclick='window.open("updatePwd.jsp","_blank","height=330,width=380, status=yes,toolbar=no,menubar=no,location=no");return false'
+									rel="facebox" class='main_ks_buttom buttom_ss'
+									style='width: 183px;'>비밀번호 변경</a></td>
+							</tr>
+
+							<tr>
+								<th scope="col">이름<span class='main-color'>*</span></th>
+								<td><input type='text' name='mem_name' id='mem_name'
+									value='<%=loginUser.getmName()%>' style='width: 183px;'
+									readonly></td>
+							</tr>
+							<tr>
+								<th scope="col">이메일<span class='main-color'>*</span></th>
+								<td><input type="text" id="" name="mail" value="<%=loginUser.getEmail() %>"
+									style="width: 183px;"></td>
+							</tr>
+							<tr>
+								<th scope="col">휴대전화<span class='main-color'>*</span></th>
+								<td><input type="text" id="" name="phone" value="<%=loginUser.getPhone() %>"
+									style="width: 183px;"></td>
+							</tr>
+
+							<!-- <tr>
+								<th scope="col">배송주소</th>
+								<td><input type="text" class="address roadFullAddr" id=""
+									name="roadFullAddr" disabled style="width: 200px;"></td>
+							</tr>
+							<tr>
+								<th scope="col"></th>
+								<td scope="col"><input type="text" id="addrDetail"
+									name="addrDetail" id="addrDetail" class="addrDetail"
+									style="width: 200px;" disabled></td>
+
+							</tr>
+							<tr>
+								<th scope="col"></th>
+								<td><input type="button" value="주소검색"
+									class="buttom_m main_k_buttom" onclick="goPopup();"></td>
+							</tr> -->
+
+
+							<tr>
+								<th scope="col">배송주소<span class='main-color'></span></th>
+								<td>
+								
+								
+									<!-- <class="zipcode main_ks_buttom buttom_ss" onclick="goPopup();">주소찾기 -->
+									<input type="button" value="주소검색" class="juso_btn s_btn main_ks_buttom buttom_ss" onclick="goPopup();">
+									<span class="sect"> 
+										<input type="text" class="address roadFullAddr" name="roadFullAddr"  id="roadFullAddr" disabled style="width:350px;" value="<%=loginUser.getAddr()%>"></span> 
+									<span class="sect"> 
+										<input type= "text" id= "addrDetail" name= "addrDetail"  id="addrDetail" class="addrDetail" disabled style="width:350px;"></span> 
+									<input type='hidden' name='doro_addr1' id='doro_addr1' value="">
+									<input type='hidden' name='doro_addr2' id='doro_addr2' value="">
+								</td>
+							</tr>
+							<!-- <tr>
+								<th scope="col">성별</th>
+								<td><input type="radio" style=>
+								
+									<label class="mm">남성</label> 
+									<input type="radio" >
+									<label class="mo">여성</label></td>
+							</tr> -->
+
+
+							<!-- <tr>
+								<th scop="col" class="cols1" rowspan="3">배송 주소
+								</td>
+								<td><input type="text" class="address roadFullAddr"
+									name="roadFullAddr" id="roadFullAddr" disabled></td>
+							</tr>
+							<tr>
+								<th scop="col"><input type="text" id="addrDetail"
+									name="addrDetail" id="addrDetail" class="addrDetail" disabled /><br>
+								</td>
+							</tr> -->
+
+
+
+							<!-- 	<tr>
 				<th>
 					성별
 				</th>
@@ -336,88 +242,221 @@ float:left;
 					<input type="radio" name="gender" value="1" id="gender_man"  value="" title='성별' ><label for="gender_man">남성</label>
 					<input type="radio" name="gender" value="0" id="gender_woman"   value="" title='성별' ><label for="gender_woman">여성</label>
 				</td>
-			</tr> -->
-			<tr>
-				<th scope="col">이메일<span class='main-color'>*</span></th>
-				<td>
-					<input type="text" id="" name="mail" value=""  style="width:183px;">
-					
-				</td>
-			</tr>
-			<tr>
-				<th scope="col">휴대전화</th>
-				<td>
-					<input type="text" id="" name="phone" value=""  style="width:183px;">
-					
-				</td>
-			</tr>
-			<tr>
-				<th scope="col">유선전화</th>
-				<td>
-					<div class="select-class" style="width:72px;">
-						<select style="width:72px;" name='tel1' numeric="true" title='유선전화' >
-							<option value="02" selected>02</option>
-							<option value="031" >031</option>
-							<option value="032" >032</option>
-							<option value="033" >033</option>
-							<option value="041" >041</option>
-							<option value="042" >042</option>
-							<option value="043" >043</option>
-							<option value="051" >051</option>
-							<option value="052" >052</option>
-							<option value="053" >053</option>
-							<option value="054" >054</option>
-							<option value="055" >055</option>
-							<option value="061" >061</option>
-							<option value="062" >062</option>
-							<option value="063" >063</option>
-							<option value="064" >064</option>
-						</select>
+			</tr>  -->
+
+							<!-- <tr>
+								<th scope="col">생년월일</th>
+								<td>
+									<ul class='box_wrap'>
+										<div class="select-class" style="width: 72px;">
+											<select name='birthday1' style="width: 72px;" title='생년월일(년)'
+												validation="true">
+												<option value="">년도</option>
+												<option value="2019">2019</option>
+												<option value="2018">2018</option>
+												<option value="2017">2017</option>
+												<option value="2016">2016</option>
+												<option value="2015">2015</option>
+												<option value="2014">2014</option>
+												<option value="2013">2013</option>
+												<option value="2012">2012</option>
+												<option value="2011">2011</option>
+												<option value="2010">2010</option>
+												<option value="2009">2009</option>
+												<option value="2008">2008</option>
+												<option value="2007">2007</option>
+												<option value="2006">2006</option>
+												<option value="2005">2005</option>
+												<option value="2004">2004</option>
+												<option value="2003">2003</option>
+												<option value="2002">2002</option>
+												<option value="2001">2001</option>
+												<option value="2000">2000</option>
+												<option value="1999">1999</option>
+												<option value="1998">1998</option>
+												<option value="1997">1997</option>
+												<option value="1996">1996</option>
+												<option value="1995">1995</option>
+												<option value="1994">1994</option>
+												<option value="1993">1993</option>
+												<option value="1992">1992</option>
+												<option value="1991">1991</option>
+												<option value="1990">1990</option>
+												<option value="1989">1989</option>
+												<option value="1988">1988</option>
+												<option value="1987">1987</option>
+												<option value="1986">1986</option>
+												<option value="1985">1985</option>
+												<option value="1984">1984</option>
+												<option value="1983">1983</option>
+												<option value="1982">1982</option>
+												<option value="1981">1981</option>
+												<option value="1980">1980</option>
+
+											</select>
+										</div>
+										년
+										<div class="select-class" style="width: 72px;">
+											<select name='birthday2' style="width: 72px;" title='생년월일(월)'
+												validation="false">
+												<option value="">월</option>
+												<option value="01">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+											</select>
+										</div>
+										월
+										<div class='select-class' style="width: 72px;">
+											<select name='birthday3' style="width: 72px;" title='생년월일(일)'
+												validation="false">
+												<option value="">일</option>
+												<option value="01">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24</option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+											</select>
+										</div>
+										일
+									</ul>
+								</td>
+							</tr> -->
+							
+							<tr>
+							<th scope="col">생년월일</th>
+							
+								<td class="memberCols2">
+
+						<div class="birth_day">
+							<input type="text" name="birth_year" id="birth_year" pattern="[0-9]*" value="" label="생년월일" size="4" maxlength="4" placeholder="YYYY" style="width:130px;">&nbsp; 
+							<input type="text" name="birth[]" id="birth_month" pattern="[0-9]*" value="" label="생년월일" size="2" maxlength="2" placeholder="MM" style="width:130px;"> &nbsp;
+							<input type="text" name="birth[]" id="birth_day" pattern="[0-9]*" value="" label="생년월일" size="2" maxlength="2" placeholder="DD" style="width:130px;">
+						</div>
+						<p class="guide_txt">
+							<span style="display: none;" class="txt">태어난 월을 정확하게
+								입력해주세요</span>
+							<!-- <span style="display: none;" class="txt">태어난 일을 정확하게 입력해주세요</span> -->
+							<!-- <span style="display: none;" class="txt">태어난 년도를 정확하게 입력해주세요</span> -->
+						</p>
+					</td>
+							
+							</tr>
+
+
+
+
+							<!-- <tr>
+								<th scope="col">유선전화</th>
+								<td>
+									<div class="select-class" style="width: 72px;">
+										<select style="width: 72px;" name='tel1' numeric="true"
+											title='유선전화'>
+											<option value="02" selected>02</option>
+											<option value="031">031</option>
+											<option value="032">032</option>
+											<option value="033">033</option>
+											<option value="041">041</option>
+											<option value="042">042</option>
+											<option value="043">043</option>
+											<option value="051">051</option>
+											<option value="052">052</option>
+											<option value="053">053</option>
+											<option value="054">054</option>
+											<option value="055">055</option>
+											<option value="061">061</option>
+											<option value="062">062</option>
+											<option value="063">063</option>
+											<option value="064">064</option>
+										</select>
+									</div> - <input type="text" id="tel2" name="tel2" value=""
+									style="width: 72px;" maxlength='4' numeric="true" title="전화번호">
+									- <input type="text" id="tel3" name="tel3" value=""
+									style="width: 72px;" maxlength='4' numeric="true" title="전화번호">
+								</td>
+							</tr> -->
+
+
+						</tbody>
+					</table>
+					<div class="btn-area">
+						<input type="submit" value="수정하기" alt="수정하기"
+							class="buttom_m main_k_buttom"> <a href="myProfile.jsp"
+							class="buttom_m sub_k_buttom">취소</a>
 					</div>
-					-
-					<input type="text" id="tel2" name="tel2" value="" style="width:72px;" maxlength='4'  numeric="true"  title="전화번호">
-					-
-					<input type="text" id="tel3" name="tel3" value="" style="width:72px;" maxlength='4'  numeric="true"  title="전화번호">
-				</td>
-			</tr>
-		
-			<tr>
-				<th scope="col">주소<span class='main-color'>*</span></th>
-				<td>
-					<input type="text" id="zipcode1" name="zipcode1" value="" title="우편번호"  style="width:72px;text-align:center;" class="inputbox_05">
-                   
-					<a href="javascript:void(0);" onclick='zipcode(1)' class="zipcode main_ks_buttom buttom_ss">주소찾기</a>
-					<span class="sect">
-						<input type="text" id="addr1" name="addr1"  value="" validation="true" title="주소" class="inputbox_05" style="width:391px;">
-					</span>
-					<span class="sect">
-						<input type="text" id="addr2" name="addr2"  value="" validation="true" title="주소" class="inputbox_05" style="width:391px;">
-					</span>
-					<input type='hidden' name='doro_addr1' id='doro_addr1' value="" >
-					<input type='hidden' name='doro_addr2' id='doro_addr2' value="" >
-				</td>
-			</tr>
-		
-			</tbody>
-		</table>
-		<div class="btn-area">
-			<input type="submit" value="수정하기" alt="수정하기" class="buttom_m main_k_buttom">
-			<a href="myProfile.jsp" class="buttom_m sub_k_buttom">취소</a>
+				</form>
+			</div>
 		</div>
 		</form>
+
+
 	</div>
-</div>
-</form>
+
+	</div>
+	
+<script language= "javascript" >
+// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다.
+// (＂팝업 API 호출 소스"도 동일하게 적용시켜야 합니다.)
+//document.domain = "abc.go.kr";
+function goPopup(){
+//경로는 시스템에 맞게 수정하여 사용
+//호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를
+//호출하게 됩니다.
+var pop = window.open("<%=request.getContextPath()%>/views/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+//** 2017년 5월 모바일용 팝업 API 기능 추가제공 **/
+// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서
+// 실제 주소검색 URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+// var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes");
+}
+
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd,
+rnMgtSn, bdMgtSn , detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm,
+buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+// 2017년 2월 제공항목이 추가되었습니다. 원하시는 항목을 추가하여 사용하시면 됩니다.
+	document.getElementById("roadFullAddr").value = roadFullAddr;
+	document.getElementById("addrDetail").value = addrDetail;
+
+} 
+</script>
 
 
-</div>
-
-</div>
 
 
-
-
-<!-- <script src='/data/enterdev_data/templet/bienbien/js/join_input.js'></script>
+	<!-- <script src='/data/enterdev_data/templet/bienbien/js/join_input.js'></script>
 <script>
 function mailText(frm){
 	if(frm.value == "etc"){
@@ -577,10 +616,10 @@ $(document).ready(function (){
 
 
 
-</script>
+	</script>
 
 
-<%@include file="../common/footer.jsp"%>
+	<%@include file="../common/footer.jsp"%>
 </body>
 
 </html>
