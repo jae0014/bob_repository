@@ -186,7 +186,7 @@ font-size:15px;
 				<section class='site-sub-layout'  >
 					<nav class="lnb-area">
 						<h1 class="subtit-heading" >
-							<a href="/mypage/"> <span class="font-en">MY PAGE</span>
+							<a href="myProfile.jsp"> <span class="font-en">MY PAGE</span>
 							</a>
 						</h1>
 

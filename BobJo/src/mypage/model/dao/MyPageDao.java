@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import attachment.model.vo.Attachment;
 import board.model.dao.BoardDao;
+import member.model.vo.Member;
 import post.model.vo.Post;
 import recipe.model.vo.Recipe;
 
@@ -100,7 +101,8 @@ public class MyPageDao {
 						rset.getInt("F_LEVEL"), 
 						rset.getString("F_STATUS"), 
 						rset.getString("F_PATH"),
-						rset.getString("F_NAME"));
+						rset.getString("F_NAME"),
+						rset.getString("CHNAGENAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -190,6 +192,96 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+
+	public int insertPrMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		System.out.println(m);
+		String sql = prop.getProperty("insertPrMember");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, m.getNickname());
+			pstmt.setString(2, m.getmIntro());
+			pstmt.setString(3, m.getmId());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String sql = prop.getProperty("insertAttachment");
+
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+
+				Attachment at = fileList.get(i);
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, at.getBprcId());
+				pstmt.setString(2, at.getfPath());
+				pstmt.setString(3, at.getfName());
+				pstmt.setString(4, at.getChangeName());
+			
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	/**/
+
+
+	public Member selectProfile(Connection conn, String mId) {
+		Member mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProfile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				mem = new Member(
+								rset.getString("nickname"),
+								rset.getString("m_intro")
+								);
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mem;
 	}
 
 
