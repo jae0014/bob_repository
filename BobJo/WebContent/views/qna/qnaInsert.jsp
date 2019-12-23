@@ -46,7 +46,7 @@
 	float: left;
 	margin: 10px;
 	background-color: rgb(255, 243, 239);
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .board-postnav-side>ul>li>a {
@@ -142,7 +142,7 @@ height: 30px !important;
 
 .orderList_div{
 	width: 450px;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	margin: auto;
 	
 }

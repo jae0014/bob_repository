@@ -206,10 +206,6 @@ width: 100%;
 <title>Insert title here</title>
 <%@ include file="../common/bootstrap.jsp"%>
 </head>
-
-
-
-
 <body>
 	<%@ include file="../common/menubar.jsp"%>
 

@@ -169,7 +169,7 @@ public class NoticeDao {
 		public int insertNotice(Connection conn, Notice n) {
 			int result = 0;
 			PreparedStatement pstmt = null;
-
+			System.out.println("notice : " + n);
 			String sql = prop.getProperty("insertNotice");
 
 			try {
