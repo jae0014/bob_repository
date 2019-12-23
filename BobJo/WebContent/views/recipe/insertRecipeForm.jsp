@@ -271,19 +271,19 @@ span.input-cus-title {
 					</div>
 					<select class="custom-select" name="cookInfo">
 						<option selected="selected" disabled>시간</option>
-						<option value0="in10">10분 이내</option>
-						<option value="in30">30분 이내</option>
-						<option value="in60">60분 이내</option>
-						<option value="over60">60분 이상</option>
+						<option value0="10">10분 이내</option>
+						<option value="30">30분 이내</option>
+						<option value="60">60분 이내</option>
+						<option value="60">60분 이상</option>
 					</select>
 					<div class="input-group-prepend">
 						<span class="input-group-text">난인도</span>
 					</div>
 					<select class="custom-select" name="difficulty">
 						<option selected="selected" disabled>난이도</option>
-						<option value="easy">쉬움</option>
-						<option value="mid">중간</option>
-						<option value="diff">어려움</option>
+						<option value="1">쉬움</option>
+						<option value="2">중간</option>
+						<option value="3">어려움</option>
 					</select>
 				</div>
 			</div>
@@ -431,8 +431,7 @@ span.input-cus-title {
 			<button style="float: right; width: 200px; margin-top: 25px;"
 				class="btn btn-primary" type="submit"
 				onsubmit="return submitRequest()">제출</button>
-			<button class="btn btn-primary" type="button"
-				onclick="submitRequest()">testBTN</button>
+			
 		</div>
 
 
@@ -471,9 +470,6 @@ span.input-cus-title {
 				console.log('데이타 요청 끝');
 			}
 		});
-        
-        
-       
     }
     function ingriSetter() 
     {
@@ -547,7 +543,7 @@ span.input-cus-title {
             textareaOf.push($(this).val())
         })
         
-        formDataSend.append("step_text",textareaOf)
+        formDataSend.append("step_text",JSON.stringify(textareaOf))
         $('.ingiList').each(function (index) {
             titleIn+= $(this).val() 
             if( $('.ingiList').length-1 >index)

@@ -2,7 +2,6 @@ package common.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -17,10 +16,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import attachment.model.vo.Attachment;
+import attachment.service.AttachmentService;
 import common.MyFileRenamePolicy;
-import recipe.model.vo.Ingredient;
 import recipe.model.vo.Recipe;
-import recipe.model.vo.Step;
 
 /**
  * Servlet implementation class FileUpload
@@ -98,9 +96,18 @@ public class FileUpload extends HttpServlet {
 				
 			 String rInName = rInNameTemp.replace("\"", "");
 			 String rWeight = rWeightTemp.replace("\"", "");
-	
-	
-
+			 // 날짜 자동 생성 
+			 Recipe recipe = new Recipe(mNo,rName,rInfo,cateFoId,cateMethodId,cateInId,rInName,rWeight);
+			 int rCookTime = Integer.parseInt(request.getParameter("cookInfo"));
+			 int rCookLevel = Integer.parseInt(request.getParameter("difficulty"));
+			 recipe.setrCookLevel(rCookLevel);
+			 recipe.setrCookTime(rCookTime);
+			 
+			 
+			 
+			 
+			 String step_text = multipartRequest.getParameter("step_text"); //재료명
+			 
 			 
 			 
 			 
@@ -116,16 +123,14 @@ public class FileUpload extends HttpServlet {
 				// 전송 순서 역순으로 파일이 저장되어 있으므로 반복문을 역으로 수행하기
 				for(int i = originFiles.size() - 1; i >= 0; i--) {
 					Attachment at = new Attachment();
-					at.setFilePath(savePath);
-					at.setOriginName(originFiles.get(i));
+					at.setfPath(savePath);
+					// 진짜 이름
+					at.setfName(originFiles.get(i));
+					// change Name
 					at.setChangeName(changeFiles.get(i));
 					
 					// 메인 이미지인 경우 fileLevel 0, 일반 사진은 fileLevel 1
-					if(i == originFiles.size() -1) {
-						at.setFileLevel(0);
-					}else {
-						at.setFileLevel(1);
-					}
+					
 					fileList.add(at);
 				}
 				
@@ -133,9 +138,9 @@ public class FileUpload extends HttpServlet {
 			 
 			// 7. 사진 게시판 작성용 비즈니스 로직을 처리할 서비스 요청
 				
-				
+				int result = new AttachmentService().addFile(fileList);
 				if(result > 0) {
-					response.sendRedirect("list.th");
+					response.sendRedirect("/list.re");
 				}else {
 					// 실패 시 저장된 사진 삭제
 					for(int i = 0; i < changeFiles.size(); i++) {
