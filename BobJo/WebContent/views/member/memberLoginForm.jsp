@@ -145,6 +145,8 @@ box-sizing:border-box;}
     
     <script>
 	$(function(){
+		
+		$("#userId").focus();
 		$(".join_btn").click(function(){
 			location.href="<%=contextPath%>/views/member/memberJoinForm.jsp";
 		});

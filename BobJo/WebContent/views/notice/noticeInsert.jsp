@@ -8,16 +8,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <%-- <%@ include file="../common/quillAPI.jsp"%> --%>
     <!-- Main Quill library -->
-    <link href="resources/API/quill/quill.snow.css" rel="stylesheet">
-    <script src="resources/API/quill/quill.min.js"></script>
-    <script src="resources/API/quill/quill.js"></script>
-    <script src ="resources/API/quill/image-resize.min.js"></script>
+    <link href="<%=request.getContextPath() %>/resources/API/quill/quill.snow.css" rel="stylesheet">
+    <script src="<%=request.getContextPath() %>/resources/API/quill/quill.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/API/quill/quill.js"></script>
+    <script src ="<%=request.getContextPath() %>/resources/API/quill/image-resize.min.js"></script>
 <title>Insert title here</title>
 
 
 <style>
 *{
-	border-sizing:box-sizing;
+	box-sizing: border-box;
 }
 .question_link{
 	background: #f9f9f9;
@@ -188,7 +188,7 @@ td{
 padding: 3px;
 }
 
-.qTitle{
+.nTitle{
 width: 100%;
 font-size: 14px;
 }
@@ -203,10 +203,10 @@ margin-bottom:3px !important;
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp"%>
 	<%@ include file="../common/bootstrap.jsp"%>
+	<%@ include file="../common/menubar.jsp"%>
 
-	<form action="<%=request.getContextPath()%>/insert.qna" method="post"
+	<form action="<%=request.getContextPath()%>/insert.no" method="post"
 		id="postInsert">
 		<div class="updateBox">
 		<%-- <input type="hidden" name="mId" value="<%=loginUser.getmId() %>"> --%>
@@ -216,7 +216,7 @@ margin-bottom:3px !important;
 					<th class="sub_cols">제목</th>
 					<td>							
 						<!-- 제목 쓰는 칸 -->
-						<input class="qTitle" type="text" name="qTitle">
+						<input class="nTitle" type="text" name="nTitle" required>
 					</td>
 				</tr>				
 				<tr>
@@ -246,21 +246,6 @@ margin-bottom:3px !important;
 	</form>
 
 
-<!-- Modal -->
-<div class="modal fade ttt" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">내 주문번호 조회하기</h5>
-        <button type="button" class="close modal_close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-
-    </div>
-  </div>
-</div>
 
 
 <script>
@@ -336,5 +321,6 @@ margin-bottom:3px !important;
 		$("#postInsert").submit();
 	}
 	</script>
+	     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
