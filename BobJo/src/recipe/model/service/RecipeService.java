@@ -1,20 +1,17 @@
 package recipe.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import attachment.model.vo.Attachment;
-import board.model.dao.BoardDao;
-import board.model.vo.Board;
-import member.model.dao.MemberDao;
-import product.model.dao.ProductDao;
-import product.model.vo.Product;
 import recipe.model.dao.RecipeDao;
-import recipe.model.vo.Ingredient;
 import recipe.model.vo.Recipe;
 import recipe.model.vo.Step;
-
-import static common.JDBCTemplate.*;
 
 public class RecipeService {
 
@@ -170,6 +167,86 @@ public class RecipeService {
 		return result;
 		
 		
+	}
+
+
+
+
+
+	public String insertRecipe(Recipe recipe) {
+		Connection conn = getConnection();
+		
+		String result = new RecipeDao().insertRecipe(conn,recipe);
+		
+		close(conn);
+		return result;
+	}
+
+
+
+
+
+	public String retriveId() {
+		Connection conn = getConnection();
+		String str = new RecipeDao().retriveId(conn);
+		return str;
+	}
+
+
+
+
+
+	public int insertStep(ArrayList<Step> step) {
+		Connection conn = getConnection();
+		int result = new RecipeDao().insertStep(conn,step);
+		
+		if(result > 0) {
+			commit(conn);
+			
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+
+
+
+	public void deleteRecipe(String rId) {
+		Connection conn = getConnection();
+
+		int result = new RecipeDao().deleteRecipe(conn,rId);
+		if(result > 0) {
+			commit(conn);
+			
+			
+		}else {
+			rollback(conn);
+			System.out.println("지우기 실패");
+		}
+		close(conn);
+	}
+
+
+
+
+
+	public void deletetStep(String rId) {
+		Connection conn = getConnection();
+
+		int result = new RecipeDao().deletetStep(conn,rId);
+		if(result > 0) {
+			commit(conn);
+			
+			
+		}else {
+			rollback(conn);
+			System.out.println("지우기 실패");
+		}
+		close(conn);
 	}
 
 

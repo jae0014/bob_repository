@@ -34,8 +34,21 @@ public class AttachmentDao {
 		String sql = prop.getProperty("addFile");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			result = pstmt.executeUpdate();
+			for (Attachment att : fileList) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, att.getBprcId());
+				// Path
+				pstmt.setString(2, att.getfPath());
+				// 진짜 이름 
+				pstmt.setString(3, att.getfName());
+				// 바꾼 이름 
+				pstmt.setString(4, att.getChangeName());
+				// 게시물 타입
+				pstmt.setInt(5, att.getBtype());
+			
+				result = pstmt.executeUpdate();
+			}
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

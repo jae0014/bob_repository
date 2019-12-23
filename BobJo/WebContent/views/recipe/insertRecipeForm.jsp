@@ -172,7 +172,7 @@ span.input-cus-title {
 
 <body>
 
-	<form id="form1">
+	
 
 		<div class="container">
 			<!-- 제목 -->
@@ -430,12 +430,12 @@ span.input-cus-title {
 
 			<button style="float: right; width: 200px; margin-top: 25px;"
 				class="btn btn-primary" type="submit"
-				onsubmit="return submitRequest()">제출</button>
+				onclick="return submitRequest()">제출</button>
 			
 		</div>
 
 
-	</form>
+	
 
 </body>
 <script>
@@ -462,9 +462,11 @@ span.input-cus-title {
 			data : formDataSend,  
 			success :function(result){
 				console.log(result);
+				
 			},
 			error : function(){
 				console.log('Error 발생하였습니다.');
+				
 			},
 			complete : function(){
 				console.log('데이타 요청 끝');
@@ -472,7 +474,7 @@ span.input-cus-title {
 		});
     }
     function ingriSetter() 
-    {
+    {	formDataSend = new FormData();
         var reciepeTitle = $("#reciepeTitle").val();
         formDataSend.append("reciepeTitle",reciepeTitle)
         var reciepeIntro = $("#reciepeIntro").val();
@@ -536,19 +538,21 @@ span.input-cus-title {
      	
         var len_step2 = datafile2.length;
         //
+        textareaOf = [];
         formDataSend.append("step_size",len_step)
         formDataSend.append("com_size",len_step2)
         $(".stepTextarea").each(function () {
-
-            textareaOf.push($(this).val())
+        	var str = $(this).val();
+            textareaOf.push(str.replace(/,/g, "<c>"))
         })
-        
+        titleIn = "";
         formDataSend.append("step_text",JSON.stringify(textareaOf))
         $('.ingiList').each(function (index) {
             titleIn+= $(this).val() 
             if( $('.ingiList').length-1 >index)
             	titleIn+=", " 
         })
+        weightIn= "";
      	var json = JSON.stringify(titleIn);
         formDataSend.append("inTitle", json)
 		console.log(titleIn)
