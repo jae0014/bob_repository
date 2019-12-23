@@ -248,7 +248,7 @@ body {
 						</tr>
 						<tr>
 							<td>휴대폰(연락처) *</td>
-							<td><input type="tel" name="r_name" id="r_phone" placeholder="예 : 010-1234-1234"></td>
+							<td><input type="text" name="r_phone" id="r_phone" placeholder="'-'없이 숫자만 입력해주세요"></td>
 						</tr>
 						<tr>
 							<td>배송시 요청사항</td>
@@ -327,12 +327,14 @@ body {
 
 				<div id="paymentDiv">
 					<button type="button" id="paymentBtn">결제 하기</button>
+					<button type="button" id="testBtn">테스트 버튼</button>
 				</div>
 			</div>
 
 		</div>
 			<input type="hidden" name="chong" id="chong">
 			<input type="hidden" name="pids" id="pids" value="<%= pids%>">
+			<input type="hidden" name="addr" id="addr">
 		</form>
 		
 	</section>
@@ -415,18 +417,20 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 					    buyer_email : $("#b_email").text(),
 					    buyer_name : $("#b_name").text(),
 					    buyer_tel : $("#b_phone").text(),
-					    buyer_addr : '서울특별시 강남구 삼성동',
+					    buyer_addr : $("#roadFullAddr").val(),
 					    buyer_postcode : '123-456'
 					}, function(rsp) {
 						var ch = 0;
 					    if ( rsp.success ) {
 					        var msg = '결제가 완료되었습니다.';
-					        msg += '고유ID : ' + rsp.imp_uid;
-					        msg += '상점 거래ID : ' + rsp.merchant_uid;
-					        msg += '결제 금액 : ' + rsp.paid_amount;
-					        msg += '카드 승인번호 : ' + rsp.apply_num; 
+					        //ch = 1;
+					        $("#chong").val(total);
+					        var addr = $("#roadFullAddr").val();
+							addr += ' ';
+							addr += $("#addrDetail").val();
+							$("#addr").val(addr);
+					        $("#pidsFrm").submit();
 					        
-					        ch = 1;
 					    } else {
 					        var msg = '결제에 실패하였습니다.';
 					        msg += '에러내용 : ' + rsp.error_msg;
@@ -434,16 +438,25 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 
 					    alert(msg); 
 					    
-					    if(ch == 1){
+					    <%-- if(ch == 1){
 					    	// 결제 성공 시 성공 화면으로 이동
-					    	
-					    }
+					    	location.href="<%= contextPath %>/views/order/orderSuccessView.jsp";
+					    } --%>
 					});
 				}
-				/* $("#chong").val(total);
-				$("#pidsFrm").submit(); */
+				
 			});
 			
+			$("#testBtn").click(function(){
+				var ch = 0;
+				$("#chong").val(total);
+				var addr = $("#roadFullAddr").val();
+				addr += ' ';
+				addr += $("#addrDetail").val();
+				$("#addr").val(addr);
+		        $("#pidsFrm").submit();
+		        <%-- location.href="<%= contextPath %>/orderPay"; --%>
+			});
 			
 		});
 	
