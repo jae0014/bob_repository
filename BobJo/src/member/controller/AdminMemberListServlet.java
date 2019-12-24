@@ -1,11 +1,17 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
+import order.model.service.OrderService;
 
 /**
  * Servlet implementation class AdminMemberListServlet
@@ -26,8 +32,15 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		// 멤버리스트 가져오기
+		ArrayList<Member> mlist = new MemberService().SelectMemberList();
+		
+		// 주문리스트 가져오기
+		ArrayList<Order> olist = new OrderService().SelectOrderList();
+		
+		
+		
 	}
 
 	/**

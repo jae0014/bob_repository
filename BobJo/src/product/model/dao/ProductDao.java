@@ -401,7 +401,7 @@ public class ProductDao {
 			while (rs.next()) {
 				pList.add(rs.getString(2));
 			}
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -417,7 +417,6 @@ public class ProductDao {
 		ArrayList<Product> pList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Recipe r = null;
 
 		String sql = prop.getProperty("selectRecommendPList");
 
@@ -429,7 +428,7 @@ public class ProductDao {
 			pstmt.setString(2, p_idList.get(1));
 			pstmt.setString(3, p_idList.get(2));
 			pstmt.setString(4, p_idList.get(3));
-
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -439,7 +438,6 @@ public class ProductDao {
 						rs.getString("P_SHORT_DESC"), rs.getString("P_SALE_UNIT"), rs.getString("P_WEIGHT"),
 						rs.getInt("P_STOCK")));
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

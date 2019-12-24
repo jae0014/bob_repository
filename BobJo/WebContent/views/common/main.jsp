@@ -5,11 +5,15 @@
     %>
     <%
 	ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-	ArrayList<Attachment> f_pList = (ArrayList<Attachment>) request.getAttribute("fList");
-	String cate = request.getAttribute("cate").toString();
-	String cateStr = request.getAttribute("cateStr").toString();
+	ArrayList<Attachment> p_fList = (ArrayList<Attachment>) request.getAttribute("p_fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	ArrayList<Attachment> f_rList = (ArrayList<Attachment>) request.getAttribute("fList");
+	ArrayList<Attachment> r_fList = (ArrayList<Attachment>) request.getAttribute("r_fList");
+	
+	System.out.println("pList : " + pList);
+	System.out.println("p_fList : " + p_fList);
+	System.out.println("rList : " + rList);
+	System.out.println("r_fList : " + r_fList);
+	
     %>
 <!DOCTYPE html>
 <html>
@@ -124,7 +128,7 @@
 
 /* 텍스트박스 2 */
 .R_textbox2{
-    background:red;
+    background:rgba(0, 0, 0, 0.5);
     width: 300px;
     height: 100px;
     margin:auto;
@@ -138,32 +142,49 @@
 
 /* 텍스트박스 3 */
 .R_textbox3{
-    background:green;
+    background:rgba(0, 0, 0, 0.5);
     width: 400px;
     height: 100px;
     margin:auto;
     /* position: absolute; */
-
     /* 텍스트박스 3 좌표 */
     /* top: 60%;
     left: 10%; */
 
 }
-.head_txt1, .head_txt2, .head_txt3{
+.head_txt1{
     position:absolute;
     font-weight: 900;
     font-size: 20px;
-    padding: 0;
+    padding-left: 20px;
     margin:0;
+/*     border:1px solid black; */
+    
+}
+.head_txt2{
+	width: 100%;
+    position:absolute;
+    font-weight: 900;
+    font-size: 20px;
+    padding-left: 20px;
+    margin:0;
+/*     border:1px solid black; */
+    
+}
+.head_txt3{
+	width: 100%;
+    position:absolute;
+    font-weight: 900;
+    font-size: 20px;
+    padding-left: 20px;
+    margin:0;
+   /*  border:1px solid black; */
     
 }
 .head_small_txt1{
     font-size: 15px;
+    
 }
-
-
-
-
 
 </style>
 </head>
@@ -178,32 +199,54 @@
           <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
         </ol>
     
+    
+    <!-- 추천레시피 -->
         <div class="carousel-inner list_goods">
           
-          
             <div class="carousel-item active">
-            <a href="#" class="d-block w-100 thumb_goods" style="background-image: url('<%=contextPath%>/resources/images/main/아침식사.PNG')">메인배너</a>    
+<%
+if (rList.get(0).getrId().equals(r_fList.get(0).getBprcId())) {
+%>
+            <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(0).getrId()%>"
+            class="d-block w-100 thumb_goods"
+            style="background-image: url('<%=contextPath%>/resources/recipe/r1.jpg')">메인배너</a>
+ <%}
+%>    
             <div class="carousel-caption d-md-block R_textbox1">
-              <p class="head_txt1">제이의 레시피 추천 하나,</p><br>
-              <p class="head_small_txt1">1인 가구 자취생의 맛있는 된장찌개</p>
+              <p class="head_txt1 head_txt">제이의 레시피 추천 하나,</p><br>
+              <p class="head_small_txt1">1인 가구 자취생의 도전, 갈비찜</p>
             </div>
           </div>
     
     
           <div class="carousel-item">
-            <a href="#" class="d-block w-100 thumb_goods" style="background-image: url('<%=contextPath%>/resources/images/main/아침식사2.PNG')">메인배너</a>  
+<%
+if (rList.get(1).getrId().equals(r_fList.get(1).getBprcId())) {
+%>
+            <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(1).getrId()%>"
+            class="d-block w-100 thumb_goods"
+            style="background-image: url('<%=contextPath%>/resources/recipe/r2.jpg')">메인배너</a>
+ <%}
+%>            
             <div class="carousel-caption d-none d-md-block R_textbox2">
-              <p class="head_txt2">제이의 레시피 추천 둘,</p><br>
-              <p class="head_small_txt2">아침 든든 계란볶음밥</p>
+              <p class="head_txt2 head_txt">제이의 레시피 추천 둘,</p><br>
+              <p class="head_small_txt2">아침 든든 된장찌개</p>
             </div>
           </div>
     
     
           <div class="carousel-item">
-            <a href="#" class="d-block w-100 thumb_goods" style="background-image: url('<%=contextPath%>/resources/images/main/파스타_2160x2160.jpg')">메인배너</a>  
+<%
+if (rList.get(2).getrId().equals(r_fList.get(2).getBprcId())) {
+%>
+            <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(2).getrId()%>"
+            class="d-block w-100 thumb_goods"
+            style="background-image: url('<%=contextPath%>/resources/recipe/r3.jpg')">메인배너</a>
+ <%}
+%>          
             <div class="carousel-caption d-none d-md-block R_textbox3">
-              <p class="head_txt3">제이의 레시피 추천 셋,</p><br>
-              <p class="head_small_txt3">엄마에게 해드리는 레시피, 당신과 함께 먹을 파스타</p>
+              <p class="head_txt3 head_txt">제이의 레시피 추천 셋,</p><br>
+              <p class="head_small_txt3">국민반찬 계란말이!</p>
             </div>
           </div>
         </div><!--carousel-inner-->
@@ -228,37 +271,37 @@
 <hr>
 <br>
 
-
+<!-- 추천상품 -->
 <h2 align="center">이 상품 어때요?</h2>
 <br>
 
-<div class="sale_list">
+<div class="sale_list" style="border:1px solid black;">
 
 <%
 for (int i = 0; i < pList.size(); i++) {
 	Product product = pList.get(i);
 %>
+    <%for (Attachment at : p_fList) {
+ 		if (pList.get(i).getpId().equals(at.getBprcId())) {%> 
     <div class="sale_item">
 
         <div class="sale_thumb">
             <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>">
-                <img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
+           
+                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(i).getCateInId()%>/<%=at.getfName()%>"
+                alt="추천상품1" class="thumb_img">
+                
             </a>
         </div>
-        <a href="#" class="sale_info">
-            <p class="p_name p_txt">제주에서 갓 따온 한라봉</p>
-            <p class="p_price p_txt">2,000원</p>
+        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>" class="sale_info">
+            <p class="p_name p_txt"><%=pList.get(i).getpName()%></p>
+            <p class="p_price p_txt"><%=pList.get(i).getpPrice()%>원</p>
         </a>
     </div>
-
-<%
-	}
-%>
+        <%}	
+ 	}
+}%>
 </div>
-
-
-
-
 
 
 <br>
@@ -285,7 +328,7 @@ for (int i = 0; i < pList.size(); i++) {
         </a>
     </div>
     
-	<div class="sale_list">
+	
 	
 		<div class="sale_item">
 			<div class="sale_thumb">
@@ -329,8 +372,6 @@ for (int i = 0; i < pList.size(); i++) {
         	</a>
     	</div>
 	</div>
-</div>
-
     
 <br>
 <br>

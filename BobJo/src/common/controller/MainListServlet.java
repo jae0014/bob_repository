@@ -41,20 +41,39 @@ public class MainListServlet extends HttpServlet {
 		// 추천 레시피 리스트
 		//레시피 세개 가져오기.
 		ArrayList<Recipe> rList = rService.selectRecommendR();
-		ArrayList<Attachment> R_fList = new ArrayList<Attachment>();
-		
+		ArrayList<Attachment> r_fList = new ArrayList<Attachment>();
+		//System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList);
 		for(int i = 0; i < rList.size(); i++) {
-			Attachment imgFile = pService.selectThumbnail(rList.get(0).getrId());
-			R_fList.add(imgFile);
+			Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
+			r_fList.add(imgFile);
+			System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList.get(i));
 		}
 		
 				
 		// 추천 물건리스트
 		// 상품 네개 가져오기
 		ArrayList<Product> pList = pService.selectRecommendP();		
-		//ArrayList<Attachment>
+		ArrayList<Attachment> p_fList = new ArrayList<Attachment>();
+		
+		
+		for(int i = 0; i < pList.size(); i++) {
+			Attachment imgFile = pService.selectThumbnail(pList.get(0).getpId());
+			p_fList.add(imgFile);
+		}
 		
 		// 할인 물건리스트
+		
+		
+		if(pList != null && p_fList != null && rList != null && r_fList != null) {
+			request.setAttribute("pList", pList);
+			request.setAttribute("p_fList", p_fList);
+			request.setAttribute("rList", rList);
+			request.setAttribute("r_fList", r_fList);
+			request.getRequestDispatcher("views/common/main.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "메인 조회에 실패했습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 
