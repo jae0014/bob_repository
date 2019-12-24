@@ -5,7 +5,10 @@
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	
+	//좋아요 한 애
+	String L_mId="";
+	// 좋아요 당한 어떤레시피
+	String L_rId="";
 	
 	
 %>
@@ -233,7 +236,7 @@ div {
 
 									<div class="like" id="like">
 
-										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>" onclick="like(this)">
+										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>"><!--  onclick="like(this);" -->
 										
 										</button>
 
@@ -243,7 +246,7 @@ div {
 										<input type="hidden" name="command" value="like_it">
 										<input type="hidden" name="rId" value="${rId}">
 										<tr><input type="button" value="좋아요!" onclick="return like()" > </tr>
-										<tr><div id="like_result"><%=rList.get(i).getrLike() %></div> </tr>
+										<tr><div id="like_result"><%=rList.get(i).getr`() %></div> </tr>
 										</table>
 										</form> --%>
 
@@ -399,25 +402,95 @@ div {
 		
 	
 		function like(e){
-			// 
 			
 			<% if(loginUser !=null) {%>
 			
 			var rId = e.id.substring(3);
-			$.ajax({
+			console.log(rId);
+			
+			if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"})
+					){
+				console.log("여기는 빈 하트 눌렀을떄 오는곳");
+				$.ajax({
 				url: "like.re",
 				type: "POST",
 				data: {rId :rId},
 				
 				success:function(data){ 
-					/* 
+					
 					alert("'좋아요'가 반영되었습니다!") ;
-					alert(data); */
+					alert(data); 
+				
+					
+					//하트채움
+					$("#like"+rId).html("&nbsp;"+data);
+					$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"});
+					
+					click_flag=true;
+					
+					
+				},
+				error:function (request, status, error){
+					alert("ajax실패");
+					
+				}
+				
+			});
+				
+				
+				
+			} else if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})
+					) {
+				console.log("여기는 클릭된 하트 다시눌렀을떄 오는곳");
+				$.ajax({
+					url : "dislike.re",
+					type : "post",
+					data : {rId : rId},
+					success : function(data){
+						alert("'좋아요'가 취소되었습니다!");
+						alert(data);
+						
+						$("#like"+rId).html("&nbsp;"+data);
+						$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
+						
+					},error:function(request,status,error){
+						alert("ajax 실패");
+					}
+				});
+				
+				
+				
+				}
+			
+		<%}else {%>
+			alert('로그인을 해주세요');
+			location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
+		<%}%>
+		
+			
+			};
+	
+		
+		
+		</script>
+		<%-- <script>
+		function dislike(e){
+			
+			var rId = e.id.substring(3);
+			$.ajax({
+				url: "dislike.re",
+				type: "POST",
+				data: {rId :rId},
+				
+				success:function(data){ 
+					
+					alert("'좋아요'가 취소되었습니다.") ;
+					alert(data); 
 				
 					
 					
 					$("#like"+rId).html("&nbsp;"+data);
-					$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"});
+					$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
 					
 					
 					
@@ -428,53 +501,12 @@ div {
 					
 				}
 			});
-		<%}else {%>
-			alert('로그인을 해주세요');
-			location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
-		<%}%>
-		
-	<%-- 	if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})){
-			/* $("#btn"+rId).attr("disabled",true); */
-			
-			
-			
-			
-			$("#btn"+rId).click(function(){
-				/* $("#btn"+rId).attr("disabled",true); */
-				$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
-				var rId = e.id.substring(3);
-			
-				$.ajax({
-					url : "dislike.re",
-					type : "post",
-					data : {rId : rId},
-					
-					success:function(data){
-						alert{"좋아요 취소"};
-					},error:function(request,status,error){
-						alert("ajax 실패");
-					}
-					
-				});
-				
-				
-			});
-		}; --%>
-		
-	
-		
-		
-		}
-		</script>
-		<script>
-		function dislike(e){
-			var rId = e.id.substring(3);
 			
 		}
 		
 		
 		
-		</script>
+		</script> --%>
 	
 
 		<%-- 페이징 --%>

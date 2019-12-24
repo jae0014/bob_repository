@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import notice.model.vo.Notice;
 import order.model.vo.Order;
+import order.model.vo.OrderDetail;
 import qna.model.dao.QnaDao;
 
 public class OrderDao {
@@ -138,6 +139,42 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return orderId;
+	}
+
+	// 마이페이지 주문조회 시 사용할 메소드
+	public ArrayList<OrderDetail> selectMyOrder(Connection conn, String mNo) {
+		ArrayList<OrderDetail> list = new ArrayList<OrderDetail>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMyOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new OrderDetail(
+						rset.getString("ORDER_DETAIL_ID"),
+						rset.getString("ORDER_MEMBER"),
+						rset.getString("PID"),
+						rset.getString("P_NAME"),
+						rset.getInt("ORDER_COUNT"),
+						rset.getInt("DETAIL_PRICE"),
+						rset.getDate("ORDER_DATE"),
+						rset.getString("ORDER_ID"),
+						rset.getInt("TOTAL_PRICE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

@@ -108,6 +108,7 @@ public class OrderPaymentServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("orderId", orderId);
 		session.setAttribute("cartSize", cartSize);
+		request.setAttribute("orderId", orderId);
 		request.getRequestDispatcher("views/order/orderSuccessView.jsp").forward(request, response);
 	}
 

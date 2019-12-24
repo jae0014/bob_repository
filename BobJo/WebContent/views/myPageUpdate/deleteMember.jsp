@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+
+Member m = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +157,8 @@ div {
 					<tbody>
 						<tr>
 							<th scope="col">아이디</th>
-							<td><input type="text" name="id" validation="true" value=''
-								title="아이디" style="width: 200px;" readonly></td>
+							<td><input type="text" name="id" validation="true" value='<%=m.getmId() %>'
+								title="아이디" style="width: 200px;"  readonly></td>
 						</tr>
 						<tr>
 							<th scope="col">비밀번호</th>
