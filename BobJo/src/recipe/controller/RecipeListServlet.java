@@ -123,11 +123,11 @@ public class RecipeListServlet extends HttpServlet {
 			 request.setAttribute("nationStr", nationStr); 
 			request.setAttribute("fList", fList); 
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
-			ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
-			request.setAttribute("reList", reList);
+			//ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
+			//request.setAttribute("reList", reList);
 			request.setAttribute("pi", pi);
 			
-			System.out.println("reList : " + reList);
+			//System.out.println("reList : " + reList);
 			
 
 		} else {
