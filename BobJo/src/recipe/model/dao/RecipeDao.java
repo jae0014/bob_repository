@@ -221,7 +221,7 @@ public class RecipeDao {
 
 				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
 						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
 						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
 
 				rlist.add(r);

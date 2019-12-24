@@ -234,7 +234,7 @@ div {
 
 									<div class="like" id="like">
 <!-- /////////////////////////////////////////// -->
-										
+										<%if(L_rId !=null){ %>
 											<% boolean flag = false;
 												for(int j = 0; j < L_rId.size(); j++){ 
 												 	if(L_rId.get(j).equals(rList.get(i).getrId()))
@@ -253,7 +253,11 @@ div {
 												>
 												</button>
 											<% } %>
-
+										<%}else{ %>
+										<button class="heartBtn like" id="btn<%=rList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
+												></button>
+										<%} %>
 
 										<%-- 	<form id="like_form">
 										<table id="list" style="border:1px solid red;">
