@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, notice.model.vo.Notice, common.vo.* ,java.text.SimpleDateFormat"%>
+    import="java.util.ArrayList, member.model.vo.Member, order.model.vo.Order, common.vo.* ,java.text.SimpleDateFormat"%>
     <%
-	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
+	ArrayList<Member> mlist = (ArrayList<Member>) request.getAttribute("mlist");
+    ArrayList<Order> olist = (ArrayList<Order>) request.getAttribute("olist");
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int listCount = pi.getListCount();
@@ -104,7 +105,7 @@
 
 		<!-- 전체영억 -->
 	<div class="outer_m">
-		<!-- 사이드메뉴 영역-->
+			<!-- 사이드메뉴 영역-->
 		<div class="content1">
 			<% if(loginUser == null){ %>
 			<div class="side_txt_div1">
@@ -128,17 +129,22 @@
 						<li class="nav-item  border border-light notice_link"
 							onclick="goNoticeList()"><a class="nav-link active">공지사항</a>
 						</li>
-
-						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
-
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="#">매출관리</a></li>
-						<%}%>
 						<li class="nav-item border border-light question_link"
 							onclick="goQnaList()"><a class="nav-link question_a">1:1문의
 								내역</a></li>
+						<%if (loginUser != null && loginUser.getmNo().equals("M0")) {%>
+						<!--  탈퇴, 등급변경, 회원정보세부내용확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">주문관리</a></li><!-- 주문내역확인, 월별 매출확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">상품관리</a></li><!-- 상품등록(사진필요),삭제 재고변경, 추천상품선택 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">게시글관리(자유, 후기, 레시피)</a></li><!-- 삭제, 추천레시피관리 -->
+
+						<%}%>
+
 					</ul>
 				</div>
 			</div>
@@ -158,8 +164,7 @@
 	function goNoticeList(){
 			location.href="<%=request.getContextPath()%>/list.no";
 	};
-</script>
-
+	</script>
 
 		<!-- content2 -->
 <div class="content2">
@@ -167,7 +172,15 @@
 <div class="board-post">
 				<div class="sub_text_area" style="diplay:inline-block; width: 100%;/*  border:1px solid black; */">				
 				<p style="font-size: 16px; font-weight: 900; text-align: left; line-height:'2';/*  border:1px solid black;  */margin-top:20px; margin-bottom:20px;">
-				공지사항</p>
+				회원관리</p>
+				</div>
+				<div>
+				<select>
+					<option>회원번호순</option>
+					<option>가입일순</option>
+					<option>등급순</option>
+					<option>구매금액순</option>
+				</select>
 				</div>
 				<!-- 게시판 헤더 -->
 				<div class=" board-post-list table-responsive"  style="/* border: 1px solid purple;  */margin:0px;">
@@ -178,11 +191,15 @@
 								<th class="thNum" scope="col">회원번호</th>
 								<th class="thTitle" scope="col">아이디</th>
 								<th class="thWriter" scope="col">회원등급</th>
-								<th class="thDate" scope="nDateCols">마지막접속</th>
+								<th class="thDate" scope="col">마지막접속</th>
+								<th class="thStatus" scope="col">상태</th>
+								<th class="thMoney" scope="col">구매금액</th>
+								<th class="thChk">선택</th>
+								<!-- (총 7열) order vo에 회원번호랑 누적금액담고 등급, 상태, 아이디는 멤버 vo에 담고..둘다가져와야됨-->
 							</tr>
 						</thead>
-						<!-- 게시판이 있다면  -->
-						<%if (list != null) {%>
+						<!-- 멤버가 있다면  -->
+						<%if (mlist != null) {%>
 						<tbody>
 							<%for (int i = 0; i < list.size(); i++) {
 								newDateFormat = simple.format(list.get(i).getnDate());
@@ -203,26 +220,32 @@
 						<tbody>
 							<tr>
 								<td colspan="5">
-									<p>게시글 없음</p>
+									<p>회원없음</p>
 								</td>
 							</tr>
 						</tbody>
 						<%}%>
+
 						<tfoot>
 							<tr>
 								<td colspan="5">
-									<!-- 로그인 했을때 글쓰기버튼 활성화 -->
-									<%if (loginUser != null) { %>
 									<button class="btn" type="button"
 										style="float: right; background-color: rgb(170, 57, 57); color: white"
-										onclick="location.href = '<%=request.getContextPath()%>/views/notice/noticeInsert.jsp'">글쓰기</button>
-									<%}%>
+										onclick="location.href = '#'">강제탈퇴</button>
+										<button class="btn" type="button"
+										style="float: right; background-color: rgb(170, 57, 57); color: white"
+										onclick="location.href = '#'">강제탈퇴</button>
 								</td>
 							</tr>
 						</tfoot>
 					</table>
 					
 				</div>
+				
+				
+				
+				
+				<!-- ///////////////////////페이징 -->
 				<div class="pagingDiv">
 					<!-- 페이징구역 -->
 					<nav aria-label="..." style="display: inline-block; margin-top:10px; margin-bottom:10px;" class="paging_nav">

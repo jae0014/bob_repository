@@ -42,10 +42,11 @@ public class MainListServlet extends HttpServlet {
 		//레시피 세개 가져오기.
 		ArrayList<Recipe> rList = rService.selectRecommendR();
 		ArrayList<Attachment> r_fList = new ArrayList<Attachment>();
-		
+		//System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList);
 		for(int i = 0; i < rList.size(); i++) {
-			Attachment imgFile = pService.selectThumbnail(rList.get(0).getrId());
+			Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
 			r_fList.add(imgFile);
+			System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList.get(i));
 		}
 		
 				
