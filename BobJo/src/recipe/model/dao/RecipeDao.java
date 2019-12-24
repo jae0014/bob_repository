@@ -1,6 +1,8 @@
 package recipe.model.dao;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,8 +16,8 @@ import java.util.Properties;
 
 import attachment.model.vo.Attachment;
 import board.model.dao.BoardDao;
-import board.model.vo.Board;
 import recipe.model.vo.Recipe;
+import recipe.model.vo.Step;
 
 public class RecipeDao {
 	private Properties prop = new Properties();
@@ -181,11 +183,14 @@ public class RecipeDao {
 			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
 
-			while (rset.next()) {
-				thumbnail = new Attachment(rset.getString("F_ID"), rset.getInt("BTYPE"), rset.getString("BPRC_ID"),
-						rset.getInt("F_LEVEL"), rset.getString("F_STATUS"), rset.getString("F_PATH"),
-						rset.getString("F_NAME"));
-			}
+
+			/*
+			 * while (rset.next()) { thumbnail = new Attachment(rset.getString("F_ID"),
+			 * rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
+			 * rset.getString("F_STATUS"), rset.getString("F_PATH"),
+			 * rset.getString("F_NAME")); }
+			 */
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -218,7 +223,7 @@ public class RecipeDao {
 
 				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
 						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
 						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
 
 				rlist.add(r);
@@ -248,11 +253,13 @@ public class RecipeDao {
 			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
 
-			while (rset.next()) {
-				imgList.add(new Attachment(rset.getString("F_ID"), rset.getInt("BTYPE"), rset.getString("BPRC_ID"),
-						rset.getInt("F_LEVEL"), rset.getString("F_STATUS"), rset.getString("F_PATH"),
-						rset.getString("F_NAME")));
-			}
+			/*
+			 * while (rset.next()) { imgList.add(new Attachment(rset.getString("F_ID"),
+			 * rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
+			 * rset.getString("F_STATUS"), rset.getString("F_PATH"),
+			 * rset.getString("F_NAME"))); }
+			 */
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -278,10 +285,18 @@ public class RecipeDao {
 			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
 
+
 			while (rset.next()) {
-				rStepList.add(new Attachment(rset.getString("F_ID"), rset.getInt("BTYPE"), rset.getString("BPRC_ID"),
-						rset.getInt("F_LEVEL"), rset.getString("F_STATUS"), rset.getString("F_PATH"),
-						rset.getString("F_NAME")));
+				Attachment att = new Attachment();
+				att.setfId(rset.getString("F_ID"));
+				att.setBtype(rset.getInt("BTYPE"));
+				att.setBprcId(rset.getString("BPRC_ID"));
+				att.setfLevel(rset.getInt("F_LEVEL"));
+				att.setfStatus(rset.getString("F_STATUS"));
+				att.setfPath(rset.getString("F_PATH"));
+				att.setfName(rset.getString("F_NAME"));
+
+				rStepList.add(att);
 			}
 
 		} catch (SQLException e) {
@@ -293,6 +308,42 @@ public class RecipeDao {
 
 		return rStepList;
 	}
+
+	public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int boardLimit) {
+		ArrayList<Recipe> reList = new ArrayList<>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectReList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+			/*
+			 * while (rset.next()) { reList.add(new
+			 * Recipe(rset.getString(1),rset.getString(2), rset.getString(3),
+			 * rset.getString(4), rset.getInt(5), rset.getInt(6))); }
+			 */
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return rStepList;
+	}
+
 
 	/*
 	 * public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int
@@ -317,6 +368,7 @@ public class RecipeDao {
 	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
 	 * close(pstmt); } return reList; }
 	 */
+
 
 	public int updateLike(Connection conn, String rId, String mId) {
 		int result = 0;
@@ -416,6 +468,113 @@ public class RecipeDao {
 		return result;
 	}
 
+
+	public String insertRecipe(Connection conn, Recipe r) {
+		ResultSet rset = null;
+		String str = "";
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertRecipe");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// pstmt.setString(1, r.getmNo());
+			pstmt.setString(1, "test");
+			pstmt.setString(2, r.getrName());
+			pstmt.setString(3, r.getrInfo());
+			pstmt.setString(4, r.getCateFoId());
+			pstmt.setString(5, r.getCateMethodId());
+			pstmt.setString(6, r.getCateInId());
+			pstmt.setString(7, r.getrInName());
+			pstmt.setString(8, r.getrWeight());
+			pstmt.setInt(9, r.getrCookTime());
+			pstmt.setInt(10, r.getrCookLevel());
+			pstmt.setDate(11, r.getrDate());
+			result = pstmt.executeUpdate();
+
+			if (result > 0) {
+				commit(conn);
+				sql = prop.getProperty("getItemInserted");
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setString(1, r.getmNo());
+				rset = pstmt.executeQuery();
+				if (rset.next()) {
+					str = rset.getString(1);
+					System.out.println(str);
+				}
+			} else {
+				rollback(conn);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return str;
+	}
+
+	public String retriveId(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String str = null;
+		String sql = prop.getProperty("retriveId");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				str = rset.getString("rId");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return str;
+	}
+
+	public String insertStep(Connection conn, ArrayList<Step> stepList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sId = "";
+		String sql = prop.getProperty("insertStep");
+
+		try {
+			Step step = stepList.get(0);
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, step.getrId());
+			pstmt.setInt(2, step.getsStep());
+			pstmt.setString(3, step.getsDesc());
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				for (int i = 1; i < stepList.size();i++) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, stepList.get(i).getrId());
+					pstmt.setInt(2, stepList.get(i).getsStep());
+					pstmt.setString(3, stepList.get(i).getsDesc());
+					result = pstmt.executeUpdate();
+				}
+				if( result > 0)
+				{
+					sql = prop.getProperty("getStepInserted");
+					pstmt = conn.prepareStatement(sql);
+					rset = pstmt.executeQuery();
+					if(rset.next())
+					{
+						sId = rset.getString(1);
+						System.out.println(sId);
+					}
+				
+				}
+			} else {
+				result = 0;
+				sId = "";
+			}
+
 	
 	// 메인페이지 추천레시피 아이디 네개 셀렉
 	public ArrayList<String> selectRecommendRNumbers(Connection conn) {
@@ -470,7 +629,7 @@ public class RecipeDao {
 			while (rs.next()) {
 				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
 						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
 						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
 				rList.add(r);
 			}
@@ -486,36 +645,52 @@ public class RecipeDao {
 		return rList;
 		
 	}
-	
-	//내가 누른 좋아요 리스트 불러오기
-	public ArrayList<String> selectLikeList(Connection conn, String mNo) {
-		ArrayList<String> L_rId = new ArrayList<>();
-		ResultSet rs = null;
-		PreparedStatement pstmt = null;
 
-		String sql = prop.getProperty("selectLikeList");
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, mNo);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				L_rId.add(rs.getString("R_ID"));
-			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
+			close(rset);
 			close(pstmt);
 		}
-		System.out.println("돼라: " + L_rId);
-		// 내가 누른 레시피가 뭔지 담겨있습니다,,
-		return L_rId;
+		return sId;
 	}
 
+	public int deleteRecipe(Connection conn, String rId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteRecipe");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int deletetStep(Connection conn, String rId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("deletetStep");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+
+		return result;
+	}
 
 }

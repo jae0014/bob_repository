@@ -1,20 +1,17 @@
 package recipe.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import attachment.model.vo.Attachment;
-import board.model.dao.BoardDao;
-import board.model.vo.Board;
-import member.model.dao.MemberDao;
-import product.model.dao.ProductDao;
-import product.model.vo.Product;
 import recipe.model.dao.RecipeDao;
-import recipe.model.vo.Ingredient;
 import recipe.model.vo.Recipe;
 import recipe.model.vo.Step;
-
-import static common.JDBCTemplate.*;
 
 public class RecipeService {
 
@@ -167,46 +164,91 @@ public class RecipeService {
 
 
 
-	public ArrayList<Recipe> selectRecommendR() {
 
-		  Connection conn = getConnection(); 
-		  RecipeDao rDao = new RecipeDao();
-		  ArrayList<Recipe> rList = null;
-		  
-		  ArrayList<String> r_idList = rDao.selectRecommendRNumbers(conn); 
-		  if(r_idList != null) {
-			  rList = rDao.selectRecommendRList(conn, r_idList);
-		  }
-		  
-		  close(conn);
-		  
-		  return rList;
-	}
-
-	
-	//내가 누른 좋아요 리스트 셀렉해오기
-	public ArrayList<String> selectLikeList(String mNo) {
-
-		  Connection conn = getConnection(); 
-		  RecipeDao rDao = new RecipeDao();
-		  
-		  
-		  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo); 
+	public String insertRecipe(Recipe recipe) {
+		Connection conn = getConnection();
 		
-		  
-		  
-		  close(conn);
-		  System.out.println("돼라2: " + L_rId);
-		  return L_rId;
-		
+		String result = new RecipeDao().insertRecipe(conn,recipe);
+		if(!result.equals("") && !result.isEmpty())
+		{
+			commit(conn);
+		}
+		else
+		{
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+
 	}
 
 
 
 
 
-	 
 
+	public String retriveId() {
+		Connection conn = getConnection();
+		String str = new RecipeDao().retriveId(conn);
+		return str;
+	}
+
+
+
+
+
+	public String insertStep(ArrayList<Step> step) {
+		Connection conn = getConnection();
+		String result = new RecipeDao().insertStep(conn,step);
+		
+		if(!result.equals("") || !result.isEmpty()) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+
+
+
+	public void deleteRecipe(String rId) {
+		Connection conn = getConnection();
+
+		int result = new RecipeDao().deleteRecipe(conn,rId);
+		if(result > 0) {
+			commit(conn);
+			
+			
+		}else {
+			rollback(conn);
+			System.out.println("지우기 실패");
+		}
+		close(conn);
+	}
+
+
+
+
+
+
+	public void deletetStep(String rId) {
+		Connection conn = getConnection();
+
+		int result = new RecipeDao().deletetStep(conn,rId);
+		if(result > 0) {
+			commit(conn);
+			
+			
+		}else {
+			rollback(conn);
+			System.out.println("지우기 실패");
+		}
+		close(conn);
+	}
 
 
 
@@ -215,4 +257,3 @@ public class RecipeService {
 
 
 }
-
