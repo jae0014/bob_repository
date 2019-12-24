@@ -5,7 +5,10 @@
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	
+	//좋아요 한 애
+	String L_mId="";
+	// 좋아요 당한 어떤레시피
+	String L_rId="";
 	
 	
 %>
@@ -233,7 +236,7 @@ div {
 
 									<div class="like" id="like">
 
-										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>" onclick="like(this);">
+										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>"><!--  onclick="like(this);" -->
 										
 										</button>
 
