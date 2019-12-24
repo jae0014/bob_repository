@@ -3,9 +3,11 @@ package member.model.service;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
+import notice.model.dao.NoticeDao;
 
 public class MemberService {
 
@@ -60,6 +62,22 @@ public class MemberService {
 			close(conn);
 			
 			return result;
+		}
+
+		public ArrayList<Member> SelectMemberList() {
+			
+			
+			
+		}
+
+		public int getListCount() {
+			Connection conn = getConnection();
+
+			int listCount = new MemberDao().getListCount(conn);
+
+			close(conn);
+
+			return listCount;
 		}
 
 }

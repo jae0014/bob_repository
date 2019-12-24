@@ -60,7 +60,7 @@
 	float: left;
 	margin: 10px;
 	background-color: rgb(255, 243, 239);
-	border: 1px solid black;
+	border: 1px solid lightgrey;
 }
 
 .board-postnav-side>ul>li>a {
@@ -211,8 +211,8 @@ margin-bottom:3px !important;
 		<div class="updateBox">
 		<%-- <input type="hidden" name="mId" value="<%=loginUser.getmId() %>"> --%>
 		<input type="hidden" name="quillData" value="11">
-			<table border="1" class="qna_table">
-				<tr>
+			<table style="border:1px solid lightgrey" class="qna_table">
+				<tr style="border:1px solid lightgrey">
 					<th class="sub_cols">제목</th>
 					<td>							
 						<!-- 제목 쓰는 칸 -->
