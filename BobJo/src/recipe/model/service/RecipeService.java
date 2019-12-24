@@ -250,7 +250,21 @@ public class RecipeService {
 		close(conn);
 	}
 
+	public ArrayList<Recipe> selectRecommendR() {
 
+        Connection conn = getConnection(); 
+        RecipeDao rDao = new RecipeDao();
+        ArrayList<Recipe> rList = null;
+        
+        ArrayList<String> r_idList = rDao.selectRecommendRNumbers(conn); 
+        if(r_idList != null) {
+           rList = rDao.selectRecommendRList(conn, r_idList);
+        }
+        
+        close(conn);
+        
+        return rList;
+   }
 
 
 

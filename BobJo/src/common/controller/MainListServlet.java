@@ -45,6 +45,7 @@ public class MainListServlet extends HttpServlet {
 		//System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList);
 		for(int i = 0; i < rList.size(); i++) {
 			Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
+			System.out.println("rList의 rid : " + rList.get(i).getrId());
 			r_fList.add(imgFile);
 			System.out.println("서블릿 내에있는 레시피 사진리스트 : " + r_fList.get(i));
 		}
