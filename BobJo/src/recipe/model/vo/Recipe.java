@@ -159,22 +159,6 @@ public class Recipe {
 		this.rLike = rLike;
 	}
 
-	public Recipe(String rId, String rName, String mNo, String rInfo, int rCount, int rCookTime, int rCookLevel, String rInName,
-			String rWeight, int sStep, String sDesc) {
-		super();
-		this.rId=rId;
-		this.rName = rName;
-		this.mNo = mNo;
-		this.rInfo = rInfo;
-		this.rCount = rCount;
-		this.rCookTime = rCookTime;
-		this.rCookLevel = rCookLevel;
-		this.rInName = rInName;
-		this.rWeight = rWeight;
-		this.sStep = sStep;
-		this.sDesc = sDesc;
-	}
-
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
 			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel,
 			String step, String ingredient, int fId,
@@ -202,32 +186,6 @@ public class Recipe {
 		this.status = status;
 	}
 
-	public Recipe( String mNo, String rName, String rInfo, String cateFoId, String cateMethodId,
-			String cateInId, String rInName, String rWeight) {
-		
-		
-		this.mNo = mNo;
-		this.rName = rName;
-		this.mNo = mNo;
-		this.cateInId = cateInId;
-		this.cateFoId = cateFoId;
-		this.cateMethodId = cateMethodId;
-		this.rDate = new Date(System.currentTimeMillis());
-		this.rInfo = rInfo;
-		this.rInName = rInName;
-		this.rWeight = rWeight;
-
-	}
-  
-  
-	public int getrLike() {
-		return rLike;
-	}
-
-	public void setrLike(int rLike) {
-		this.rLike = rLike;
-	}
-  
 	public String getrId() {
 		return rId;
 	}
