@@ -46,7 +46,7 @@ public class FileUpload extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		if (ServletFileUpload.isMultipartContent(request)) {
-			System.out.println("file is being transmiited");
+
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String savePath = root + "/resources/step_Image/";
 			int maxSize = 1024 * 1024 * 10;
@@ -66,26 +66,27 @@ public class FileUpload extends HttpServlet {
 				String regex_step = "\\w*step$";
 				String regex_com = "\\w*imgcom$";
 				// 파일이 null이 아닌 경우
-
 				if (multipartRequest.getFilesystemName(name) != null) {
 					// getFilessystemName() --> 리네임 된 파일명 리턴
 					String changeName = multipartRequest.getFilesystemName(name);
 					// getOriginFileName() --> 사용자가 업로드한 파일명 리턴
-					String originName = multipartRequest.getOriginalFileName(name);
+					String originName = name;
 					changeFiles.add(changeName);
 					originFiles.add(originName);
 
 				}
 			}
 
-			String mNo = request.getParameter("testID"); // 작성자 userID
+			String mNo = request.getParameter("userID"); // 작성자 userID
 			String rName = multipartRequest.getParameter("reciepeTitle"); // 레시피명
 			String rInfo = multipartRequest.getParameter("reciepeIntro"); // 요리소개
-
+			
+		
 			String cateFoId = multipartRequest.getParameter("category1"); // 종류별id
 			String cateMethodId = multipartRequest.getParameter("category2"); // 방법별id
 			String cateInId = multipartRequest.getParameter("category3"); // 재료별id
-
+			
+			
 			// 임시 적용
 			String rInNameTemp = multipartRequest.getParameter("inTitle"); // 재료명
 			String rWeightTemp = multipartRequest.getParameter("inWeight"); // 용량
@@ -94,19 +95,27 @@ public class FileUpload extends HttpServlet {
 			String rWeight = rWeightTemp.replace("\"", "");
 			// 날짜 자동 생성
 			Recipe recipe = new Recipe(mNo, rName, rInfo, cateFoId, cateMethodId, cateInId, rInName, rWeight);
-			int rCookTime = Integer.parseInt(request.getParameter("cookInfo"));
-			int rCookLevel = Integer.parseInt(request.getParameter("difficulty"));
+			String rct = multipartRequest.getParameter("cookInfo");
+		
+			int rCookTime = Integer.parseInt(rct.substring(1,rct.length()-1));
+			String rcl = multipartRequest.getParameter("difficulty");
+			
+			int rCookLevel = Integer.parseInt(rcl.replace("\"",""));
+			
 			recipe.setrCookLevel(rCookLevel);
 			recipe.setrCookTime(rCookTime);
 
 			String rId = new RecipeService().insertRecipe(recipe);
+			
+			
+			
 			ArrayList<Step>stepList = new ArrayList<Step>();
+			
 			if (!rId.equals("") || !rId.isEmpty()) 
 			{
-
 				String step_text_temp = multipartRequest.getParameter("step_text");
 				String step_text = step_text_temp.substring(1, step_text_temp.length() - 1);
-				System.out.println(step_text);
+		
 				String[] temp = step_text.split(",");
 				int i2 = 0;
 				
@@ -119,15 +128,13 @@ public class FileUpload extends HttpServlet {
 					stepList.add(step);	
 					}
 				
-				int result = 0;
-				result = new RecipeService().insertStep(stepList);
+				String sId = "";
+				sId = new RecipeService().insertStep(stepList);
 				
-				if (result <= 0) {
+				if (sId.equals("") || sId.isEmpty()) {
 					new RecipeService().deleteRecipe(rId);
-					request.setAttribute("msg", "레시피 등록 실패!!");
-					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-
 				}
+				/////////////////////////
 				else {
 
 					ArrayList<Attachment> fileList = new ArrayList<>();
@@ -147,22 +154,26 @@ public class FileUpload extends HttpServlet {
 
 					// 7. 사진 게시판 작성용 비즈니스 로직을 처리할 서비스 요청
 
-					result = new AttachmentService().addFile(fileList);
+					int result = new AttachmentService().addFile(fileList);
 					if (result > 0) {
-						response.sendRedirect("/list.re");
+						//response.sendRedirect("/list.re");
 					} else {
-						// 실패 시 저장된 사진 삭제
+						// 실패 시 저장	된 사진 삭제
 						for (int i = 0; i < changeFiles.size(); i++) {
 							// 파일 시스템에 저장 된 이름으로 파일 객체 생성함
 							File failedFile = new File(savePath + changeFiles.get(i));
 							failedFile.delete();
 						}
-
+						new RecipeService().deletetStep(sId);
+						new RecipeService().deleteRecipe(rId);
 						request.setAttribute("msg", "레시피 등록 실패!!");
 						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 
 					}
 				}
+				/////////////////////////
+				
+				
 
 			}
 		}

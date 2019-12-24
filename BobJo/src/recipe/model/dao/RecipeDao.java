@@ -440,11 +440,12 @@ public class RecipeDao {
 		String str = "";
 		int result = 0;
 		PreparedStatement pstmt = null;
-		Statement stmt = null;
+
 		String sql = prop.getProperty("insertRecipe");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, r.getmNo());
+			// pstmt.setString(1, r.getmNo());
+			pstmt.setString(1, "test");
 			pstmt.setString(2, r.getrName());
 			pstmt.setString(3, r.getrInfo());
 			pstmt.setString(4, r.getCateFoId());
@@ -454,13 +455,18 @@ public class RecipeDao {
 			pstmt.setString(8, r.getrWeight());
 			pstmt.setInt(9, r.getrCookTime());
 			pstmt.setInt(10, r.getrCookLevel());
+			pstmt.setDate(11, r.getrDate());
 			result = pstmt.executeUpdate();
+
 			if (result > 0) {
 				commit(conn);
-				stmt = conn.createStatement();
-				rset = stmt.executeQuery("");
+				sql = prop.getProperty("getItemInserted");
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setString(1, r.getmNo());
+				rset = pstmt.executeQuery();
 				if (rset.next()) {
 					str = rset.getString(1);
+					System.out.println(str);
 				}
 			} else {
 				rollback(conn);
@@ -495,21 +501,44 @@ public class RecipeDao {
 		return str;
 	}
 
-	public int insertStep(Connection conn, ArrayList<Step> stepList) {
+	public String insertStep(Connection conn, ArrayList<Step> stepList) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
-		String sql = prop.getProperty("");
+		String sId = "";
+		String sql = prop.getProperty("insertStep");
 
 		try {
-			for (Step step : stepList) {
-				pstmt = conn.prepareStatement(sql);
+			Step step = stepList.get(0);
+			pstmt = conn.prepareStatement(sql);
 
-				pstmt.setString(1, step.getrId());
-				pstmt.setString(2, step.getsId());
-				pstmt.setString(3, step.getsDesc());
-				result = pstmt.executeUpdate();
+			pstmt.setString(1, step.getrId());
+			pstmt.setInt(2, step.getsStep());
+			pstmt.setString(3, step.getsDesc());
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				for (int i = 1; i < stepList.size();i++) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, stepList.get(i).getrId());
+					pstmt.setInt(2, stepList.get(i).getsStep());
+					pstmt.setString(3, stepList.get(i).getsDesc());
+					result = pstmt.executeUpdate();
+				}
+				if( result > 0)
+				{
+					sql = prop.getProperty("getStepInserted");
+					pstmt = conn.prepareStatement(sql);
+					rset = pstmt.executeQuery();
+					if(rset.next())
+					{
+						sId = rset.getString(1);
+						System.out.println(sId);
+					}
+				
+				}
+			} else {
+				result = 0;
+				sId = "";
 			}
 
 		} catch (SQLException e) {
@@ -518,7 +547,7 @@ public class RecipeDao {
 			close(rset);
 			close(pstmt);
 		}
-		return result;
+		return sId;
 	}
 
 	public int deleteRecipe(Connection conn, String rId) {
@@ -528,7 +557,6 @@ public class RecipeDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -540,8 +568,6 @@ public class RecipeDao {
 		return result;
 	}
 
-	
-	
 	public int deletetStep(Connection conn, String rId) {
 		int result = 0;
 		PreparedStatement pstmt = null;

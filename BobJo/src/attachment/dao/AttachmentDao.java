@@ -18,7 +18,7 @@ public class AttachmentDao {
 	private Properties prop = new Properties();
 
 	public AttachmentDao() {
-		String fileName = AttachmentDao.class.getResource("/sql/notice/notice-query.properties").getPath();
+		String fileName = AttachmentDao.class.getResource("/sql/attachment/fileUpload.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -36,17 +36,22 @@ public class AttachmentDao {
 		try {
 			for (Attachment att : fileList) {
 				pstmt = conn.prepareStatement(sql);
+				//F_ID,BPRC_ID,F_PATH,F_NAME,BTYPE,F_CHANGENAME 
 				pstmt.setString(1, att.getBprcId());
 				// Path
 				pstmt.setString(2, att.getfPath());
 				// 진짜 이름 
 				pstmt.setString(3, att.getfName());
-				// 바꾼 이름 
-				pstmt.setString(4, att.getChangeName());
 				// 게시물 타입
-				pstmt.setInt(5, att.getBtype());
-			
+				pstmt.setInt(4, att.getBtype());
+				// 바꾼 이름 
+				pstmt.setString(5, att.getChangeName());
+				
 				result = pstmt.executeUpdate();
+				if(result <=0)
+				{	result = 0;
+					break;
+				}
 			}
 		
 		} catch (SQLException e) {

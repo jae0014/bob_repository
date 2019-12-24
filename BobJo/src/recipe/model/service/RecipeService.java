@@ -177,7 +177,14 @@ public class RecipeService {
 		Connection conn = getConnection();
 		
 		String result = new RecipeDao().insertRecipe(conn,recipe);
-		
+		if(!result.equals("") && !result.isEmpty())
+		{
+			commit(conn);
+		}
+		else
+		{
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
@@ -196,15 +203,14 @@ public class RecipeService {
 
 
 
-	public int insertStep(ArrayList<Step> step) {
+	public String insertStep(ArrayList<Step> step) {
 		Connection conn = getConnection();
-		int result = new RecipeDao().insertStep(conn,step);
+		String result = new RecipeDao().insertStep(conn,step);
 		
-		if(result > 0) {
+		if(!result.equals("") || !result.isEmpty()) {
 			commit(conn);
-			
-			
-		}else {
+		}
+		else {
 			rollback(conn);
 		}
 		close(conn);
@@ -248,13 +254,6 @@ public class RecipeService {
 		}
 		close(conn);
 	}
-
-
-
-
-
-	 
-
 
 
 

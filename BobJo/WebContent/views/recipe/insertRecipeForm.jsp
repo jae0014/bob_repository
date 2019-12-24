@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import ="member.model.vo.*"%>
 
 <%
 	String imgPath = request.getContextPath();
 	imgPath += "/resources/icon/";
+	Member m = (Member)session.getAttribute("loginUser");
 %>
 
 <!DOCTYPE html>
@@ -173,7 +174,7 @@ span.input-cus-title {
 <body>
 
 	
-
+<%if(m != null){ %>
 		<div class="container">
 			<!-- 제목 -->
 			<div class="row ">
@@ -186,7 +187,7 @@ span.input-cus-title {
 							id="inputGroup-sizing-lg" style="width: 114px;">제목</span>
 					</div>
 					<input type="text" style="margin-left: 20px;" class="form-control"
-						name="titleName" placeholder="에) 소고기 미역국 끓이기">
+						id = "reciepeTitle"name="titleName" placeholder="에) 소고기 미역국 끓이기">
 				</div>
 
 				<!--요리소개-->
@@ -197,7 +198,7 @@ span.input-cus-title {
 					<div class="input-group-prepend">
 						<span class="input-group-text" style="width: 114px;">요리소개</span>
 					</div>
-					<textarea class="form-control" style="margin-left: 20px;"
+					<textarea id = "reciepeIntro" class="form-control" style="margin-left: 20px;"
 						aria-label="With textarea" name="cookDetail"
 						placeholder="간단한 요리 설명 적어주세요."></textarea>
 				</div>
@@ -215,7 +216,7 @@ span.input-cus-title {
 					<div class="input-group-prepend" style="margin-left: 20px">
 						<span class="input-group-text">종류별</span>
 					</div>
-					<select class="custom-select" name="category1">
+					<select class="custom-select" id="category1">
 						<option selected="selected" disabled>종류별</option>
 						<option value="kor_food">한식</option>
 						<option value="ch_food">중식</option>
@@ -226,7 +227,7 @@ span.input-cus-title {
 					<div class="input-group-prepend">
 						<span class="input-group-text">방법별</span>
 					</div>
-					<select class="custom-select" name="category2">
+					<select class="custom-select" id="category2">
 						<option selected="selected" disabled>방법별</option>
 						<option value="1">볶음</option>
 						<option value="2">끓이기</option>
@@ -246,7 +247,7 @@ span.input-cus-title {
 					<div class="input-group-prepend">
 						<span class="input-group-text">재료별</span>
 					</div>
-					<select class="custom-select" name="category3">
+					<select class="custom-select" id="category3">
 						<option selected="selected" disabled>재료별</option>
 						<opiton value="21">정육</opiton>
 						<option value="22">수산,해산,건어물</option>
@@ -269,9 +270,9 @@ span.input-cus-title {
 					<div class="input-group-prepend" style="margin-left: 20px">
 						<span class="input-group-text">시간</span>
 					</div>
-					<select class="custom-select" name="cookInfo">
+					<select class="custom-select" id="cookInfo">
 						<option selected="selected" disabled>시간</option>
-						<option value0="10">10분 이내</option>
+						<option value="10">10분 이내</option>
 						<option value="30">30분 이내</option>
 						<option value="60">60분 이내</option>
 						<option value="60">60분 이상</option>
@@ -279,7 +280,7 @@ span.input-cus-title {
 					<div class="input-group-prepend">
 						<span class="input-group-text">난인도</span>
 					</div>
-					<select class="custom-select" name="difficulty">
+					<select class="custom-select" id="difficulty">
 						<option selected="selected" disabled>난이도</option>
 						<option value="1">쉬움</option>
 						<option value="2">중간</option>
@@ -434,9 +435,14 @@ span.input-cus-title {
 			
 		</div>
 
-
+<%}else{ %>
+	<div style = "">
+		<h1>로그인 필요</h1>	
+		<button class = "btn btn-primary"onclick = "location.href = '<%=request.getContextPath()%>/login.me'">로그인</button>
+		
+	</div>
 	
-
+<%} %>
 </body>
 <script>
     function testExecute() {
@@ -461,7 +467,7 @@ span.input-cus-title {
 			url :"<%=request.getContextPath()%>/upload.image1",
 			data : formDataSend,  
 			success :function(result){
-				console.log(result);
+				console.log("넘어가용")
 				
 			},
 			error : function(){
@@ -475,21 +481,29 @@ span.input-cus-title {
     }
     function ingriSetter() 
     {	formDataSend = new FormData();
+   		var userID = '<%=m.getmId() %>';
+   		formDataSend.append("userID",JSON.stringify(userID))
         var reciepeTitle = $("#reciepeTitle").val();
-        formDataSend.append("reciepeTitle",reciepeTitle)
+        console.log(reciepeTitle);
+        formDataSend.append("reciepeTitle",JSON.stringify(reciepeTitle))
+        
         var reciepeIntro = $("#reciepeIntro").val();
-        formDataSend.append("reciepeIntro",reciepeIntro)
+        formDataSend.append("reciepeIntro",JSON.stringify(reciepeIntro))
+        
         var category1 = $("#category1").val();
-        formDataSend.append("category1",category1)
+        formDataSend.append("category1",JSON.stringify(category1))
+        
         var category2 = $("#category2").val();
-        formDataSend.append("category2",category2)
+        formDataSend.append("category2",JSON.stringify(category2))
+        
         var category3 = $("#category3").val();
-        formDataSend.append("category3",category3)
+        formDataSend.append("category3",JSON.stringify(category3))
 
         var cookInfo = $("#cookInfo").val();
-        formDataSend.append("cookInfo",cookInfo)
+        formDataSend.append("cookInfo",JSON.stringify(cookInfo))
+        
         var difficulty = $("#difficulty").val();
-        formDataSend.append("difficulty",difficulty)
+        formDataSend.append("difficulty",JSON.stringify(difficulty))
         //
         var dataList = []
         var datafile = [];
