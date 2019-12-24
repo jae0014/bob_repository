@@ -47,17 +47,6 @@
         /* border: 1px solid tan; */
         position: relative;
     }
-    .sale_rate{
-        width: 40px;
-        height: 40px;
-        background: rgba(170, 57, 57, 0.85);
-        position: absolute;
-        left: 81%;
-        text-decoration: none;
-        color: white;
-        text-align: center;
-        line-height: 2.5;   
-    }
 
     .thumb_img{
         width:100%;
@@ -304,7 +293,7 @@ if (rList.get(2).getrId().equals(r_fList.get(2).getBprcId())) {
 <h2 align="center">이 상품 어때요?</h2>
 <br>
 
-<div class="sale_list" style="border:1px solid black;">
+<div class="sale_list">
 
 <%
 for (int i = 0; i < pList.size(); i++) {
@@ -312,24 +301,71 @@ for (int i = 0; i < pList.size(); i++) {
 %>
     <%for (Attachment at : p_fList) {
  		if (pList.get(i).getpId().equals(at.getBprcId())) {%> 
-    <div class="sale_item">
+    
+        <%}
+ 	}
+}%>
+
+<div class="sale_item">
 
         <div class="sale_thumb">
-            <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>">
+            <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(0).getpId()%>">
            
-                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(i).getCateInId()%>/<%=at.getfName()%>"
+                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(0).getCateInId()%>/<%=p_fList.get(0).getfName()%>"
                 alt="추천상품1" class="thumb_img">
                 
             </a>
         </div>
-        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(i).getpId()%>" class="sale_info">
-            <p class="p_name p_txt"><%=pList.get(i).getpName()%></p>
-            <p class="p_price p_txt"><%=pList.get(i).getpPrice()%>원</p>
+        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(0).getpId()%>" class="sale_info">
+            <p class="p_name p_txt"><%=pList.get(0).getpName()%></p>
+            <p class="p_price p_txt"><%=pList.get(0).getpPrice()%>원</p>
         </a>
     </div>
-        <%}	
- 	}
-}%>
+    <div class="sale_item">
+
+        <div class="sale_thumb">
+            <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(1).getpId()%>">
+           
+                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(1).getCateInId()%>/<%=p_fList.get(1).getfName()%>"
+                alt="추천상품1" class="thumb_img">
+                
+            </a>
+        </div>
+        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(1).getpId()%>" class="sale_info">
+            <p class="p_name p_txt"><%=pList.get(1).getpName()%></p>
+            <p class="p_price p_txt"><%=pList.get(1).getpPrice()%>원</p>
+        </a>
+    </div>
+    <div class="sale_item">
+
+        <div class="sale_thumb">
+            <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(2).getpId()%>">
+           
+                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(2).getCateInId()%>/<%=p_fList.get(2).getfName()%>"
+                alt="추천상품1" class="thumb_img">
+                
+            </a>
+        </div>
+        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(2).getpId()%>" class="sale_info">
+            <p class="p_name p_txt"><%=pList.get(2).getpName()%></p>
+            <p class="p_price p_txt"><%=pList.get(2).getpPrice()%>원</p>
+        </a>
+    </div>
+    <div class="sale_item">
+
+        <div class="sale_thumb">
+            <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(3).getpId()%>">
+           
+                <img src="<%=request.getContextPath()%>/resources/product/<%=pList.get(3).getCateInId()%>/<%=p_fList.get(3).getfName()%>"
+                alt="추천상품1" class="thumb_img">
+                
+            </a>
+        </div>
+        <a href="<%=request.getContextPath()%>/detail.pr?pId=<%=pList.get(3).getpId()%>" class="sale_info">
+            <p class="p_name p_txt"><%=pList.get(3).getpName()%></p>
+            <p class="p_price p_txt"><%=pList.get(3).getpPrice()%>원</p>
+        </a>
+    </div>
 </div>
 
 
@@ -338,7 +374,7 @@ for (int i = 0; i < pList.size(); i++) {
 <hr>
 <br>
 <br>
-<h2 align="center">제이는 할인 중</h2>
+<h2 align="center">제이의 추!천! 레시피!!</h2>
 <br>
 
 <div class="sale_list">
@@ -346,7 +382,7 @@ for (int i = 0; i < pList.size(); i++) {
 	<div class="sale_item">
 		<div class="sale_thumb">
 			<a href="#">
-				<div class="sale_rate">30%</div>
+				
 				<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
             </a>
        	</div>
@@ -362,7 +398,7 @@ for (int i = 0; i < pList.size(); i++) {
 		<div class="sale_item">
 			<div class="sale_thumb">
 				<a href="#">
-					<div class="sale_rate">30%</div>
+					
 					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>
@@ -376,7 +412,7 @@ for (int i = 0; i < pList.size(); i++) {
     		<div class="sale_item">
 			<div class="sale_thumb">
 				<a href="#">
-					<div class="sale_rate">30%</div>
+
 					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>
@@ -390,7 +426,7 @@ for (int i = 0; i < pList.size(); i++) {
 		<div class="sale_item">
 			<div class="sale_thumb">
 				<a href="#">
-					<div class="sale_rate">30%</div>
+					
 					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>

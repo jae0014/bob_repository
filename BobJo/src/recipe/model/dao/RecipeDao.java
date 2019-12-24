@@ -689,4 +689,34 @@ public class RecipeDao {
 		return rList;
 	}
 
+	//내가 누른 좋아요 리스트 불러오기
+		public ArrayList<String> selectLikeList(Connection conn, String mNo) {
+			ArrayList<String> L_rId = new ArrayList<>();
+			ResultSet rs = null;
+			PreparedStatement pstmt = null;
+
+			String sql = prop.getProperty("selectLikeList");
+
+			try {
+
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, mNo);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					L_rId.add(rs.getString("R_ID"));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			System.out.println("돼라: " + L_rId);
+			// 내가 누른 레시피가 뭔지 담겨있습니다,,
+			return L_rId;
+		}
+
 }
