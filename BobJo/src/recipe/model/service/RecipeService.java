@@ -275,11 +275,11 @@ public class RecipeService {
 			  
 			  
 			  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo); 
+			  System.out.println("돼라2: " + L_rId);
 			
 			  
 			  
 			  close(conn);
-			  System.out.println("돼라2: " + L_rId);
 			  return L_rId;
 			
 		}
