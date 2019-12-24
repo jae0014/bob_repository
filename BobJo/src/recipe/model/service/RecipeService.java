@@ -183,6 +183,24 @@ public class RecipeService {
 		  return rList;
 	}
 
+	
+	//내가 누른 좋아요 리스트 셀렉해오기
+	public ArrayList<String> selectLikeList(String mNo) {
+
+		  Connection conn = getConnection(); 
+		  RecipeDao rDao = new RecipeDao();
+		  
+		  
+		  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo); 
+		
+		  
+		  
+		  close(conn);
+		  System.out.println("돼라2: " + L_rId);
+		  return L_rId;
+		
+	}
+
 
 
 

@@ -218,7 +218,7 @@ public class RecipeDao {
 
 				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
 						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
 						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
 
 				rlist.add(r);
@@ -470,7 +470,7 @@ public class RecipeDao {
 			while (rs.next()) {
 				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
 						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
 						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
 				rList.add(r);
 			}
@@ -485,6 +485,36 @@ public class RecipeDao {
 		//3개의 r_id전달
 		return rList;
 		
+	}
+	
+	//내가 누른 좋아요 리스트 불러오기
+	public ArrayList<String> selectLikeList(Connection conn, String mNo) {
+		ArrayList<String> L_rId = new ArrayList<>();
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("selectLikeList");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, mNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				L_rId.add(rs.getString("R_ID"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("돼라: " + L_rId);
+		// 내가 누른 레시피가 뭔지 담겨있습니다,,
+		return L_rId;
 	}
 
 

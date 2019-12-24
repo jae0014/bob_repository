@@ -47,7 +47,7 @@ public class Recipe {
 	}
 
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
-			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel, String status) {
+			Date rDate, String rInfo, int rCount, int rCookTime, int rCookLevel, String status) {
 		super();
 		this.rId = rId;
 		this.rName = rName;

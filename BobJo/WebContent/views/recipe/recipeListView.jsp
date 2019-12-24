@@ -6,10 +6,8 @@
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
 	//좋아요 한 애
-	String L_mId="";
-	// 좋아요 당한 어떤레시피
-	String L_rId="";
-	
+	ArrayList<String> L_rId = (ArrayList<String>) request.getAttribute("L_rId");	
+	System.out.println(L_rId);
 	
 %>
 <!DOCTYPE html>
@@ -154,13 +152,11 @@ div {
 }
 
 .heartBtn {
-	background:
-		url( "<%=request.getContextPath()%>/resources/images/like.png" )
-		no-repeat;
-	background-size: 30px; 30 px;
-	border: none;
 	width: 30px;
 	height: 30px;
+	background: url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat;
+	background-size: 30px 30px;
+	border: none;
 	cursor: pointer;
 }
 </style>
@@ -227,6 +223,8 @@ div {
 								}
 							%><!-- at for문 끝 -->
 						</div>
+						
+						<!-- ///////////////////////////////////////레시피 카드 -->
 						<div class="card-body" style="padding: 10px;">
 
 							<div class="d-flex justify-content-between align-items-center">
@@ -235,10 +233,26 @@ div {
 
 
 									<div class="like" id="like">
-
-										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>"><!--  onclick="like(this);" -->
+<!-- /////////////////////////////////////////// -->
 										
-										</button>
+											<% boolean flag = false;
+												for(int j = 0; j < L_rId.size(); j++){ 
+												 	if(L_rId.get(j).equals(rList.get(i).getrId()))
+														flag=true;
+												}
+											%>
+											
+											<% if(flag) { %>
+											<button class="heartBtn fulllike" id="btn<%=rList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat; background-size:30px"
+												><!--  onclick="like(this);" -->
+												</button>
+											<% } else { %>
+												<button class="heartBtn like" id="btn<%=rList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
+												>
+												</button>
+											<% } %>
 
 
 										<%-- 	<form id="like_form">
@@ -250,14 +264,8 @@ div {
 										</table>
 										</form> --%>
 
-
-
-
-
-
-
-
 									</div>
+									<!-- 좋아요 숫자 -->
 									<div class="likenum" id="like<%=rList.get(i).getrId() %>"
 										style="text-align: left;">
 										&nbsp;
@@ -400,17 +408,17 @@ div {
 		</script> -->
 		<script>
 		
+		//rId와 특정 좋아요 버튼
 	
-		function like(e){
-			
+		$("button").click(function(e){
+			var rId = $(this).attr('id').substring(3);
+						
 			<% if(loginUser !=null) {%>
 			
-			var rId = e.id.substring(3);
-			console.log(rId);
-			
-			if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"})
-					){
-				console.log("여기는 빈 하트 눌렀을떄 오는곳");
+			//var rId = e.id.substring(3);
+			//console.log($("#btn"+rId).css("background"));
+			if($("button[class=like]")){
+				console.log("여기는 빈 하트 눌렀을때 오는곳");
 				$.ajax({
 				url: "like.re",
 				type: "POST",
@@ -418,6 +426,7 @@ div {
 				
 				success:function(data){ 
 					
+					$(this).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})
 					alert("'좋아요'가 반영되었습니다!") ;
 					alert(data); 
 				
@@ -436,12 +445,10 @@ div {
 				}
 				
 			});
-				
-				
-				
-			} else if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})
-					) {
-				console.log("여기는 클릭된 하트 다시눌렀을떄 오는곳");
+			}
+			else
+			if($("button[class=fulllike]")){
+				console.log("여기는 클릭된 하트 다시눌렀을때 오는곳");
 				$.ajax({
 					url : "dislike.re",
 					type : "post",
@@ -449,6 +456,7 @@ div {
 					success : function(data){
 						alert("'좋아요'가 취소되었습니다!");
 						alert(data);
+						$(this).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
 						
 						$("#like"+rId).html("&nbsp;"+data);
 						$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
@@ -468,7 +476,7 @@ div {
 		<%}%>
 		
 			
-			};
+	});
 	
 		
 		

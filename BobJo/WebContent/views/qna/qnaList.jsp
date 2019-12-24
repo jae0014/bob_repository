@@ -45,7 +45,7 @@
 	height: 100%;
 	display: inline-block;
 	float: left;
-	border: 1px solid green;;
+	/* border: 1px solid green;; */
 }
 
 /*본문영역*/
@@ -54,7 +54,7 @@
 	height: 100%;
 	display: inline-block;
 	float: left;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .board-postnav-side {
