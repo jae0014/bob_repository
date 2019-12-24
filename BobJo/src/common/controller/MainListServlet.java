@@ -55,10 +55,8 @@ public class MainListServlet extends HttpServlet {
 		// 상품 네개 가져오기
 		ArrayList<Product> pList = pService.selectRecommendP();		
 		ArrayList<Attachment> p_fList = new ArrayList<Attachment>();
-		
-		
 		for(int i = 0; i < pList.size(); i++) {
-			Attachment imgFile = pService.selectThumbnail(pList.get(0).getpId());
+			Attachment imgFile = pService.selectThumbnail(pList.get(i).getpId());
 			p_fList.add(imgFile);
 		}
 		
