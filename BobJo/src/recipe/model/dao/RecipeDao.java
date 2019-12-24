@@ -182,14 +182,12 @@ public class RecipeDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
-
-
-			/*
-			 * while (rset.next()) { thumbnail = new Attachment(rset.getString("F_ID"),
-			 * rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
-			 * rset.getString("F_STATUS"), rset.getString("F_PATH"),
-			 * rset.getString("F_NAME")); }
-			 */
+			
+			  while (rset.next()) { thumbnail = new Attachment(rset.getString("F_ID"),
+			  rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
+			  rset.getString("F_STATUS"), rset.getString("F_PATH"),
+			  rset.getString("F_NAME")); }
+			 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -309,7 +307,7 @@ public class RecipeDao {
 		return rStepList;
 	}
 
-	public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int boardLimit) {
+	/*public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int boardLimit) {
 		ArrayList<Recipe> reList = new ArrayList<>();
 
 		PreparedStatement pstmt = null;
@@ -327,11 +325,11 @@ public class RecipeDao {
 			pstmt.setInt(2, endRow);
 
 			rset = pstmt.executeQuery();
-			/*
+			
 			 * while (rset.next()) { reList.add(new
 			 * Recipe(rset.getString(1),rset.getString(2), rset.getString(3),
 			 * rset.getString(4), rset.getInt(5), rset.getInt(6))); }
-			 */
+			 
 
 
 		} catch (SQLException e) {
@@ -342,7 +340,7 @@ public class RecipeDao {
 		}
 
 		return rStepList;
-	}
+	}*/
 
 
 	/*
@@ -576,76 +574,6 @@ public class RecipeDao {
 			}
 
 	
-	// 메인페이지 추천레시피 아이디 네개 셀렉
-	public ArrayList<String> selectRecommendRNumbers(Connection conn) {
-		ArrayList<String> rList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		String sql = prop.getProperty("selectRecommendRNumbers");
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				rList.add(rs.getString(2));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-
-		}
-		
-		//3개의 r_id전달
-		return rList;
-	}
-
-	
-	public ArrayList<Recipe> selectRecommendRList(Connection conn, ArrayList<String> r_idList) {
-		ArrayList<Recipe> rList = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Recipe r = null;
-
-		String sql = prop.getProperty("selectRecommendRList");
-
-		try {
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, r_idList.get(0));
-			pstmt.setString(2, r_idList.get(1));
-			pstmt.setString(3, r_idList.get(2));
-
-			
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
-						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
-						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"), rs.getInt("r_like"),
-						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
-				rList.add(r);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		//3개의 r_id전달
-		return rList;
-		
-	}
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -691,6 +619,74 @@ public class RecipeDao {
 		}
 
 		return result;
+	}
+
+	// 메인페이지 추천레시피 아이디 네개 셀렉
+	public ArrayList<String> selectRecommendRNumbers(Connection conn) {
+		ArrayList<String> rList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = prop.getProperty("selectRecommendRNumbers");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				rList.add(rs.getString(2));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+
+		}
+		
+		//3개의 r_id전달
+		return rList;
+	}
+
+	public ArrayList<Recipe> selectRecommendRList(Connection conn, ArrayList<String> r_idList) {
+		ArrayList<Recipe> rList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Recipe r = null;
+
+		String sql = prop.getProperty("selectRecommendRList");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, r_idList.get(0));
+			pstmt.setString(2, r_idList.get(1));
+			pstmt.setString(3, r_idList.get(2));
+
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				r = new Recipe(rs.getString("r_id"), rs.getString("r_name"), rs.getString("m_no"),
+						rs.getString("cate_in_id"), rs.getString("cate_fo_id"), rs.getString("cate_method_id"),
+						rs.getDate("r_date"), rs.getString("r_info"), rs.getInt("r_count"),
+						rs.getInt("r_cooktime"), rs.getInt("r_cooklevel"), rs.getString("r_status"));
+				rList.add(r);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		//3개의 r_id전달
+		return rList;
 	}
 
 }
