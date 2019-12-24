@@ -13,6 +13,7 @@ public class Recipe {
 	private String cateMethodId; // 방법별id
 	private Date rDate; // 작성일자
 	private String rInfo; // 요리소개
+	private int rLike;//----- 좋아요
 	private int rCount; // 조회수
 	private int rCookTime; // 소요시간
 	private int rCookLevel; // 난이도
@@ -35,6 +36,14 @@ public class Recipe {
 		this.mNo = mNo;
 		this.rCount = rCount;
 
+	}
+
+	public int getrLike() {
+		return rLike;
+	}
+
+	public void setrLike(int rLike) {
+		this.rLike = rLike;
 	}
 
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,

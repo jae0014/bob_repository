@@ -5,7 +5,10 @@
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
 	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	
+	//좋아요 한 애
+	String L_mId="";
+	// 좋아요 당한 어떤레시피
+	String L_rId="";
 	
 	
 %>
@@ -233,7 +236,7 @@ div {
 
 									<div class="like" id="like">
 
-										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>" onclick="like(this);">
+										<button class="heartBtn" id="btn<%=rList.get(i).getrId()%>"><!--  onclick="like(this);" -->
 										
 										</button>
 
@@ -243,7 +246,7 @@ div {
 										<input type="hidden" name="command" value="like_it">
 										<input type="hidden" name="rId" value="${rId}">
 										<tr><input type="button" value="좋아요!" onclick="return like()" > </tr>
-										<tr><div id="like_result"><%=rList.get(i).getrLike() %></div> </tr>
+										<tr><div id="like_result"><%=rList.get(i).getr`() %></div> </tr>
 										</table>
 										</form> --%>
 
@@ -400,14 +403,14 @@ div {
 	
 		function like(e){
 			
-			
 			<% if(loginUser !=null) {%>
 			
 			var rId = e.id.substring(3);
+			console.log(rId);
 			
-			
-			if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"})){
-			
+			if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"})
+					){
+				console.log("여기는 빈 하트 눌렀을떄 오는곳");
 				$.ajax({
 				url: "like.re",
 				type: "POST",
@@ -419,11 +422,11 @@ div {
 					alert(data); 
 				
 					
-					
+					//하트채움
 					$("#like"+rId).html("&nbsp;"+data);
 					$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"});
 					
-					
+					click_flag=true;
 					
 					
 				},
@@ -436,7 +439,9 @@ div {
 				
 				
 				
-			} else if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})) {
+			} else if($("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat", "background-size":"30px"})
+					) {
+				console.log("여기는 클릭된 하트 다시눌렀을떄 오는곳");
 				$.ajax({
 					url : "dislike.re",
 					type : "post",
@@ -447,7 +452,6 @@ div {
 						
 						$("#like"+rId).html("&nbsp;"+data);
 						$("#btn"+rId).css({"background":"url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat", "background-size":"30px"});
-						
 						
 					},error:function(request,status,error){
 						alert("ajax 실패");

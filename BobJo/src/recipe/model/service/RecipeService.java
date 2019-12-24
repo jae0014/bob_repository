@@ -108,15 +108,17 @@ public class RecipeService {
 
 
 
-	public ArrayList<Recipe> selectReList(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-
-		ArrayList<Recipe> reList = new RecipeDao().selectReList(conn, currentPage, boardLimit);
-
-		close(conn);
-
-		return reList;
-	}
+	/*
+	 * public ArrayList<Recipe> selectReList(int currentPage, int boardLimit) {
+	 * Connection conn = getConnection();
+	 * 
+	 * ArrayList<Recipe> reList = new RecipeDao().selectReList(conn, currentPage,
+	 * boardLimit);
+	 * 
+	 * close(conn);
+	 * 
+	 * return reList; }
+	 */
 
 
 	public int updateLike(String rId,String mId) {

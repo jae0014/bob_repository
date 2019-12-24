@@ -205,13 +205,21 @@
           
             <div class="carousel-item active">
 <%
-if (rList.get(0).getrId().equals(r_fList.get(0).getBprcId())) {
-%>
+if(rList != null && r_fList != null){%>
+	<%
+	if (rList.get(0).getrId().equals(r_fList.get(0).getBprcId())) {
+	%>
             <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(0).getrId()%>"
             class="d-block w-100 thumb_goods"
             style="background-image: url('<%=contextPath%>/resources/recipe/r1.jpg')">메인배너</a>
- <%}
-%>    
+ 	<%}%>    
+	<!-- 리스트불러오지못하면 -->
+<%}else{%>
+<a href="#"
+            class="d-block w-100 thumb_goods"
+            style="background-image: url('<%=contextPath%>/resources/main/아침식사.PNG')">메인배너</a>
+
+<%} %>
             <div class="carousel-caption d-md-block R_textbox1">
               <p class="head_txt1 head_txt">제이의 레시피 추천 하나,</p><br>
               <p class="head_small_txt1">1인 가구 자취생의 도전, 갈비찜</p>
@@ -220,14 +228,25 @@ if (rList.get(0).getrId().equals(r_fList.get(0).getBprcId())) {
     
     
           <div class="carousel-item">
+
 <%
-if (rList.get(1).getrId().equals(r_fList.get(1).getBprcId())) {
-%>
+
+if(rList != null && r_fList != null){%>
+	<%
+	if (rList.get(1).getrId().equals(r_fList.get(1).getBprcId())) {
+	%>
             <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(1).getrId()%>"
             class="d-block w-100 thumb_goods"
             style="background-image: url('<%=contextPath%>/resources/recipe/r2.jpg')">메인배너</a>
- <%}
-%>            
+	 <%}
+	%>
+<%}else {%>
+	<a href="#"
+     class="d-block w-100 thumb_goods"
+     style="background-image: url('<%=contextPath%>/resources/main/아침식사2.PNG')">메인배너</a>
+
+<%} %>
+            
             <div class="carousel-caption d-none d-md-block R_textbox2">
               <p class="head_txt2 head_txt">제이의 레시피 추천 둘,</p><br>
               <p class="head_small_txt2">아침 든든 된장찌개</p>
@@ -237,13 +256,23 @@ if (rList.get(1).getrId().equals(r_fList.get(1).getBprcId())) {
     
           <div class="carousel-item">
 <%
+if(rList != null){
 if (rList.get(2).getrId().equals(r_fList.get(2).getBprcId())) {
 %>
             <a href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(2).getrId()%>"
             class="d-block w-100 thumb_goods"
             style="background-image: url('<%=contextPath%>/resources/recipe/r3.jpg')">메인배너</a>
  <%}
-%>          
+}else{
+%>    
+
+<a href="#"
+     class="d-block w-100 thumb_goods"
+     style="background-image: url('<%=contextPath%>/resources/main/파스타_2160x2160.jpg')">메인배너</a>
+
+
+
+<%}%>      
             <div class="carousel-caption d-none d-md-block R_textbox3">
               <p class="head_txt3 head_txt">제이의 레시피 추천 셋,</p><br>
               <p class="head_small_txt3">국민반찬 계란말이!</p>

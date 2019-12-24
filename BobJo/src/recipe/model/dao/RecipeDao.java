@@ -294,38 +294,29 @@ public class RecipeDao {
 		return rStepList;
 	}
 
-	public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int boardLimit) {
-		ArrayList<Recipe> reList = new ArrayList<>();
-
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("selectReList");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			int startRow = (currentPage - 1) * boardLimit + 1;
-			int endRow = startRow + boardLimit - 1;
-
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				reList.add(new Recipe(rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5),
-						rset.getInt(6)));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return reList;
-	}
+	/*
+	 * public ArrayList<Recipe> selectReList(Connection conn, int currentPage, int
+	 * boardLimit) { ArrayList<Recipe> reList = new ArrayList<>();
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rset = null;
+	 * 
+	 * String sql = prop.getProperty("selectReList");
+	 * 
+	 * try { pstmt = conn.prepareStatement(sql);
+	 * 
+	 * int startRow = (currentPage - 1) * boardLimit + 1; int endRow = startRow +
+	 * boardLimit - 1;
+	 * 
+	 * pstmt.setInt(1, startRow); pstmt.setInt(2, endRow);
+	 * 
+	 * rset = pstmt.executeQuery();
+	 * 
+	 * while (rset.next()) { reList.add(new Recipe(rset.getString(2),
+	 * rset.getString(3), rset.getString(4), rset.getInt(5), rset.getInt(6))); }
+	 * 
+	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
+	 * close(pstmt); } return reList; }
+	 */
 
 	public int updateLike(Connection conn, String rId, String mId) {
 		int result = 0;
