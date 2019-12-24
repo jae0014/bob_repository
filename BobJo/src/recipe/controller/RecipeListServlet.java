@@ -70,7 +70,7 @@ public class RecipeListServlet extends HttpServlet {
 			fList.add(imgFile);
 		}
 		
-		
+		ArrayList<String> L_rId = null;
 		
 		///////////////////////좋아요 리스트 가져오기.
 		// 테이블의 bWriter는 Member의 user_no이므로
@@ -78,16 +78,12 @@ public class RecipeListServlet extends HttpServlet {
 		if(loginUser != null) {
 			String mNo = loginUser.getmNo();
 			//특정 유저가 좋아요 누른 레시피 번호 리스트
-			ArrayList<String> L_rId = rService.selectLike(mNo);
+			L_rId = rService.selectLikeList(mNo);
 		}
 		/////////////////////////////////
-		
-		
-		
-		
 		System.out.println("레시피 리스트 : " + rList.size());
 		System.out.println("첨부파일리스트 : " + fList.size());
-
+		System.out.println("좋아요레시피리스트 : " + L_rId);
 		
 		// 페이징
 		int listCount =  rService.getListCount();
@@ -134,15 +130,18 @@ public class RecipeListServlet extends HttpServlet {
 			request.setAttribute("nation", nation);
 			 request.setAttribute("nationStr", nationStr); 
 			request.setAttribute("fList", fList); 
+			// **좋아요데이터도 장착,,
+			request.setAttribute("L_rId", L_rId);
+			
+			
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
-			//ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
-			//request.setAttribute("reList", reList);
+			// ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
+			// request.setAttribute("reList", reList);
 			request.setAttribute("pi", pi);
 			
-			//System.out.println("reList : " + reList);
+			// System.out.println("reList : " + reList);
 			
-			//**좋아요데이터도 장착,,
-			request.setAttribute("L_rId", L_rId);
+
 			
 
 		} else {

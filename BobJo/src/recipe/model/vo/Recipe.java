@@ -25,11 +25,10 @@ public class Recipe {
 	private int sStep; // 요리순서
 	private String sDesc; // 순서별 요리설명
 	private String status; // 상태
-	private int rLike;
+
 	public Recipe() {
 	};
-
-
+    
 	public Recipe(String rId, String rName, String mNo, int rCount) {
 		super();
 		this.rId = rId;
@@ -39,15 +38,97 @@ public class Recipe {
 
 	}
 
-	public int getrLike() {
-		return rLike;
+
+	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
+			Date rDate, String rInfo, int rCount, int rCookTime, int rCookLevel, String status) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = rDate;
+		this.rInfo = rInfo;
+		this.rCount = rCount;
+
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		this.status = status;
 	}
 
-	public void setrLike(int rLike) {
-		this.rLike = rLike;
+	public Recipe(String rId, String rName, String mNo, Date rDate, int rCount) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.rDate = rDate;
+		this.rCount = rCount;
+
 	}
 
+	public Recipe(String rId, String rName, String mNo, String rInfo, int rCount, int rCookTime, int rCookLevel,
+			String rInName, String rWeight, int sStep, String sDesc) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.rInfo = rInfo;
+		this.rCount = rCount;
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		this.rInName = rInName;
+		this.rWeight = rWeight;
+		this.sStep = sStep;
+		this.sDesc = sDesc;
+	}
 
+	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
+			Date rDate, String rInfo, int rCount, int rCookTime, int rCookLevel, String step, String ingredient,
+			int fId, int fileLevel, String rInName, String rWeight, String sId, int sStep, String sDesc,
+			String status) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = rDate;
+		this.rInfo = rInfo;
+		this.rCount = rCount;
+
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		this.Step = step;
+		this.Ingredient = ingredient;
+		this.rInName = rInName;
+		this.rWeight = rWeight;
+		this.sId = sId;
+		this.sStep = sStep;
+		this.sDesc = sDesc;
+		this.status = status;
+	}
+
+	public Recipe( String mNo, String rName, String rInfo, String cateFoId, String cateMethodId,
+			String cateInId, String rInName, String rWeight) {
+		
+		
+		this.mNo = mNo;
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = new Date(System.currentTimeMillis());
+		this.rInfo = rInfo;
+		this.rInName = rInName;
+		this.rWeight = rWeight;
+
+	}
+
+  
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
 			Date rDate, String rInfo, int rCount, int rLike, int rCookTime, int rCookLevel, String status) {
 		super();
@@ -120,12 +201,7 @@ public class Recipe {
 		this.sDesc = sDesc;
 		this.status = status;
 	}
-	
-	
-	
-	
-	
-	
+
 	public Recipe( String mNo, String rName, String rInfo, String cateFoId, String cateMethodId,
 			String cateInId, String rInName, String rWeight) {
 		
@@ -142,7 +218,16 @@ public class Recipe {
 		this.rWeight = rWeight;
 
 	}
+  
+  
+	public int getrLike() {
+		return rLike;
+	}
 
+	public void setrLike(int rLike) {
+		this.rLike = rLike;
+	}
+  
 	public String getrId() {
 		return rId;
 	}
@@ -295,6 +380,16 @@ public class Recipe {
 		this.status = status;
 	}
 
+
+	public int getrLike() {
+		return rLike;
+	}
+
+	public void setrLike(int rLike) {
+		this.rLike = rLike;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Recipe [rId=" + rId + ", rName=" + rName + ", mNo=" + mNo + ", cateInId=" + cateInId + ", cateFoId="
@@ -303,5 +398,6 @@ public class Recipe {
 				+ ", Ingredient=" + Ingredient + ", rInName=" + rInName + ", rWeight=" + rWeight + ", sId=" + sId
 				+ ", sStep=" + sStep + ", sDesc=" + sDesc + ", status=" + status + "]";
 	}
+
 
 }

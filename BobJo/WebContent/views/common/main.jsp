@@ -5,14 +5,14 @@
     %>
     <%
 	ArrayList<Product> pList = (ArrayList<Product>) request.getAttribute("pList");
-	ArrayList<Attachment> p_fList = (ArrayList<Attachment>) request.getAttribute("p_fList");
-	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
-	ArrayList<Attachment> r_fList = (ArrayList<Attachment>) request.getAttribute("r_fList");
-	
 	System.out.println("pList : " + pList);
+	ArrayList<Attachment> p_fList = (ArrayList<Attachment>) request.getAttribute("p_fList");
 	System.out.println("p_fList : " + p_fList);
+	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
 	System.out.println("rList : " + rList);
+	ArrayList<Attachment> r_fList = (ArrayList<Attachment>) request.getAttribute("r_fList");
 	System.out.println("r_fList : " + r_fList);
+	
 	
     %>
 <!DOCTYPE html>
