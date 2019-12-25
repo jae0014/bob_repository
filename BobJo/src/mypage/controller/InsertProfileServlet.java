@@ -147,6 +147,9 @@ public class InsertProfileServlet extends HttpServlet {
 				request.setAttribute("mIntro", mIntro);
 				request.setAttribute("bprcId", bprcId);
 				
+				request.setAttribute("msg", "프로필 변경에 성공했습니다.");
+				
+				
 				
 			
 			} else {

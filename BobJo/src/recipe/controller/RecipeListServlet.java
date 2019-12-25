@@ -41,32 +41,95 @@ public class RecipeListServlet extends HttpServlet {
 //	카테아이디는 일단 나중에 생각하고 전체리스트 가져오는걸로 해볼것
 /*		String rId = request.getParameter("rId");*/
 		String nation = request.getParameter("nation");
+	
 		
-	 
+		
 		System.out.println(nation);
+
 		String nationStr = "";
+	
 		
+
 		switch(nation) {
+		case "0" : nationStr = "전체";break;
 		case "1" : nationStr = "한식";break;
 		case "2" : nationStr = "양식";break;
 		case "3" : nationStr = "중식";break;
 		case "4" : nationStr = "일식";break;
 		}
 
-		//일단 서비스는 여러번쓸꺼니까 선언해두장
 		RecipeService rService = new RecipeService();
 		
-		// 레시피 테이블 안에 있는 리스트를 전부 가져올 리스트변수를 선언합니다,,
-		//ArrayList<Recipe> rList = rService.selectList();
-		ArrayList<Recipe> rList = rService.selectList(nation);
+		
+		int listCount = rService.getListCount(nation);
+
+		System.out.println("listCount : " + listCount);
+		
+		//페이징
+		
+		int currentPage; // 현재 페이지
+		int pageLimit; // 한 페이지 하단에 보여질 페이지 수
+		int maxPage; // 전체 페이지에서 가장 마지막 페이지
+		int startPage; // 한 페이지 하단에 보여질 시작 페이지
+		int endPage; // 한 페이지 하단에 보여질 끝 페이지
+
+		int boardLimit = 16; // 한 페이지에 보여질 게시글 최대 수
+
+		// * currentPage : 현재 페이지
+		// 기본적으로 게시판은 1 페이지부터 시작함
+		currentPage = 1;
+
+		// 하지만 페이지 전환 시 전달 받은 현재 페이지가 있을 시 해당 페이지를 currentPage로 적용
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		// * pageLimit : 한 페이지 하단에 보여질 페이지 수
+		pageLimit = 5;
+
+		// * maxPage : 총 페이지의 마지막 수
+		// 전체 게시글 수 / 한페이지에 보여질 개수 -> 올림 처리
+		maxPage = (int) Math.ceil((double) listCount / boardLimit);
+
+		// * startPage : 현재 페이지에 보여지는 페이징 바의 시작 수
+		// 나의 현재 페이지(currentPage)에서 pageLimit만큼을 나누고 다시 곱한 뒤 1을 더한다
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+
+		// * endPage : 현재 페이지에서 보여질 마지막 페이지 수
+		endPage = startPage + pageLimit - 1;
+
+		// 하지만 마지막 페이지 수가 총 페이지 수보다 클 경우
+		// 만약 maxPage가 13인데 endPage가 20일수는 없으므로
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+
+		// 페이지 정보를 공유할 VO 객체 PageInfo 클래스를 만들자~~
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+
+		ArrayList<Recipe> reList = rService.selectList2(nation, currentPage, boardLimit);
+		
+		///////////
+		
+	
+		/* ArrayList<Recipe> rList = rService.selectList(nation); */
 
 		// 레시피 아이디에 맞는 첨부파일 불러올꺼임
 		ArrayList<Attachment> fList = new ArrayList<Attachment>();
 
-		for (int i = 0; i < rList.size(); i++) {
-			// R_ID에 맞는 애 가져올거임 고로 ATTACHMENT와 RECIPE의 R_ID를 맞춰줘야함.
-			// 그러면 썸네일, 스텝2, 3의 사진들 여러개가 나올것임 R_01갈비찜 하나에 최소1장부터 그 이상까지 리스트에 담길 것.
-			Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
+		
+		/*
+		 * for (int i = 0; i < rList.size(); i++) {
+		 * 
+		 * Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
+		 * fList.add(imgFile); }
+		 */
+		 
+		
+		
+		for (int i = 0; i < reList.size(); i++) {
+			
+			Attachment imgFile = rService.selectThumbnail(reList.get(i).getrId());
 			fList.add(imgFile);
 		}
 		
@@ -74,47 +137,18 @@ public class RecipeListServlet extends HttpServlet {
 		
 		///////////////////////좋아요 리스트 가져오기.
 		// 테이블의 bWriter는 Member의 user_no이므로
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		if(loginUser != null) {
-			String mNo = loginUser.getmNo();
-			//특정 유저가 좋아요 누른 레시피 번호 리스트
-			L_rId = rService.selectLikeList(mNo);
-		}
+		
+		  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		  if(loginUser != null) { String mNo = loginUser.getmNo(); //특정 유저가 좋아요 누른 레시피
+		  L_rId = rService.selectLikeList(mNo); }
+		 
 		/////////////////////////////////
-		System.out.println("레시피 리스트 : " + rList.size());
+		/* System.out.println("레시피 리스트 : " + rList.size()); */
 		System.out.println("첨부파일리스트 : " + fList.size());
+		System.out.println("레시피 전체 리스트 : " + reList.size());
 		System.out.println("좋아요레시피리스트 : " + L_rId);
 		
-		// 페이징
-		int listCount =  rService.getListCount();
-		
-		int currentPage;		// 현재 페이지
-		int pageLimit;			// 한 페이지 하단에 보여질 페이지 수
-		int maxPage;			// 전체 페이지에서 가장 마지막 페이지
-		int startPage;			// 한 페이지 하단에 보여질 시작 페이지
-		int endPage;			// 한 페이지 하단에 보여질 끝 페이지
-		
-		int boardLimit = 10;	// 한 페이지에 보여질 게시글 최대 수
-		
-		currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		
-		pageLimit = 10;
-		
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-		endPage = startPage + pageLimit - 1;
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
-		
+	
 		
 		
 		/* System.out.println("reList : " + reList); */
@@ -125,19 +159,20 @@ public class RecipeListServlet extends HttpServlet {
 		
 		
 
-		if (rList.size() != 0 && fList.size() !=0 ) {
-			request.setAttribute("rList", rList);
+		/* if (rList.size() != 0 && fList.size() !=0 ) { */
+			if (reList.size() != 0 && fList.size() !=0 ) {
+			request.setAttribute("reList", reList);
 			request.setAttribute("nation", nation);
-			 request.setAttribute("nationStr", nationStr); 
+			request.setAttribute("nationStr", nationStr); 
 			request.setAttribute("fList", fList); 
 			// **좋아요데이터도 장착,,
-			request.setAttribute("L_rId", L_rId);
-			
+			 request.setAttribute("L_rId", L_rId); 
+			request.setAttribute("pi", pi);
 			
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
 			// ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
 			// request.setAttribute("reList", reList);
-			request.setAttribute("pi", pi);
+			
 			
 			// System.out.println("reList : " + reList);
 			

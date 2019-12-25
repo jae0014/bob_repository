@@ -1,12 +1,11 @@
 package recipe.model.dao;
 
 import static common.JDBCTemplate.*;
-import static common.JDBCTemplate.commit;
-import static common.JDBCTemplate.rollback;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,18 +47,18 @@ public class RecipeDao {
 	}
 
 	// 레시피 게시글 개수 카운트
-	public int getListCount(Connection conn) {
+	public int getListCount(Connection conn,String nation) {
 
 		int rCount = 0;
-
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("getListCount");
 
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nation);
+			rset = pstmt.executeQuery(sql);
 
 			if (rset.next()) {
 				rCount = rset.getInt(1);
@@ -68,7 +67,7 @@ public class RecipeDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 
 		}
 
@@ -265,12 +264,12 @@ public class RecipeDao {
 			pstmt.setString(1, rId);
 			rset = pstmt.executeQuery();
 
-			/*
-			 * while (rset.next()) { imgList.add(new Attachment(rset.getString("F_ID"),
-			 * rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
-			 * rset.getString("F_STATUS"), rset.getString("F_PATH"),
-			 * rset.getString("F_NAME"))); }
-			 */
+			
+			  while (rset.next()) { imgList.add(new Attachment(rset.getString("F_ID"),
+			  rset.getInt("BTYPE"), rset.getString("BPRC_ID"), rset.getInt("F_LEVEL"),
+			  rset.getString("F_STATUS"), rset.getString("F_PATH"),
+			  rset.getString("F_NAME"))); }
+			 
 
 
 		} catch (SQLException e) {
@@ -707,33 +706,75 @@ public class RecipeDao {
 	}
 
 	//내가 누른 좋아요 리스트 불러오기
-		public ArrayList<String> selectLikeList(Connection conn, String mNo) {
-			ArrayList<String> L_rId = new ArrayList<>();
-			ResultSet rs = null;
-			PreparedStatement pstmt = null;
+	
+	  public ArrayList<String> selectLikeList(Connection conn, String mNo) {
+	  ArrayList<String> L_rId = new ArrayList<>(); ResultSet rs = null;
+	  PreparedStatement pstmt = null;
+	  
+	  String sql = prop.getProperty("selectLikeList");
+	  
+	  try {
+	  
+	  pstmt = conn.prepareStatement(sql);
+	  
+	  pstmt.setString(1, mNo); rs = pstmt.executeQuery();
+	  
+	  while (rs.next()) { L_rId.add(rs.getString("R_ID")); }
+	  
+	  } catch (SQLException e) { e.printStackTrace(); } finally { close(rs);
+	  close(pstmt); } System.out.println("돼라: " + L_rId); // 내가 누른 레시피가 뭔지 담겨있습니다,,
+	  return L_rId; }
+	 
 
-			String sql = prop.getProperty("selectLikeList");
+		public ArrayList<Recipe> selectList2(Connection conn, String nation, int currentPage, int boardLimit) {
+			ArrayList<Recipe> reList = new ArrayList<Recipe>();
+
+		
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("selectList2");
 
 			try {
-
 				pstmt = conn.prepareStatement(sql);
 
-				pstmt.setString(1, mNo);
-				rs = pstmt.executeQuery();
+				int startRow = (currentPage - 1) * boardLimit + 1;
+				int endRow = startRow + boardLimit - 1;
+		
+				
+				
+				pstmt.setString(1, nation);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
 
-				while (rs.next()) {
-					L_rId.add(rs.getString("R_ID"));
+				rset = pstmt.executeQuery();
+
+				while (rset.next()) {
+					
+					String rId = rset.getString("r_id");
+					String rName = rset.getString("r_name");
+					String mNo = rset.getString("m_no");
+					String cateInId=rset.getString("cate_in_id");
+					String cateFoId=rset.getString("cate_fo_id");
+					String cateMethodId=rset.getString("cate_method_id");
+					Date rDate = rset.getDate("r_date");
+					String rInfo=rset.getString("r_info");
+					int rCount = rset.getInt("r_count");
+					int rLike = rset.getInt("r_like");
+					int rCookTime=rset.getInt("r_cooktime");
+					int rCookLevel = rset.getInt("r_cooklevel");
+					String rStatus = rset.getString("r_status");
+					reList.add(new Recipe(rId, rName, mNo, cateInId,cateFoId,cateMethodId, rDate, 
+							rInfo, rCount, rLike,rCookTime,rCookLevel,rStatus));
 				}
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				close(rs);
+				close(rset);
 				close(pstmt);
 			}
-			System.out.println("돼라: " + L_rId);
-			// 내가 누른 레시피가 뭔지 담겨있습니다,,
-			return L_rId;
+			return reList;
 		}
 
 }

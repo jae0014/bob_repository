@@ -1,4 +1,4 @@
-package mypage.controller;
+package recipe.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,12 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import attachment.model.vo.Attachment;
 import board.model.vo.Board;
 import member.model.vo.Member;
-import mypage.model.service.MyPageService;
 import recipe.model.service.RecipeService;
 import recipe.model.vo.PageInfo;
 import recipe.model.vo.Recipe;
@@ -22,14 +20,14 @@ import recipe.model.vo.Recipe;
 /**
  * Servlet implementation class RecipeListServlet
  */
-@WebServlet("/recipelist.mp")
-public class myRecipeListServlet extends HttpServlet {
+@WebServlet("/list.re")
+public class RecipeWholeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public myRecipeListServlet() {
+	public RecipeWholeListServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -38,36 +36,44 @@ public class myRecipeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		Member m = (Member) session.getAttribute("loginUser");
+//	카테아이디는 일단 나중에 생각하고 전체리스트 가져오는걸로 해볼것
+/*		String rId = request.getParameter("rId");*/
+		String nation = request.getParameter("nation");
+	
+		
+		
+		System.out.println(nation);
 
-		String userId = "";
-		String userNo="";
+		String nationStr = "";
+	
+		
 
-		if (m != null) {
-			userId = m.getmId();
-			userNo=m.getmNo();
-		} else {
-			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
+		switch(nation) {
+		case "0" : nationStr = "전체";break;
+		case "1" : nationStr = "한식";break;
+		case "2" : nationStr = "양식";break;
+		case "3" : nationStr = "중식";break;
+		case "4" : nationStr = "일식";break;
 		}
 
-		MyPageService mpService = new MyPageService();
-
-		int listCount = mpService.getListCount();
+		RecipeService rService = new RecipeService();
+		
+		
+		int listCount = rService.getListCount();
 
 		System.out.println("listCount : " + listCount);
-
-		// 페이지 수 처리용 변수 선언
+		
+		//페이징
+		
 		int currentPage; // 현재 페이지
 		int pageLimit; // 한 페이지 하단에 보여질 페이지 수
 		int maxPage; // 전체 페이지에서 가장 마지막 페이지
 		int startPage; // 한 페이지 하단에 보여질 시작 페이지
 		int endPage; // 한 페이지 하단에 보여질 끝 페이지
 
-		int boardLimit = 9; // 한 페이지에 보여질 게시글 최대 수
+		int boardLimit = 16; // 한 페이지에 보여질 게시글 최대 수
 
 		// * currentPage : 현재 페이지
 		// 기본적으로 게시판은 1 페이지부터 시작함
@@ -101,42 +107,77 @@ public class myRecipeListServlet extends HttpServlet {
 		// 페이지 정보를 공유할 VO 객체 PageInfo 클래스를 만들자~~
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 
-		/* ArrayList<Recipe> rList = mpService.selectList(userId); */
+		ArrayList<Recipe> reList = rService.selectList2(nation, currentPage, boardLimit);
 		
-		ArrayList<Recipe> mrList = mpService.selectList2(userNo, currentPage, boardLimit);
+		///////////
+		
+	
+		/* ArrayList<Recipe> rList = rService.selectList(nation); */
 
+		// 레시피 아이디에 맞는 첨부파일 불러올꺼임
 		ArrayList<Attachment> fList = new ArrayList<Attachment>();
 
+		
 		/*
 		 * for (int i = 0; i < rList.size(); i++) {
 		 * 
-		 * Attachment imgFile = mpService.selectThumbnail(rList.get(i).getrId());
+		 * Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
 		 * fList.add(imgFile); }
 		 */
+		 
 		
 		
-		for (int i = 0; i < mrList.size(); i++) {
-
-			Attachment imgFile = mpService.selectThumbnail(mrList.get(i).getrId());
+		for (int i = 0; i < reList.size(); i++) {
+			
+			Attachment imgFile = rService.selectThumbnail(reList.get(i).getrId());
 			fList.add(imgFile);
 		}
-
+		
+		ArrayList<String> L_rId = null;
+		
+		///////////////////////좋아요 리스트 가져오기.
+		// 테이블의 bWriter는 Member의 user_no이므로
+		
+		  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		  if(loginUser != null) { String mNo = loginUser.getmNo(); //특정 유저가 좋아요 누른 레시피
+		  L_rId = rService.selectLikeList(mNo); }
+		 
+		/////////////////////////////////
 		/* System.out.println("레시피 리스트 : " + rList.size()); */
-		 System.out.println("레시피 리스트 : " + mrList.size()); 
 		System.out.println("첨부파일리스트 : " + fList.size());
-		System.out.println("userNo" + userNo);
-		/* System.out.println("리스트 : " + list.size()); */
+		System.out.println("레시피 전체 리스트 : " + reList.size());
+		System.out.println("좋아요레시피리스트 : " + L_rId);
+		
+	
+		
+		
+		/* System.out.println("reList : " + reList); */
+		
 
-		if (mrList.size() != 0 && fList.size() != 0) {
-			/* request.setAttribute("rList", rList); */
-			request.setAttribute("userNo", userNo);
-			request.setAttribute("fList", fList);
+	
+		
+		
+		
+
+		/* if (rList.size() != 0 && fList.size() !=0 ) { */
+			if (reList.size() != 0 && fList.size() !=0 ) {
+			request.setAttribute("reList", reList);
+			request.setAttribute("nation", nation);
+			request.setAttribute("nationStr", nationStr); 
+			request.setAttribute("fList", fList); 
+			// **좋아요데이터도 장착,,
+			 request.setAttribute("L_rId", L_rId); 
 			request.setAttribute("pi", pi);
-			request.setAttribute("mrList",mrList);
-			/*
-			 * request.setAttribute("list", list); request.setAttribute("pi", pi);
-			 */
-			request.getRequestDispatcher("views/myPageUpdate/myRecipe.jsp").forward(request, response);
+			
+			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
+			// ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
+			// request.setAttribute("reList", reList);
+			
+			
+			// System.out.println("reList : " + reList);
+			
+
+			
 
 		} else {
 			request.setAttribute("msg", "레시피 조회에 실패하였습니다.");
