@@ -50,10 +50,10 @@ public class DeleteMemberServlet extends HttpServlet {
 			int result = service.updateStatusMember(mNo, status);
 
 		
-		      if (result>=1) {
-		          request.getSession().setAttribute("msg", "회원정보를 수정했습니다.");
+		      if (result > 0) {
+		          
 
-		          response.sendRedirect("memeberList.admin");
+		          response.sendRedirect("/memeberList.admin");
 
 		       } else {
 		          request.setAttribute("msg", "회원정보 수정에 실패했습니다.");

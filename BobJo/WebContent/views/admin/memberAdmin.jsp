@@ -415,36 +415,7 @@
 
 			
 		</div>
-		<script>
-						$(function(){
-							
-							//체크된 모든 사람들의 회원번호
-				    		var index=""; 
-							$(".postRow").click(function(){
-				                   $(this).each(function() {
-				                         $(this).children().last().children().last().attr("checked", true); 
-				                         //console.log($(this).children().last().children().last().attr("checked", true));
-				                         //index = $(this).children().last().children().last().attr('class');
-				                         //console.log(index);
-				                   })
-							});   
-				              	  
-							
-<%-- 						$(".outBtn").click(function(){
-								location.href="<%= request.getContextPath() %>/delete.me?status=N";
-								
-							});
-							$(".rebirthBtn").click(function(){
-								location.href="<%= request.getContextPath() %>/delete.me?status=Y";
-								
-							});
-							$(".change_gradeBtn").click(function(){
-								location.href="<%= request.getContextPath() %>/updateGrade.me";
-							});--%>
-				              });
-				                        
-						 
-						</script>
+
 	</div>
 
 
