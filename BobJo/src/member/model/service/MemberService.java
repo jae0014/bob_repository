@@ -142,4 +142,13 @@ public class MemberService {
 		return result;
 		}
 
+		public int phoneCheck(String phone) {
+			Connection conn = getConnection();
+			int result = new MemberDao().phoneCheck(conn, phone);
+			
+			close(conn);
+			
+			return result;
+		}
+
 }

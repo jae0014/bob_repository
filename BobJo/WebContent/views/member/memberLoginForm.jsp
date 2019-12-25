@@ -148,7 +148,7 @@ box-sizing:border-box;}
 		
 		$("#userId").focus();
 		$(".join_btn").click(function(){
-			location.href="<%=contextPath%>/views/member/memberJoinForm.jsp";
+			location.href='<%=request.getContextPath()%>/before.email';
 		});
 	
 	/*                     $(".input_form").change(function(){

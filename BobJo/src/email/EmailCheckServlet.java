@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import member.model.service.MemberService;
 
 /**
@@ -44,21 +47,27 @@ public class EmailCheckServlet extends HttpServlet {
 
 		// db에 해당 이메일이 있는지 확인
 		String email = request.getParameter("email");
-
+		System.out.println(email);
 		int result = new MemberService().checkMemberEmail(email);
 		
+		String keynum = request.getParameter("keynum");
+		System.out.println("서블릿서블릿: " + keynum);
 		// 2. ajax를 이용한 중복체크
-		PrintWriter out = response.getWriter();
-		
+		//PrintWriter out = response.getWriter();
 		
 		if (result > 0) {
 			System.out.println(result);
 			// 중복된 이메일이 있어 인증안됨
-			//request.setAttribute("msg", "이미 있는 이메일주소입니다.");
-			out.print("fail");
 			
+			//request.setAttribute("msg", "이미 있는 이메일주소입니다.");
+			//out.print("fail");
+			//gson.toJson(rlist, response.getWriter());
+			
+			response.setContentType("application/json; charset=utf-8");
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson("이미 있는 이메일주소입니다.", response.getWriter());
 		} else {
-
+			response.setContentType("application/json; charset=utf-8"); 
 			// 이메일 중복확인 완료시
 
 			// mail server 설정
@@ -76,31 +85,6 @@ public class EmailCheckServlet extends HttpServlet {
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.ssl.enable", "true");
 
-			// 인증 번호 생성기
-			StringBuffer temp = new StringBuffer();
-			Random rnd = new Random();
-			for (int i = 0; i < 10; i++) {
-				int rIndex = rnd.nextInt(3);
-				switch (rIndex) {
-				case 0:
-					// a-z
-					temp.append((char) ((int) (rnd.nextInt(26)) + 97));
-					break;
-				case 1:
-					// A-Z
-					temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-					break;
-				case 2:
-					// 0-9
-					temp.append((rnd.nextInt(10)));
-					break;
-				}
-			}
-			String AuthenticationKey = temp.toString();
-			HttpSession saveKey = request.getSession();
-			saveKey.setAttribute("keynum", AuthenticationKey);			
-			System.out.println("인증번호 : " + AuthenticationKey);
-
 			// 이게무슨.. 용도일까...
 			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
@@ -117,7 +101,7 @@ public class EmailCheckServlet extends HttpServlet {
 				// 메일 제목
 				msg.setSubject("Chef J 회원가입 인증메일입니다.");
 				// 메일 내용
-				msg.setText("인증 번호는 :" + temp);
+				msg.setText("안녕하세요, ChefJ 입니다. 이메일 인증 번호는 " + keynum + "입니다.");
 
 				Transport.send(msg);
 				System.out.println("이메일 전송");
@@ -127,9 +111,10 @@ public class EmailCheckServlet extends HttpServlet {
 			}
 
 			// 세션에 인증키 저장
-			
-			System.out.println("테스트1(서블릿내부) : " + AuthenticationKey);
-			out.print("success");
+			response.setContentType("application/json; charset=utf-8");
+			System.out.println("테스트1(서블릿내부) : " + keynum);
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson("success", response.getWriter());
 
 		}
 	}

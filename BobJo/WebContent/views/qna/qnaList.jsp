@@ -316,7 +316,7 @@ width: 100%;
 							<!-- 게시판이 없다면  -->
 						<tbody>
 							<tr>
-								<td colspan="5">
+								<td colspan="6">
 									<p>게시글 없음</p>
 								</td>
 							</tr>
@@ -326,7 +326,7 @@ width: 100%;
 						
 					<tfoot>
 						<tr>
-							<td colspan="5">
+							<td colspan="6">
 
 
 								<!-- 로그인 했을때 글쓰기버튼 활성화 -->

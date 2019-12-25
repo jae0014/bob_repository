@@ -30,19 +30,37 @@ public class CheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code = request.getParameter("code");
+		String phone = request.getParameter("phone");
 		//	번호에 따라 아이디 중복확인, 핸드폰 번호 중복확인 할 것 일단은 아이디만 해보기
 		String userId = request.getParameter("userId");
-		int result = new MemberService().idCheck(userId);
 		
-		//폰번호 중복확인
-		
-		
-		PrintWriter out = response.getWriter();
-		if(result > 0) {
-			out.print("fail");
+		if(code.equals("1")) {
+			int result = new MemberService().idCheck(userId);
+			//아이디중복
+			
+			
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				out.print("fail");
+			}else {
+				out.print("success");
+			}
+			
+			
 		}else {
-			out.print("success");
+			int result = new MemberService().phoneCheck(phone);
+			
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				out.print("fail");
+			}else {
+				out.print("success");
+			}
 		}
+
+		
+
 	}
 
 	/**
