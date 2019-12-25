@@ -365,12 +365,12 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
     			dataType : "json",
     			type : "post",
 				success : function(data){
-					
+					var input = $("email")
 					console.log(data);
 					// 인증키 잘 가져와졌는지 보자.
 					// 입력한 인증키 val가져오기
 					
-					if(data == "fail"){
+					if(data == input){
 						alert('이미 있는 이메일주소입니다.');
 						
 						//$(".id_chk_txt").css("color","red");
