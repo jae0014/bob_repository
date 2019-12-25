@@ -359,7 +359,7 @@ color:rgb(170, 57, 57) !important;
 						</select>
 						<button class="btn outBtn" type="submit"
 							style="float: right; background-color: rgb(170, 57, 57); color: white"
-							formaction="<%=request.getContextPath() %>/delete.me"
+							formaction="<%=request.getContextPath() %>/delete.admin"
 							>변경</button>
 							
 
