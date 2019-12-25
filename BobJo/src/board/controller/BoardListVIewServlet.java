@@ -60,7 +60,7 @@ public class BoardListVIewServlet extends HttpServlet {
 			
 			typeNum = Integer.parseInt(request.getParameter("typeOfBoard"));
 		}
-
+		int listCount = bService.getListCount(typeNum);
 	
 		pageLimit =5;
 

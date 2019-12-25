@@ -72,6 +72,7 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(list);
 		return list;
 	}
 
@@ -128,9 +129,6 @@ public class BoardDao {
 		ResultSet rset = null;
 		// SELECT COUNT(*) FROM BOARDTYPE1
 		String sql = prop.getProperty("getListCount");
-		if(type == 3) {
-			 sql = prop.getProperty("getNoticeListCount");
-		}
 		
 		try {
 			stmt = conn.createStatement();
