@@ -3,7 +3,17 @@
 	import="attachment.model.vo.*, recipe.model.vo.*,java.util.ArrayList, recipe.model.vo.* "%>
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
-	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
+	ArrayList<Recipe> mrList = (ArrayList<Recipe>) request.getAttribute("mrList");
+	
+	
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 	
 	
 /* 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -20,8 +30,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="views/myPageUpdate/css/master.css">
-<link rel="stylesheet" href="views/myPageUpdate/css/operate.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate.css">
 
 
 </head>
@@ -170,6 +180,23 @@ display:inline-block; */
 border: 1px solid black;
 font-size:15px;
 }
+
+
+/* 페이징//////////////////// */
+
+.pagingArea {
+	margin:1rem;
+}
+
+.pagingArea button {
+	border-style:none;
+	border-radius:0.5rem;
+	padding:10px;
+	font-weight:700;
+	background-color:rgb(212,106,106);
+	/* border:1px solid rgb(170,57,57); */
+	color:white;
+}
 </style>
 <body>
 	<%@include file="../common/menubar.jsp"%>
@@ -186,24 +213,34 @@ font-size:15px;
 				<section class='site-sub-layout'  >
 					<nav class="lnb-area">
 						<h1 class="subtit-heading" >
-							<a href="myProfile.jsp"> <span class="font-en">MY PAGE</span>
-							</a>
+							<span class="font-en">MY PAGE</span>
+						
 						</h1>
 
 						<dl class="menu-sub-left">
-							<dt>
+							<!-- <dt>
 								<a href="myProfile.jsp">프로필 관리</a>
-							</dt>
+							</dt> -->
+							
+								<dt>프로필 관리</dt>
+							<dd>
+								<ul>
+									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myProfile.jsp">프로필 보기/수정 </a></li>
+
+
+								</ul>
+							</dd>
+							
+							
 
 
 							<dt>
-								<br>
-								<br> 나의 쇼핑 내역
+								
+								나의 쇼핑 내역
 							</dt>
 							<dd>
 								<ul>
-									<li><a href="myOrder.jsp" class=''> 주문/배송 현황 </a></li>
-									<li><a href="myPageDisorder.jsp" class=''> 취소/반품/교환 현황
+									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myOrder.jsp" class=''> 주문/배송 현황 </a></li>
 									</a></li>
 
 								</ul>
@@ -211,37 +248,36 @@ font-size:15px;
 							<dt>나의 레시피 관리</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath()%>/recipelist.mp">
+									<li><a href="<%=request.getContextPath() %>/recipelist.mp">
 											나의 레시피 </a></li>
 
-									<li><a href="likeRecipe.jsp"> 좋아요 한 레시피 </a></li>
 
 								</ul>
 							</dd>
-							<dt>댓글 관리</dt>
+						<!-- 	<dt>댓글 관리</dt>
 							<dd>
 								<ul>
 									<li><a href="myReply.jsp"> 나의 댓글 </a></li>
 									<li><a href="getReply.jsp"> 내가 받은 댓글 </a></li>
 
 								</ul>
-							</dd>
+							</dd> -->
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="myBoard.jsp"> 나의 게시글 </a></li>
+									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myBoard.jsp"> 나의 게시글 </a></li>
 
 
 								</ul>
 							</dd>
 							<dt>
-								<a href="">회원정보</a>
+								회원정보
 							</dt>
 							<dd>
 								<ul>
-									<li><a href="updateMember.jsp" class="on"> 회원정보수정 </a></li>
+									<li><a href="<%=request.getContextPath()%>/views/myPageUpdate/updateMember.jsp"> 회원정보수정 </a></li>
 
-									<li><a href="deleteMember.jsp"> 회원탈퇴 </a></li>
+									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/deleteMember.jsp"> 회원탈퇴 </a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -273,7 +309,7 @@ font-size:15px;
 			<div class="recipeWrap" style="float:left;">
 
 					<%
-						for (int i = 0; i < rList.size(); i++) {
+						for (int i = 0; i < mrList.size(); i++) {
 					%>
 					<%
 						if (i % 3 == 0) {
@@ -289,7 +325,7 @@ font-size:15px;
 										for (Attachment at : fList) {
 									%>
 									<%
-										if (rList.get(i).getrId().equals(at.getBprcId())) {
+										if (mrList.get(i).getrId().equals(at.getBprcId())) {
 									%>
 
 									<a href=""><img width=100%, height=100%,
@@ -317,11 +353,11 @@ font-size:15px;
 										</div>
 										<div class="yy">
 
-											<div class="date" id="date1"><%=rList.get(i).getrDate()%></div>
+											<div class="date" id="date1"><%=mrList.get(i).getrDate()%></div>
 
 
 											<div class="views views" id="views">조회수 :</div>
-											<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount()%></div>
+											<div class="views viewsnum" id="views1"><%=mrList.get(i).getrCount()%></div>
 
 										</div>
 
@@ -332,12 +368,12 @@ font-size:15px;
 
 									<div class="main">
 										<div class="rName">
-											<a href=""><%=rList.get(i).getrName()%></a>
+											<a href=""><%=mrList.get(i).getrName()%></a>
 										</div>
 
 
 										<div class="rWriter">
-											<a href=""><%=rList.get(i).getmNo()%></a>
+											<a href=""><%=mrList.get(i).getmNo()%></a>
 										</div>
 										
 
@@ -371,14 +407,46 @@ font-size:15px;
 			
 			
 			
-			
-			
+		
 			
 			
 
 	</div>
 
 
+				<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%= contextPath %>/recipelist.mp?&currentPage=1'"> &lt;&lt; </button>
+		
+			<!-- 이전 페이지로 (<) -->
+			<% if(currentPage == 1){ %>
+				<button disabled> &lt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= contextPath %>/recipelist.mp?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage){ %>
+					<button style="background-color:rgb(170,57,57)" disabled> <%= p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%= contextPath %>/recipelist.mp?&currentPage=<%= p %>'"> <%= p %> </button>
+				<% } %>
+			<% } %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage == maxPage) { %>
+				<button disabled> &gt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= contextPath %>/recipelist.mp?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
+			<% } %>
+			
+			<!--  맨 끝으로 (>>) -->
+			<button onclick="location.href='<%= contextPath %>/recipelist.mp?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
+			
+		</div>
+		
+		<br><br>
 
 
 

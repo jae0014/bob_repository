@@ -4,23 +4,12 @@
 
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
-	/* ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList"); */
-	
-	 ArrayList<Recipe> reList = (ArrayList<Recipe>) request.getAttribute("reList"); 
+	ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList");
 	//좋아요 한 애
 	ArrayList<String> L_rId = (ArrayList<String>) request.getAttribute("L_rId");	
-	System.out.println(L_rId); 
-	
-	String nation = request.getAttribute("nation").toString();
+	System.out.println(L_rId);
 	
 	
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
 	
 	
 %>
@@ -202,7 +191,7 @@ div {
 		<div class="recipeWrap">
 			<!-- 리스트 전체 테두리 -->
 			<%
-				for (int i = 0; i < reList.size(); i++) {
+				for (int i = 0; i < rList.size(); i++) {
 			%>
 			<%
 				if (i % 4 == 0) {
@@ -224,10 +213,10 @@ div {
 								for (Attachment at : fList) {
 							%>
 							<%
-								if (reList.get(i).getrId().equals(at.getBprcId())) {
+								if (rList.get(i).getrId().equals(at.getBprcId())) {
 							%>
 							<a
-								href="<%=request.getContextPath()%>/detail.re?rId=<%=reList.get(i).getrId()%>"><img
+								href="<%=request.getContextPath()%>/detail.re?rId=<%=rList.get(i).getrId()%>"><img
 								src="<%=contextPath%>/resources/recipe/<%=at.getfName()%>"
 								style="width: 100%; height: 100%"></a>
 							<%
@@ -251,24 +240,24 @@ div {
 										<%if(L_rId !=null){ %>
 											<% boolean flag = false;
 												for(int j = 0; j < L_rId.size(); j++){ 
-												 	if(L_rId.get(j).equals(reList.get(i).getrId()))
+												 	if(L_rId.get(j).equals(rList.get(i).getrId()))
 														flag=true;
 												}
 											%>
 											
 											<% if(flag) { %>
-											<button class="heartBtn fulllike" id="btn<%=reList.get(i).getrId()%>"
+											<button class="heartBtn fulllike" id="btn<%=rList.get(i).getrId()%>"
 												style="background:url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat; background-size:30px"
 												><!--  onclick="like(this);" -->
 												</button>
 											<% } else { %>
-												<button class="heartBtn like" id="btn<%=reList.get(i).getrId()%>"
+												<button class="heartBtn like" id="btn<%=rList.get(i).getrId()%>"
 												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
 												>
 												</button>
 											<% } %>
 										<%}else{ %>
-										<button class="heartBtn like" id="btn<%=reList.get(i).getrId()%>"
+										<button class="heartBtn like" id="btn<%=rList.get(i).getrId()%>"
 												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
 												></button>
 										<%} %>
@@ -284,11 +273,11 @@ div {
 
 									</div>
 									<!-- 좋아요 숫자 -->
-									<div class="likenum" id="like<%=reList.get(i).getrId() %>"
+									<div class="likenum" id="like<%=rList.get(i).getrId() %>"
 										style="text-align: left;">
 										&nbsp;
 										
-										<%=reList.get(i).getrLike()%>
+										<%=rList.get(i).getrLike()%>
 										
 										
 										
@@ -301,11 +290,11 @@ div {
 								</div>
 								<div class="yy">
 
-									<div class="date" id="date1"><%=reList.get(i).getrDate()%></div>
+									<div class="date" id="date1"><%=rList.get(i).getrDate()%></div>
 
 
 									<div class="views" id="views">조회수 :</div>
-									<div class="views viewsnum" id="views1"><%=reList.get(i).getrCount()%></div>
+									<div class="views viewsnum" id="views1"><%=rList.get(i).getrCount()%></div>
 
 								</div>
 
@@ -314,12 +303,12 @@ div {
 
 							<div class="main" style="text-align: left;">
 								<div class="rName">
-									<a href=""><%=reList.get(i).getrName()%></a>
+									<a href=""><%=rList.get(i).getrName()%></a>
 								</div>
 
 
 								<div class="rWriter">
-									<a href=""><%=reList.get(i).getmNo()%></a>
+									<a href=""><%=rList.get(i).getmNo()%></a>
 								</div>
 
 
@@ -535,44 +524,19 @@ div {
 		</script> --%>
 	
 
-	
-				<div class="pagingArea" align="center">
-			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=1'"> &lt;&lt; </button>
-		
-			<!-- 이전 페이지로 (<) -->
-			<% if(currentPage == 1){ %>
-				<button disabled> &lt; </button>
-			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
-			<% } %>
-			
-			<!-- 페이지 목록 -->
-			<% for(int p = startPage; p <= endPage; p++){ %>
-				<% if(p == currentPage){ %>
-					<button style="background-color:rgb(170,57,57)" disabled> <%= p %></button>
-				<% } else { %>
-					<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= p %>'"> <%= p %> </button>
-				<% } %>
-			<% } %>
-			
-			<!-- 다음 페이지로(>) -->
-			<% if(currentPage == maxPage) { %>
-				<button disabled> &gt; </button>
-			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
-			<% } %>
-			
-			<!--  맨 끝으로 (>>) -->
-			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
-			
-		</div>
-		
-		<br><br>
-
-
-
-
+		<%-- 페이징 --%>
+		<!-- <nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item disabled"><a class="page-link" href="#"
+					tabindex="-1" aria-disabled="true">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">4</a></li>
+				<li class="page-item"><a class="page-link" href="#">5</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
+		</nav> -->
 
 	</div>
 

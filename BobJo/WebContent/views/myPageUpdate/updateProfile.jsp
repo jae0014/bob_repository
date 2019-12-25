@@ -8,6 +8,8 @@ String nickname = m.getNickname();
 String mIntro = m.getmIntro();
 /* String mId = m.getmId(); */
 
+String msg = (String)request.getAttribute("msg");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +18,21 @@ String mIntro = m.getmIntro();
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/operate.css">
-<link rel="stylesheet" href="css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate2.css">
+<script>
+	var msg = "<%= msg %>";
+	
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+		}
+		
+		if(msg == "프로필 변경에 성공했습니다."){
+			window.close();
+		}
+	});
+</script>
 <style>
 #preview, #imgArea {
 	border: 1px solid red;

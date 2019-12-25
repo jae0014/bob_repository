@@ -9,16 +9,17 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import attachment.model.vo.Attachment;
+import mypage.model.dao.MyPageDao;
 import recipe.model.dao.RecipeDao;
 import recipe.model.vo.Recipe;
 import recipe.model.vo.Step;
 
 public class RecipeService {
 
-	public int getListCount() {
+	public int getListCount(String nation) {
 		Connection conn = getConnection();
 		
-		int rCount = new RecipeDao().getListCount(conn);
+		int rCount = new RecipeDao().getListCount(conn,nation);
 		
 		close(conn);
 		
@@ -268,20 +269,30 @@ public class RecipeService {
 
 
 	//내가 누른 좋아요 리스트 셀렉해오기
-		public ArrayList<String> selectLikeList(String mNo) {
+	
+	  public ArrayList<String> selectLikeList(String mNo) {
+	  
+	  Connection conn = getConnection(); RecipeDao rDao = new RecipeDao();
+	  
+	  
+	  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo);
+	  System.out.println("돼라2: " + L_rId);
+	  
+	  
+	  
+	  close(conn); return L_rId;
+	  
+	  }
+	 
 
-			  Connection conn = getConnection(); 
-			  RecipeDao rDao = new RecipeDao();
-			  
-			  
-			  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo); 
-			  System.out.println("돼라2: " + L_rId);
-			
-			  
-			  
-			  close(conn);
-			  return L_rId;
-			
+		public ArrayList<Recipe> selectList2(String nation, int currentPage, int boardLimit) {
+			Connection conn = getConnection();
+			RecipeDao rDao = new RecipeDao();
+
+			ArrayList<Recipe> reList = rDao.selectList2(conn, nation, currentPage, boardLimit);
+			close(conn);
+
+			return reList;
 		}
 
 
