@@ -14,7 +14,8 @@ public class Post {
 	private String pStatus;
 	
 	public Post() {}
-	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, Date pDateWritten,
+	public Post(String pId, int pType, String pTitle,
+			String pCotent, String pWriter, Date pDateWritten,
 			int pCount, int pLike, String pStatus) {
 		super();
 		this.pId = pId;

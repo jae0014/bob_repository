@@ -1,8 +1,6 @@
 package post.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import post.model.vo.Post;
 import post.service.PostService;
 
 /**
- * Servlet implementation class PostUpdateServlet
+ * Servlet implementation class PostEditedServlet
  */
-@WebServlet("/post.update")
-public class PostUpdateServlet extends HttpServlet {
+@WebServlet("/post.edited")
+public class PostEditedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PostUpdateServlet() {
+	public PostEditedServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,16 +31,20 @@ public class PostUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 		int type = Integer.parseInt(request.getParameter("typeOfBoard"));
 		String pId = (String) request.getParameter("pId");
-		
-		
-		Post result = new PostService().postSelect(pId);
-
-		if (result != null) {
-			request.setAttribute("postOBJ", result);
-			request.getRequestDispatcher("views/post/postUpdate.jsp?pId=edit&typeOfBoard="+type).forward(request, response);
+		String pCotent = (String) request.getParameter("quillData");
+		String title = request.getParameter("display_title");
+		Post post = new Post();
+		post.setpTitle(title);
+		post.setpId(pId);
+		post.setpCotent(pCotent);
+		int result = new PostService().postEdit(post);
+		String url = "board.list?currentPage=1&typeOfBoard="+type;
+		if (result > 0) {
+			response.sendRedirect(url);
 		} else {
 			request.setAttribute("msg", "실패하였습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

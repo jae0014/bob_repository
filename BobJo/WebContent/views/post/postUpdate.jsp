@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"
 	import="member.model.vo.*,post.model.vo.*, post.service.*, post.dao.*"%>
 <%
-	Member mem = null;
-	Post post = null;
+	Post post = post =(Post)request.getAttribute("postOBJ");
 	String nPost = request.getParameter("pId");
 	int type = Integer.parseInt(request.getParameter("typeOfBoard"));
 	
@@ -114,30 +113,32 @@
 
 <body>
 	<%@ include file="../common/menubar.jsp"%>
+	<% if(nPost.equals("create")){%>
 	<form action="<%=request.getContextPath()%>/post.insert" method="post"
-		id="postInsert">
+		id="postInsert"><%}else{%>
+	<form action="<%=request.getContextPath()%>/post.edited?typeOfBoard=<%=type %>" method="post"id="postInsert">
+		<%} %>
 	<div class="updateBox">
 	<input type="hidden" name="writer" value="<%=loginUser.getmNo() %>">
 	<input type="hidden" name="quillData" value="11">
 	<input type="hidden" name="type" value="<%=type%>">
-	<%if(!nPost.equals("create")){
-		post = new PostService().postSelect(nPost);	
-		%>
+	
 	<input type="hidden" name="pId" value="<%=nPost%>">
-	<%} %>
+	
 		<div class="col-xs-8">
 			<div class="form-group">
 				<label for="display_title">제목</label> <input class="form-control"
-					name="display_title" type="text">
+					name="display_title" id ="title" type="text">
 			</div>
 
 
 			<div class="form-group">
-				<label for="URL">참고 레시피</label> <input class="form-control"
+				<label for="URL">참고 레시피</label> <input class="form-control" id = "url"
 					name="URL" type="text">
 			</div>
+			
 			<div class="form-group">
-				<label for="display_name">작성자:</label>
+				<label for="display_name">작성자: <%=loginUser.getNickname()%></label>
 
 			</div>
 			<!-- Include the Quill library -->
@@ -165,13 +166,16 @@
 
 		<!-- Initialize Quill editor -->
 		<script>
+			<%if(!nPost.equals("create")){%>
 			$(function() {
-		<%if (post != null) {%>
-			quill.clipboard.dangerouslyPasteHTML(5,
-		<%=post.getpCotent()%>
-			);
-		<%}%>
+				var title = '<%=post.getpTitle()%>';
+			
+				$('#title').val(title);
+				$('#url').val();
+				quill.clipboard.dangerouslyPasteHTML(5,'<%=post.getpCotent()%>');
+
 			})
+			<%}%>
 			var quill = new Quill('#editor-container', {
 				modules : {
 					imageResize : {
