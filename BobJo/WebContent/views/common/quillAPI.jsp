@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 
     <!-- Main Quill library -->
-    <link href="../../resources/API/quill/quill.snow.css" rel="stylesheet">
-    <script src="../../resources/API/quill/quill.min.js"></script>
-    <script src="../../resources/API/quill/quill.js"></script>
-    <script src ="../../resources/API/quill/image-resize.min.js"></script>
+    <link href="<%=request.getContextPath() %>/resources/API/quill/quill.snow.css" rel="stylesheet">
+    <script src="<%=request.getContextPath() %>/resources/API/quill/quill.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/API/quill/quill.js"></script>
+    <script src ="<%=request.getContextPath() %>/resources/API/quill/image-resize.min.js"></script>
 </head>
 <body>
 

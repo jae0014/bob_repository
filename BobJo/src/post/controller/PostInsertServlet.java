@@ -38,17 +38,17 @@ public class PostInsertServlet extends HttpServlet {
 		String pCotent = (String) request.getParameter("quillData");
 		String writer = (String) request.getParameter("writer");
 		int type = Integer.parseInt(request.getParameter("type"));
-		String display_name = request.getParameter("display_name");
+		String title = request.getParameter("display_title");
 		
 		Post post = 
-				new Post("null",type,display_name,
+				new Post("null",type,title,
 						pCotent,writer,new Date(System.currentTimeMillis())
 						,0,0,"n");
 		
 		int result = new PostService().postInsert(post);
-
+		String url = "board.list?currentPage=1&typeOfBoard="+type;
 		if (result > 0) {
-			response.sendRedirect("board.view");
+			response.sendRedirect(url);
 		} else {
 			request.setAttribute("msg", "실패하였습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

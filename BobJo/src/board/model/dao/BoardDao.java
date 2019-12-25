@@ -38,8 +38,14 @@ public class BoardDao {
 	
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
-		String sql = prop.getProperty("selectList");
+		String sql  = "";
+		if(type == 1) {
+			sql= prop.getProperty("selectList");
+		}
+		else if (type == 2)
+		{
+			sql= prop.getProperty("selectList2");
+		}
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -72,6 +78,7 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(list);
 		return list;
 	}
 
@@ -127,11 +134,15 @@ public class BoardDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		// SELECT COUNT(*) FROM BOARDTYPE1
-		String sql = prop.getProperty("getListCount");
-		if(type == 3) {
-			 sql = prop.getProperty("getNoticeListCount");
+		String sql = "";
+		if(type == 1) {
+			sql= prop.getProperty("getListCount");
 		}
-		
+		else if (type == 2)
+		{
+			sql= prop.getProperty("getListCount2");
+		}
+
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);

@@ -74,6 +74,8 @@ public class PostDao {
 					+ "SET B_TITLE = ?,"
 					+ " B_CONTENT=?"
 					+ "WHERE B_ID="+p.getpId();
+			System.out.println(p.getpTitle());
+			System.out.println(p.getpCotent());
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,p.getpTitle());
 			pstmt.setString(2,p.getpCotent());
@@ -120,7 +122,7 @@ public class PostDao {
 
 		try {
 			String sql = prop.getProperty("postInsert");
-			sql = "INSERT INTO BOARD VALUES(BoardSeq.NEXTVAL,?,? ,?,?,? ,?,?,?)";
+			sql = "INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL,?,? ,?,?,? ,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1,p.getpType());
