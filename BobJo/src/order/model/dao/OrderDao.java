@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import member.model.vo.Member;
 import notice.model.vo.Notice;
 import order.model.vo.Order;
 import order.model.vo.OrderDetail;
@@ -172,6 +173,51 @@ public class OrderDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	//어드민페이지-멤버의 구매총액가져올 메소드
+	public ArrayList<Order> selectOrderList(Connection conn, int currentPage, int boardLimit) {
+		ArrayList<Order> list = new ArrayList<Order>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		
+		
+		//어드민용 메소드
+		String sql = prop.getProperty("selectOrderList2");
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			// 쿼리문 실행 시 조건절에 넣을 변수들
+			// currentPage = 1 --> startRow 1 ~ endRow 10
+			// currentPage = 2 --> startRow 11 ~ endRow 20
+
+			// startRow : (currentPage - 1) * boardLimit + 1
+			// endRow : startRow + boardLimit - 1
+			
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Order(
+						rs.getString("order_member"),
+						rs.getInt("total_price")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		return list;

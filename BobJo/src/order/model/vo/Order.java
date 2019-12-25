@@ -27,6 +27,12 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
+	public Order(String orderMember, int totalPrice) {
+		super();
+		this.orderMember = orderMember;
+		this.totalPrice = totalPrice;
+	}
+
 	public String getOrderId() {
 		return orderId;
 	}

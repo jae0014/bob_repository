@@ -1,11 +1,12 @@
 package order.model.service;
 
 import static common.JDBCTemplate.*;
-import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import member.model.dao.MemberDao;
+import member.model.vo.Member;
 import notice.model.dao.NoticeDao;
 import notice.model.vo.Notice;
 import order.model.dao.OrderDao;
@@ -64,5 +65,17 @@ public class OrderService {
 		close(conn);
 		return oList;
 	}
+
+	//어드민페이지 - 회원관리용 주문액리스트 
+	public ArrayList<Order> SelectOrderList(int currentPage, int boardLimit) {
+		Connection conn  = getConnection();
+		
+		 ArrayList<Order> list = new OrderDao().selectOrderList(conn, currentPage, boardLimit);
+
+		close(conn);
+		 return list;
+	}
+
+	
 
 }

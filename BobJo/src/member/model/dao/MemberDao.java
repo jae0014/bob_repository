@@ -6,13 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
+import notice.model.vo.Notice;
 
 public class MemberDao {
 	
@@ -70,7 +73,7 @@ public class MemberDao {
 						);
 			}
 
-			
+			System.out.println("로그인유저: " + loginUser);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -193,6 +196,110 @@ public class MemberDao {
 		}
 		System.out.println("NOTICE list카운트 : " + listCount);
 		return listCount;
+	}
+
+	public ArrayList<Member> selectMemberList(Connection conn, int currentPage, int boardLimit) {
+	ArrayList<Member> list = new ArrayList<Member>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = prop.getProperty("selectMemberList");
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			// 쿼리문 실행 시 조건절에 넣을 변수들
+			// currentPage = 1 --> startRow 1 ~ endRow 10
+			// currentPage = 2 --> startRow 11 ~ endRow 20
+
+			// startRow : (currentPage - 1) * boardLimit + 1
+			// endRow : startRow + boardLimit - 1
+			
+			int startRow = (currentPage - 1) * boardLimit + 1;
+			int endRow = startRow + boardLimit - 1;
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Member(
+						rs.getString("m_no"),
+						rs.getString("m_id"),
+						rs.getString("m_name"),
+						rs.getDate("m_ent_date"),
+						rs.getString("email"),
+						rs.getString("phone"),
+						rs.getString("addr"),
+						rs.getString("gender"),
+						rs.getString("nickname"),
+						//생일때문에 너무 고통스러움..
+						rs.getString("birth"),
+						rs.getString("m_grade"),
+						rs.getDate("m_out_date"),
+						rs.getString("m_status"),
+						rs.getString("m_intro")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int updateOutDate(Connection conn, String mNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateOutDate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
+
+
+
+	public int updateStatusMember(Connection conn, String[] mNo, String status) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateStatusMember");
+		
+		try {
+			
+			for(int i = 0; i < mNo.length; i++) {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, status);
+				pstmt.setString(2, mNo[i]);
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	
