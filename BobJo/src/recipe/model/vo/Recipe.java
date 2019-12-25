@@ -25,6 +25,7 @@ public class Recipe {
 	private int sStep; // 요리순서
 	private String sDesc; // 순서별 요리설명
 	private String status; // 상태
+	private String nickname; //닉네임
 
 	public Recipe() {
 	};

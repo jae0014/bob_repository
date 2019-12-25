@@ -3,21 +3,20 @@
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, attachment.model.vo.*"%>
 <%
-  
-    	    
-    	    /* String nickname = m.getNickname();
-    	    String mIntro = m.getmIntro(); */
-    	    
-    	    ArrayList<Attachment> fileList = new ArrayList<>();
-    	    
-    	    %>
+	/* String nickname = m.getNickname();
+	String mIntro = m.getmIntro(); */
+
+	ArrayList<Attachment> fileList = new ArrayList<>();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/master.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/operate2.css">
 
 
 </head>
@@ -180,47 +179,49 @@ div {
 					<nav class="lnb-area">
 						<h1 class="subtit-heading">
 							<span class="font-en">MY PAGE</span>
-							
+
 						</h1>
 
-							<dl class="menu-sub-left">
+						<dl class="menu-sub-left">
 							<!-- <dt>
 								<a href="myProfile.jsp">프로필 관리</a>
 							</dt> -->
-							
-								<dt>프로필 관리</dt>
+
+							<dt>프로필 관리</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myProfile.jsp">프로필 보기/수정 </a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/views/myPageUpdate/myProfile.jsp">프로필
+											보기/수정 </a></li>
 
 
 								</ul>
 							</dd>
-							
-							
 
 
-							<dt>
-								
-								나의 쇼핑 내역
-							</dt>
+
+
+							<dt>나의 쇼핑 내역</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myOrder.jsp" class=''> 주문/배송 현황 </a></li>
-									</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/views/myPageUpdate/myOrder.jsp"
+										class=''> 주문/배송 현황 </a></li>
+									</a>
+									</li>
 
 								</ul>
 							</dd>
 							<dt>나의 레시피 관리</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/recipelist.mp">
+									<li><a href="<%=request.getContextPath()%>/recipelist.mp">
 											나의 레시피 </a></li>
 
 
 								</ul>
 							</dd>
-						<!-- 	<dt>댓글 관리</dt>
+							<!-- 	<dt>댓글 관리</dt>
 							<dd>
 								<ul>
 									<li><a href="myReply.jsp"> 나의 댓글 </a></li>
@@ -231,37 +232,43 @@ div {
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myBoard.jsp"> 나의 게시글 </a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/myBoardlist.mp"> 나의
+											게시글 </a></li>
 
-
+									<li><a href="<%=request.getContextPath()%>/myQnalist.mp">
+											1:1 문의내역 </a></li>
 								</ul>
 							</dd>
-							<dt>
-								회원정보
-							</dt>
+							<dt>회원정보</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath()%>/views/myPageUpdate/updateMember.jsp"> 회원정보수정 </a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/views/myPageUpdate/updateMember.jsp">
+											회원정보수정 </a></li>
 
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/deleteMember.jsp"> 회원탈퇴 </a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/views/myPageUpdate/deleteMember.jsp">
+											회원탈퇴 </a></li>
 								</ul>
 							</dd>
 						</dl>
 		</div>
 		<div class="mypage-contents">
-			<section class="wrap-shopping-info">
-				<h2 class="hidden">회원 쇼핑정보</h2>
+			<section class="wrap-shopping-info" style="width: 62%;">
+
 				<div class="shopping-info">
 					<div class="area info01">
 						<p>
 							안녕하세요.
-							<%=loginUser.getmName() %>님<br> chef J를 이용해주셔서 감사합니다.
+							<%=loginUser.getmName()%>님<br> chef J를 이용해주셔서 감사합니다.
 						</p>
 					</div>
 
 
 
 				</div>
+
 			</section>
 			<%--여기서부터 시작 자리 --%>
 			<div class="wrap-profile">
@@ -306,7 +313,7 @@ div {
 					<a href="#"
 						onclick='window.open("updateProfile.jsp","_blank","height=360,width=300, status=yes,toolbar=no,menubar=no,location=no");return false'>
 						<img class="profilePic"
-						src="<%=request.getContextPath() %>/resources/images/useruser.png">
+						src="<%=request.getContextPath()%>/resources/images/useruser.png">
 					</a>
 					<%-- <%} %>
     	<%} %> --%>
@@ -316,9 +323,8 @@ div {
 				<br>
 				<div class="nickname">
 					<div class="info" style="font-size: 13px">
-						<br>
-						<br>
-						<%=loginUser.getmGrade() %></div><%=loginUser.getNickname() %></div>
+						<br> <br>
+						<%=loginUser.getmGrade()%></div><%=loginUser.getNickname()%></div>
 
 				<div class="introduce"
 					style="text-align: left; text-weight: normal;"><%=loginUser.getmIntro()%></div>

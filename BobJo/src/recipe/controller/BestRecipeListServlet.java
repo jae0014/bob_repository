@@ -3,7 +3,6 @@ package recipe.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,34 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import attachment.model.vo.Attachment;
-import board.model.vo.Board;
 import member.model.vo.Member;
 import recipe.model.service.RecipeService;
 import recipe.model.vo.PageInfo;
 import recipe.model.vo.Recipe;
 
 /**
- * Servlet implementation class RecipeListServlet
+ * Servlet implementation class BestRecipeListServlet
  */
-@WebServlet("/wholeList.re")
-public class RecipeWholeListServlet extends HttpServlet {
+@WebServlet("/bestList.re")
+public class BestRecipeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BestRecipeListServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public RecipeWholeListServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RecipeService rService = new RecipeService();
 
@@ -88,7 +83,7 @@ public class RecipeWholeListServlet extends HttpServlet {
 		// 페이지 정보를 공유할 VO 객체 PageInfo 클래스를 만들자~~
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 
-		ArrayList<Recipe> reList = rService.selectListWhole(currentPage, boardLimit);
+		ArrayList<Recipe> reList = rService.selectListBest(currentPage, boardLimit);
 
 		ArrayList<Attachment> fList = new ArrayList<Attachment>();
 
@@ -119,7 +114,7 @@ public class RecipeWholeListServlet extends HttpServlet {
 			// **좋아요데이터도 장착,,
 			request.setAttribute("L_rId", L_rId);
 			request.setAttribute("pi", pi);
-			request.getRequestDispatcher("views/recipe/recipeWholeListView.jsp").forward(request, response);
+			request.getRequestDispatcher("views/recipe/bestRecipeListView.jsp").forward(request, response);
 		
 
 		} else {
@@ -130,11 +125,9 @@ public class RecipeWholeListServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

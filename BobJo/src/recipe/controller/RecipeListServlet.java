@@ -36,37 +36,22 @@ public class RecipeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-//	카테아이디는 일단 나중에 생각하고 전체리스트 가져오는걸로 해볼것
-/*		String rId = request.getParameter("rId");*/
 		String nation = request.getParameter("nation");
-	
-		
-		
+
 		System.out.println(nation);
 
-		String nationStr = "";
-	
-		
-
-		switch(nation) {
-		case "0" : nationStr = "전체";break;
-		case "1" : nationStr = "한식";break;
-		case "2" : nationStr = "양식";break;
-		case "3" : nationStr = "중식";break;
-		case "4" : nationStr = "일식";break;
-		}
 
 		RecipeService rService = new RecipeService();
-		
-		
+
 		int listCount = rService.getListCount(nation);
 
 		System.out.println("listCount : " + listCount);
-		
-		//페이징
-		
+
+		// 페이징
+
 		int currentPage; // 현재 페이지
 		int pageLimit; // 한 페이지 하단에 보여질 페이지 수
 		int maxPage; // 전체 페이지에서 가장 마지막 페이지
@@ -108,76 +93,54 @@ public class RecipeListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 
 		ArrayList<Recipe> reList = rService.selectList2(nation, currentPage, boardLimit);
-		
+
 		///////////
-		
-	
+
 		/* ArrayList<Recipe> rList = rService.selectList(nation); */
 
 		// 레시피 아이디에 맞는 첨부파일 불러올꺼임
 		ArrayList<Attachment> fList = new ArrayList<Attachment>();
 
 		
-		/*
-		 * for (int i = 0; i < rList.size(); i++) {
-		 * 
-		 * Attachment imgFile = rService.selectThumbnail(rList.get(i).getrId());
-		 * fList.add(imgFile); }
-		 */
-		 
-		
-		
 		for (int i = 0; i < reList.size(); i++) {
-			
+
 			Attachment imgFile = rService.selectThumbnail(reList.get(i).getrId());
 			fList.add(imgFile);
 		}
-		
+
 		ArrayList<String> L_rId = null;
-		
-		///////////////////////좋아요 리스트 가져오기.
+
+		/////////////////////// 좋아요 리스트 가져오기.
 		// 테이블의 bWriter는 Member의 user_no이므로
-		
-		  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		  if(loginUser != null) { String mNo = loginUser.getmNo(); //특정 유저가 좋아요 누른 레시피
-		  L_rId = rService.selectLikeList(mNo); }
-		 
+
+		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+		if (loginUser != null) {
+			String mNo = loginUser.getmNo(); // 특정 유저가 좋아요 누른 레시피
+			L_rId = rService.selectLikeList(mNo);
+		}
+
 		/////////////////////////////////
 		/* System.out.println("레시피 리스트 : " + rList.size()); */
 		System.out.println("첨부파일리스트 : " + fList.size());
 		System.out.println("레시피 전체 리스트 : " + reList.size());
 		System.out.println("좋아요레시피리스트 : " + L_rId);
-		
-	
-		
-		
-		/* System.out.println("reList : " + reList); */
-		
 
-	
-		
-		
-		
+		/* System.out.println("reList : " + reList); */
 
 		/* if (rList.size() != 0 && fList.size() !=0 ) { */
-			if (reList.size() != 0 && fList.size() !=0 ) {
+		if (reList.size() != 0 && fList.size() != 0) {
 			request.setAttribute("reList", reList);
 			request.setAttribute("nation", nation);
-			request.setAttribute("nationStr", nationStr); 
-			request.setAttribute("fList", fList); 
+			request.setAttribute("fList", fList);
 			// **좋아요데이터도 장착,,
-			 request.setAttribute("L_rId", L_rId); 
+			request.setAttribute("L_rId", L_rId);
 			request.setAttribute("pi", pi);
-			
+
 			request.getRequestDispatcher("views/recipe/recipeListView.jsp").forward(request, response);
 			// ArrayList<Recipe> reList = rService.selectReList(currentPage, boardLimit);
 			// request.setAttribute("reList", reList);
-			
-			
-			// System.out.println("reList : " + reList);
-			
 
-			
+			// System.out.println("reList : " + reList);
 
 		} else {
 			request.setAttribute("msg", "레시피 조회에 실패하였습니다.");

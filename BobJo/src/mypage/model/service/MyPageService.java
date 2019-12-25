@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import attachment.model.vo.Attachment;
 import member.model.vo.Member;
 import mypage.model.dao.MyPageDao;
+import post.model.vo.Post;
 import product.model.dao.ProductDao;
 import product.model.vo.Product;
+import qna.model.vo.Qna;
 import recipe.model.vo.Recipe;
 
 public class MyPageService {
@@ -58,33 +60,29 @@ public class MyPageService {
 	 * 
 	 * return list; }
 	 */
-	
-	
+
 	public ArrayList<Recipe> selectList(String userId) {
-		
-		  Connection conn = getConnection(); 
-		  MyPageDao mpDao = new MyPageDao();
-		  
-		  ArrayList<Recipe> rList = mpDao.selectList(conn,userId); 
-		  close(conn);
-		  
-		  return rList;
-		 
-		
-	
-	
+
+		Connection conn = getConnection();
+		MyPageDao mpDao = new MyPageDao();
+
+		ArrayList<Recipe> rList = mpDao.selectList(conn, userId);
+		close(conn);
+
+		return rList;
+
 	}
 
 	public Attachment selectThumbnail(String rId) {
-		 Connection conn = getConnection(); 
-		 MyPageDao mpDao = new MyPageDao();
-	  
-	  Attachment thumnail = mpDao.selectThumbnail(conn, rId); 
-	  close(conn);
-	  
-	  return thumnail;
-	  
-	  }
+		Connection conn = getConnection();
+		MyPageDao mpDao = new MyPageDao();
+
+		Attachment thumnail = mpDao.selectThumbnail(conn, rId);
+		close(conn);
+
+		return thumnail;
+
+	}
 
 	public int getListCount() {
 		Connection conn = getConnection();
@@ -94,9 +92,8 @@ public class MyPageService {
 		close(conn);
 
 		return listCount;
-		
-	}
 
+	}
 
 	public int insertProfile(Member m, ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
@@ -171,12 +168,32 @@ public class MyPageService {
 
 	public ArrayList<Recipe> selectList2(String userNo, int currentPage, int boardLimit) {
 		Connection conn = getConnection();
-		 MyPageDao mpDao = new MyPageDao();
+		MyPageDao mpDao = new MyPageDao();
 
 		ArrayList<Recipe> mrList = mpDao.selectList2(conn, userNo, currentPage, boardLimit);
 		close(conn);
 
 		return mrList;
+	}
+
+	public ArrayList<Post> selectBoardList(String userNo, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		MyPageDao mpDao = new MyPageDao();
+
+		ArrayList<Post> selectBoardList = mpDao.selectBoardList(conn, userNo, currentPage, boardLimit);
+		close(conn);
+
+		return selectBoardList;
+	}
+
+	public ArrayList<Qna> selectQnaList(String userNo, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		MyPageDao mpDao = new MyPageDao();
+
+		ArrayList<Qna> selectQnaList = mpDao.selectQnaList(conn, userNo, currentPage, boardLimit);
+		close(conn);
+
+		return selectQnaList;
 	}
 
 }

@@ -1,4 +1,4 @@
-package recipe.controller;
+package mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,25 +9,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import attachment.model.vo.Attachment;
 import board.model.vo.Board;
+import common.vo.PageInfo;
 import member.model.vo.Member;
-import recipe.model.service.RecipeService;
-import recipe.model.vo.PageInfo;
-import recipe.model.vo.Recipe;
+import mypage.model.service.MyPageService;
+import post.model.vo.Post;
+import qna.model.vo.Qna;
 
 /**
  * Servlet implementation class RecipeListServlet
  */
-@WebServlet("/wholeList.re")
-public class RecipeWholeListServlet extends HttpServlet {
+@WebServlet("/myQnalist.mp")
+public class myQnaListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RecipeWholeListServlet() {
+	public myQnaListServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,22 +41,35 @@ public class RecipeWholeListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Member m = (Member) session.getAttribute("loginUser");
 
-		RecipeService rService = new RecipeService();
+		String userId = "";
+		String userNo = "";
 
-		int listCount = rService.getListCountWhole();
+		if (m != null) {
+			userId = m.getmId();
+			userNo = m.getmNo();
+		} else {
+			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
+		}
+
+		MyPageService mpService = new MyPageService();
+
+		int listCount = mpService.getListCount();
 
 		System.out.println("listCount : " + listCount);
 
-		// 페이징
-
+		// 페이지 수 처리용 변수 선언
 		int currentPage; // 현재 페이지
 		int pageLimit; // 한 페이지 하단에 보여질 페이지 수
 		int maxPage; // 전체 페이지에서 가장 마지막 페이지
 		int startPage; // 한 페이지 하단에 보여질 시작 페이지
 		int endPage; // 한 페이지 하단에 보여질 끝 페이지
 
-		int boardLimit = 16; // 한 페이지에 보여질 게시글 최대 수
+		int boardLimit = 10; // 한 페이지에 보여질 게시글 최대 수
 
 		// * currentPage : 현재 페이지
 		// 기본적으로 게시판은 1 페이지부터 시작함
@@ -88,42 +103,22 @@ public class RecipeWholeListServlet extends HttpServlet {
 		// 페이지 정보를 공유할 VO 객체 PageInfo 클래스를 만들자~~
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 
-		ArrayList<Recipe> reList = rService.selectListWhole(currentPage, boardLimit);
-
-		ArrayList<Attachment> fList = new ArrayList<Attachment>();
-
-		for (int i = 0; i < reList.size(); i++) {
-
-			Attachment imgFile = rService.selectThumbnail(reList.get(i).getrId());
-			fList.add(imgFile);
-		}
-
-		ArrayList<String> L_rId = null;
-
-		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		if (loginUser != null) {
-			String mNo = loginUser.getmNo(); // 특정 유저가 좋아요 누른 레시피
-			L_rId = rService.selectLikeList(mNo);
-		}
-
-		System.out.println("첨부파일리스트 : " + fList.size());
-		System.out.println("레시피 전체 리스트 : " + reList.size());
-		System.out.println("좋아요레시피리스트 : " + L_rId);
+		ArrayList<Qna> list = mpService.selectQnaList(userNo, currentPage, boardLimit);
 
 		
-		/* if (rList.size() != 0 && fList.size() !=0 ) { */
-		if (reList.size() != 0 && fList.size() != 0) {
-			request.setAttribute("reList", reList);
-			/* request.setAttribute("nation", nation); */
-			request.setAttribute("fList", fList);
-			// **좋아요데이터도 장착,,
-			request.setAttribute("L_rId", L_rId);
+		
+		System.out.println("보드 리스트 : " + list.size());
+		System.out.println("userNo" + userNo);
+
+		if (list.size() != 0 && list.size() != 0) {
+			request.setAttribute("userNo", userNo);
 			request.setAttribute("pi", pi);
-			request.getRequestDispatcher("views/recipe/recipeWholeListView.jsp").forward(request, response);
-		
+			request.setAttribute("list", list);
+
+			request.getRequestDispatcher("views/myPageUpdate/myQna.jsp").forward(request, response);
 
 		} else {
-			request.setAttribute("msg", "레시피 조회에 실패하였습니다.");
+			request.setAttribute("msg", "게시글 조회에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 
