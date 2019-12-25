@@ -125,12 +125,15 @@ body {
 .cate {
 	float: left;
 	width: 10rem;
-	height: 2rem;
+	height: 2.5rem;
 	text-align: center;
 	background-color: rgb(257, 157, 157);
 	border-radius: 0.8rem;
 	color: white;
+	font-weight:900;
+	font-size:1.3rem;
 	margin-top: 0.5rem;
+	padding-top : 0.2rem;
 }
 
 #dropdownMenuButton {
@@ -168,7 +171,7 @@ body {
 				<!-- 정렬 기준 추가-->
 				<div class="dropdown sort-by">
 					<button class="btn btn-secondary" type="button"
-						id="dropdownMenuButton">정렬 기준</button>
+						id="dropdownMenuButton" style="font-weight:800">정렬 기준</button>
 					<div class="dropdown-menu">
 						<button class="dropdown-item" type="button">신상품순</button>
 						<button class="dropdown-item" type="button">인기 상품순</button>
@@ -236,7 +239,7 @@ body {
 									</div>
 									<div class="col-3 row">
 										<!-- 장바구니 담기 버튼 -->
-										<button class="btn btn-outline-danger col cartBtn" id="cartBtn<%= i %>">
+										<button class="btn btn-outline-danger col cartBtn" id="cartBtn<%= i %>" style="font-weight:600">
 											cart
 											<input type="hidden" name="pId<%=i %>" value="<%= pList.get(i).getpId() %>">
 											<input type="hidden" name="pName<%=i %>" value="<%= pList.get(i).getpName() %>">

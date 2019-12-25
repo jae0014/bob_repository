@@ -37,18 +37,21 @@ public class MyCartServlet extends HttpServlet {
 		String userId = "";
 		if(m != null) {
 			userId = m.getmId();
+			
+			ProductService pService = new ProductService();
+			
+			// 해당 유저의 아이디의 장바구니 상품들을 가져와 ArrayList에 담기
+			ArrayList<Cart> cartList = pService.selectCartList(userId);
+			
+			request.setAttribute("cartList", cartList);
+			request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);
+			
 		}else {
 			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
 		}
 		
 		
-		ProductService pService = new ProductService();
 		
-		// 해당 유저의 아이디의 장바구니 상품들을 가져와 ArrayList에 담기
-		ArrayList<Cart> cartList = pService.selectCartList(userId);
-		
-		request.setAttribute("cartList", cartList);
-		request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);
 		/*if(cartList.size() != 0) {
 			request.setAttribute("cartList", cartList);
 			request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);
