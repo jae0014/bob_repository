@@ -337,6 +337,75 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 	
 	
 	<script>
+	$(function(){
+		
+////////////이메일 인증
+    var AuthenticationKey ="";
+    //이메일인증버튼
+    $(".chk_email_btn").click(function(){
+    	
+    	var input = $("#input6").val();
+    	
+    	
+    	// 보낼 이메일주소 가져와
+    	$(".guide_email").css("display","block");
+    	
+    	var email = $(".email").val();
+    	
+    	if(!email.includes('@') || !email.includes('.')){
+    		
+    		alert("이메일 형식에 맞게 입력해주세요");
+    		email.focus();
+    		
+    	}else{
+    		//이메일주소가 맞게 잘 가져와졌으면 메일을 보내장.
+    		$.ajax({
+    			url: "<%=request.getContextPath() %>/email.me",
+    			data : {email:email},
+    			dataType : "json",
+    			type : "post",
+				success : function(data){
+					var input = $("email")
+					console.log(data);
+					// 인증키 잘 가져와졌는지 보자.
+					// 입력한 인증키 val가져오기
+					
+					if(data == input){
+						alert('이미 있는 이메일주소입니다.');
+						
+						//$(".id_chk_txt").css("color","red");
+						email.focus();
+					}else{
+						// -> 사용 가능하다는 flag 값
+						//email_Usable = true;
+						//$(".id_chk_txt").css("color","green");
+						//세션에있는 인증키 없애기(정리하고 새로받는개념)
+						<%-- <% session.removeAttribute("AuthenticationKey"); %> --%>
+						<%
+							String AuthenticationKey = (String)session.getAttribute("AuthenticationKey");
+						%>
+						 AuthenticationKey = "<%= AuthenticationKey %>";
+						
+					}
+				},
+				error : function(){
+					console.log('서버 통신 안됨');
+				}
+    			
+    		});
+    	}
+
+    });
+	
+	});
+	
+	
+	
+	
+	
+	
+	
+	
     	// 회원가입폼 유효성검사
     	// ID: 6~12자 사이의 영문+숫자조합
     	var regexp_id=/^[a-z][a-z\d]{5,11}$/;
@@ -470,56 +539,7 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         });
         
         
-        ////////////이메일 인증
-        var AuthenticationKey ="";
-        //이메일인증버튼
-        $(".chk_email_btn").click(function(){
-        	
-        	$(".guide_email").css("display","block");
-        	
-        	var email = $(".email").val();
-        	
-        	if(!email.includes('@') || !email.includes('.')){
-        		
-        		alert("이메일 형식에 맞게 입력해주세요");
-        		email.focus();
-        		
-        	}else{
-        		
-        		$.ajax({
-        			url: "<%=request.getContextPath() %>/email.me",
-        			type : "post",
-        			data : {email:email},
-					success : function(data){
-						
-						if(data == "fail"){
-							alert('이미 있는 이메일주소입니다.');
-							
-							//$(".id_chk_txt").css("color","red");
-							email.focus();
-						}else{
-							// -> 사용 가능하다는 flag 값
-							//email_Usable = true;
-							//$(".id_chk_txt").css("color","green");
-							//세션에있는 인증키 없애기(정리하고 새로받는개념)
-							<%-- <% session.removeAttribute("AuthenticationKey"); %> --%>
-							<%
-								String AuthenticationKey = (String)session.getAttribute("AuthenticationKey");
-							%>
-							 AuthenticationKey = "<%= AuthenticationKey %>";
-							
-						}
-					},
-					error : function(){
-						console.log('서버 통신 안됨');
-					}
-        			
-        		});
-        	}
-            
-            	
-           
-        });
+        
         
         
            
