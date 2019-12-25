@@ -75,7 +75,7 @@ public class AdminMemberListServlet extends HttpServlet {
 				}
 				
 				// 리스트 갯수 파악
-				int mlistCount = mService.getListCount();
+				int listCount = mService.getListCount();
 				
 				System.out.println("현재페이지: " + currentPage);
 				pageLimit = 10;
@@ -110,8 +110,9 @@ public class AdminMemberListServlet extends HttpServlet {
 				
 				// // 멤버리스트 가져오기
 				ArrayList<Member> list = mService.selectMemberList(currentPage, boardLimit);
+
 				// 주문리스트 가져오기
-				ArrayList<Order> olist = oService.SelectOrderList(currentPage, boardLimit);
+				//ArrayList<Order> olist = oService.SelectOrderList(currentPage, boardLimit);
 				
 				System.out.println("시작2 : " + currentPage);
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 import notice.model.dao.NoticeDao;
+import notice.model.vo.Notice;
 
 public class MemberService {
 
@@ -17,7 +18,7 @@ public class MemberService {
 			Connection conn = getConnection();
 			
 			Member loginUser = new MemberDao().loginMember(conn, userId, userPwd);
-			
+			System.out.println(loginUser);
 			close(conn);
 			
 			return loginUser;
@@ -64,12 +65,6 @@ public class MemberService {
 			return result;
 		}
 
-		public ArrayList<Member> SelectMemberList() {
-			
-			
-			
-		}
-
 		public int getListCount() {
 			Connection conn = getConnection();
 
@@ -78,6 +73,51 @@ public class MemberService {
 			close(conn);
 
 			return listCount;
+		}
+
+		public ArrayList<Member> selectMemberList(int currentPage, int boardLimit) {
+			Connection conn  = getConnection();
+			
+			 ArrayList<Member> list = new MemberDao().selectMemberList(conn, currentPage, boardLimit);
+
+			close(conn);
+			 return list;
+		}
+
+		public int updateOutDate(String mNo) {
+			Connection conn = getConnection();
+			
+			int result = new MemberDao().updateOutDate(conn, mNo);
+			
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
+
+
+
+
+
+		public int updateStatusMember(String[] mNo, String status) {
+Connection conn = getConnection();
+			
+			int result = new MemberDao().updateStatusMember(conn, mNo, status);
+			
+			if(result > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
 		}
 
 }

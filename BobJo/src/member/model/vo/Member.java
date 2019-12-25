@@ -57,6 +57,26 @@ public class Member {
 		this.mIntro = mIntro;
 	}
 
+	//어드민 회원관리용 생성자
+	public Member(String mNo, String mId, String mName, Date mEntDate, String email, String phone, String addr,
+			String gender, String nickname, String birth, String mGrade, Date mOutDate, String mStatus, String mIntro) {
+		super();
+		this.mNo = mNo;
+		this.mId = mId;
+		this.mName = mName;
+		this.mEntDate = mEntDate;
+		this.email = email;
+		this.phone = phone;
+		this.addr = addr;
+		this.gender = gender;
+		this.nickname = nickname;
+		this.birth = birth;
+		this.mGrade = mGrade;
+		this.mOutDate = mOutDate;
+		this.mStatus = mStatus;
+		this.mIntro = mIntro;
+	}
+
 	public String getmNo() {
 		return mNo;
 	}
