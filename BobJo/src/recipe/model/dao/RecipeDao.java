@@ -1,6 +1,6 @@
 package recipe.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
 
@@ -28,6 +28,20 @@ public class RecipeDao {
 
 		try {
 			prop.load(new FileReader(fileName));
+			Connection conn =getConnection();
+			Statement stmt = null;
+			ResultSet rset = null;
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery("SELECT SEQ_SID.nextval, SEQ_RID.nextval, SEQ_FID.nextval from dual");
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(stmt);
+				close(conn);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +124,7 @@ public class RecipeDao {
 						rs.getString("r_In_Name"), rs.getString("r_Weight"), rs.getInt("s_Step"),
 						rs.getString("s_Desc"));
 				list.add(r);
-				System.out.println("테스트2: " + r);
+				
 			}
 
 		} catch (SQLException e) {
@@ -226,7 +240,7 @@ public class RecipeDao {
 
 				rlist.add(r);
 			}
-			System.out.println(rlist);
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -444,8 +458,8 @@ public class RecipeDao {
 		String sql = prop.getProperty("insertRecipe");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			// pstmt.setString(1, r.getmNo());
-			pstmt.setString(1, "test");
+			pstmt.setString(1, r.getmNo());
+		
 			pstmt.setString(2, r.getrName());
 			pstmt.setString(3, r.getrInfo());
 			pstmt.setString(4, r.getCateFoId());
@@ -466,7 +480,8 @@ public class RecipeDao {
 				rset = pstmt.executeQuery();
 				if (rset.next()) {
 					str = rset.getString(1);
-					System.out.println(str);
+
+
 				}
 			} else {
 				rollback(conn);
@@ -557,6 +572,7 @@ public class RecipeDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -576,6 +592,7 @@ public class RecipeDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,rId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -164,8 +164,12 @@ public class FileUpload extends HttpServlet {
 							File failedFile = new File(savePath + changeFiles.get(i));
 							failedFile.delete();
 						}
-						new RecipeService().deletetStep(sId);
-						new RecipeService().deleteRecipe(rId);
+						if(!sId.equals("") || !sId.isEmpty()) {
+							new RecipeService().deletetStep(sId);
+						}
+						if(!rId.equals("") || !rId.isEmpty()) {
+							new RecipeService().deleteRecipe(rId);
+						}
 						request.setAttribute("msg", "레시피 등록 실패!!");
 						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 
