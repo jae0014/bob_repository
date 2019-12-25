@@ -28,10 +28,6 @@ public class RecipeService {
 	}
 
 	 
-
-
-
-////////////////////////내가 사용한 메소드 이거는 수정이꺼 그대로씀	
 	  public Attachment selectThumbnail(String rId) { 
 		 Connection conn = getConnection(); 
 		 RecipeDao rDao = new RecipeDao();
@@ -43,9 +39,6 @@ public class RecipeService {
 	  
 	  }
 	 
-
-
-
 	public ArrayList<Recipe> selectList(String nation) {
 		
 		  Connection conn = getConnection(); 
@@ -55,12 +48,8 @@ public class RecipeService {
 		  close(conn);
 		  
 		  return rList;
-		 
-		
-	
-	
-	}
 
+	}
 
 	// 레시피 상세보기
 	public ArrayList<Recipe> selectRecipe(String rId) {
@@ -116,15 +105,17 @@ public class RecipeService {
 
 
 
-	public ArrayList<Recipe> selectReList(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-
-		ArrayList<Recipe> reList = new RecipeDao().selectReList(conn, currentPage, boardLimit);
-
-		close(conn);
-
-		return reList;
-	}
+	/*
+	 * public ArrayList<Recipe> selectReList(int currentPage, int boardLimit) {
+	 * Connection conn = getConnection();
+	 * 
+	 * ArrayList<Recipe> reList = new RecipeDao().selectReList(conn, currentPage,
+	 * boardLimit);
+	 * 
+	 * close(conn);
+	 * 
+	 * return reList; }
+	 */
 
 
 	public int updateLike(String rId,String mId) {
@@ -173,6 +164,7 @@ public class RecipeService {
 
 
 
+
 	public String insertRecipe(Recipe recipe) {
 		Connection conn = getConnection();
 		
@@ -187,7 +179,9 @@ public class RecipeService {
 		}
 		close(conn);
 		return result;
+
 	}
+
 
 
 
@@ -240,6 +234,7 @@ public class RecipeService {
 
 
 
+
 	public void deletetStep(String rId) {
 		Connection conn = getConnection();
 
@@ -255,6 +250,40 @@ public class RecipeService {
 		close(conn);
 	}
 
+	public ArrayList<Recipe> selectRecommendR() {
+
+        Connection conn = getConnection(); 
+        RecipeDao rDao = new RecipeDao();
+        ArrayList<Recipe> rList = null;
+        
+        ArrayList<String> r_idList = rDao.selectRecommendRNumbers(conn); 
+        if(r_idList != null) {
+           rList = rDao.selectRecommendRList(conn, r_idList);
+        }
+        
+        close(conn);
+        
+        return rList;
+   }
+
+
+	//내가 누른 좋아요 리스트 셀렉해오기
+		public ArrayList<String> selectLikeList(String mNo) {
+
+			  Connection conn = getConnection(); 
+			  RecipeDao rDao = new RecipeDao();
+			  
+			  
+			  ArrayList<String> L_rId = rDao.selectLikeList(conn, mNo); 
+			  System.out.println("돼라2: " + L_rId);
+			
+			  
+			  
+			  close(conn);
+			  return L_rId;
+			
+		}
+
 
 
 
@@ -262,4 +291,3 @@ public class RecipeService {
 
 
 }
-

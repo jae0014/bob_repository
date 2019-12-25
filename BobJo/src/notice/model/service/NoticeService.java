@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.dao.BoardDao;
 import notice.model.dao.NoticeDao;
 import notice.model.vo.Notice;
 import qna.model.dao.QnaDao;
@@ -33,49 +34,42 @@ public class NoticeService {
 	public Notice selectNotice(String nId) {
 		Connection conn = getConnection();
 		
-		Notice n = new NoticeDao().selectNotice(conn, nId);
+		// 1. 조회수 증가(업데이트)
+		int result = new NoticeDao().increaseCount(conn, nId);
+		
+		Notice n = null;
+		if(result > 0) {
+			// 2. 공지사항 글 조회
+			n = new NoticeDao().selectNotice(conn, nId);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		
 		close(conn);
 		
 		return n;	
 	}
-/*
-	public ArrayList<Notice> noticeInsert(Notice notice) {
-		Connection conn = getConnection();
-		ArrayList<Notice> list = null;
-		 
-		int result = new NoticeDao().noticeInsert(conn, notice);
+
+	public int insertNotice(Notice n) {
+	Connection conn = getConnection();
+		
+		int result = new NoticeDao().insertNotice(conn, n);
 		
 		if(result > 0) {
-		 list = new NoticeDao().selectList(conn);
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
+		
 		close(conn);
-		return list;
+		
+		return result;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
-	public Notice selectNotice(int nno) {
-		Connection conn = getConnection();
-		// 1. 조회수 증가(업데이트)
-		int result = new NoticeDao().increaseCount(conn, nno);
-		
-		Notice n = null;
-		if(result > 0) {
-			// 2. 공지사항 글 조회
-			n = new NoticeDao().selectNotice(conn, nno);
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return n;
-	}
-
+	/*
 	// 조회수 증가없이 공지사항 선택(수정용)
 	public Notice selectNotice2(int nno) {
 		Connection conn = getConnection();

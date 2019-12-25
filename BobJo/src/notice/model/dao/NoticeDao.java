@@ -145,7 +145,50 @@ public class NoticeDao {
 	
 		return n;
 	}
-	
+
+	// 3. 조회수 증가용 dao메소드
+		public int increaseCount(Connection conn, String nId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("increaseCount");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, nId);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
+		public int insertNotice(Connection conn, Notice n) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			System.out.println("notice : " + n);
+			String sql = prop.getProperty("insertNotice");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, n.getnTitle());
+				pstmt.setString(2, n.getnContent());
+				pstmt.setString(3, n.getmNo());
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
 	
 	/*
 	
@@ -172,26 +215,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	// 3. 조회수 증가용 dao메소드
-	public int increaseCount(Connection conn, int nno) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("increaseCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, nno);
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
+	
 	
 	// 공지 글 읽기용 조회 메소드
 	public Notice selectNotice(Connection conn, int nno) {

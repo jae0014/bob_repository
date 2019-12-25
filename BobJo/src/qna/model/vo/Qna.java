@@ -13,7 +13,7 @@ public class Qna {
 	private String qCate;
 	private String aStatus;
 	private ArrayList<String> aContent;
-	private ArrayList<String> aDate;
+	private ArrayList<Date> aDate;
 	
 	public Qna() {}
 
@@ -35,7 +35,7 @@ public class Qna {
 
 
 	public Qna(String qId, String qTitle, String qContent, String mNo, String orderId, Date qDate, String qCate,
-			String aStatus, ArrayList<String> aContent, ArrayList<String> aDate) {
+			String aStatus, ArrayList<String> aContent, ArrayList<Date> aDate) {
 		super();
 		this.qId = qId;
 		this.qTitle = qTitle;
@@ -52,6 +52,19 @@ public class Qna {
 
 
 
+//디테일뷰용
+	public Qna(String qId, String qTitle, String mNo, String orderId, Date qDate, String qCate, String aStatus) {
+		super();
+		this.qId = qId;
+		this.qTitle = qTitle;
+		this.mNo = mNo;
+		this.orderId = orderId;
+		this.qDate = qDate;
+		this.qCate = qCate;
+		this.aStatus = aStatus;
+	}
+
+
 
 	public Qna(String qId, String qTitle, String mNo, Date qDate, String qCate, String aStatus) {
 		super();
@@ -61,6 +74,18 @@ public class Qna {
 		this.qDate = qDate;
 		this.qCate = qCate;
 		this.aStatus = aStatus;
+	}
+
+
+
+
+
+
+
+	public Qna(ArrayList<String> aContent, ArrayList<Date> aDate) {
+		super();
+		this.aContent = aContent;
+		this.aDate = aDate;
 	}
 
 
@@ -211,7 +236,7 @@ public class Qna {
 
 
 
-	public ArrayList<String> getaDate() {
+	public ArrayList<Date> getaDate() {
 		return aDate;
 	}
 
@@ -219,7 +244,7 @@ public class Qna {
 
 
 
-	public void setaDate(ArrayList<String> aDate) {
+	public void setaDate(ArrayList<Date> aDate) {
 		this.aDate = aDate;
 	}
 

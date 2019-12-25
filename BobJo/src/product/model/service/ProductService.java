@@ -11,25 +11,45 @@ import product.model.vo.Product;
 import static common.JDBCTemplate.*;
 
 public class ProductService {
-	
+
 	// 상품 리스트 갯수 조회용 서비스 메소드
 	public int getListCount() {
 		Connection conn = getConnection();
-		
+
 		int listCount = new ProductDao().getListCount(conn);
 		close(conn);
-		
+
 		return listCount;
 	}
-	
+
+	public int getListCount(String cate) {
+		Connection conn = getConnection();
+
+		int listCount = new ProductDao().getListCount(conn, cate);
+		close(conn);
+
+		return listCount;
+	}
+
 	// 상품 리스트 조회용 서비스 메소드
 	public ArrayList<Product> selectList(String cate) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
-		ArrayList<Product> plist = pDao.selectList(conn,cate);
+
+		ArrayList<Product> plist = pDao.selectList(conn, cate);
 		close(conn);
-		
+
+		return plist;
+	}
+
+	// 페이징 있는 상품 리스트 조회
+	public ArrayList<Product> selectList(String cate, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+
+		ArrayList<Product> plist = pDao.selectList(conn, cate, currentPage, boardLimit);
+		close(conn);
+
 		return plist;
 	}
 
@@ -37,10 +57,10 @@ public class ProductService {
 	public Product selectProduct(String pId) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		Product p = pDao.selectProduct(conn, pId);
 		close(conn);
-		
+
 		return p;
 	}
 
@@ -48,10 +68,10 @@ public class ProductService {
 	public Attachment selectThumbnail(String pId) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		Attachment thumnail = pDao.selectThumbnail(conn, pId);
 		close(conn);
-		
+
 		return thumnail;
 	}
 
@@ -59,10 +79,10 @@ public class ProductService {
 	public ArrayList<Attachment> selectImages(String pId) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		ArrayList<Attachment> imgList = pDao.selectImages(conn, pId);
 		close(conn);
-		
+
 		return imgList;
 	}
 
@@ -70,12 +90,12 @@ public class ProductService {
 	public int putInCart(Cart ccc) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		int result = pDao.putInCart(conn, ccc);
 
-		if(result>0) {
+		if (result > 0) {
 			commit(conn);
-		}else {
+		} else {
 			rollback(conn);
 		}
 		close(conn);
@@ -86,10 +106,10 @@ public class ProductService {
 	public ArrayList<Cart> selectCartList(String userId) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		ArrayList<Cart> cartList = pDao.selectCartList(conn, userId);
 		close(conn);
-		
+
 		return cartList;
 	}
 
@@ -97,11 +117,11 @@ public class ProductService {
 	public Cart checkSameProduct(Cart ccc) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		Cart same = pDao.checkSameProduct(conn, ccc);
-		
+
 		close(conn);
-		
+
 		return same;
 	}
 
@@ -109,12 +129,12 @@ public class ProductService {
 	public int addQuantity(Cart ccc, int q) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		int result = pDao.addQuantity(conn, ccc, q);
-		
-		if(result>0) {
+
+		if (result > 0) {
 			commit(conn);
-		}else {
+		} else {
 			rollback(conn);
 		}
 		close(conn);
@@ -125,20 +145,31 @@ public class ProductService {
 	public int deleteCart(String user, String pId) {
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
-		
+
 		int result = pDao.deleteCart(conn, user, pId);
-		
-		if(result>0) {
+
+		if (result > 0) {
 			commit(conn);
-		}else {
+		} else {
 			rollback(conn);
 		}
 		close(conn);
 		return result;
 	}
 
+	public ArrayList<Product> selectRecommendP() {
+		Connection conn = getConnection();
+		ProductDao pDao = new ProductDao();
+		ArrayList<Product> pList = null;
 
-	
-	
-	
+		ArrayList<String> p_idList = pDao.selectRecommendPNumbers(conn);
+		if (p_idList != null) {
+			pList = pDao.selectRecommendPList(conn, p_idList);
+		}
+
+		close(conn);
+
+		return pList;
+	}
+
 }

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import member.model.vo.Member;
@@ -167,6 +168,31 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount");
+	
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		System.out.println("NOTICE list카운트 : " + listCount);
+		return listCount;
 	}
 
 	
