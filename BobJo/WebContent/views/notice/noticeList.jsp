@@ -72,6 +72,10 @@
 	border-bottom: 1px solid lightgrey !important;
 	line-height: 2;
 }
+.board-postnav-side>ul>li:hover {
+	background-color: #f9f9f9 !important;
+	color: rgb(170, 57, 57);
+}
 
 .board-postnav-side>ul>li>a {
 	color: black;
@@ -79,15 +83,6 @@
 
 .board-postnav-side>ul>li>a:hover {
 	color: rgb(170, 57, 57);
-}
-
-.board-postnav-side>ul>li:hover {
-	background-color: #f9f9f9 !important;
-	color: rgb(170, 57, 57);
-}
-
-.board-postnav-side>ul>li:hover {
-	background-color: lightgrey;
 }
 
 
@@ -250,7 +245,7 @@ width: 100%;
 						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
 						<!--  탈퇴, 등급변경, 회원정보세부내용확인 -->
 						<li class="nav-item border border-light"><a class="nav-link"
-							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
+							href="<%=request.getContextPath() %>/memberList.admin">회원관리</a></li>
 							
 						<li class="nav-item border border-light"><a class="nav-link"
 							href="<%=request.getContextPath() %>/OrderList.admin">주문관리</a>

@@ -31,10 +31,10 @@ public class DeleteMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String status = "N";
+		String status = request.getParameter("status");
 		String[] mNo= request.getParameterValues("chkmNo");
 		System.out.println(status);
-		System.out.println(mNo);
+		System.out.println(mNo[0]);
 		
 		/*
 		 * if(mNo[0]== null) { request.getSession().setAttribute("msg",
@@ -45,15 +45,13 @@ public class DeleteMemberServlet extends HttpServlet {
 	
 		MemberService service = new MemberService();
 		
-		
 			//회원 탈퇴
 			int result = service.updateStatusMember(mNo, status);
 
 		
 		      if (result > 0) {
-		          
 
-		          response.sendRedirect("/memeberList.admin");
+		          response.sendRedirect("memberList.admin");
 
 		       } else {
 		          request.setAttribute("msg", "회원정보 수정에 실패했습니다.");
