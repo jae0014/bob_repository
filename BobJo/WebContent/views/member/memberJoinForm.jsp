@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<%
+	String keynum = (String)session.getAttribute("keynum");
+	%>
 
 <!DOCTYPE html>
 <html>
@@ -167,7 +171,7 @@ td {
 						<button type="button" class="id_chk_btn s_btn">중복확인</button>
 
 						<p class="guide_txt guide_txt1">
-							<span class="txt id_reg_txt">영문과 숫자를 조합한 6자 이상</span> <span
+							<span class="txt id_reg_txt">영문과 숫자를 조합한 5자 이상</span> <span
 								class="txt id_reg_txt1"></span> <span class="txt id_chk_txt">아이디
 								중복확인</span>
 						</p></td>
@@ -212,8 +216,7 @@ td {
 						placeholder="인증번호 입력" class="email_num_input">
 						<button type="button" class="s_btn chk_email_num_btn">인증확인</button>
 						<p class="guide_txt guide_txt5">
-							<span class="txt email_chk_txt">이메일인증번호가 전송되었습니다. 메일함을
-								확인해주세요.</span>
+							<span class="txt email_chk_txt">--</span>
 						</p></td>
 
 
@@ -226,9 +229,10 @@ td {
 					<td class="cols1">*휴대폰</td>
 					<td><input type="text" placeholder="숫자만 입력해주세요" class="phone"
 						name="phone" required>
-						<button type="button" onclick="chk_phone();"
+						<button type="button"
 							class="chk_phone_btn s_btn">휴대폰 중복확인</button> <!-- 사용가능하면 alert로 사용가능합니다 -->
-
+ 							<p class="guide_txt guide_txt6"><span class="txt phone_chk_txt">휴대폰
+								중복확인</span></p>
 					</td>
 
 				</tr>
@@ -337,9 +341,98 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 	
 	
 	<script>
+//인증번호 확인
+    var email_Usable1 = false;
+    var email_Usable2 = false;
+	$(".chk_email_num_btn").click(function(){
+		var num = $.trim($(".email_num_input").val());
+		var keynum = "<%=keynum%>";
+		
+		if(num==keynum){
+    		alert("인증번호 확인");
+    		email_Usable2=true;
+    		$(".email").attr("readonly",true);
+    		<%-- <% session.removeAttribute("keynum"); %> --%>
+    		
+    		
+		}else{
+			alert("인증번호가 맞지 않습니다.");
+		}
+		
+		
+		
+	});
+////////////이메일 인증
+    //이메일인증버튼
+    $(".chk_email_btn").click(function(){
+    	
+    	//이메일주소
+    	var keynum = "<%=keynum%>";
+    	
+    	$(".guide_email").css("display","block");
+    	 $(".guide_txt5").css({"display":"block"});
+    	
+    	 // 보낼 이메일주소 가져오기
+    	var email = $(".email").val();
+    	
+    	console.log(email);
+    	if(!email.includes('@') || !email.includes('.')){
+    		
+    		alert("이메일 형식에 맞게 입력해주세요");
+    		
+    		
+    	}else{
+    		//이메일주소가 맞게 잘 가져와졌으면 메일을 보내장.
+    		$.ajax({
+    			url: "<%=request.getContextPath()%>/email.me",
+    			type : "post",
+    			dataType : "json",
+    			data : {email:email,
+    					keynum:keynum},
+				success : function(data){
+					console.log(data);
+					if(data=="이미 있는 이메일주소입니다."){
+						alert("이미 있는 이메일주소입니다. 가입이 불가합니다.");
+						$(".email_chk_txt").text("중복된 이메일 주소");
+						//인증번호 버튼 비활성화
+						$(".chk_email_num_btn").attr('disabled', true).css("background","grey");
+						$(".email_chk_txt").text("중복된 이메일 주소");
+						
+						
+						
+					}else if(data=="success"){
+						//이메일 중복확인 완료
+					    email_Usable1 = true;
+					  //인증번호 버튼 활성화
+					    $(".chk_email_num_btn").attr('disabled', false);
+					    $(".email_chk_txt").text("이메일인증번호가 전송되었습니다. 메일함을 확인해주세요.");
+					}
+					
+				},
+				error : function(){
+					console.log('서버 통신 안됨');
+				}
+    			
+    		});
+    	}
+
+    });
+	$(function(){
+		
+
+	
+	});
+	
+	
+	
+	
+	
+	
+	
+	
     	// 회원가입폼 유효성검사
-    	// ID: 6~12자 사이의 영문+숫자조합
-    	var regexp_id=/^[a-z][a-z\d]{5,11}$/;
+    	// ID: 5~12자 사이의 영문+숫자조합
+    	var regexp_id=/^[a-z][a-z\d]{4,11}$/;
         // PW: 영문 소문자, 숫자 포함 6자 이상
         var regexp_pw=/(?=.*[a-z])(?=.*[0-9]).{6,}/;
         
@@ -357,9 +450,11 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         // ID 유효성
         $(".userId").keyup(function(){
             userId = $.trim($(".userId").val());
+            $(".id_chk_txt").css({"color":"red"});
            if(!regexp_id.test(userId)){
                 $(".guide_txt1").css({"display":"block"});
                 $(".id_reg_txt").css({"color":"red"});
+                
                 id_flag = false;
             }else{
                 $(".guide_txt1").css({"display":"block"});
@@ -418,7 +513,13 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
             }
         });
         
-        
+        $(".phone").keyup(function(){
+            var phone = $.trim($(".phone").val());
+            
+                $(".guide_txt6").css({"display":"block"});
+                $(".phone_chk_txt").css({"color":"red"});
+                
+        });
     	
     });
         
@@ -437,14 +538,14 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         	}else{
         		
         		$.ajax({
-        			url: "<%=request.getContextPath() %>/Check.me",
+        			url: "<%=request.getContextPath() %>/Check.me?code=1",
         			type : "post",
         			data : {userId:userId},
 					success : function(data){
 						
 						if(data == "fail"){
 							alert('사용할 수 없는 아이디입니다.');
-							$(".id_chk_txt").css("color","red");
+							$(".phone_chk_txt").css("color","red");
 							userId.focus();
 						}else{
 							// -> 사용 가능하다는 flag 값
@@ -470,45 +571,37 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         });
         
         
-        ////////////이메일 인증
-        var AuthenticationKey ="";
-        //이메일인증버튼
-        $(".chk_email_btn").click(function(){
+        // 핸드폰 중복확인용 값
+        var phone_usable = false;
+        
+        // 핸드폰 중복확인
+        $(".chk_phone_btn").click(function(){
+        	var phone = $(".phone").val();
         	
-        	$(".guide_email").css("display","block");
-        	
-        	var email = $(".email").val();
-        	
-        	if(!email.includes('@') || !email.includes('.')){
+        	if(!phone || phone.includes("-") ||phone.length<8 || phone.length >11){
         		
-        		alert("이메일 형식에 맞게 입력해주세요");
-        		email.focus();
+        		alert("전화번호에 -기호가 있거나 자릿수가 적절하지 않습니다.");
+        		phone.focus();
         		
         	}else{
         		
         		$.ajax({
-        			url: "<%=request.getContextPath() %>/email.me",
+        			url: "<%=request.getContextPath() %>/Check.me?code=2",
         			type : "post",
-        			data : {email:email},
+        			data : {phone:phone},
 					success : function(data){
 						
 						if(data == "fail"){
-							alert('이미 있는 이메일주소입니다.');
-							
-							//$(".id_chk_txt").css("color","red");
-							email.focus();
+							alert('이미 존재하는 전화번호입니다.');
+							$(".phone_chk_txt").css("color","red");
+							userId.focus();
 						}else{
 							// -> 사용 가능하다는 flag 값
-							//email_Usable = true;
-							//$(".id_chk_txt").css("color","green");
-							//세션에있는 인증키 없애기(정리하고 새로받는개념)
-							<%-- <% session.removeAttribute("AuthenticationKey"); %> --%>
-							<%
-								String AuthenticationKey = (String)session.getAttribute("AuthenticationKey");
-							%>
-							 AuthenticationKey = "<%= AuthenticationKey %>";
 							
+							phone_usable = true;
+							$(".phone_chk_txt").css("color","green");
 						}
+					
 					},
 					error : function(){
 						console.log('서버 통신 안됨');
@@ -516,27 +609,9 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
         			
         		});
         	}
-            
-            	
-           
+        	
         });
-        
-        
-           
-            //Phone
-            //$(".userPhone")
-            var ch_key_input = $.trim($(".email_num_input").val());
-            var email_Usable2 = true;
-            $(".chk_email_num_btn").click(function(){
-            		console.log(AuthenticationKey);
-            	if(AuthenticationKey != ch_key_input){
-            		alert("인증번호가 맞지 않습니다.");
-            	}else{
-            		alert("인증번호 확인");
-            		email_Usable2=true;
-            	}
-            });
-        
+
         
         
         // 폼 제출할때 발생하는 함수
@@ -546,8 +621,10 @@ buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
             console.log(pw_re_flag);
             console.log(nm_flag);
                 if(id_flag == false || pw_re_flag == false || pw_ch_flag == false || nm_flag == false
-                		|| id_Usable == false ||email_Usable2 == false){
-                   return false;
+                		|| id_Usable == false ||email_Usable1 == false||email_Usable2 == false || phone_usable == false){
+                   alert("유효성검사 실패. 모든 필수사항들을 입력하였는지 확인해주세요.");
+                   
+                	return false;
                 }
             };
     </script>

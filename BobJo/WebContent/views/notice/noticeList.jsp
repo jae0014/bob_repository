@@ -247,9 +247,13 @@ width: 100%;
 						<li class="nav-item border border-light"><a class="nav-link"
 							href="<%=request.getContextPath() %>/memberList.admin">회원관리</a></li>
 							
-						<li class="nav-item border border-light"><a class="nav-link"
+						<%-- <li class="nav-item border border-light"><a class="nav-link"
 							href="<%=request.getContextPath() %>/OrderList.admin">주문관리</a>
+							</li><!-- 주문내역확인, 월별 매출확인 --> --%>
+							<li class="nav-item border border-light"><a class="nav-link"
+							href="<%=request.getContextPath() %>/views/admin/orderAdmin.jsp">주문관리</a>
 							</li><!-- 주문내역확인, 월별 매출확인 -->
+							
 							
 						<li class="nav-item border border-light"><a class="nav-link"
 							href="#">상품관리</a></li><!-- 상품등록(사진필요),삭제 재고변경, 추천상품선택 -->

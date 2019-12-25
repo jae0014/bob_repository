@@ -374,7 +374,7 @@ for (int i = 0; i < pList.size(); i++) {
 <hr>
 <br>
 <br>
-<h2 align="center">제이의 추!천! 레시피!!</h2>
+<h2 align="center">제이의 핫! 레시피!!</h2>
 <br>
 
 <div class="sale_list">
@@ -383,13 +383,13 @@ for (int i = 0; i < pList.size(); i++) {
 		<div class="sale_thumb">
 			<a href="#">
 				
-				<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
+				<img src="<%=contextPath %>/resources/images/로제파스타.jpg" alt="세일상품1" class="thumb_img">
             </a>
        	</div>
         <a href="#" class="sale_info">
-        	<p class="p_name p_txt">제주에서 갓 따온 한라봉</p>
-            <p class="p_price p_txt">2,000원</p>
-            <p class="p_price_origin p_txt"><s>2,000원</s></p>
+        	<p class="p_name p_txt">맛있는 로제 파스타</p>
+			<p class="p_price p_txt">user98</p>
+	            <p class="p_price_origin p_txt">2019-12-22</p>
         </a>
     </div>
     
@@ -399,13 +399,13 @@ for (int i = 0; i < pList.size(); i++) {
 			<div class="sale_thumb">
 				<a href="#">
 					
-					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
+					<img src="<%=contextPath %>/resources/images/갈비찜.jpg" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>
         	<a href="#" class="sale_info">
-	        	<p class="p_name p_txt">제주에서 갓 따온 한라봉</p>
-	            <p class="p_price p_txt">2,000원</p>
-	            <p class="p_price_origin p_txt"><s>2,000원</s></p>
+	        	<p class="p_name p_txt">갈비찜</p>
+	        	<p class="p_price p_txt">user98</p>
+	            <p class="p_price_origin p_txt">2019-12-19</p>
         	</a>
     	</div>
     	
@@ -413,13 +413,13 @@ for (int i = 0; i < pList.size(); i++) {
 			<div class="sale_thumb">
 				<a href="#">
 
-					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
+					<img src="<%=contextPath %>/resources/recipe/r10.jpg" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>
         	<a href="#" class="sale_info">
-	        	<p class="p_name p_txt">제주에서 갓 따온 한라봉</p>
-	            <p class="p_price p_txt">2,000원</p>
-	            <p class="p_price_origin p_txt"><s>2,000원</s></p>
+	        	<p class="p_name p_txt">맛있다 떡볶이</p>
+	        	<p class="p_price p_txt">레시피킹</p>
+	            <p class="p_price_origin p_txt">2019-12-24</p>
         	</a>
     	</div>
 
@@ -427,17 +427,90 @@ for (int i = 0; i < pList.size(); i++) {
 			<div class="sale_thumb">
 				<a href="#">
 					
-					<img src="<%=contextPath %>/resources/images/main/감귤.PNG" alt="세일상품1" class="thumb_img">
+					<img src="<%=contextPath %>/resources/recipe/r14.jpg" alt="세일상품1" class="thumb_img">
             	</a>
        		</div>
         	<a href="#" class="sale_info">
-	        	<p class="p_name p_txt">제주에서 갓 따온 한라봉</p>
-	            <p class="p_price p_txt">2,000원</p>
-	            <p class="p_price_origin p_txt"><s>2,000원</s></p>
+	        	<p class="p_name p_txt">제이의 일품 육회</p>
+	        	<p class="p_price p_txt">happiness</p>
+	            <p class="p_price_origin p_txt">2019-12-26</p>
         	</a>
     	</div>
+    	<br>
+
+    	
+    	
 	</div>
-    
+	
+	    	
+    	
+    	
+    			<div class="special_item" style="margin:auto; display: block; width: 1050px; height: 600px; border:1px solid black;">
+			<div style="width:50%; float:left">
+				<p style="font-size: 35px; font-weight:900; padding-left:20px; margin-top:20px; margin-bottom:20px;">특가중의 특가<br>
+				MARKET J 특가</p>
+			
+				<div id="newcountdown"style="font-size: 30px; font-weight:200; padding-left:20px;"></div>
+				<div style="font-size: 30px; font-weight:200; padding-left:20px;">2019년 마지막까지 화이팅</div>			
+			</div>
+			<div class="sale_thumb" style="width:50%; height: 100%; float:left;">
+				<a href="#">
+					<img src="<%=contextPath %>/resources/product/2/P39.PNG" alt="세일상품1" class="thumb_img" width="100%" height="600px">
+            	</a>
+       		</div>
+    	</div>
+    	
+    	
+   
+    	<div id="countdown"></div>
+
+    	
+    	   
+
+    	    <script>
+    	    //CountDownTimer('01/01/2017', 'countdown'); // 2017년 1월 1일까지
+    	    CountDownTimer('01/01/2020 00:00 AM', 'newcountdown'); // 2018년 1월 1일까지, 시간을 표시하려면 01:00 AM과 같은 형식을 사용합니다.
+    	    
+
+    	    function CountDownTimer(dt, id)
+    	    {
+    	    var end = new Date(dt);
+
+    	    var _second = 1000;
+    	    var _minute = _second * 60;
+    	    var _hour = _minute * 60;
+    	    var _day = _hour * 24;
+    	    var timer;
+
+    	    function showRemaining() {
+    	    var now = new Date();
+    	    var distance = end - now;
+    	    if (distance < 0) {
+
+    	    clearInterval(timer);
+    	    document.getElementById(id).innerHTML = 'EXPIRED!';
+
+    	    return;
+    	    }
+    	    var days = Math.floor(distance / _day);
+    	    var hours = Math.floor((distance % _day) / _hour);
+    	    var minutes = Math.floor((distance % _hour) / _minute);
+    	    var seconds = Math.floor((distance % _minute) / _second);
+
+    	    document.getElementById(id).innerHTML = days + 'DAY ';
+    	    document.getElementById(id).innerHTML += hours + ' : ';
+    	    document.getElementById(id).innerHTML += minutes + ' : ';
+    	    document.getElementById(id).innerHTML += seconds;
+    	    }
+
+    	    timer = setInterval(showRemaining, 1000);
+    	    }
+    	        		
+	</script>
+
+
+
+
 <br>
 <br>
 <br>
