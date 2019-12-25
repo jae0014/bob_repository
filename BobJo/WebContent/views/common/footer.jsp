@@ -113,7 +113,7 @@
                 </tr>
                 <tr>
                     <td>
-                            <button class="qna_btn">1:1 문의</button>
+                            <button class="qna_btn" onclick="location.href='<%=request.getContextPath()%>/list.qna'">1:1 문의</button>
                     </td>
                     <td>
                             <span class="Ldesc desc1">24시간 접수가능<br></span>
