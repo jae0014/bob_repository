@@ -21,7 +21,7 @@ import order.model.vo.Order;
 /**
  * Servlet implementation class AdminMemberListServlet
  */
-@WebServlet("/memeberList.admin")
+@WebServlet("/memberList.admin")
 public class AdminMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

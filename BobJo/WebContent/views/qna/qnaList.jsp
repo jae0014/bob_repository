@@ -29,8 +29,11 @@
 
 .question_link {
 	background: #f9f9f9;
+	color: rgb(170, 57, 57) !important!;
 }
-
+.question_link a{
+color:rgb(170, 57, 57) !important;
+}
 .outer_m {
 	display: block;
 	width: 1050px;
@@ -71,22 +74,17 @@
 	border-bottom: 1px solid lightgrey !important;
 	line-height: 2;
 }
-
 .board-postnav-side>ul>li>a {
 	color: black;
 }
-
 .board-postnav-side>ul>li>a:hover {
+	background-color: #f9f9f9 !important;	
 	color: rgb(170, 57, 57);
 }
 
 .board-postnav-side>ul>li:hover {
 	background-color: #f9f9f9 !important;
 	color: rgb(170, 57, 57);
-}
-
-.board-postnav-side>ul>li:hover {
-	background-color: lightgrey;
 }
 
 .board-post {
@@ -235,22 +233,29 @@ width: 100%;
 						<li class="nav-item  border border-light notice_link"
 							onclick="goNoticeList()"><a class="nav-link active">공지사항</a>
 						</li>
-
-						<%if (loginUser != null && loginUser.getmId().equals("admin")) {%>
-
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="#">회원관리</a></li>
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="#">매출관리</a></li>
-						<%}%>
 						<li class="nav-item border border-light question_link"
 							onclick="goQnaList()"><a class="nav-link question_a">1:1문의
 								내역</a></li>
+						<%if (loginUser != null && loginUser.getmNo().equals("M0")) {%>
+						<!--  탈퇴, 등급변경, 회원정보세부내용확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="<%=request.getContextPath() %>/memberList.admin">회원관리</a></li>
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">주문관리</a></li>
+						<!-- 주문내역확인, 월별 매출확인 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">상품관리</a></li>
+						<!-- 상품등록(사진필요),삭제 재고변경, 추천상품선택 -->
+						<li class="nav-item border border-light"><a class="nav-link"
+							href="#">게시글관리(자유, 후기, 레시피)</a></li>
+						<!-- 삭제, 추천레시피관리 -->
+
+						<%}%>
+
 					</ul>
 				</div>
 			</div>
 		</div>
-		<!-- content1 -->
 
 		<script>
 	function goQnaList(){
@@ -264,9 +269,9 @@ width: 100%;
 	};
 	
 	function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/list.no";
+			location.href="<%=request.getContextPath()%>/memberList.admin";
 	};
-</script>
+	</script>
 
 
 

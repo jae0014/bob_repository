@@ -105,9 +105,11 @@ public class MemberService {
 
 
 		public int updateStatusMember(String[] mNo, String status) {
-Connection conn = getConnection();
+			Connection conn = getConnection();
+			
 			
 			int result = new MemberDao().updateStatusMember(conn, mNo, status);
+			
 			
 			if(result > 0) {
 				commit(conn);
@@ -118,6 +120,26 @@ Connection conn = getConnection();
 			close(conn);
 			
 			return result;
+		}
+
+		
+
+		public int updateGrade(String mNo, String m_grade) {
+	Connection conn = getConnection();
+			
+			int result = new MemberDao().updateGrade(conn, mNo, m_grade);
+		
+			if(result > 0) {
+				System.out.println("성공");
+			commit(conn);
+			}else {
+			rollback(conn);
+			System.out.println("실패");
+			}
+		
+			close(conn);
+		
+		return result;
 		}
 
 }

@@ -26,11 +26,13 @@
 }
 
 /*/////////// 사이드메뉴 */
-.notice_link {
+.adminMember_link {
 	background: #f9f9f9;
-	color: rgb(170, 57, 57);
+	color: rgb(170, 57, 57) !important;
 }
-
+.adminMember_link a{
+color:rgb(170, 57, 57) !important;
+}
 .outer_m {
 	display: block;
 	width: 1050px;
@@ -62,17 +64,13 @@
 	font-size: 20px;
 	font-weight: 700;
 }
-
-.admin_side_div {
-	border: 1px solid black;
-}
-
 .side_txt_div1 {
 	padding: 15px 5px 5px 5px;
 	font-size: 20px;
 	font-weight: 700;
 	text-align: center;
 }
+
 
 .board-postnav-side {
 	width: 90%;
@@ -88,12 +86,11 @@
 	border-bottom: 1px solid lightgrey !important;
 	line-height: 2;
 }
-
 .board-postnav-side>ul>li>a {
 	color: black;
 }
-
 .board-postnav-side>ul>li>a:hover {
+	background-color: #f9f9f9 !important;	
 	color: rgb(170, 57, 57);
 }
 
@@ -102,9 +99,6 @@
 	color: rgb(170, 57, 57);
 }
 
-.board-postnav-side>ul>li:hover {
-	background-color: lightgrey;
-}
 
 /* 게시판부분 */
 .board-post {
@@ -128,10 +122,6 @@
 
 .postRow:hover {
 	background-color: rgb(255, 243, 239);
-}
-
-.admin_side_div {
-	border: 1px solid black;
 }
 
 .side_txt_div1 {
@@ -171,6 +161,10 @@
 	vertical-align: middle !important;
 }
 
+.margin-padding-zero {
+	margin: 0;
+	padding: 0;
+}
 /*/////////// 페이지 스타일 */
 .pagingDiv {
 	display: inline-block;
@@ -191,6 +185,8 @@
 	color: white !important;
 	border: 1px solid rgb(170, 57, 57) !important;
 }
+
+
 </style>
 </head>
 <body>
@@ -228,8 +224,8 @@
 								내역</a></li>
 						<%if (loginUser != null && loginUser.getmNo().equals("M0")) {%>
 						<!--  탈퇴, 등급변경, 회원정보세부내용확인 -->
-						<li class="nav-item border border-light"><a class="nav-link"
-							href="<%=request.getContextPath() %>/memeberList.admin">회원관리</a></li>
+						<li class="nav-item border border-light"><a class="nav-link adminMember_link"
+							href="<%=request.getContextPath() %>/memberList.admin">회원관리</a></li>
 						<li class="nav-item border border-light"><a class="nav-link"
 							href="#">주문관리</a></li>
 						<!-- 주문내역확인, 월별 매출확인 -->
@@ -259,7 +255,7 @@
 	};
 	
 	function goNoticeList(){
-			location.href="<%=request.getContextPath()%>/memeberList.admin";
+			location.href="<%=request.getContextPath()%>/list.no";
 	};
 	</script>
 
@@ -285,7 +281,7 @@
 				</div>
 				<!-- 게시판 헤더 -->
 				<div class=" board-post-list table-responsive" style="margin: 0px;">
-					<form method="get" action="<%=request.getContextPath() %>/delete.me">
+					<form method="get">
 						<table class="table table-sm" border="1">
 
 							<thead>
@@ -315,12 +311,14 @@
 									<td class="tdTitle"><%=list.get(i).getmId()%></td>
 									<td class="tdmNo"><%=list.get(i).getmName()%></td>
 									<%-- <td class="tdmNo"><%=list.get(i).getmNo()%></td> --%>
-									<td class="tdGrade"><%=list.get(i).getmGrade()%> <select>
+									<td class="tdGrade"><%=list.get(i).getmGrade()%>
+									<select name="m_grade" class="m_grade">
 											<option value="<%=list.get(i).getmGrade()%>">현재:<%=list.get(i).getmGrade()%></option>
 											<option value="골드">골드</option>
 											<option value="실버">실버</option>
 											<option value="브론즈">브론즈</option>
-									</select></td>
+									</select>
+									</td>
 									<td class="tdEntdate"><%=list.get(i).getmEntDate() %></td>
 									<td class="tdOutdate"><%=list.get(i).getmOutDate() %></td>
 									<%if(list.get(i).getmStatus().equals("Y")){ %>
@@ -355,11 +353,26 @@
 							</tfoot>
 						</table>
 <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+						<select name="status">
+						<option value="N">탈퇴</option>
+						<option value="Y">계정복구</option>
+						</select>
 						<button class="btn outBtn" type="submit"
-							style="float: right; background-color: rgb(170, 57, 57); color: white">탈퇴처리</button>
+							style="float: right; background-color: rgb(170, 57, 57); color: white"
+							formaction="<%=request.getContextPath() %>/delete.me"
+							>변경</button>
+							
 
 					</form>
-
+<script>
+$(".m_grade").change(function(){
+	var m_grade=$(this).val();
+	console.log(m_grade);
+	var mNo=$(this).parent().parent().children().first().attr('id');
+	console.log(mNo);
+	location.href="<%=request.getContextPath() %>/updateGrade.me?mNo=" + mNo+"&m_grade="+m_grade;
+});
+</script>
 
 				</div>
 				<!-- ///////////////////////페이징 -->
@@ -377,7 +390,7 @@
 							tabindex="-1">Previous</a></li>
 						<%} else {%>
 						<li class="page-item"><a class="page-link"
-							href='<%=request.getContextPath()%>/memeberList.admin?currentPage=<%=currentPage - 5%>'
+							href='<%=request.getContextPath()%>/memberList.admin?currentPage=<%=currentPage - 5%>'
 							tabindex="-1">Previous</a></li>
 						<%}%>
 						<!-- 이전 페이지로  끝 -->
@@ -386,11 +399,11 @@
 						<%for (int p = startPage; p <= endPage; p++) {%>
 						<%if (p == currentPage) {%>
 						<li class="page-item active"><a class="page-link pageList"
-							href='<%=request.getContextPath()%>/memeberList.admin?currentPage=<%=p%>'><%=p%></a>
+							href='<%=request.getContextPath()%>/memberList.admin?currentPage=<%=p%>'><%=p%></a>
 						</li>
 						<%} else {%>
 						<li class="page-item "><a class="page-link pageList"
-							href='<%=request.getContextPath()%>/memeberList.admin?currentPage=<%=p%>'><%=p%></a>
+							href='<%=request.getContextPath()%>/memberList.admin?currentPage=<%=p%>'><%=p%></a>
 						</li>
 						<%}
 							}%>
@@ -402,7 +415,7 @@
 							tabindex="-1">Next</a></li>
 						<%} else {%>
 						<li class="page-item"><a class="page-link"
-							href='<%=request.getContextPath()%>/memeberList.admin?currentPage=<%=currentPage + 5%>'>Next</a>
+							href='<%=request.getContextPath()%>/memberList.admin?currentPage=<%=currentPage + 5%>'>Next</a>
 						</li>
 						<%}%>
 						<!-- 다음페이지 끝 -->

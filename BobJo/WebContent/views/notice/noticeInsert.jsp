@@ -120,9 +120,6 @@
 	margin: auto;
 }
 
-
-
-
 .qna_table{
 width: 1050px;
 

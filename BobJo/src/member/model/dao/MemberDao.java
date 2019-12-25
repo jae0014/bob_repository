@@ -302,6 +302,33 @@ public class MemberDao {
 		return result;
 	}
 
+	public int updateGrade(Connection conn, String m_grade, String mNo) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		System.out.println("G : "+ m_grade);
+		System.out.println("mNo : "+ mNo);
+		
+		String sql = prop.getProperty("updateGrade");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m_grade);
+			pstmt.setString(2, mNo);
+			
+			
+			result = pstmt.executeUpdate();
+			System.out.println("적용된 값:"+result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 	
 	

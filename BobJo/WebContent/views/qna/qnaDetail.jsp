@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, qna.model.vo.Qna, reply.model.vo.*, java.text.SimpleDateFormat, java.sql.Date"%>
+	import="java.util.ArrayList, qna.model.vo.Qna, order.model.vo.Order, reply.model.vo.*, java.text.SimpleDateFormat, java.sql.Date"%>
 <%
   Qna q = (Qna)request.getAttribute("qna");
   ArrayList<String>  alist= q.getaContent();
   ArrayList<Date>	dlist=  q.getaDate();
   int aIndex = alist.size(); 
-  
+  Order o = (Order)request.getAttribute("o");
   Member userID = (Member)session.getAttribute("loginUser");
 
   //문의 날짜
@@ -187,10 +187,74 @@ background:rgb(200, 70, 70)!important;
 .aContent{
 	width: 100%;
 }
+
+
+
+
+
+/* 모달..? */
+
+
+.modal_select_btn, .submitBTN, .order_select_btn{
+width: 80px !important;
+height: 30px !important;
+	background: rgb(170, 57, 57) !important;
+	border: none !important;
+	border-radius: 3px;
+	font-size: 12px !important;
+	color:white !important;
+}
+
+.orderList_div{
+	width: 450px;
+	/* border: 1px solid red; */
+	margin: auto;
+	
+}
+.orderList_table th{
+	background: #f9f9f9;
+	font-size: 15px;
+}
+.orderList_table{
+	width: 100%;
+	text-align: center;
+	
+}
+.orderCols{
+width: 20%;
+
+}
+.oDateCols{
+width: 30%;
+}
+.priceCols{
+width: 40%;
+}
+
+.chCols{
+width: 10%;
+}
+
+td{
+padding: 3px;
+}
+
+.qTitle{
+width: 100%;
+font-size: 14px;
+}
+
+.custom-select{
+width: 100px !important;
+border: 1px solid rgb(170, 57, 57) !important;
+font-size: 14px !important;
+margin-bottom:3px !important;
+}
+
 </style>
 <body>
-	<%@ include file="../../views/common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
+	<%@ include file="../../views/common/bootstrap.jsp"%>
 	<div class="outer_m">
 		<div class="board-post">
 			<div class="sub_text_area" style="diplay:inline-block;/*  border:1px solid black; */">				
@@ -217,7 +281,7 @@ background:rgb(200, 70, 70)!important;
 						<%if(q.getOrderId()==null){ %>
 							<td>주문번호 없음</td>
 						<%} else{%>
-							<td><a href="<%=request.getContextPath() %>/select.order?oId="<%=q.getOrderId()%>><%=q.getOrderId()%></a>
+							<td class="order_modal"><a><%=q.getOrderId()%></a>
 							</td>
 						<%} %>
 						<th>카테고리</th>
@@ -230,7 +294,7 @@ background:rgb(200, 70, 70)!important;
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4"style="border:1px solid purple;">
+						<td colspan="4">
 							<button class="btn" type="button"
 									style="float: right; background-color: rgb(170, 57, 57); color: white"
 									id="ListMenu" onclick="location.href='<%=request.getContextPath()%>/list.qna'">목록으로</button>
@@ -293,7 +357,7 @@ background:rgb(200, 70, 70)!important;
 					<div class="regiAnswerDiv">
 						<!-- 관리자면 답변등록구간 -->
 						<%if(loginUser.getmId().equals("admin")){ %>
-					<table class="answerTable2" border="1">	
+					<table class="answerTable2">	
 						<tr>
 						<!-- 답변등록 textarea -->
 							<td class="td_aContent">
@@ -312,10 +376,88 @@ background:rgb(200, 70, 70)!important;
 		</div>
 	</div>
 
+<!-- Modal -->
+<div class="modal fade ttt" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">주문내역</h5>
+        <button type="button" class="close modal_close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+					<div class="modal-body">
+						<div class="orderList_div">
+							<table class="orderList_table" border="1" border-color="lightgrey">
+							<tr>
+							<th class="orderCols">주문번호</th>
+							<th class="oDateCols">주문일</th>
+							<th class="priceCols">주문금액</th>
+							<th class="ckCols">선택</th>
+							</tr>
+
+							<%if(o != null){ %>
+								
+									<tr>
+										<td class="oId"><%=o.getOrderId() %></td>
+										<td class="oDate"><%=o.getOrderDate() %></td>
+										<td class="price"><%=o.getTotalPrice() %></td>
+										<td class="p_name">상품</td>
+									</tr>
+								
+							<%}else{%>
+								<tr>
+									<td colspan="4">주문내역이 없습니다.</td>
+								</tr>
+							<%} %>
+							</table>
+							
+						</div>
+					</div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary modal_select_btn">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>/* 모달 */
+$(function() {
+	$(".order_modal").click(function(){
+
+		// 모달 보이게 하기
+		$('.ttt').modal("show");
+	
+		/* 
+		var i = $(this).attr("id").substring(7);
+
+		// i를 전달하기 위해...
+		$('input[name=putProductId]').val(i);
+		
+		var pName = $('input[name=pName'+i+']').val();
+		$("#putProduct").text(pName); */
+		
+	});
+		
+	
+	//모달 x버튼 누르면 창 종료
+	$(".modal_close").click(function(){
+		// 모달 창을 닫으면 모달 안에 있는 데이터 모두 초기화해야함
+		$(".ttt").modal("hide");
+	});
+	
+	$(".modal_select_btn").click(function(){
+		// 닫기버튼 누르면 닫기
+		$(".ttt").modal("hide");
+	});
+
+});
 
 
 
-	<script>
+	
   		$(function(){
   			/* 답변등록 */
   			$(".answerBtn").click(function(){
