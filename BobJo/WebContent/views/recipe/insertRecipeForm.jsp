@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import ="member.model.vo.*"%>
+	pageEncoding="UTF-8" import="member.model.vo.*"%>
 
 <%
 	String imgPath = request.getContextPath();
 	imgPath += "/resources/icon/";
-	Member m = (Member)session.getAttribute("loginUser");
+	Member m = (Member) session.getAttribute("loginUser");
 %>
 
 <!DOCTYPE html>
@@ -109,7 +109,6 @@ span.input-cus-title {
 .stepAddImg {
 	width: 150px;
 	height: 150px;
-	background-color: gray;
 	float: left;
 }
 
@@ -150,7 +149,7 @@ span.input-cus-title {
 	overflow: auto;
 	margin-left: 20px;
 	float: left;
-	background-color: blanchedalmond;
+	background-color: lightgrey;
 }
 
 .completeImg {
@@ -169,280 +168,291 @@ span.input-cus-title {
 	width: 100%;
 	height: 100%;
 }
+.errorColor
+{
+	  border-color:red;
+}
 </style>
 
 <body>
 
-	
-<%if(m != null){ %>
-		<div class="container">
-			<!-- 제목 -->
-			<div class="row ">
+
+	<%
+		if (m != null) {
+	%>
+	<div class="container">
+		<!-- 제목 -->
+		<div class="row ">
 
 
 
-				<div class="input-group input-group-lg">
-					<div class="input-group-prepend">
-						<span class="input-group-text input-cus-title"
-							id="inputGroup-sizing-lg" style="width: 114px;">제목</span>
-					</div>
-					<input type="text" style="margin-left: 20px;" class="form-control"
-						id = "reciepeTitle"name="titleName" placeholder="에) 소고기 미역국 끓이기">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text input-cus-title"
+						id="inputGroup-sizing-lg" style="width: 114px;">제목</span>
 				</div>
-
-				<!--요리소개-->
-
-			</div>
-			<div class="row inputSpacing">
-				<div class="input-group input-group-lg" style="height: 400px">
-					<div class="input-group-prepend">
-						<span class="input-group-text" style="width: 114px;">요리소개</span>
-					</div>
-					<textarea id = "reciepeIntro" class="form-control" style="margin-left: 20px;"
-						aria-label="With textarea" name="cookDetail"
-						placeholder="간단한 요리 설명 적어주세요."></textarea>
-				</div>
-
-			</div>
-			<!-- 카테고리-->
-			<div class="row inputSpacing">
-
-
-				<div class="input-group input-group-lg">
-					<div class="input-group-prepend">
-						<span class="input-group-text" style="width: 114px;">카테고리</span>
-					</div>
-
-					<div class="input-group-prepend" style="margin-left: 20px">
-						<span class="input-group-text">종류별</span>
-					</div>
-					<select class="custom-select" id="category1">
-						<option selected="selected" disabled>종류별</option>
-						<option value="kor_food">한식</option>
-						<option value="ch_food">중식</option>
-						<option value="am_food">양식</option>
-						<option value="jap_food">일식</option>
-						<opiton value="etc_food">기타</opiton>
-					</select>
-					<div class="input-group-prepend">
-						<span class="input-group-text">방법별</span>
-					</div>
-					<select class="custom-select" id="category2">
-						<option selected="selected" disabled>방법별</option>
-						<option value="1">볶음</option>
-						<option value="2">끓이기</option>
-						<option value="3">부침</option>
-						<option value="4">조림</option>
-						<opiton value="5">무침</opiton>
-						<option value="6">비빔</option>
-						<option value="7">찜</option>
-						<option value="8">절임</option>
-						<option value="9">튀김</option>
-						<opiton value="10">삶기</opiton>
-						<option value="11">굽기</option>
-						<option value="12">데치기</option>
-						<option value="13">회</option>
-						<opiton value="14">삶기</opiton>
-					</select>
-					<div class="input-group-prepend">
-						<span class="input-group-text">재료별</span>
-					</div>
-					<select class="custom-select" id="category3">
-						<option selected="selected" disabled>재료별</option>
-						<opiton value="21">정육</opiton>
-						<option value="22">수산,해산,건어물</option>
-						<option value="23">면,양념,오일</option>
-						<option value="24">계랸,유제품</option>
-						<option value="25">견과,쌀</option>
-						<option value="26">채소</option>
-						<option value="27">과일</option>
-						<option value="28">기타</option>
-					</select>
-				</div>
-			</div>
-			<!-- 요리정보-->
-			<div class="row inputSpacing">
-				<div class="input-group input-group-lg">
-
-					<div class="input-group-prepend">
-						<span class="input-group-text" style="width: 114px;">요리정보</span>
-					</div>
-					<div class="input-group-prepend" style="margin-left: 20px">
-						<span class="input-group-text">시간</span>
-					</div>
-					<select class="custom-select" id="cookInfo">
-						<option selected="selected" disabled>시간</option>
-						<option value="10">10분 이내</option>
-						<option value="30">30분 이내</option>
-						<option value="60">60분 이내</option>
-						<option value="60">60분 이상</option>
-					</select>
-					<div class="input-group-prepend">
-						<span class="input-group-text">난인도</span>
-					</div>
-					<select class="custom-select" id="difficulty">
-						<option selected="selected" disabled>난이도</option>
-						<option value="1">쉬움</option>
-						<option value="2">중간</option>
-						<option value="3">어려움</option>
-					</select>
-				</div>
+				<input type="text" style="margin-left: 20px;" class="form-control"
+					id="reciepeTitle" name="titleName" placeholder="에) 소고기 미역국 끓이기">
 			</div>
 
-			<!--재료 -->
-			<div class="row inputSpacing">
-				<div class="input-group input-group-lg">
-					<div class="input-group-prepend">
-						<span class="input-group-text" style="width: 114px;">재료/양념</span>
-					</div>
+			<!--요리소개-->
 
-					<button class="btn addIngri" type="button"
-						style="width: 75px;margin-left:20px; background: url(<%=imgPath%>/add_BTN.png); background-position: -12px -10px;"
-						onclick="createIngriElement() "></button>
-
-
-					<div class="ingrHolder" id="ingrHolder">
-
-
-						<!-- 복사할 부분 -->
-						<div class="ingridentGroup" id="ingriOriginal"
-							style="margin-right: 50px" data-toggle="popover"
-							data-placement="top" data-content="Step:1">
-							<div class=" input-group ">
-								<div class="input-group-prepend">
-									<span class="input-group-text">재료명</span>
-								</div>
-								<input type="text" class="form-control ingiList"
-									aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-							</div>
-							<div class=" input-group " style="float: left;">
-								<div class="input-group-prepend">
-									<span class="input-group-text text-center" style="width: 74px;">중량</span>
-								</div>
-								<input type="text" class="form-control weightList"
-									aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-							</div>
-
-							<button class="btn" type="button"
-								style="position: absolute; top: 0px;"
-								onclick="eraseIngriElement(this)">
-								<img style="width: 25px; height: 25px;"
-									src="<%=imgPath%>/eraseButton.png" alt="">
-							</button>
-							<div class="btn" style="position: absolute; top: 37px;">
-								<img style="width: 25px; height: 25px;"
-									src="<%=imgPath%>/switch.png" alt="">
-							</div>
-						</div>
-
-
-
-
-					</div>
-
-
+		</div>
+		<div class="row inputSpacing">
+			<div class="input-group input-group-lg" style="height: 400px">
+				<div class="input-group-prepend">
+					<span class="input-group-text" style="width: 114px;">요리소개</span>
 				</div>
+				<textarea id="reciepeIntro" class="form-control"
+					style="margin-left: 20px;" aria-label="With textarea"
+					name="cookDetail" placeholder="간단한 요리 설명 적어주세요."></textarea>
 			</div>
 
-
-			<!-- Step-->
-			<div class="row inputSpacing">
-				<div class="input-group input-group-lg">
-
-					<div class="input-group-prepend">
-						<span class="input-group-text "
-							style="width: 114px; padding: 0px !important; padding-left: 30px !important;">재료</span>
-					</div>
-
-					<div class="slide"
-						style="margin-left: 20px; overflow-y: hidden; overflow-x: scrollh; width: 85%">
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="inputFiles"
-								multiple> <label class="custom-file-label"
-								for="inputFiles">순서사진 한번에 넣기</label>
-						</div>
-						<ul class="list-group " id="stepholder">
-
-							<!-- Step -->
-							<li class="list-group-item stepItem" id="originalStep">
-
-								<div class="ingridentSteps  inline-block">
-									<textarea class="form-control stepTextarea"
-										placeholder="Step 1 에 대한 설명"></textarea>
-									<button type="button" class="stepBTN mpzero">
-										<img src="<%=imgPath%>/add_button.png" class="stepAddImg">
-									</button>
-									<input type="file" class="stepFile" hidden>
-									<button type="button" class="btn mpzero"
-										onclick="createStepElement()">
-										<img src="<%=imgPath%>/add_button.png" alt=""
-											class="stepSubButton">
-									</button>
-									<button type="button" class=" btn mpzero"
-										onclick="eraseStepElement(this)">
-										<img src="<%=imgPath%>/eraseButton.png" alt=""
-											class="stepSubButton">
-									</button>
-								</div> <input type="hidden" class="file_placeholder">
-							</li>
-							<!-- End of Step Step -->
-						</ul>
+		</div>
+		<!-- 카테고리-->
+		<div class="row inputSpacing">
 
 
-
-					</div>
-
-				</div>
-			</div>
-
-
-			<!--완성된 이미지 -->
-			<div class="row inputSpacing">
-				<div class="input-group input-group-lg">
-					<div class="input-group-prepend">
-						<span class="input-group-text "
-							style="width: 114px; padding: 0px !important; padding-left: 3px !important;">완성이미지</span>
-					</div>
-
-					<div class="completeImgContainer" id="image_upload_preview"
-						style="float: left"></div>
-					<div>
-						<button class="btn" type="button" onclick="compelteImgclick()">
-							<img src="<%=imgPath%>/add_BTN.png"
-								style="width: 25px; height: 25px;">
-						</button>
-						<br>
-						<button class="btn" type="button" style="margin-top: 50px;"
-							onclick="test()">
-							<img src="<%=imgPath%>/eraseButton.png"
-								style="width: 25px; height: 25px;">
-						</button>
-
-					</div>
-
-					<input type="file" name="file[]" id="inputCompleteFiles" multiple
-						hidden>
-
-
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text" style="width: 114px;">카테고리</span>
 				</div>
 
-
+				<div class="input-group-prepend" style="margin-left: 20px">
+					<span class="input-group-text">종류별</span>
+				</div>
+				<select class="custom-select" id="category1">
+					<option selected="selected" disabled>종류별</option>
+					<option value="kor_food">한식</option>
+					<option value="ch_food">중식</option>
+					<option value="am_food">양식</option>
+					<option value="jap_food">일식</option>
+					<opiton value="etc_food">기타</opiton>
+				</select>
+				<div class="input-group-prepend">
+					<span class="input-group-text">방법별</span>
+				</div>
+				<select class="custom-select" id="category2">
+					<option selected="selected" disabled>방법별</option>
+					<option value="1">볶음</option>
+					<option value="2">끓이기</option>
+					<option value="3">부침</option>
+					<option value="4">조림</option>
+					<opiton value="5">무침</opiton>
+					<option value="6">비빔</option>
+					<option value="7">찜</option>
+					<option value="8">절임</option>
+					<option value="9">튀김</option>
+					<opiton value="10">삶기</opiton>
+					<option value="11">굽기</option>
+					<option value="12">데치기</option>
+					<option value="13">회</option>
+					<opiton value="14">삶기</opiton>
+				</select>
+				<div class="input-group-prepend">
+					<span class="input-group-text">재료별</span>
+				</div>
+				<select class="custom-select" id="category3">
+					<option selected="selected" disabled>재료별</option>
+					<opiton value="21">정육</opiton>
+					<option value="22">수산,해산,건어물</option>
+					<option value="23">면,양념,오일</option>
+					<option value="24">계랸,유제품</option>
+					<option value="25">견과,쌀</option>
+					<option value="26">채소</option>
+					<option value="27">과일</option>
+					<option value="28">기타</option>
+				</select>
 			</div>
+		</div>
+		<!-- 요리정보-->
+		<div class="row inputSpacing">
+			<div class="input-group input-group-lg">
 
-			<button style="float: right; width: 200px; margin-top: 25px;"
-				class="btn btn-primary" type="submit"
-				onclick="return submitRequest()">제출</button>
-			
+				<div class="input-group-prepend">
+					<span class="input-group-text" style="width: 114px;">요리정보</span>
+				</div>
+				<div class="input-group-prepend" style="margin-left: 20px">
+					<span class="input-group-text">시간</span>
+				</div>
+				<select class="custom-select" id="cookInfo">
+					<option selected="selected" disabled>시간</option>
+					<option value="10">10분 이내</option>
+					<option value="30">30분 이내</option>
+					<option value="60">60분 이내</option>
+					<option value="60">60분 이상</option>
+				</select>
+				<div class="input-group-prepend">
+					<span class="input-group-text">난인도</span>
+				</div>
+				<select class="custom-select" id="difficulty">
+					<option selected="selected" disabled>난이도</option>
+					<option value="1">쉬움</option>
+					<option value="2">중간</option>
+					<option value="3">어려움</option>
+				</select>
+			</div>
 		</div>
 
-<%}else{ %>
-	<div style = "">
-		<h1>로그인 필요</h1>	
-		<button class = "btn btn-primary"onclick = "location.href = '<%=request.getContextPath()%>/login.me'">로그인</button>
-		
+		<!--재료 -->
+		<div class="row inputSpacing">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text" style="width: 114px;">재료/양념</span>
+				</div>
+
+				<button class="btn addIngri" type="button"
+					style="width: 75px;margin-left:20px; background: url(<%=imgPath%>/add_BTN.png); background-position: -12px -10px;"
+					onclick="createIngriElement() "></button>
+
+
+				<div class="ingrHolder" id="ingrHolder">
+
+
+					<!-- 복사할 부분 -->
+					<div class="ingridentGroup" id="ingriOriginal"
+						style="margin-right: 50px" data-toggle="popover"
+						data-placement="top" data-content="Step:1">
+						<div class=" input-group ">
+							<div class="input-group-prepend">
+								<span class="input-group-text">재료명</span>
+							</div>
+							<input type="text" class="form-control ingiList"
+								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+						</div>
+						<div class=" input-group " style="float: left;">
+							<div class="input-group-prepend">
+								<span class="input-group-text text-center" style="width: 74px;">중량</span>
+							</div>
+							<input type="text" class="form-control weightList"
+								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+						</div>
+
+						<button class="btn" type="button"
+							style="position: absolute; top: 0px;"
+							onclick="eraseIngriElement(this)">
+							<img style="width: 25px; height: 25px;"
+								src="<%=imgPath%>/eraseButton.png" alt="">
+						</button>
+						<div class="btn" style="position: absolute; top: 37px;">
+							<img style="width: 25px; height: 25px;"
+								src="<%=imgPath%>/switch.png" alt="">
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<!-- Step-->
+		<div class="row inputSpacing">
+			<div class="input-group input-group-lg">
+
+				<div class="input-group-prepend">
+					<span class="input-group-text "
+						style="width: 114px; padding: 0px !important; padding-left: 30px !important;">재료</span>
+				</div>
+
+				<div class="slide"
+					style="margin-left: 20px; overflow-y: hidden; overflow-x: scrollh; width: 85%">
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="inputFiles"
+							multiple> <label class="custom-file-label"
+							for="inputFiles">순서사진 한번에 넣기</label>
+					</div>
+					<ul class="list-group " id="stepholder">
+
+						<!-- Step -->
+						<li class="list-group-item stepItem" id="originalStep">
+
+							<div class="ingridentSteps  inline-block">
+								<textarea class="form-control stepTextarea"
+									placeholder="Step 1 에 대한 설명"></textarea>
+								<button type="button" class="stepBTN mpzero">
+									<img src="<%=imgPath%>/add_button.png" class="stepAddImg">
+								</button>
+								<input type="file" class="stepFile" hidden>
+								<button type="button" class="btn mpzero"
+									onclick="createStepElement()">
+									<img src="<%=imgPath%>/add_button.png" alt=""
+										class="stepSubButton">
+								</button>
+								<button type="button" class=" btn mpzero"
+									onclick="eraseStepElement(this)">
+									<img src="<%=imgPath%>/eraseButton.png" alt=""
+										class="stepSubButton">
+								</button>
+							</div> <input type="hidden" class="file_placeholder">
+						</li>
+						<!-- End of Step Step -->
+					</ul>
+
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+		<!--완성된 이미지 -->
+		<div class="row inputSpacing">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text "
+						style="width: 114px; padding: 0px !important; padding-left: 3px !important;">완성이미지</span>
+				</div>
+
+				<div class="completeImgContainer" id="image_upload_preview"
+					style="float: left"></div>
+				<div>
+					<button class="btn" type="button" onclick="compelteImgclick()">
+						<img src="<%=imgPath%>/add_BTN.png"
+							style="width: 25px; height: 25px;">
+					</button>
+					<br>
+					<button class="btn" type="button" style="margin-top: 50px;"
+						onclick="test()">
+						<img src="<%=imgPath%>/eraseButton.png"
+							style="width: 25px; height: 25px;">
+					</button>
+
+				</div>
+
+				<input type="file" name="file[]" id="inputCompleteFiles" multiple
+					hidden>
+
+
+			</div>
+
+
+		</div>
+
+		<button style="float: right; width: 200px; margin-top: 25px;"
+			class="btn btn-primary" type="submit"
+			onclick="return submitRequest()">제출</button>
+
 	</div>
-	
-<%} %>
+
+	<%
+		} else {
+	%>
+	<div style="left:50%;">
+		<h1>로그인 필요</h1>
+		<button class="btn btn-primary"
+			onclick="location.href = '<%=request.getContextPath()%>/login.me'">로그인</button>
+
+	</div>
+
+	<%
+		}
+	%>
 </body>
 <script>
     function testExecute() {
@@ -456,8 +466,16 @@ span.input-cus-title {
         $('#image_upload_preview').empty();
     }
     function submitRequest() {
-
-		ingriSetter();
+    	
+		console.log(checkNull());
+		if(checkNull())
+		{
+			requestSubmit();
+		}
+    }
+    function requestSubmit()
+    {
+    	ingriSetter();
 		$.ajax({
 			cache: false,
 			contentType: false,
@@ -479,10 +497,45 @@ span.input-cus-title {
 			}
 		});
     }
+    $('input[type=text], textarea, select').click(function()
+    {
+    	$(this).removeClass("errorColor")
+    });
+    
+    function checkNull()
+    {	var check = true;
+    	$('input[type=text]').each(function()
+    	{	 
+    		if($(this).val() =='')
+    		{	console.log("check")
+    			$(this).focus().addClass("errorColor");
+    			check =  false;
+    		
+    		}
+    	});
+    	$('select').each(function()
+    	   {
+    	    	if($(this).val() == null)
+    	    	{	
+    	    		$(this).focus().addClass("errorColor"); 		
+    	    		check =  false;
+    	    	
+    	    	}
+    	   });
+    	$('textarea').each(function()
+    	   {
+    	    	if($(this).val() =='')
+    	    	{	
+    	    		$(this).focus().addClass("errorColor"); 		
+    	    		check =  false;
+    	    		
+    	    	}
+    	  });
+    	return check;
+    }
     function ingriSetter() 
     {	formDataSend = new FormData();
-   		var userID = '<%=m.getmId() %>';
-   		formDataSend.append("userID",JSON.stringify(userID))
+   		
         var reciepeTitle = $("#reciepeTitle").val();
         console.log(reciepeTitle);
         formDataSend.append("reciepeTitle",JSON.stringify(reciepeTitle))
