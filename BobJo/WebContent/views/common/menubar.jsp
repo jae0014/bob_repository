@@ -308,7 +308,7 @@ cursor : pointer;
             <!-- 로그인 안했을 때는 회원가입과 로그인이 보여야 함 -->
             <div>
                <a
-                  href='<%=request.getContextPath()%>/views/member/memberJoinForm.jsp'><span
+                  href='<%=request.getContextPath()%>/before.email'><span
                   class="txt join_txt">회원가입</span></a>
             </div>
             <div>
