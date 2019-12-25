@@ -32,12 +32,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate2.css">
+ <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate2.css">
 
 
 
 </head>
 <style>
+
+
+
+
+
 .part1, .mypage-contents, .sub-container {
 	diplay: inline-block;
 	/* border:1px solid red; */
@@ -79,8 +84,8 @@
 				<section class='site-sub-layout'>
 					<nav class="lnb-area">
 						<h1 class="subtit-heading">
-							 <span class="font-en">MY PAGE</span>
-						
+							<span class="font-en">MY PAGE</span>
+							
 						</h1>
 
 							<dl class="menu-sub-left">
@@ -131,9 +136,9 @@
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myBoard.jsp"> 나의 게시글 </a></li>
+									<li><a href="<%=request.getContextPath() %>/myBoardlist.mp"> 나의 게시글 </a></li>
 
-
+									<li><a href="<%=request.getContextPath() %>/myQnalist.mp"> 1:1 문의내역 </a></li>
 								</ul>
 							</dd>
 							<dt>
@@ -155,7 +160,7 @@
 					<div class="area info01">
 						<p>
 							안녕하세요.
-							<%=loginUser.getmName()%>님<br> chef J를 이용해주셔서 감사합니다.
+							<%=loginUser.getmName() %>님<br> chef J를 이용해주셔서 감사합니다.
 						</p>
 					</div>
 
@@ -164,7 +169,7 @@
 				</div>
 			</section>
 			<%--여기서부터 시작 자리 --%>
-			<div class="wrap-profile">
+			<div class="wrap-profile" >
 				<h2>회원정보 수정</h2>
 				<p class="desc">고객님들의 회원정보 수정을 처리해드립니다.</p>
 			

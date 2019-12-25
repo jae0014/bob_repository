@@ -30,8 +30,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/operate2.css">
 
 
 </head>
@@ -46,7 +46,7 @@
 }
 
 .wholewhole {
-	width: 90%;
+	width: 85%;
 	height: 1200px;
 	margin: auto;
 }
@@ -181,6 +181,10 @@ border: 1px solid black;
 font-size:15px;
 }
 
+.shopping-info{
+width:50%;
+}
+
 
 /* 페이징//////////////////// */
 
@@ -265,9 +269,9 @@ font-size:15px;
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myBoard.jsp"> 나의 게시글 </a></li>
+									<li><a href="<%=request.getContextPath() %>/myBoardlist.mp"> 나의 게시글 </a></li>
 
-
+									<li><a href="<%=request.getContextPath() %>/myQnalist.mp"> 1:1 문의내역 </a></li>
 								</ul>
 							</dd>
 							<dt>
@@ -282,8 +286,9 @@ font-size:15px;
 							</dd>
 						</dl>
 		</div>
-		<div class="shopping-info" style="float:left;">
-				<div class="area info01" style="float:left;">
+		
+		<div class="shopping-info" style="float:left; ">
+				<div class="area info01" style="float:left; ">
 					<p>
 						안녕하세요.
 						<%=loginUser.getmName()%>님<br> chef J를 이용해주셔서 감사합니다.
@@ -293,11 +298,12 @@ font-size:15px;
 				
 
 			</div>
-			<br><br><br><br><br><br><br><br>
+			
 			
 			<div class="mainCon" style="float:left; display:inline-block; width:80%; height:90%;">
 			<div class="infod" style="float:left;">
-			<h2 class="h2">나의 레시피 보기</h2>
+			<div class="wrap-profile">
+			<h2 class="h2">나의 레시피</h2>
 			<p class="desc">내가 작성한 레시피를 볼 수 있습니다.</p>
 			
 			
@@ -400,7 +406,7 @@ font-size:15px;
 			
 			
 			
-			
+			</div>
 			
 			</div>
 			

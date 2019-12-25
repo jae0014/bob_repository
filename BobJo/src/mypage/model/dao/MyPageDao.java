@@ -22,6 +22,7 @@ import member.model.dao.MemberDao;
 import member.model.vo.Member;
 import post.model.vo.Post;
 import product.model.vo.Product;
+import qna.model.vo.Qna;
 import recipe.model.vo.Recipe;
 
 public class MyPageDao {
@@ -418,33 +419,30 @@ public class MyPageDao {
 
 			int startRow = (currentPage - 1) * boardLimit + 1;
 			int endRow = startRow + boardLimit - 1;
-	
-			
-			
+
 			pstmt.setString(1, userNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
-			
 
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				
+
 				String rId = rset.getString("r_id");
 				String rName = rset.getString("r_name");
 				String mNo = rset.getString("m_no");
-				String cateInId=rset.getString("cate_in_id");
-				String cateFoId=rset.getString("cate_fo_id");
-				String cateMethodId=rset.getString("cate_method_id");
+				String cateInId = rset.getString("cate_in_id");
+				String cateFoId = rset.getString("cate_fo_id");
+				String cateMethodId = rset.getString("cate_method_id");
 				Date rDate = rset.getDate("r_date");
-				String rInfo=rset.getString("r_info");
+				String rInfo = rset.getString("r_info");
 				int rCount = rset.getInt("r_count");
 				int rLike = rset.getInt("r_like");
-				int rCookTime=rset.getInt("r_cooktime");
+				int rCookTime = rset.getInt("r_cooktime");
 				int rCookLevel = rset.getInt("r_cooklevel");
 				String rStatus = rset.getString("r_status");
-				mrList.add(new Recipe(rId, rName, mNo, cateInId,cateFoId,cateMethodId, rDate, 
-						rInfo, rCount, rLike,rCookTime,rCookLevel,rStatus));
+				mrList.add(new Recipe(rId, rName, mNo, cateInId, cateFoId, cateMethodId, rDate, rInfo, rCount, rLike,
+						rCookTime, rCookLevel, rStatus));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -453,6 +451,116 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		return mrList;
+	}
+
+	public ArrayList<Post> selectBoardList(Connection conn, String userNo, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<Post> selectBoardList = new ArrayList<Post>();
+		Post p = null;
+
+		String sql = prop.getProperty("selectBoardList");
+		
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+
+				p = new Post(
+					rs.getString("b_id"),
+					rs.getInt("b_type"),
+					rs.getString("b_title"),
+					rs.getString("b_content"),
+					rs.getString("m_no"),
+					rs.getDate("b_date"),
+					rs.getInt("b_count"),
+					rs.getInt("b_like"),
+					rs.getString("b_status"),
+					rs.getInt("b_no")
+			
+						
+
+				);
+
+				selectBoardList.add(p);
+			}
+			System.out.println(selectBoardList);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return selectBoardList;
+
+	}
+
+	public ArrayList<Qna> selectQnaList(Connection conn, String userNo, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<Qna> selectQnaList = new ArrayList<Qna>();
+		Qna q = null;
+
+		String sql = prop.getProperty("selectQnaList");
+		
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				
+	
+
+				q = new Qna(
+					rs.getString("q_id"),
+					rs.getString("q_title"),
+					rs.getString("m_no"),
+					rs.getDate("q_date"),
+					rs.getString("q_cate"),
+					rs.getString("a_status")
+			
+						
+
+				);
+
+				selectQnaList.add(q);
+			}
+			System.out.println(selectQnaList);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return selectQnaList;
+
 	}
 
 	///

@@ -9,8 +9,8 @@ Member m = (Member)session.getAttribute("loginUser");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/master.css">
-<link rel="stylesheet" href="css/operate.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/operate2.css">
 </head>
 <style>
 div {

@@ -19,12 +19,12 @@ public class RecipeService {
 	public int getListCount(String nation) {
 		Connection conn = getConnection();
 		
-		int rCount = new RecipeDao().getListCount(conn,nation);
+		int listCount = new RecipeDao().getListCount(conn,nation);
 		
 		close(conn);
 		
 		
-		return rCount;
+		return listCount;
 		
 	}
 
@@ -294,6 +294,43 @@ public class RecipeService {
 
 			return reList;
 		}
+
+
+		public ArrayList<Recipe> selectListWhole(int currentPage, int boardLimit) {
+			Connection conn = getConnection();
+			RecipeDao rDao = new RecipeDao();
+
+			ArrayList<Recipe> reList = rDao.selectListWhole(conn, currentPage, boardLimit);
+			close(conn);
+
+			return reList;
+		}
+
+
+		public int getListCountWhole() {
+			Connection conn = getConnection();
+			
+			int listCount = new RecipeDao().getListCountWhole(conn);
+			
+			close(conn);
+			
+			
+			return listCount;
+			
+		}
+
+
+		public ArrayList<Recipe> selectListBest(int currentPage, int boardLimit) {
+			Connection conn = getConnection();
+			RecipeDao rDao = new RecipeDao();
+
+			ArrayList<Recipe> reList = rDao.selectListBest(conn, currentPage, boardLimit);
+			close(conn);
+
+			return reList;
+		}
+
+
 
 
 

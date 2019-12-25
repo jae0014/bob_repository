@@ -368,7 +368,7 @@ cursor : pointer;
                <div class="my_sub">
                   <table class="" style="text-align: left" width="80px">
                      <tr>
-                        <td>레시피등록</td>
+                        <td><a href="<%=request.getContextPath()%>/recipe.insert">레시피등록</a></td>
                      </tr>
                      <tr>
                         <td class="myPage">마이페이지</td>
@@ -415,17 +415,17 @@ cursor : pointer;
       <div class="wrap ">
          <div class="nav">
             <div class="menu main_menu" onclick="goMain();">
-               <a href="<%=request.getContextPath() %>/list.re">
+               <a href="<%=request.getContextPath() %>/wholeList.re"> 
                
                   <i class="hamburger material-icons">menu</i>
                   
-                  <span class="ttt">전체 레시피</span>
-               </a><br>
+                  <span class="ttt" >전체 레시피</span>
+              </a> <br>
                
                <div class="sub_menu" style="text-align: left">
                   <!-- 서브메뉴 리스트 -->
                   <ul class="cate_main">
-                     <li class="cate_head">전체보기</li>
+                     <li class="cate_head" id="cate0">전체보기</li>
                   </ul>
                   <ul class="cate_main">
                      <li class="cate_head">종류별</li>
@@ -465,7 +465,7 @@ cursor : pointer;
             </div>
 
             <div class="menu" onclick="goNotice();">
-               <a href="<%=request.getContextPath() %>/list.re">베스트 레시피</a>
+               <a href="<%=request.getContextPath() %>/bestList.re">베스트 레시피</a>
             </div>
 
             <div class="menu main_menu2" onclick="goBoard();">
@@ -567,6 +567,12 @@ cursor : pointer;
      </script>
       
       <script>
+      
+      $("#cate0").click(function(){
+    	  var nation="0";
+    	  location.href="<%= request.getContextPath() %>/wholeList.re?nation="+nation;
+    	  console.log(nation);
+      });
       $("#cate1").click(function(){
     	  var nation="1";
     	  location.href="<%= request.getContextPath() %>/list.re?nation="+nation;

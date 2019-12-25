@@ -12,7 +12,24 @@ public class Post {
 	private int pCount;
 	private int pLike;
 	private String pStatus;
+	private int pNo;
 	
+	
+	
+	public Post(String pId, int pType, String pTitle, String pCotent, String pWriter, Date pDateWritten, int pCount,
+			int pLike, String pStatus, int pNo) {
+		super();
+		this.pId = pId;
+		this.pType = pType;
+		this.pTitle = pTitle;
+		this.pCotent = pCotent;
+		this.pWriter = pWriter;
+		this.pDateWritten = pDateWritten;
+		this.pCount = pCount;
+		this.pLike = pLike;
+		this.pStatus = pStatus;
+		this.pNo = pNo;
+	}
 	public Post() {}
 	public Post(String pId, int pType, String pTitle,
 			String pCotent, String pWriter, Date pDateWritten,

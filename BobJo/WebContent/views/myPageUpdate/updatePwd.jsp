@@ -9,10 +9,8 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="css/master.css">
-<link rel="stylesheet" href="css/operate.css"> -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/operate2.css">
 <script>
 	var msg = "<%= msg %>";
 	

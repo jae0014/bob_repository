@@ -561,13 +561,13 @@ div {
 	
 				<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='<%= contextPath %>/wholeList.re?nation=0?&currentPage=1'"> &lt;&lt; </button>
+			<button onclick="location.href='<%= contextPath %>/bestList.re?&currentPage=1'"> &lt;&lt; </button>
 		
 			<!-- 이전 페이지로 (<) -->
 			<% if(currentPage == 1){ %>
 				<button disabled> &lt; </button>
 			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/wholeList.re?nation=0?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
+				<button onclick="location.href='<%= contextPath %>/bestList.re?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -575,7 +575,7 @@ div {
 				<% if(p == currentPage){ %>
 					<button style="background-color:rgb(170,57,57)" disabled> <%= p %></button>
 				<% } else { %>
-					<button onclick="location.href='<%= contextPath %>/wholeList.re?nation=0?&currentPage=<%= p %>'"> <%= p %> </button>
+					<button onclick="location.href='<%= contextPath %>/bestList.re?&currentPage=<%= p %>'"> <%= p %> </button>
 				<% } %>
 			<% } %>
 			
@@ -583,11 +583,11 @@ div {
 			<% if(currentPage == maxPage) { %>
 				<button disabled> &gt; </button>
 			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/wholeList.re?nation=0?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
+				<button onclick="location.href='<%= contextPath %>/bestList.re?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
 			<% } %>
 			
 			<!--  맨 끝으로 (>>) -->
-			<button onclick="location.href='<%= contextPath %>/wholeList.re?nation=0?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
+			<button onclick="location.href='<%= contextPath %>/bestList.re?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
 			
 		</div>
 		

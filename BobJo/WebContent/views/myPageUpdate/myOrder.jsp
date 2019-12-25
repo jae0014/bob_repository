@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="css/master.css">
-<link rel="stylesheet" href="css/operate.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/master.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/operate2.css">
 
 
 
@@ -58,15 +58,14 @@ float:left;
 			
 			<!-- 추가 컨텐츠 [E] -->
 		</div>
-		<section class='site-sub-layout'>
-			<nav class="lnb-area">
-			<h1 class="subtit-heading">
-	
-		<span class="font-en">MY PAGE</span>
-	
-</h1>
+						<section class='site-sub-layout'>
+					<nav class="lnb-area">
+						<h1 class="subtit-heading">
+							<span class="font-en">MY PAGE</span>
+							
+						</h1>
 
-		<dl class="menu-sub-left">
+							<dl class="menu-sub-left">
 							<!-- <dt>
 								<a href="myProfile.jsp">프로필 관리</a>
 							</dt> -->
@@ -114,9 +113,9 @@ float:left;
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myBoard.jsp"> 나의 게시글 </a></li>
+									<li><a href="<%=request.getContextPath() %>/myBoardlist.mp"> 나의 게시글 </a></li>
 
-
+									<li><a href="<%=request.getContextPath() %>/myQnalist.mp"> 1:1 문의내역 </a></li>
 								</ul>
 							</dd>
 							<dt>
@@ -130,37 +129,22 @@ float:left;
 								</ul>
 							</dd>
 						</dl>
-</div>
-<!-- <script src='js/orderHistory.js'></script> -->
-<!-- <script src='js/datepicker.js'></script> -->
-
-<%--선택 해제하기 --%>
-<script>
-	$(function(){
-		$("#check_all").click(function(){
-			$('#sDate').val('');
-			$('#eDate').val('');
-			$('#od_search_text').val('');
-			$("input[name*='order_status']").prop("checked", false);
-		});
-	});
-</script>
-
-<div class="mypage-contents">
-<section class="wrap-shopping-info">
-	<h2 class="hidden">회원 쇼핑정보</h2>
-	<div class="shopping-info">
-		<div class="area info01">
-			<p>
-				안녕하세요. 홍길동님<br>
-				chef J를 이용해주셔서 감사합니다.
-			</p>
 		</div>
-	
-		
-		
-	</div>
-</section>
+		<div class="mypage-contents">
+			<section class="wrap-shopping-info">
+				<h2 class="hidden">회원 쇼핑정보</h2>
+				<div class="shopping-info">
+					<div class="area info01">
+						<p>
+							안녕하세요.
+							<%=loginUser.getmName() %>님<br> chef J를 이용해주셔서 감사합니다.
+						</p>
+					</div>
+
+
+
+				</div>
+			</section>
 <%--프로필 자리 --%>
 <div class="contents">
 	<div class="wrap-order-overview">

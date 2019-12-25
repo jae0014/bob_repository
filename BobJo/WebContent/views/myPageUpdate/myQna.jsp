@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" 
-	import="java.util.ArrayList, post.model.vo.*,recipe.model.vo.*"%>
+	import="java.util.ArrayList, qna.model.vo.*, common.vo.* ,java.text.SimpleDateFormat"%>
+
 <% 
 
-ArrayList<Post> list = (ArrayList<Post>) request.getAttribute("list");
-
+ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+System.out.println(list);
 PageInfo pi = (PageInfo)request.getAttribute("pi");
-
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
+
+
+SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+String newDateFormat= "";
 
 %>
 <!DOCTYPE html>
@@ -79,7 +83,7 @@ int endPage = pi.getEndPage();
 			
 			<!-- 추가 컨텐츠 [E] -->
 		</div>
-				<section class='site-sub-layout'>
+						<section class='site-sub-layout'>
 					<nav class="lnb-area">
 						<h1 class="subtit-heading">
 							<span class="font-en">MY PAGE</span>
@@ -152,8 +156,8 @@ int endPage = pi.getEndPage();
 						</dl>
 		</div>
 		<div class="mypage-contents">
-			<section class="wrap-shopping-info">
-				<h2 class="hidden">회원 쇼핑정보</h2>
+			<section class="wrap-shopping-info" >
+				
 				<div class="shopping-info">
 					<div class="area info01">
 						<p>
@@ -167,9 +171,10 @@ int endPage = pi.getEndPage();
 				</div>
 			</section>
 			<%--여기서부터 시작 자리 --%>
+			
 			<div class="wrap-profile" >
-				<h2>나의 게시글</h2>
-				<p class="desc">내가 쓴 게시글을 조회할 수 있습니다.</p>
+				<h2>1:1 문의내역</h2>
+				<p class="desc">1:1 문의 내역을 조회할 수 있습니다.</p>
 			<div class="">
 				<form name="list_frm">
 					<table class="common-table2">
@@ -186,37 +191,49 @@ int endPage = pi.getEndPage();
 								<br>
 								<br>
 								<th scope="col"><strong>번호</strong></th>
-								<th scope="col"><strong>분류</strong></th>
+								<th scope="col"><strong>카테고리</strong></th>
 								<th scope="col"><strong>제목</strong></th>
-								<th scope="col"><strong>날짜</strong></th>
-								<th scope="col"><strong>조회수</strong></th>
+								<th scope="col"><strong>작성자</strong></th>
+								<th scope="col"><strong>작성일</strong></th>
+								<th scope="col"><strong>답변여부</strong></th>
 							</tr>
 						</thead>
 						
-						<tbody>
-							
-						<%
+						
+						<%-- <%
 							for(int i = 0; i < list.size(); i++){
-							%>
+							%> --%>
+						
+						
+						<tbody>
+							<% for(int i = 0; i <list.size();i++){
+                        			newDateFormat = simple.format(list.get(i).getqDate());
+                        			int num = list.size() - i;%>
+								
 
 							<tr>
 							
 							
 							<%
-							if(list.get(i).getpWriter().equals(loginUser.getmNo())) {
+							if(list.get(i).getmNo().equals(loginUser.getmNo())) {
 							%>
-								<td><%=list.get(i).getpId() %></td>
-								<!-- <td><img src="/data/enterdev_data/templet/bienbien/images/common/bbs_notice.gif" alt="공지"></td> -->
-								<td><%=list.get(i).getpType() %></td>
+								<td><%=num %></td>
+								
+								<td><%=list.get(i).getqCate() %></td>
 								<td class="subject">
 									<div class="nobr" style="margin-left: 10px;">
-										<a href=""><%=list.get(i).getpTitle() %></a>
+										<a href=""><%=list.get(i).getqTitle()%></a>
 
 									</div>
 								</td>
-								<td class="size_12"><%=list.get(i).getpDateWritten() %></td>
-								<td class=" size_12"><%=list.get(i).getpCount() %></td><%} %>
+								<td class="size_12"><%=list.get(i).getmNo()%></td>
+								<td class=" size_12"><%=newDateFormat %></td>
+								<td class=" size_12"><%=list.get(i).getaStatus()%></td>
+								
+								
+								<%} %>
 							</tr><%} %>
+							
 							
 						</tbody>
 					</table>
