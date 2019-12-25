@@ -158,7 +158,7 @@ div {
 
 			<%--여기서부터 시작 자리 --%>
 			<br>
-			<form id="deleteMember" name="updateMember" action="<%=request.getContextPath() %>/delete.me" type="post">
+			<form id="deleteMember" name="updateMember" action="<%=request.getContextPath() %>/delete2.me" type="post">
 			<div class="secession-check-member">
 				<table class="common-write">
 					<caption>회원 정보 입력</caption>

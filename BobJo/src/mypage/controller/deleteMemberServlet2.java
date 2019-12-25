@@ -15,14 +15,14 @@ import mypage.model.service.MyPageService;
 /**
  * Servlet implementation class deleteMemberServlet
  */
-@WebServlet("/delete.me")
-public class deleteMemberServlet extends HttpServlet {
+@WebServlet("/delete2.me")
+public class deleteMemberServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deleteMemberServlet() {
+    public deleteMemberServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }

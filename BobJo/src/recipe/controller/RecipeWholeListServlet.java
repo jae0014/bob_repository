@@ -20,7 +20,7 @@ import recipe.model.vo.Recipe;
 /**
  * Servlet implementation class RecipeListServlet
  */
-@WebServlet("/list.re")
+@WebServlet("/list2.re")
 public class RecipeWholeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
