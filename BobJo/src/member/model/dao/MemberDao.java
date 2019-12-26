@@ -302,7 +302,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public int updateGrade(Connection conn, String m_grade, String mNo) {
+	public int updateGrade(Connection conn, String mNo, String m_grade) {
 		PreparedStatement pstmt = null;
 		
 		int result = 0;

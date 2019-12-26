@@ -30,7 +30,7 @@ public class UpdateGradeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String m_grade = request.getParameter("m_grade");
-		System.out.println(m_grade);
+		System.out.println("m_grade : "+m_grade);
 		String mNo = request.getParameter("mNo");
 		System.out.println(mNo);
 		int result = new MemberService().updateGrade(mNo, m_grade);
