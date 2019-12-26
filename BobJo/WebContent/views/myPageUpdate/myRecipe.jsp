@@ -334,7 +334,11 @@ width:50%;
 										if (mrList.get(i).getrId().equals(at.getBprcId())) {
 									%>
 
-									<a href=""><img width=100%, height=100%,
+									<a
+								href="<%=request.getContextPath()%>/detail.re?rId=<%=mrList.get(i).getrId()%>">
+									
+									
+									<img width=100%, height=100%,
 										src="<%=contextPath%>/resources/recipe/<%=at.getfName()%>"></a>
 
 									<%
@@ -374,12 +378,13 @@ width:50%;
 
 									<div class="main">
 										<div class="rName">
-											<a href=""><%=mrList.get(i).getrName()%></a>
+											<a
+								href="<%=request.getContextPath()%>/detail.re?rId=<%=mrList.get(i).getrId()%>"><%=mrList.get(i).getrName()%></a>
 										</div>
 
 
 										<div class="rWriter">
-											<a href=""><%=mrList.get(i).getmNo()%></a>
+											<a href=""><%=loginUser.getNickname()%></a>
 										</div>
 										
 

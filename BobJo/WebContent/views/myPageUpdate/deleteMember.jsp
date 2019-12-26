@@ -3,6 +3,8 @@
 <%
 
 Member m = (Member)session.getAttribute("loginUser");
+
+String userPwd = m.getmPwd();
 %>
 <!DOCTYPE html>
 <html>
@@ -158,7 +160,7 @@ div {
 
 			<%--여기서부터 시작 자리 --%>
 			<br>
-			<form id="deleteMember" name="updateMember" action="<%=request.getContextPath() %>/delete2.me" type="post">
+			<form id="updateForm" name="updateForm"  type="post">
 			<div class="secession-check-member">
 				<table class="common-write">
 					<caption>회원 정보 입력</caption>
@@ -174,20 +176,45 @@ div {
 						</tr>
 						<tr>
 							<th scope="col">비밀번호</th>
-							<td><input type="password" name="pass" id="pass"
+							<td><input type="password" name="pass" id="pass1"
 								style="width: 200px;"></td>
 						</tr>
 				</table>
 			</div>
 			<div class='btn-area'>
 			
-				<button id="deleteBtn" onclick="deletMember()" class="main_k_buttom buttom_m">탈퇴하기</button>
-				<button id="toMain" class='sub_k_buttom buttom_m' onclick="returnToMain()">취소</button>
+				<button id="deleteBtn" onclick="deleteMember();" class="main_k_buttom buttom_m" type="button">탈퇴하기</button>
+				<button id="toMain" class='sub_k_buttom buttom_m' type="button" onclick="returnToMain();">취소</button>
 			</div>
 			
 			</form>
 		</div>
 	</div>
+	
+	<script>
+	function returnToMain(){
+		location.href="<%= request.getContextPath() %>/views/myPageUpdate/myProfile.jsp";
+	}
+	
+	function deleteMember(){
+		var pwd = $("#pass1").val();
+		
+		if("<%= userPwd %>" == pwd){
+			var bool = confirm("정말로 탈퇴하시겠습니까?");
+			
+			if(bool){
+				// updateForm 속성 변경
+				$("#updateForm").attr("action", "<%= request.getContextPath() %>/delete2.me");
+				// 그리고 submit 실행
+				$("#updateForm").submit();
+			}
+		}else{
+			alert("비밀번호를 잘못 입력하였습니다.");
+		}
+		
+		
+	}
+	</script>
 	
 	
 
