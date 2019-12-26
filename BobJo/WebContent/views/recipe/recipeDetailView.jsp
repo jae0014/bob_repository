@@ -12,7 +12,7 @@
 	ArrayList<Attachment> imgList = (ArrayList<Attachment>)request.getAttribute("imgList");
 	
 	/* Member member = request.getAttribute("member"); */
-
+	
 	
 	
 	
@@ -374,6 +374,10 @@ margin-left:50px;
 
 }
 
+/* td,tr{
+border: 1px solid red;
+} */
+
 
 
 </style>
@@ -417,9 +421,15 @@ margin-left:50px;
 		<div class="user">
 			<img class="userImage"src="<%=request.getContextPath() %>/resources/images/강아지.jpg">
 		</div>
-		<div class="rWriter" ><h3 align="center"><%=rlist.get(0).getmNo() %></h3></div>
-		<div class="rName" ><h1 align="center"><%= rlist.get(0).getrName()%></h1></div>
+		<%for (int i = 0; i < rlist.size(); i++ ) {%>
+	
 
+		<%if(rlist.get(i).getsStep()==1){ %>
+		<div class="rWriter" ><h3 align="center"><%=rlist.get(i).getmNo()%></h3></div>
+		<div class="rName" ><h1 align="center"><%= rlist.get(i).getrName()%></h1></div>
+		<%} %>
+		
+		<%} %>
 		<hr>
 
 		<div class="introduce" >
@@ -552,12 +562,14 @@ margin-left:50px;
 				
 				<div class="meme">
 				<table class="rstep" >
-				<% for(int i = 0; i < rlist.size(); i++){ %>
-				<tr class="trtr">
-					<td class="stepNo"><%=rlist.get(i).getsStep() %></td>
-					<td class="stepSeq" width="300" height="260" >&nbsp;&nbsp;<%=rlist.get(i).getsDesc() %></td>
-				</tr>
-					<% }%>
+				
+				<tr class="trtr"><% for(int i = 0; i < rlist.size(); i++){ %>
+					<td class="stepNo">
+					<%=rlist.get(i).getsStep() %></td>
+					<td class="stepSeq" width="300" height="260" >&nbsp;&nbsp;
+					<%=rlist.get(i).getsDesc() %></td>
+				</tr><% }%>
+					
 					
 				</table>
 				
@@ -597,7 +609,11 @@ margin-left:50px;
 				</div>
 				<div class="ssss">
 					<div class="aaaa">
-						<h2><%=rlist.get(0).getmNo() %></h2>
+					<% for(int i = 0 ; i <rlist.size(); i++){ %>
+						<%if(rlist.get(i).getsStep()==1){ %>
+						<h2><%=rlist.get(i).getmNo() %></h2>
+						<%} %>
+						<%} %>
 					</div>
 					<div class="aaaa">
 						<h5>집밥 짱~~</h5>

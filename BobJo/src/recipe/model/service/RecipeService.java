@@ -331,6 +331,17 @@ public class RecipeService {
 		}
 
 
+		public ArrayList<Step> selectstep2(String rId) {
+			Connection conn = getConnection();
+			RecipeDao rDao = new RecipeDao();
+
+			ArrayList<Step> steplist2 = rDao.selectstep2(conn,rId);
+			close(conn);
+
+			return steplist2;
+		}
+
+
 
 
 

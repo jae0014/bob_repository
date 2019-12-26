@@ -114,6 +114,7 @@ public class RecipeDao {
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, rId);
+			
 
 			rs = pstmt.executeQuery();
 
@@ -291,6 +292,7 @@ public class RecipeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rId);
+			
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -886,6 +888,34 @@ public class RecipeDao {
 			close(pstmt);
 		}
 		return reList;
+	}
+
+	public ArrayList<Step> selectstep2(Connection conn, String rId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sId = "";
+		String sql = prop.getProperty("selectStep2");
+		ArrayList<Step> stepList2 = null;
+
+		try {
+			/* Step step = stepList2.get(0); */
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, rId);
+			/*
+			 * pstmt.setInt(2, step.getsStep()); pstmt.setString(3, step.getsDesc());
+			 */
+			result = pstmt.executeUpdate();
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return stepList2;
 	}
 
 }
