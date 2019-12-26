@@ -8,11 +8,11 @@
 	
 	ArrayList<Attachment> rStepList = (ArrayList<Attachment>)request.getAttribute("rStepList");
 	
-	
+
 	ArrayList<Attachment> imgList = (ArrayList<Attachment>)request.getAttribute("imgList");
 	
 	/* Member member = request.getAttribute("member"); */
-	
+
 	
 	
 	
@@ -24,6 +24,8 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/master.css"> --%>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/operate2.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -32,8 +34,8 @@
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <style>
-div{
-/* 	border: 1px solid red; */
+div , td, tr{
+ 	/*  border: 1px solid red;  */
 }
 
 
@@ -241,19 +243,24 @@ display:inline-block;
 
 
 
+
+
 }
 
 
 .stepNo{
 font-size:2em;
-color:red;
+color: rgb(170, 57, 57);
 vertical-align:top;
 text-align:right;
 }
 
 
 .stepSeq{
+
 vertical-align:top;
+text-align:center;
+
 }
 
 td,tr,th{
@@ -320,18 +327,28 @@ height:100px;
 
 .rstep{
 float:left;
+border-spacing: 50px;
+  border-collapse: separate;
+  margin-top:20px;
+
 
 }
 
-.rsetp2{
-float:right;
+.rstep2{
+/* float:right; */
+ border-spacing: 50px;
+  border-collapse: separate;
+
 
 }
+
+
 
 
 .rstepPic{
 width:400px;
 height:250px;
+border-radius:10px;
 }
 
 div{
@@ -348,6 +365,16 @@ height:250px;
 width:100%;
 height:100%;
 }
+
+
+.rstep{
+margin-left:50px;
+
+
+
+}
+
+
 
 </style>
 
@@ -373,7 +400,9 @@ height:100%;
 	<%@include file="../common/bootstrap.jsp" %>
 	<br>
 	
+	<br><br>
 	<div class="wholewhole" style="width:70%; margin:auto;">
+	
 	<div class="wraps" style="width:100%; height: 300px">
 		<div class="thumbnail" style="width:40%; height:100%; margin:auto; " >
 			
@@ -449,37 +478,28 @@ height:100%;
 		<hr>
 
 		<div class="div3">
+		<br>
 			<div class="first">
 				재료
 			</div>
 			<br>
 				
-						
- 				<%-- <table style="margin: 30px">
- 				<tr>
- 					<th width="200">재료명</th>
- 					<th width="200">수량/중량</th>
-				
-				<% 
-				
-				for(int i = 0; i < rlist.size(); i++) {
-				String[] ing = rlist.get(i).getrInName().split(","); 
-				
-			
-				
-				
-				
-				}
-				%> --%>
 				
  				
- 				<table style="margin: 30px">
+ 				<table style="margin: 30px" >
  				<tr>
- 					<th width="200">재료명</th>
- 					<th width="200">수량/중량</th>
+ 					<th class="eee" width="200">재료명</th>
+ 					<th class="eee"width="200">수량/중량</th>
  				</tr><%for(int i = 0; i < rlist.size(); i++){ %>
  				<tr>
- 					<td width="200"><%=rlist.get(i).getrInName()%></td>
+ 				
+ 				<%
+ 				String ing = rlist.get(i).getrInName();
+ 				
+ 				String ingre[] = ing.split(",");
+ 				
+ 				%>
+ 					<td width="200"><%=ingre[i]%></td>
  					<td><%=rlist.get(i).getrWeight()%></td>
  				</tr>
  				<%} %>
@@ -487,12 +507,13 @@ height:100%;
  				
  				
  				
- 				
+ 			<br>	
 			<hr>
-			<br>
-
+			
+<br>
 		</div>
-		<div class="div4">
+		
+	<%-- 	<div class="div4">
 			<div class="first">
 				연관상품
 			</div>
@@ -515,32 +536,12 @@ height:100%;
 
 
 
-		</div>
-
-		<br>
-		<hr>
-		<br>
-	<%-- 	<div class="div5" style="border:10px solid black;" >
-			<div class="steps">
-				<img src="<%= request.getContextPath() %>/resources/images/조리순서.PNG">
-			</div>
-			<br>
-			<div class="stepstep" style="width:50%; border: 10px solid blue;">
-				<!-- <div class="wrapwrap" style="border:10px solid purple;"> -->
-				<div class="col-6 rstep"  style="height:250px; display:inline-block; float:left;">
-					<div class="num">1</div>
-					갈빗살을 반나절 이상 물에 담가 핏물을 제거해 줍니다.
-				</div>
-				<div class="col-6 rpic" style="height:250px; display:inline-block; float:left; border:10px solid blue;">
-					<img class="stepImg"src="<%= request.getContextPath() %>/resources/images/step1.PNG">
-				</div>
-				<!-- </div> -->wrapwrap 한 줄 끝
-				
-
-			</div>
-
 		</div> --%>
+
 		
+		<!-- <hr> -->
+		
+	
 		<div class="div5" >
 		<div class="first">
 		조리순서
@@ -548,53 +549,22 @@ height:100%;
 		<br><br>
 		<div class="mainStep" >
 			
-				<%-- <div class="rStep col-2">1</div>
-				<div class="rStep col-5">gdgdgadag</div>
-				<div class="rStep col-5"><img class="rPic" src="<%= request.getContextPath() %>/resources/images/갈비찜.jpg"></div> --%>
 				
-				
-				
-				
-				
-				<%-- 	<table class="stepstep" style="margin-left:100px;">
-				
-				<% for(int i = 0; i < rlist.size(); i++){ %>
-				
-				<tr class="trtr">
-					<td class="stepNo" width="100"><%=rlist.get(i).getsStep() %></td>
-					<td class="stepSeq" width="300"><%=rlist.get(i).getsDesc() %></td>
-					
-					<% }%> 
-					
-					<% for (int i = 0; i < rStepList.size(); i++){ %>
-					<td class="stepPic" width="300" height="200" >
-					<img class="rPic" src="<%=request.getContextPath()%>/<%=rStepList.get(i).getfPath()%>/<%=rStepList.get(i).getfName()%>">
-					
-					</td>
-					
-					
-					
-				</tr><% } %>
-				
-				
-				</table> --%>
-				
-				
-				
-				<table class="rstep">
+				<div class="meme">
+				<table class="rstep" >
 				<% for(int i = 0; i < rlist.size(); i++){ %>
 				<tr class="trtr">
 					<td class="stepNo"><%=rlist.get(i).getsStep() %></td>
-					<td class="stepSeq" width="300"><%=rlist.get(i).getsDesc() %></td>
+					<td class="stepSeq" width="300" height="260" >&nbsp;&nbsp;<%=rlist.get(i).getsDesc() %></td>
 				</tr>
 					<% }%>
 					
 				</table>
 				
-				<table class="rstep2">
+				<table class="rstep2" >
 				
 					<tr class="trtr" ><% for (int i = 0; i < rStepList.size(); i++) {%>
-						<td> <%-- <% if(rStepList.get(i).getBprcId().equals(rlist.get(i).getrId()) { %> --%>
+						<td class="rsteppicwrap"> <%-- <% if(rStepList.get(i).getBprcId().equals(rlist.get(i).getrId()) { %> --%>
 						<%if(rStepList.get(i).getBprcId().equals(rlist.get(i).getrId())){ %>
 						<img class="rstepPic" src="<%=request.getContextPath()%>/<%=rStepList.get(i).getfPath()%>/<%=rStepList.get(i).getfName()%>">
 						<%-- <%} %> --%>
@@ -604,6 +574,7 @@ height:100%;
 				<%} %>
 				
 				</table>
+				</div>
 				
 				
 			
@@ -615,11 +586,12 @@ height:100%;
 		<hr>
 
 		<div class="div6">
+		<br>
 			<div class="first">
 				레시피 작성자
 			</div>
 			<br>
-			<div class="writer" >
+			<div class="writer" style="margin-left:50px;">
 				<div class="dddd">
 					<img class="dog" src="<%=request.getContextPath()%>/resources/images/강아지.jpg">
 				</div>
@@ -636,24 +608,10 @@ height:100%;
 
 
 		</div>
-		<hr>
-		<div class="div7">
-			<div class="reply rep">댓글</div>
-			<div class="reply add">0</div>
-			<div class="text">
-				<div class="picture plus">
-					<input type="file" id="imgfile">
-				</div>
-				<div class="picture area">
-					<textarea cols="120" rows="5" style="resize: none"></textarea>
-				</div>
-				<div class="picture button">
-					<button id="picture btn">등록하기</button>
-				</div>
-			</div>
-
-
-		</div>
+	<!-- 	
+		<button id="deleteBtn" onclick="returnToMain();" class="main_k_buttom buttom_m" type="button">이전으로</button> -->
+		
+	
 
 		
 	</div>

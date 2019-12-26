@@ -10,6 +10,7 @@
 	String phone = m.getPhone();
 	String email = m.getEmail();
 	String address = m.getAddr();
+	String gender = m.getGender();
 
 	int idx = address.indexOf(")"); 	
 	String address1 = address.substring(0,idx+1);
@@ -19,10 +20,13 @@
 	   
 	 String newAddr[] = address0.split("+");
 	    */
-
-
-	
-	
+/* 
+		String gender="";
+		if(loginUser.getGender().equals("F")){
+		 			gender="여";}else if(loginUser.getGender().equals("M")) {
+					gender="남";} else{ 
+					 gender="선택없음";}
+	 */
 	
 	
 %>
@@ -31,18 +35,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/master.css">
- <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/operate2.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/master.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/operate2.css">
 
 
 
 </head>
 <style>
-
-
-
-
-
 .part1, .mypage-contents, .sub-container {
 	diplay: inline-block;
 	/* border:1px solid red; */
@@ -85,34 +86,36 @@
 					<nav class="lnb-area">
 						<h1 class="subtit-heading">
 							<span class="font-en">MY PAGE</span>
-							
+
 						</h1>
 
-							<dl class="menu-sub-left">
+						<dl class="menu-sub-left">
 							<!-- <dt>
 								<a href="myProfile.jsp">프로필 관리</a>
 							</dt> -->
-							
-								<dt>프로필 관리</dt>
+
+							<dt>프로필 관리</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myProfile.jsp">프로필 보기/수정 </a></li>
+									<li><a
+										href="<%=request.getContextPath() %>/views/myPageUpdate/myProfile.jsp">프로필
+											보기/수정 </a></li>
 
 
 								</ul>
 							</dd>
-							
-							
 
 
-							<dt>
-								
-								나의 쇼핑 내역
-							</dt>
+
+
+							<dt>나의 쇼핑 내역</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/myOrder.jsp" class=''> 주문/배송 현황 </a></li>
-									</a></li>
+									<li><a
+										href="<%=request.getContextPath() %>/views/myPageUpdate/myOrder.jsp"
+										class=''> 주문/배송 현황 </a></li>
+									</a>
+									</li>
 
 								</ul>
 							</dd>
@@ -125,7 +128,7 @@
 
 								</ul>
 							</dd>
-						<!-- 	<dt>댓글 관리</dt>
+							<!-- 	<dt>댓글 관리</dt>
 							<dd>
 								<ul>
 									<li><a href="myReply.jsp"> 나의 댓글 </a></li>
@@ -136,19 +139,24 @@
 							<dt>나의 커뮤니티</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath() %>/myBoardlist.mp"> 나의 게시글 </a></li>
+									<li><a
+										href="<%=request.getContextPath() %>/myBoardlist.mp"> 나의
+											게시글 </a></li>
 
-									<li><a href="<%=request.getContextPath() %>/myQnalist.mp"> 1:1 문의내역 </a></li>
+									<li><a href="<%=request.getContextPath() %>/myQnalist.mp">
+											1:1 문의내역 </a></li>
 								</ul>
 							</dd>
-							<dt>
-								회원정보
-							</dt>
+							<dt>회원정보</dt>
 							<dd>
 								<ul>
-									<li><a href="<%=request.getContextPath()%>/views/myPageUpdate/updateMember.jsp"> 회원정보수정 </a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/views/myPageUpdate/updateMember.jsp">
+											회원정보수정 </a></li>
 
-									<li><a href="<%=request.getContextPath() %>/views/myPageUpdate/deleteMember.jsp"> 회원탈퇴 </a></li>
+									<li><a
+										href="<%=request.getContextPath() %>/views/myPageUpdate/deleteMember.jsp">
+											회원탈퇴 </a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -169,13 +177,14 @@
 				</div>
 			</section>
 			<%--여기서부터 시작 자리 --%>
-			<div class="wrap-profile" >
+			<div class="wrap-profile">
 				<h2>회원정보 수정</h2>
 				<p class="desc">고객님들의 회원정보 수정을 처리해드립니다.</p>
-			
 
 
-				<form id="updateMember" name="updateMember" action="<%=contextPath%>/update.me" method="post">
+
+				<form id="updateMember" name="updateMember"
+					action="<%=contextPath%>/update.me" method="post">
 					<table class="common-write">
 						<caption>회원정보 입력</caption>
 						<colgroup>
@@ -191,11 +200,12 @@
 
 							<tr>
 								<th scope="col">패스워드<span class='main-color'>*</span></th>
-								<td><input type="hidden" name="userPwd">
-								<a href="#" onclick='window.open("<%=request.getContextPath()%>/views/myPageUpdate/updatePwd.jsp","_blank","height=330,width=470, status=yes,toolbar=no,menubar=no,location=no");return false'
+								<td><input type="hidden" name="userPwd"> <a
+									href="#"
+									onclick='window.open("<%=request.getContextPath()%>/views/myPageUpdate/updatePwd.jsp","_blank","height=330,width=470, status=yes,toolbar=no,menubar=no,location=no");return false'
 									rel="facebox" class='main_ks_buttom buttom_ss'
 									style='width: 183px;'>비밀번호 변경</a></td>
-									
+
 							</tr>
 
 							<tr>
@@ -219,24 +229,30 @@
 
 							<tr>
 								<th scope="col">배송주소<span class='main-color'></span></th>
-								<td>
-									
-									<input type="button" value="주소검색" class="juso_btn s_btn main_ks_buttom buttom_ss" onclick="goPopup();"> 
-									<span class="sect"> 
-									<input type="text" class="roadFullAddr" name="roadFullAddr" id="roadFullAddr"  style="width: 350px;" value="<%=address1%>" readonly></span> 
-									<span class="sect"> 
-									<input type="text" id="addrDetail" name="addrDetail" id="addrDetail" class="addrDetail" style="width: 350px;" value="<%=address2 %>" readonly >
-								</span>
-
-								</td>
+								<td><input type="button" value="주소검색"
+									class="juso_btn s_btn main_ks_buttom buttom_ss"
+									onclick="goPopup();"> <span class="sect"> <input
+										type="text" class="roadFullAddr" name="roadFullAddr"
+										id="roadFullAddr" style="width: 350px;" value="<%=address1%>"
+										readonly></span> <span class="sect"> <input
+										type="text" id="addrDetail" name="addrDetail" id="addrDetail"
+										class="addrDetail" style="width: 350px;"
+										value="<%=address2 %>" readonly>
+								</span></td>
 							</tr>
 							<tr>
-							
+
 
 								<th scope="col">성별</th>
-								<td><%=loginUser.getGender()%></td>
+								<%-- <% if(loginUser.getGender().equals("F")){ %>
+								<% String gender="여";}else if(loginUser.getGender().equals("M")){%>
+								<% String gender="남";}else{ %>
+								<% String gender="선택없음";} %> --%>
+								<td>
+									<%=gender %>
+								</td>
 
-							
+
 							</tr>
 
 

@@ -4,20 +4,25 @@
 
 <%
 	ArrayList<Attachment> fList = (ArrayList<Attachment>) request.getAttribute("fList");
-	ArrayList<Recipe> reList = (ArrayList<Recipe>) request.getAttribute("reList");
+	/* ArrayList<Recipe> rList = (ArrayList<Recipe>) request.getAttribute("rList"); */
+	
+	 ArrayList<Recipe> reList = (ArrayList<Recipe>) request.getAttribute("reList"); 
 	//좋아요 한 애
-	ArrayList<String> L_rId = (ArrayList<String>) request.getAttribute("L_rId");
-	System.out.println(L_rId);
-
+	ArrayList<String> L_rId = (ArrayList<String>) request.getAttribute("L_rId");	
+	System.out.println(L_rId); 
+	
 	String nation = request.getAttribute("nation").toString();
-
-	PageInfo pi = (PageInfo) request.getAttribute("pi");
-
+	
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -163,13 +168,12 @@ div {
 .heartBtn {
 	width: 30px;
 	height: 30px;
-	background:
-		url('<%=request.getContextPath()%>/resources/images/like.png')
-		no-repeat;
+	background: url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat;
 	background-size: 30px 30px;
 	border: none;
 	cursor: pointer;
 }
+
 
 
 
@@ -192,11 +196,11 @@ div {
 	<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
 
-	<main role="main"> 
+	<main role="main">
 	<br>
 	<div class="contentsMain">
 
-		<!-- <div class="dropdown">
+	<!-- 	<div class="dropdown">
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false">정렬 기준</button>
@@ -250,7 +254,7 @@ div {
 								}
 							%><!-- at for문 끝 -->
 						</div>
-
+						
 						<!-- ///////////////////////////////////////레시피 카드 -->
 						<div class="card-body" style="padding: 10px;">
 
@@ -260,45 +264,31 @@ div {
 
 
 									<div class="like" id="like">
-										<!-- /////////////////////////////////////////// -->
-										<%
-											if (L_rId != null) {
-										%>
-										<%
-											boolean flag = false;
-													for (int j = 0; j < L_rId.size(); j++) {
-														if (L_rId.get(j).equals(reList.get(i).getrId()))
-															flag = true;
-													}
-										%>
-
-										<%
-											if (flag) {
-										%>
-										<button class="heartBtn fulllike"
-											id="btn<%=reList.get(i).getrId()%>"
-											style="background:url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat; background-size:30px">
-											<!--  onclick="like(this);" -->
-										</button>
-										<%
-											} else {
-										%>
-										<button class="heartBtn like"
-											id="btn<%=reList.get(i).getrId()%>"
-											style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px">
-										</button>
-										<%
-											}
-										%>
-										<%
-											} else {
-										%>
-										<button class="heartBtn like"
-											id="btn<%=reList.get(i).getrId()%>"
-											style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"></button>
-										<%
-											}
-										%>
+<!-- /////////////////////////////////////////// -->
+										<%if(L_rId !=null){ %>
+											<% boolean flag = false;
+												for(int j = 0; j < L_rId.size(); j++){ 
+												 	if(L_rId.get(j).equals(reList.get(i).getrId()))
+														flag=true;
+												}
+											%>
+											
+											<% if(flag) { %>
+											<button class="heartBtn fulllike" id="btn<%=reList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/fulllike.png') no-repeat; background-size:30px"
+												><!--  onclick="like(this);" -->
+												</button>
+											<% } else { %>
+												<button class="heartBtn like" id="btn<%=reList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
+												>
+												</button>
+											<% } %>
+										<%}else{ %>
+										<button class="heartBtn like" id="btn<%=reList.get(i).getrId()%>"
+												style="background:url('<%=request.getContextPath()%>/resources/images/like.png') no-repeat; background-size:30px"
+												></button>
+										<%} %>
 
 										<%-- 	<form id="like_form">
 										<table id="list" style="border:1px solid red;">
@@ -311,15 +301,15 @@ div {
 
 									</div>
 									<!-- 좋아요 숫자 -->
-									<div class="likenum" id="like<%=reList.get(i).getrId()%>"
+									<div class="likenum" id="like<%=reList.get(i).getrId() %>"
 										style="text-align: left;">
 										&nbsp;
-
+										
 										<%=reList.get(i).getrLike()%>
-
-
-
-									</div>
+										
+										
+										
+										</div>
 									<div class="qna" id="qna1">
 										<%-- <img width=20px, height=20px,
 											src="<%=request.getContextPath()%>/resources/images/speech-bubble.png"> --%>
@@ -458,7 +448,7 @@ div {
 		$("button").click(function(e){
 			var rId = $(this).attr('id').substring(3);
 						
-			<%if (loginUser != null) {%>
+			<% if(loginUser !=null) {%>
 			
 			//var rId = e.id.substring(3);
 			//console.log($("#btn"+rId).css("background"));
@@ -515,12 +505,16 @@ div {
 				
 				}
 			
-		<%} else {%>
+		<%}else {%>
 			alert('로그인을 해주세요');
-			location.href="<%=contextPath%>
-			/views/member/memberLoginForm.jsp";
+			location.href="<%= contextPath %>/views/member/memberLoginForm.jsp";
 		<%}%>
-			});
+		
+			
+	});
+	
+		
+		
 		</script>
 		<%-- <script>
 		function dislike(e){
@@ -556,19 +550,18 @@ div {
 		
 		
 		</script> --%>
+	
 
-
-		
 	
 				<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%=nation %>?&currentPage=1'"> &lt;&lt; </button>
+			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=1'"> &lt;&lt; </button>
 		
 			<!-- 이전 페이지로 (<) -->
 			<% if(currentPage == 1){ %>
 				<button disabled> &lt; </button>
 			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%=nation %>?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
+				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= currentPage - 1 %>'"> &lt; </button>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -576,23 +569,26 @@ div {
 				<% if(p == currentPage){ %>
 					<button style="background-color:rgb(170,57,57)" disabled> <%= p %></button>
 				<% } else { %>
-					<button onclick="location.href='<%= contextPath %>/list.re?nation=<%=nation %>?&currentPage=<%= p %>'"> <%= p %> </button>
+					<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= p %>'"> <%= p %> </button>
 				<% } %>
 			<% } %>
-			
+		
 			<!-- 다음 페이지로(>) -->
 			<% if(currentPage == maxPage) { %>
 				<button disabled> &gt; </button>
 			<% } else { %>
-				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%=nation %>?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
+				<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= currentPage + 1 %>'"> &gt; </button>
 			<% } %>
 			
 			<!--  맨 끝으로 (>>) -->
-			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%=nation %>?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
+			<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= maxPage %>'"> &gt;&gt; </button>
 			
 		</div>
 		
 		<br><br>
+
+
+
 
 
 	</div>

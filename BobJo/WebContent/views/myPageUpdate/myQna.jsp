@@ -4,6 +4,7 @@
 
 <% 
 
+
 ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
 System.out.println(list);
 PageInfo pi = (PageInfo)request.getAttribute("pi");
