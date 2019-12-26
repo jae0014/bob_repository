@@ -113,6 +113,18 @@ background:rgb(200, 70, 70);
  width: 150px;
  height: 50px;
 }
+
+#EditList{
+background:rgb(170, 57, 57);
+ width: 150px;
+ height: 50px;
+ border-radius: none !important;
+}
+#EditList:hover{
+background:rgb(200, 70, 70);
+ width: 150px;
+ height: 50px;
+}
 </style>
 </head>
 <body>
@@ -214,7 +226,7 @@ background:rgb(200, 70, 70);
   			})	
   			
   			$("#EditList").click(function(){
-  				location.href = "<%=request.getContextPath()%>/updateForm.no?nId="+<%=n.getnId()%>;
+  				location.href = "<%=request.getContextPath()%>/updateForm.no?nId="+"<%=n.getnId()%>";
   				
   			})
   			<%-- $("#ListMenu").click(function(){
