@@ -279,6 +279,9 @@
 cursor : pointer;
 }
 
+.my_sub_table td{
+ font-size: 12px !important;
+}
 
 
 
@@ -366,15 +369,15 @@ cursor : pointer;
                </a>
 
                <div class="my_sub">
-                  <table class="" style="text-align: left" width="80px">
+                  <table class="my_sub_table" style="text-align: left" width="80px">
                      <tr>
-                        <td><a href="<%=request.getContextPath()%>/recipe.insert">레시피등록</a></td>
+                        <td class="insertRecipe">레시피등록</td>
                      </tr>
                      <tr>
                         <td class="myPage">마이페이지</td>
                      </tr>
                      <tr>
-                        <td>주문조회</td>
+                        <td class="myOrder">주문조회</td>
                      </tr>
                      <tr>
                         <td>회원정보수정</td>
@@ -525,7 +528,13 @@ cursor : pointer;
             location.href = "<%=contextPath%>/logout.me";
          });
          
+         $(".myOrder").click(function(){
+         	location.href="<%= request.getContextPath() %>/myOrder"; 
+         });
          
+         $(".insertRecipe").click(function(){
+        	 location.href="<%=request.getContextPath()%>/views/recipe/insertRecipeForm.jsp"; 
+         });
       });
       
       /* J market 하위 메뉴 클릭시 카테고리별 상품목록으로 이동 */

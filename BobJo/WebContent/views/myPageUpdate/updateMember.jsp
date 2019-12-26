@@ -112,8 +112,8 @@
 							<dd>
 								<ul>
 									<li><a
-										href="<%=request.getContextPath() %>/views/myPageUpdate/myOrder.jsp"
-										class=''> 주문/배송 현황 </a></li>
+										href="<%=request.getContextPath()%>/myOrder"
+										class=''> 주문 조회 </a></li>
 									</a>
 									</li>
 

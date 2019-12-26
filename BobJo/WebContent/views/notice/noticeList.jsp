@@ -85,6 +85,10 @@
 	color: rgb(170, 57, 57);
 }
 
+tr{
+cursor:pointer;
+}
+
 
 
 /* 게시판부분 */
