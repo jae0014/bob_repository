@@ -36,14 +36,14 @@ public class PostSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); 
 		String nPost = request.getParameter("pId");
-		System.out.println("getting post: " + nPost);
+		int type = Integer.parseInt(request.getParameter("typeOfBoard"));
 		PostService ps = new PostService();
 		// 조회수 +1
 		ps.increaseCount(nPost);
 		// 불러오기
 		Post post = ps.postSelect(nPost);
 		//ArrayList<Reply> listcomment = new ReplyService().selectAll(nPost , 1);
-		ArrayList<Reply> listcomment = new ReplyService().selectAll("testPost" , 1);
+		ArrayList<Reply> listcomment = new ReplyService().selectAll(nPost , type);
 
 		SimpleDateFormat sdf =new SimpleDateFormat("");
 		
