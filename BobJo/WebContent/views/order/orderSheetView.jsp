@@ -327,7 +327,6 @@ body {
 
 				<div id="paymentDiv">
 					<button type="button" id="paymentBtn">결제 하기</button>
-					<button type="button" id="testBtn">테스트 버튼</button>
 				</div>
 			</div>
 

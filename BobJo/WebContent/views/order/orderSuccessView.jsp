@@ -52,6 +52,11 @@ body {
 .button-div button {
 	margin: 1rem;
 }
+
+.button-div button a {
+	text-decoration:none !important;
+	color : white;
+}
 </style>
 
 </head>
@@ -69,7 +74,7 @@ body {
 					<%-- <p>주문 번호 : <%= orderId %>; --%>
 					<p>주문이 완료되었습니다. 마이페이지에서 주문을 확인하세요.</p>
 					<div class="button-div">
-						<button>주문 조회</button>
+						<button><a href="<%= contextPath %>/myOrder">주문 조회</a></button>
 						<button><a href="<%= contextPath %>">홈으로</a></button>
 					</div>
 				</div>
