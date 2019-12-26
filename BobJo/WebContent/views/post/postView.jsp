@@ -16,7 +16,6 @@
 	if (userID != null) {
 		writer = p.getpWriter();
 		id = userID.getmNo();
-		System.out.println(writer + "is writer and onwer is " + id);
 	}
 %>
 <!DOCTYPE html>
@@ -200,8 +199,9 @@ tfoot>tr {
 	<input type="hidden" id="writer" value="<%=loginUser%>">
 	<input type="hidden" id="type" value="<%=type%>">
 	<input type="hidden" id="pId" value="<%=p.getpId()%>">
-
-
+	<%if(userID != null){ %>
+	<input type="hidden" id="writerName" value="<%=userID.getmName()%>">
+	<%} %>
 
 
 	<!-- Button trigger modal -->
@@ -371,6 +371,8 @@ tfoot>tr {
 	
 		
 		$(function(){
+			var contenst =   document.getElementById('contentfromQuill');
+			contenst.innerHTML = '<%=p.getpCotent()%>';
 			$(".join_btn").click(function(){
 				location.href="<%=request.getContextPath()%>/views/member/memberJoinForm.jsp";
 			});
@@ -417,19 +419,27 @@ tfoot>tr {
 	   		
 	    	var to = $('#type').val();
 	    	var io = $('#pId').val();
-		
+	    	var wno	=$('#writerName').val();
 			$.ajax({
 				url : "reply.add",
 				data:{
 					quillDAO: quill_object,
 					writer: wo ,
 					type:  to,
-					pId: io
+					pId: io,
+					name : wno
 				},
-				success : function(result){
-					
-					console.log('Ajax 통신 성공!');
-				
+				success : function(obj){	
+					console.log(obj);
+					var add_comment = "<div class=\"media\">"+
+					"<img class=\"mr-3\" src=\"\" onError='ImgErrorVideo(this);'>"+
+						"<div class=\"media-header\">"+
+							"<h5 class=\"mt-0 mb-1\"></h5>" +
+								
+						"</div>"+
+							"<div class=\"media-body\" style=\"overflow: auto;\">"+
+							
+							"</div></div>"
 				},
 				error : function(){
 					console.log('Ajax 통신 실패...');
@@ -442,7 +452,7 @@ tfoot>tr {
 				
 			});
 		}
-		var quill = new Quill('#commentTextArea', {
+				var quill = new Quill('#commentTextArea', {
 				modules : {
 					imageResize : {
 						displaySize : true

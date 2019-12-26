@@ -117,13 +117,14 @@
 	<form action="<%=request.getContextPath()%>/post.insert" method="post"
 		id="postInsert"><%}else{%>
 	<form action="<%=request.getContextPath()%>/post.edited?typeOfBoard=<%=type %>" method="post"id="postInsert">
+		
+	<input type="hidden" name="pId" value="<%=post.getpId()%>">
 		<%} %>
 	<div class="updateBox">
 	<input type="hidden" name="writer" value="<%=loginUser.getmNo() %>">
 	<input type="hidden" name="quillData" value="11">
 	<input type="hidden" name="type" value="<%=type%>">
-	
-	<input type="hidden" name="pId" value="<%=nPost%>">
+
 	
 		<div class="col-xs-8">
 			<div class="form-group">

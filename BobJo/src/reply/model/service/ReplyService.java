@@ -16,6 +16,13 @@ public class ReplyService {
 		close(conn);
 		return list;
 	}
+
+	public Reply addComment(Reply reply) {
+		Connection conn = getConnection();
+		Reply addedReply = new ReplyDao().addComment(conn,reply);
+		close(conn);
+		return addedReply;
+	}
 	
 }
 	

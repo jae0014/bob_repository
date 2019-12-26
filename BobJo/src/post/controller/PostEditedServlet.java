@@ -37,10 +37,17 @@ public class PostEditedServlet extends HttpServlet {
 		String pId = (String) request.getParameter("pId");
 		String pCotent = (String) request.getParameter("quillData");
 		String title = request.getParameter("display_title");
+		String writer = (String) request.getParameter("writer");
 		Post post = new Post();
+		
+		System.out.println(pId + "from servlet");
+		System.out.println(writer + "from servlet" );
 		post.setpTitle(title);
 		post.setpId(pId);
 		post.setpCotent(pCotent);
+		post.setpType(type);
+		post.setpWriter(writer);
+	
 		int result = new PostService().postEdit(post);
 		String url = "board.list?currentPage=1&typeOfBoard="+type;
 		if (result > 0) {

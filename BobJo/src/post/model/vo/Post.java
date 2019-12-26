@@ -47,7 +47,7 @@ public class Post {
 	}
 	public Post(String bId, String bTitle, String wId, Date date) {
 		this.pId = bId;
-		this.pTitle = pTitle;
+		this.pTitle = bTitle;
 		this.pWriter = wId;
 		this.pDateWritten =date;
 	}

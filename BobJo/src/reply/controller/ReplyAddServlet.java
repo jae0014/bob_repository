@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import reply.model.service.ReplyService;
 import reply.model.vo.Reply;
 
 /**
@@ -34,19 +35,27 @@ public class ReplyAddServlet extends HttpServlet {
 		String quill = request.getParameter("quillDAO");
 		String writer = request.getParameter("writer");
 		String pId = request.getParameter("pId");
+		String name = request.getParameter("name");
 		Reply reply = new Reply();
 		reply.setbType(Integer.parseInt(type));
 		reply.setContent(quill);
 		reply.setWriterId(writer);
 		reply.setBoard_Id(pId);
+		reply.setName(name);
 		
+		Reply addedReply = new ReplyService().addComment(reply);
 		
-		
-		System.out.println(type);
-		System.out.println(quill);
-		System.out.println(writer);
-		System.out.println(pId);
+		if(addedReply !=null)
+		{	response.setContentType("application/json");
+			response.getWriter().write("{name:"+addedReply.getName()+",content:"+addedReply.getContent()+",date:"+
+					addedReply.getWrittenDate()+"}");
+		}
+		else
+		{
+			
+		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

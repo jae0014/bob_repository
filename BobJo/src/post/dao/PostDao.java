@@ -69,17 +69,15 @@ public class PostDao {
 
 		try {
 			
-			String sql = prop.getProperty("postEdit");
-			sql = "UPDATE BOARD "
-					+ "SET B_TITLE = ?,"
-					+ " B_CONTENT=?"
-					+ "WHERE B_ID="+p.getpId();
-			System.out.println(p.getpTitle());
-			System.out.println(p.getpCotent());
+			String sql = "";// prop.getProperty("postEdit");
+			sql = "UPDATE BOARD SET B_TITLE = ?, B_CONTENT=? WHERE B_ID=? AND M_NO =? ";
+
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,p.getpTitle());
 			pstmt.setString(2,p.getpCotent());
-
+			pstmt.setString(3,p.getpId());
+			pstmt.setString(4,p.getpWriter());
 
 
 			
@@ -122,7 +120,9 @@ public class PostDao {
 
 		try {
 			String sql = prop.getProperty("postInsert");
-			sql = "INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL,?,? ,?,?,? ,?,?,?)";
+			sql = "INSERT INTO BOARD VALUES('B'||SEQ_BOARD.NEXTVAL,?,?"
+					+ ",?,?,? "
+					+ ",?,?,?,SEQ_BOARD_NUM_1.nextval)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1,p.getpType());
@@ -132,7 +132,7 @@ public class PostDao {
 			pstmt.setDate(5,p.getpDateWritten());
 			pstmt.setInt(6,p.getpCount());
 			pstmt.setInt(7,p.getpLike());
-			pstmt.setString(8,p.getpStatus());
+			pstmt.setString(8,"Y");
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
