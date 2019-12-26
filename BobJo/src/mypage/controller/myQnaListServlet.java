@@ -25,7 +25,7 @@ import qna.model.vo.Qna;
 @WebServlet("/myQnalist.mp")
 public class myQnaListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**/
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

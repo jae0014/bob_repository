@@ -21,7 +21,7 @@ import recipe.model.vo.Recipe;
 @WebServlet("/bestList.re")
 public class BestRecipeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**/
+       
     /**
      * @see HttpServlet#HttpServlet()
      */

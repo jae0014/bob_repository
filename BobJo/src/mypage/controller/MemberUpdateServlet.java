@@ -18,7 +18,7 @@ import mypage.model.service.MyPageService;
 @WebServlet("/update.me")
 public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**/
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

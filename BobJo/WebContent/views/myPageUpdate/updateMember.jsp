@@ -364,7 +364,7 @@ function returnToMain(){
 
 
 
-<%-- --%>
+
 
 
 	<%@include file="../common/footer.jsp"%>

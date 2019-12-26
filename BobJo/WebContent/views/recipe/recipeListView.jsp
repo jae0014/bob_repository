@@ -572,7 +572,7 @@ div {
 					<button onclick="location.href='<%= contextPath %>/list.re?nation=<%= nation %>?&currentPage=<%= p %>'"> <%= p %> </button>
 				<% } %>
 			<% } %>
-			<%-- --%>
+		
 			<!-- 다음 페이지로(>) -->
 			<% if(currentPage == maxPage) { %>
 				<button disabled> &gt; </button>

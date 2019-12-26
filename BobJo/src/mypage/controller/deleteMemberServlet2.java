@@ -18,7 +18,7 @@ import mypage.model.service.MyPageService;
 @WebServlet("/delete2.me")
 public class deleteMemberServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     /**/  
+       
     /**
      * @see HttpServlet#HttpServlet()
      */

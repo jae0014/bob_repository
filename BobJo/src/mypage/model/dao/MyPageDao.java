@@ -38,7 +38,7 @@ public class MyPageDao {
 			e.printStackTrace();
 		}
 	}
-	/**/
+
 	/*
 	 * public ArrayList<Recipe> selectList(Connection conn, String userId) {
 	 * PreparedStatement pstmt = null; ResultSet rs = null;
