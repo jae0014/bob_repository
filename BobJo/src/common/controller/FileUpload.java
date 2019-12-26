@@ -77,7 +77,7 @@ public class FileUpload extends HttpServlet {
 				}
 			}
 
-			String mNo = request.getParameter("userID"); // 작성자 userID
+			String mNo = multipartRequest.getParameter("userID"); // 작성자 userID
 			String rName = multipartRequest.getParameter("reciepeTitle"); // 레시피명
 			String rInfo = multipartRequest.getParameter("reciepeIntro"); // 요리소개
 			

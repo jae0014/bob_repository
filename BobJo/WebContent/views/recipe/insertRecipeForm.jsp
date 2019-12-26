@@ -453,6 +453,7 @@ span.input-cus-title {
 	<%
 		}
 	%>
+	<input type="hidden" id="userID" value="<%=m.getmNo() %>">
 </body>
 <script>
     function testExecute() {
@@ -535,7 +536,9 @@ span.input-cus-title {
     }
     function ingriSetter() 
     {	formDataSend = new FormData();
-   		
+   		 var userID = $("#userID").val();
+    	console.log(reciepeTitle);
+    	formDataSend.append("userID",JSON.stringify(userID))
         var reciepeTitle = $("#reciepeTitle").val();
         console.log(reciepeTitle);
         formDataSend.append("reciepeTitle",JSON.stringify(reciepeTitle))
