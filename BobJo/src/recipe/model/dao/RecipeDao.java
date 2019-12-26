@@ -32,7 +32,11 @@ public class RecipeDao {
 			ResultSet rset = null;
 			try {
 				stmt = conn.createStatement();
-				rset = stmt.executeQuery("SELECT SEQ_SID.nextval, SEQ_RID.nextval, SEQ_FID.nextval from dual");
+				/*
+				 * rset = stmt.
+				 * executeQuery("SELECT SEQ_SID.nextval, SEQ_RID.nextval, SEQ_FID.nextval from dual"
+				 * );
+				 */
 
 			} catch (SQLException e) {
 				e.printStackTrace();
