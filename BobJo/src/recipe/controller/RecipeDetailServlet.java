@@ -50,7 +50,7 @@ public class RecipeDetailServlet extends HttpServlet {
 		ArrayList<Attachment> imgList = rService.selectImages(rId); 
 		ArrayList<Attachment> rStepList = rService.selectStep(rId);
 		
-		ArrayList<Step> stepList = rService.selectstep2(rId);
+		/* ArrayList<Step> stepList = rService.selectstep2(rId); */
 		
 		/* ArrayList<Attachment> rStepList = rService.selectStep(rId); */
 		
@@ -74,14 +74,14 @@ public class RecipeDetailServlet extends HttpServlet {
 		 System.out.println("rStepList" + rStepList); 
 		 System.out.println("thumbnail" + thumbnail); 
 		 System.out.println("imgList" + imgList);
-		 System.out.println("stepList"+stepList);
+	
 		
 		if(rlist !=null) {
 			 request.setAttribute("imgList", imgList); 
 			request.setAttribute("rlist", rlist);
 			 request.setAttribute("thumbnail", thumbnail); 
 			 request.setAttribute("rStepList", rStepList); 
-			 request.setAttribute("stepList", stepList); 
+			 
 			
 			
 			request.getRequestDispatcher("views/recipe/recipeDetailView.jsp").forward(request, response);

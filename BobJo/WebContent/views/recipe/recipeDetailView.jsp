@@ -427,17 +427,18 @@ border: 1px solid red;
 		<%if(rlist.get(i).getsStep()==1){ %>
 		<div class="rWriter" ><h3 align="center"><%=rlist.get(i).getmNo()%></h3></div>
 		<div class="rName" ><h1 align="center"><%= rlist.get(i).getrName()%></h1></div>
-		<%} %>
 		
-		<%} %>
+		
+		
 		<hr>
 
 		<div class="introduce" >
 		
 					<br><br>
 				
-					<%=rlist.get(0).getrInfo() %>
-				
+					<%=rlist.get(i).getrInfo() %>
+					<%} %>
+				<%} %>
 					<br><br><br><hr>
 
 			
