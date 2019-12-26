@@ -72,8 +72,22 @@ public class ReplyDao {
 			result = pstmt.executeUpdate();
 			if(result>0)
 			{
-				sql = "SELECT * FROM REPLY WHERE C_ID = 'C'||SEQ_REPLY.currval";
+				sql = "SELECT 'C'||SEQ_REPLY.currval from dual";
 				pstmt = conn.prepareStatement(sql);
+				
+				
+				rset = pstmt.executeQuery();
+				String str = "";
+				if(rset.next())
+				{
+					str = rset.getString(1);
+					System.out.println(str + "currval is this");
+				}
+				
+				sql = "SELECT * FROM REPLY WHERE C_ID =  ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, str);
 				rset = pstmt.executeQuery();
 				if(rset.next())
 				{
@@ -86,6 +100,7 @@ public class ReplyDao {
 					added.setBoard_Id(rset.getString("BR_ID"));
 					added.setName(rset.getString("M_NAME"));
 				}
+				System.out.println("added is " + added);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

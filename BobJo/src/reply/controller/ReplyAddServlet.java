@@ -1,12 +1,16 @@
 package reply.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import reply.model.service.ReplyService;
 import reply.model.vo.Reply;
@@ -44,11 +48,20 @@ public class ReplyAddServlet extends HttpServlet {
 		reply.setName(name);
 		
 		Reply addedReply = new ReplyService().addComment(reply);
-		
+		SimpleDateFormat simple =  new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(addedReply);
 		if(addedReply !=null)
-		{	response.setContentType("application/json");
-			response.getWriter().write("{name:"+addedReply.getName()+",content:"+addedReply.getContent()+",date:"+
-					addedReply.getWrittenDate()+"}");
+		{	response.setContentType("application/json;charset = utf-8");
+			PrintWriter out = response.getWriter();	
+			JSONObject obj = new JSONObject();
+			obj.put("name",		addedReply.getName());
+			
+			String mydate = simple.format(addedReply.getWrittenDate());
+			obj.put("content",	addedReply.getContent()	);
+			obj.put("date",	mydate);
+			out.print(obj);
+			//out.flush();
+		
 		}
 		else
 		{

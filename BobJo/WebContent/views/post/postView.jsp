@@ -124,89 +124,93 @@ tfoot>tr {
 	height: 150px;
 }
 
+.login_form {
+	width: 100% !important;
+	height: 300px;
+	/* background:green; */
+	margin: auto;
+	padding: 10px;
+	/* border:1px solid black; */
+}
 
-
-.login_form{
-        width: 100% !important;
-        height: 300px;
-        /* background:green; */
-        margin: auto;
-        padding: 10px;
-        /* border:1px solid black; */
-    }
-
-	.sub_title{
-	font-size:20px;
+.sub_title {
+	font-size: 20px;
 	font-weight: 900;
-	}
-    .inputform{
-        width: 100% !important;
-        height: 50px;
-        border-radius:3px;
-        width:280px;
-        padding: 0 10px 0 10px;
-        border:1px solid lightgrey;
-        font-size: 12px;
-    }
+}
 
-    .find_txt{
-        text-decoration: none;
-        font-size: 12px;
-        text-align: right;
-        color:black;
-    }
-    
-    .find_txt:hover{
-    text-decoration:none;
-    color:black;
-    }
+.inputform {
+	width: 100% !important;
+	height: 50px;
+	border-radius: 3px;
+	width: 280px;
+	padding: 0 10px 0 10px;
+	border: 1px solid lightgrey;
+	font-size: 12px;
+}
 
-    .line{
-        font-size:10px;
-        color: black;
-    }
+.find_txt {
+	text-decoration: none;
+	font-size: 12px;
+	text-align: right;
+	color: black;
+}
 
-    .login_btn{
-         width: 100% !important;
-        height: 50px;
-        border-radius:3px;
-        border:none;
-        background: rgb(170, 57, 57);
-        color:white;
-    }
-    
-    .join_btn{
-          width: 100% !important;
-        height: 50px;
-        border-radius:3px;
-        border:none;
-        border:1px solid rgb(170, 57, 57);
-        background: white;
-        color: rgb(170, 57, 57);
-    }
-    
-    
-    .media-body
-    {
-    	height: 96px !important;	
-    }
+.find_txt:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.line {
+	font-size: 10px;
+	color: black;
+}
+
+.login_btn {
+	width: 100% !important;
+	height: 50px;
+	border-radius: 3px;
+	border: none;
+	background: rgb(170, 57, 57);
+	color: white;
+}
+
+.join_btn {
+	width: 100% !important;
+	height: 50px;
+	border-radius: 3px;
+	border: none;
+	border: 1px solid rgb(170, 57, 57);
+	background: white;
+	color: rgb(170, 57, 57);
+}
+
+.media-body {
+	height: 96px !important;
+}
 </style>
 <body>
 
 	<%@ include file="../common/bootstrap.jsp"%>
 	<%@ include file="../common/menubar.jsp"%>
 
-	<input type="hidden" id="writer" value="<%=loginUser%>">
+	<input type="hidden" id="writer" value="<%=writer%>">
 	<input type="hidden" id="type" value="<%=type%>">
 	<input type="hidden" id="pId" value="<%=p.getpId()%>">
-	<%if(userID != null){ %>
+	<%
+		if (userID != null) {
+	%>
+	
 	<input type="hidden" id="writerName" value="<%=userID.getmName()%>">
-	<%} %>
+	<%
+		}
+	%>
 
 
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal"
-		id = "modalBTN"data-target="#loginAlert" style = "opacity:0; z-index:-1;	position: absolute;">Launch demo modal</button>
+		id="modalBTN" data-target="#loginAlert"
+		style="opacity: 0; z-index: -1; position: absolute;">Launch
+		demo modal</button>
 
 	<!-- Modal -->
 	<div class="modal fade" id="loginAlert" tabindex="-1" role="dialog"
@@ -221,21 +225,24 @@ tfoot>tr {
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="text" placeholder="아이디를 입력해주세요" class="inputform" name="userId" id="userId">
-					<input type="password" placeholder="비밀번호를 입력해주세요" class="inputform" name="userPwd" id="userPwd" style="margin-top:10px;">
-					<input type="button" value="로그인" class="login_btn two_btn">
-					<input type="button" value="회원가입" class="join_btn two_btn">
-					
-					<div class = "row text-center" style= "width:100%;">
-						<a style="padding-left:68%;" href="#" class="find_txt find_id">아이디 찾기</a><span class="line"> | </span>
-						<a href="#" class="find_txt find_pw">비밀번호 찾기</a>
+					<input type="text" placeholder="아이디를 입력해주세요" class="inputform"
+						name="userId" id="userId"> <input type="password"
+						placeholder="비밀번호를 입력해주세요" class="inputform" name="userPwd"
+						id="userPwd" style="margin-top: 10px;"> <input
+						type="button" value="로그인" class="login_btn two_btn"> <input
+						type="button" value="회원가입" class="join_btn two_btn">
+
+					<div class="row text-center" style="width: 100%;">
+						<a style="padding-left: 68%;" href="#" class="find_txt find_id">아이디
+							찾기</a><span class="line"> | </span> <a href="#"
+							class="find_txt find_pw">비밀번호 찾기</a>
 					</div>
-				
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					
+
 				</div>
 			</div>
 		</div>
@@ -255,8 +262,7 @@ tfoot>tr {
 
 
 
-			<p>
-				제목:<%=p.getpTitle()%></p>
+			<p style="font-size: 2em; text-align: center; font-weight: bold;"><%=p.getpTitle()%></p>
 
 
 
@@ -268,15 +274,18 @@ tfoot>tr {
 			<div class="collapse" id="moerinfo">
 				<div class="card card-body">
 					<div class="row">
-						<p>
-							작성자:
-							<%=p.getpWriter()%></p>
+						<div class="col-sm">작성자:</div>
+						<div class="col-sm"><%=p.getpWriter()%></div>
+						<div class="col-sm">조회수:</div>
+						<div class="col-sm"><%=p.getpCount() %></div>
+						<div class="col-sm"></div>
 					</div>
 					<div class="row">
-						<p>
-							작성일자:
-							<%=newDateFormat%>
-						</p>
+						<div class="col-sm">작성일자:</div>
+						<div class="col-sm"><%=newDateFormat%></div>
+						<div class="col-sm"></div>
+						<div class="col-sm"></div>
+						<div class="col-sm"></div>
 					</div>
 
 				</div>
@@ -288,7 +297,7 @@ tfoot>tr {
 				<div style="height: 238px;">
 
 					<div style="height: 38px">
-						<button class="btn" type="button"
+						<button class="btn" type="button" 
 							style="float: right; background-color: rgb(170, 57, 57); color: white"
 							id="restComment">댓글 숨기기</button>
 						<button class="btn" type="button"
@@ -324,6 +333,7 @@ tfoot>tr {
 
 				</div>
 				<br> <br> <br>
+				<div id="addCommentBTN"></div>
 				<%
 					if (list != null) {
 						for (int i = 0; i < index; i++) {
@@ -369,7 +379,19 @@ tfoot>tr {
 	</div>
 	<script>
 	
-		
+		$('#restComment').click(function(){
+			$('.media').each(function(){
+				$(this).addClass("commentShow");
+			})
+			for( i = 0; i < 5;i++){
+					$(".commentShow").first().removeClass("commentShow");	
+					if($(".commentShow").length == 0)
+					{	
+						$("#moreID").remove();
+						break;
+					}
+				}
+		});
 		$(function(){
 			var contenst =   document.getElementById('contentfromQuill');
 			contenst.innerHTML = '<%=p.getpCotent()%>';
@@ -377,35 +399,16 @@ tfoot>tr {
 				location.href="<%=request.getContextPath()%>/views/member/memberJoinForm.jsp";
 			});
 			$(".login_btn").click(function(){
-				$.ajax({
-					url : "login.pass",
-					data:{
-						id: 1,
-						pass: 2,
-						
-					},
-					success : function(result){
-	
-						console.log('로그인 시도');
-					
-					},
-					error : function(){
-						alert("비밀번호 또는 아이디가 틀립니다")
-					},
-					
-					// complete : 통신 성공 실패 여부와 상관 없이 실행
-					complete : function(){
-						console.log('통신 완료');
-					}
-					
-				});
+				var idu = $('userId').val();
+				var passs =$('userPwd').val();
+				location.href = '<%=request.getContextPath()%>/login.me';
 			});
 		})
 		
 		function addComment()
 		{	var wo = $('#writer').val();
 			console.log(wo);
-			if(wo != "null"){
+			if(wo != 'Na' ){
 				acceptRequest(wo);
 			}
 			else
@@ -430,16 +433,18 @@ tfoot>tr {
 					name : wno
 				},
 				success : function(obj){	
-					console.log(obj);
+				
 					var add_comment = "<div class=\"media\">"+
 					"<img class=\"mr-3\" src=\"\" onError='ImgErrorVideo(this);'>"+
 						"<div class=\"media-header\">"+
-							"<h5 class=\"mt-0 mb-1\"></h5>" +
-								
+							"<h5 class=\"mt-0 mb-1\">"+obj.name+"</h5>" +
+								obj.date+
 						"</div>"+
 							"<div class=\"media-body\" style=\"overflow: auto;\">"+
-							
+								obj.content+
 							"</div></div>"
+								console.log(add_comment);
+							$('#addCommentBTN').prepend(add_comment);
 				},
 				error : function(){
 					console.log('Ajax 통신 실패...');
@@ -542,7 +547,7 @@ tfoot>tr {
   			})
   			$("#CreateNew").click(function(){
   				var link = "<%=request.getContextPath()%>/";
-  				location.href = link
+				location.href = link
 			})
 		})
 	</script>
