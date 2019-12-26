@@ -28,7 +28,7 @@ import mypage.model.service.MyPageService;
 @WebServlet("/insert.pr")
 public class InsertProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+/**/
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

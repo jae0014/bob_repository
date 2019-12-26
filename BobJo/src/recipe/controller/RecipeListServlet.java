@@ -16,7 +16,7 @@ import member.model.vo.Member;
 import recipe.model.service.RecipeService;
 import recipe.model.vo.PageInfo;
 import recipe.model.vo.Recipe;
-
+/**/
 /**
  * Servlet implementation class RecipeListServlet
  */

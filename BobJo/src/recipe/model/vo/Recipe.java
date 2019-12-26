@@ -15,6 +15,13 @@ public class Recipe {
 	private String rInfo; // 요리소개
 	private int rLike;//----- 좋아요
 	private int rCount; // 조회수
+	
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
 	private int rCookTime; // 소요시간
 	private int rCookLevel; // 난이도
 	private String Step; // 요리순서
@@ -39,6 +46,34 @@ public class Recipe {
 
 	}
 
+
+	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
+			Date rDate, String rInfo, int rLike, int rCount, int rCookTime, int rCookLevel, String step,
+			String ingredient, String rInName, String rWeight, String sId, int sStep, String sDesc, String status,
+			String nickname) {
+		super();
+		this.rId = rId;
+		this.rName = rName;
+		this.mNo = mNo;
+		this.cateInId = cateInId;
+		this.cateFoId = cateFoId;
+		this.cateMethodId = cateMethodId;
+		this.rDate = rDate;
+		this.rInfo = rInfo;
+		this.rLike = rLike;
+		this.rCount = rCount;
+		this.rCookTime = rCookTime;
+		this.rCookLevel = rCookLevel;
+		Step = step;
+		Ingredient = ingredient;
+		this.rInName = rInName;
+		this.rWeight = rWeight;
+		this.sId = sId;
+		this.sStep = sStep;
+		this.sDesc = sDesc;
+		this.status = status;
+		this.nickname = nickname;
+	}
 
 	public Recipe(String rId, String rName, String mNo, String cateInId, String cateFoId, String cateMethodId,
 			Date rDate, String rInfo, int rCount, int rCookTime, int rCookLevel, String status) {

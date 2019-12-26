@@ -18,7 +18,7 @@ import qna.model.vo.Qna;
 import recipe.model.vo.Recipe;
 
 public class MyPageService {
-
+	/**/
 	/*
 	 * public ArrayList<Recipe> selectList(String userId) {
 	 * 

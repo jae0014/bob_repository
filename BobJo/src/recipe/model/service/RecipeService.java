@@ -18,7 +18,7 @@ public class RecipeService {
 
 	public int getListCount(String nation) {
 		Connection conn = getConnection();
-		
+		/**/
 		int listCount = new RecipeDao().getListCount(conn,nation);
 		
 		close(conn);

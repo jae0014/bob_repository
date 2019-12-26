@@ -20,7 +20,7 @@ import recipe.model.vo.Step;
 
 public class RecipeDao {
 	private Properties prop = new Properties();
-
+	/**/
 	public RecipeDao() {
 
 		String fileName = BoardDao.class.getResource("/sql/recipe/recipe-query.properties").getPath();

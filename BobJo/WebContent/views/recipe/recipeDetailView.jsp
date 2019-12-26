@@ -12,7 +12,7 @@
 	ArrayList<Attachment> imgList = (ArrayList<Attachment>)request.getAttribute("imgList");
 	
 	/* Member member = request.getAttribute("member"); */
-	
+	/**/
 	
 	
 	
